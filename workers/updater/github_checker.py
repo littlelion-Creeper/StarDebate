@@ -1,7 +1,7 @@
 """基于 GitHub Releases 的在线更新检查器（链式补丁版）。
 
 使用 QNetworkAccessManager（PyQt5 内建）异步访问 GitHub 的 Releases List API，
-获取所有 Release 的 patch_*.zip 附件，自动构建从当前版本到最新版本的补丁链，
+获取所有 Release 的 update_*.zip 附件，自动构建从当前版本到最新版本的补丁链，
 支持串联下载和顺序安装。
 
 API: GET /repos/Chapin-Y/StarDebate/releases?per_page=30
@@ -26,7 +26,7 @@ _USER_AGENT = "StarDebate-Updater/1.0"
 class GitHubUpdateChecker(QObject):
     """GitHub 更新检查器 — 链式补丁版。
 
-    查询所有 Release → 提取 patch_*.zip → 构建从当前版本到最新的补丁链。
+    查询所有 Release → 提取 update_*.zip → 构建从当前版本到最新的补丁链。
     支持串联下载多个补丁到暂存目录。
 
     Signals:
@@ -99,7 +99,7 @@ class GitHubUpdateChecker(QObject):
 
         Args:
             chain: 补丁链列表，每个元素含 version/download_url/size
-            staging_dir: 暂存目录路径（每个补丁下载为 patch_vX_to_vY.zip）
+            staging_dir: 暂存目录路径（每个补丁下载为 update_vX_to_vY.zip）
         """
         self._chain = chain
         self._chain_idx = 0
@@ -149,10 +149,10 @@ class GitHubUpdateChecker(QObject):
             return
 
         # 构造带版本信息的文件名
-        save_name = f"patch_v{self._current_version}_to_v{version}.zip"
+        save_name = f"update_v{self._current_version}_to_v{version}.zip"
         if self._chain_idx > 0:
             prev_ver = self._chain[self._chain_idx - 1].get("version", "")
-            save_name = f"patch_v{prev_ver}_to_v{version}.zip"
+            save_name = f"update_v{prev_ver}_to_v{version}.zip"
 
         save_path = os.path.join(self._staging_dir, save_name)
 
@@ -215,7 +215,7 @@ class GitHubUpdateChecker(QObject):
                 self.up_to_date.emit()
             else:
                 self.check_failed.emit(
-                    "没有找到可用的增量补丁 (patch_*.zip)，"
+                    "没有找到可用的增量补丁 (update_*.zip)，"
                     "请访问 GitHub Releases 页面手动下载。"
                 )
             return
@@ -274,7 +274,7 @@ class GitHubUpdateChecker(QObject):
 
         规则：
         - 跳过预发布版本
-        - 每个 Release 必须包含 patch_*.zip 附件
+        - 每个 Release 必须包含 update_*.zip 附件
         - 按版本号升序排列
         - 只保留版本 > 当前版本的 Release
 
@@ -289,7 +289,7 @@ class GitHubUpdateChecker(QObject):
             if not tag:
                 continue
             assets = r.get("assets", [])
-            patch_asset = self._find_asset(assets, r"patch_.*\.zip")
+            patch_asset = self._find_asset(assets, r"update_.*\.zip")
             if not patch_asset:
                 continue
 
