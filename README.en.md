@@ -39,13 +39,13 @@
 
 ### Option 1: Download Installer (Recommended)
 
-Download the latest `StarDebate_vX.Y.Z_Setup.exe` from [GitHub Releases](https://github.com/littlelion-Creeper/StarDebate/releases), then double-click to install and run.
+Download the latest `StarDebate_vX.Y.Z_Setup.exe` from [GitHub Releases](https://github.com/Chapin-Y/StarDebate/releases), then double-click to install and run.
 
 ### Option 2: Run from Source
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/littlelion-Creeper/StarDebate.git
+git clone https://github.com/Chapin-Y/StarDebate.git
 cd StarDebate
 
 # 2. Install dependencies

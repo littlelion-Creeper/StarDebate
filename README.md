@@ -39,13 +39,13 @@
 
 ### 方式一：下载安装包（推荐）
 
-从 [GitHub Releases](https://github.com/littlelion-Creeper/StarDebate/releases) 下载最新版 `StarDebate_vX.Y.Z_Setup.exe`，双击安装即可运行。
+从 [GitHub Releases](https://github.com/Chapin-Y/StarDebate/releases) 下载最新版 `StarDebate_vX.Y.Z_Setup.exe`，双击安装即可运行。
 
 ### 方式二：源码运行
 
 ```bash
 # 1. 克隆仓库
-git clone https://github.com/littlelion-Creeper/StarDebate.git
+git clone https://github.com/Chapin-Y/StarDebate.git
 cd StarDebate
 
 # 2. 安装依赖
