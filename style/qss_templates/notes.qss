@@ -1,0 +1,166 @@
+/* ============================================
+   便签面板 — Notion 深色主题
+   ============================================ */
+
+#notesPanel {
+    background-color: @base@;
+    border-radius: 6px;
+}
+
+#notesHeader {
+    background-color: @surface@;
+    border-bottom: 1px solid @overlay@;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+#notesScroll, #notesInputArea, #notesBottom {
+    background-color: transparent;
+    border: none;
+}
+
+#notesContainer {
+    background-color: transparent;
+}
+
+/* 便签卡片 — 无边框 */
+#noteCard {
+    background-color: @surface@;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+#noteCard:hover {
+    background-color: @hover@;
+}
+
+#noteCardText {
+    color: @text@;
+    border: none;
+    background: transparent;
+}
+
+/* 按钮 — 幽灵风格 */
+#noteCardBtn {
+    background-color: transparent;
+    color: @muted@;
+    border: none;
+    border-radius: 4px;
+    font-size: 11pt;
+    padding: 2px 6px;
+}
+
+#noteCardBtn:hover {
+    background-color: @overlay@;
+    color: @text@;
+}
+
+#noteToggleBtn {
+    color: @muted@;
+    border: none;
+    background: transparent;
+    font-size: 11pt;
+}
+
+#noteToggleBtn:hover {
+    color: @subtext@;
+}
+
+/* 添加按钮 — 实色强调 */
+#noteAddBtn {
+    background-color: @accent_blue@;
+    color: @white@;
+    border: none;
+    border-radius: 6px;
+    font-size: 11pt;
+    font-weight: 600;
+    padding: 6px 12px;
+}
+
+#noteAddBtn:hover {
+    background-color: @accent_blue_hover@;
+}
+
+/* 输入框 — 底部细线 */
+#notesInput {
+    background-color: transparent;
+    color: @text@;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 6px 4px;
+}
+
+#notesInput:focus {
+    border-bottom: 2px solid @accent_blue@;
+}
+
+
+/* === 自动扩散自 catppuccin_mocha === */
+#notesScroll {
+    background-color: transparent;
+    border: none;
+}
+
+#notesInputArea {
+    background-color: transparent;
+}
+
+#notesPanelTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue_deep@;
+    padding: 0px;
+    border: none;
+}
+
+#notesSearchInput {
+    background-color: transparent;
+    color: @text@;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 0px 8px;
+}
+#notesSearchInput:focus {
+    border-bottom: 2px solid @accent_blue@;
+}
+
+#notesHLine {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @overlay@;
+    max-height: 1px;
+
+    padding: 0px;}
+
+#notesStatusLabel {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @muted@;
+    padding: 0px;
+    border: none;
+}
+
+#notesHintLabel {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    padding: 0px;
+    border: none;
+}
+
+#notesStickerTitle {
+    color: @subtext@;
+    border: none;
+    background: transparent;
+}
+
+#notesStickerContent {
+    color: @text@;
+    background-color: @base@;
+    border: 1px solid @overlay@;
+    border-radius: 6px;
+    padding: 6px;
+}
+

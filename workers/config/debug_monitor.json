@@ -1,0 +1,17 @@
+{
+    "debug_mode_enabled": true,
+    "monitors": {
+        "variable_watch": true,
+        "function_watch": true,
+        "plugin_watch": true,
+        "api_watch": true,
+        "ai_watch": true
+    },
+    "options": {
+        "max_log_entries": 10000,
+        "variable_skip_builtins": true,
+        "function_min_duration_ms": 0,
+        "api_trim_body_length": 500,
+        "api_log_headers": false
+    }
+}

@@ -1,0 +1,87 @@
+/* ============================================
+   自定义标题栏 — Notion 深色主题
+   ============================================ */
+
+/* 标题栏主体 — 无边框，仅底部细线分割 */
+#titleBar {
+    background-color: @base@;
+    border-bottom: 1px solid @overlay@;
+}
+
+/* 图标 */
+#titleIcon {
+    color: @text@;
+    background: transparent;
+    border: none;
+    font-size: 18px;
+}
+
+/* 拖拽区域 */
+#titleDragArea {
+    background: transparent;
+}
+
+/* 窗口控制按钮 — 透明背景，hover 才上色 */
+#minBtn, #maxBtn, #closeBtn {
+    background: transparent;
+    border: none;
+    border-radius: 0px;
+    color: transparent;
+}
+
+/* 关闭按钮 — hover 红色（图标色 + 背景由 Python tc() 动态控制） */
+#closeBtn {
+    qproperty-iconHover: @white@;
+    qproperty-bgHover: @accent_red@;
+    qproperty-bgPressed: @close_pressed@;
+}
+
+/* 顶部导航按钮 — 幽灵风格 */
+#topNavBtn {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 4px 10px;
+    color: @text@;
+    font-size: 11pt;
+    font-weight: 500;
+    text-align: left;
+}
+
+#topNavBtn:hover {
+    background-color: @hover@;
+}
+
+#topNavBtn:pressed {
+    background-color: @border@;
+}
+
+#topNavBtn::menu-indicator {
+    subcontrol-position: right center;
+    subcontrol-origin: padding;
+    right: 4px;
+}
+
+/* 顶部下拉菜单 */
+#topNavMenu {
+    background-color: @surface@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+#topNavMenu::item {
+    padding: 8px 24px;
+    border-radius: 6px;
+    color: @text@;
+}
+
+#topNavMenu::item:selected {
+    background-color: @overlay@;
+}
+
+#topNavMenu::separator {
+    height: 1px;
+    background: @border@;
+    margin: 4px 8px;
+}

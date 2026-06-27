@@ -1,0 +1,656 @@
+/* ============================================
+   模拟训练面板 — Notion 深色主题
+   ============================================ */
+
+#trainingPanel {
+    background-color: @base@;
+}
+
+/* 入口按钮 — 幽灵风格 */
+#trainEntryBtn {
+    background-color: transparent;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    color: @text@;
+    padding: 12px;
+}
+
+#trainEntryBtn:hover {
+    border-color: @accent_blue@;
+    background-color: @selected_bg@;
+}
+
+/* 模式按钮 — 幽灵风格 */
+#trainModeBtn, #trainDiffBtn, #trainPositionBtn {
+    background-color: transparent;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    color: @text@;
+    padding: 8px 12px;
+}
+
+#trainModeBtn:hover, #trainDiffBtn:hover, #trainPositionBtn:hover {
+    background-color: @hover@;
+    border-color: @toggle_off@;
+}
+
+#trainModeBtn:checked {
+    border-color: @accent_blue@;
+    color: @accent_blue@;
+}
+
+#trainDiffBtn:checked {
+    border-color: @accent_blue_alt@;
+    color: @accent_blue_alt@;
+}
+
+#trainPositionBtn:checked {
+    border-color: @accent_blue_hover@;
+    color: @accent_blue_hover@;
+}
+
+/* 选项按钮 — 幽灵风格 */
+#trainOptionBtn {
+    background-color: transparent;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    color: @text@;
+    padding: 10px;
+}
+
+#trainOptionBtn:hover {
+    background-color: @hover@;
+    border-color: @toggle_off@;
+}
+
+#trainOptionBtn[selected="true"] {
+    border-color: @accent_blue@;
+    background-color: @selected_bg@;
+}
+
+/* 结果框架 */
+#trainResultFrame {
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+#scenarioFrame {
+    background-color: transparent;
+    border-left: 3px solid @accent_blue_hover@;
+    border-radius: 4px;
+    padding: 8px;
+}
+
+#exerciseTimerFrame {
+    background-color: transparent;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+#exerciseHintsFrame {
+    background-color: transparent;
+    border: 1px solid @overlay@;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+#exerciseScoreBlock {
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+#trainingCard {
+    background-color: transparent;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+#trainingCard:hover {
+    background-color: transparent;
+}
+
+/* 下拉框 — 底部细线 */
+#trainFormatCombo {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    color: @text@;
+    padding: 4px 8px;
+}
+
+#trainFormatCombo:hover {
+    background-color: @hover@;
+}
+
+#trainFormatCombo QAbstractItemView {
+    background-color: @surface@;
+    border: 1px solid @border@;
+    color: @text@;
+    selection-background-color: @selected_bg@;
+}
+
+/* 滚动条 */
+#trainingPanel QScrollBar:vertical {
+    background: transparent;
+    width: 4px;
+    margin: 0;
+}
+
+#trainingPanel QScrollBar::handle:vertical {
+    background: @toggle_off@;
+    border-radius: 2px;
+    min-height: 20px;
+}
+
+#trainingPanel QScrollBar::handle:vertical:hover {
+    background: @subtext@;
+    width: 6px;
+}
+
+
+/* === 自动扩散自 catppuccin_mocha === */
+#trainPanelTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue_alt@;
+    padding: 0px;
+    border: none;
+}
+
+#trainPanelStatus {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    padding: 0px;
+    border: none;
+}
+
+#trainEntryPage {
+    background: transparent;
+}
+
+#trainEntryScroll {
+    border: none;
+    background: transparent;
+}
+
+#trainEntryIcon {
+    background: transparent;
+    border: none;
+    padding-top: 2px;
+}
+
+#trainEntryDesc {
+    color: @subtext@;
+    background: transparent;
+    border: none;
+}
+
+#trainEntryArrow {
+    color: @muted@;
+    background: transparent;
+    border: none;
+}
+
+#qqSectionTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @text@;
+    padding: 0px;
+    border: none;
+}
+
+#qqSubLabel {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    padding: 0px;
+    border: none;
+}
+
+#qqSelectionInfo {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @muted@;
+    padding: 0px;
+    border: none;
+}
+
+#trainHLine {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @overlay@;
+    max-height: 1px;
+
+    padding: 0px;}
+
+#trainModeBtn {
+    background-color: @base@;
+    border: 2px solid @overlay@;
+    border-radius: 10px;
+    color: @text@;
+}
+
+#trainDiffBtn {
+    background-color: @base@;
+    border: 2px solid @overlay@;
+    border-radius: 10px;
+    color: @text@;
+}
+
+#qqQuizProgress {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    padding: 0px;
+    border: none;
+}
+
+#qqQuestionLabel {
+    color: @text@;
+    padding: 6px;
+    border: none;
+}
+
+#qqScenarioInfo {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue@;
+    padding: 0px;
+    border: none;
+}
+
+#qqExplanation {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    padding: 0px;
+    border: none;
+}
+
+#qqImprovement {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue_alt@;
+    padding: 0px;
+    border: none;
+}
+
+#trainOptionLabel {
+    color: @text@;
+    padding: 0;
+    background: transparent;
+}
+
+#qqScrollArea {
+    border: none;
+    background: transparent;
+}
+
+#qqScrollContainer {
+    background: transparent;
+}
+
+#qqSessionBtn {
+    background-color: @base@;
+    color: @text@;
+    border-radius: 6px;
+    padding: 6px 10px;
+    text-align: left;
+}
+
+#qqCardsScroll {
+    border: none;
+    background: transparent;
+}
+
+#qqCardsContainer {
+    background: transparent;
+}
+
+#qqCardsSessionInfo {
+    color: @subtext@;
+    padding: 4px;
+    border: none;
+}
+
+#qqDetailNav {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    padding: 0px;
+    border: none;
+}
+
+#qqDetailQuestion {
+    color: @text@;
+    padding: 8px;
+    border: none;
+}
+
+#qqSummaryStats {
+    color: @subtext@;
+    padding: 6px;
+    border: none;
+}
+
+#qqSummaryEval {
+    color: @text@;
+    padding: 6px;
+    border: none;
+}
+
+#exRulesTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue@;
+    padding: 0px;
+    border: none;
+}
+
+#exRulesScroll {
+    border: none;
+    background: transparent;
+}
+
+#exRulesContent {
+    background: transparent;
+}
+
+#exNumLabel {
+    color: @accent_blue@;
+    background: transparent;
+    border: none;
+}
+
+#exCardTitle {
+    color: @text@;
+    background: transparent;
+    border: none;
+}
+
+#exCardDesc {
+    color: @subtext@;
+    background: transparent;
+    border: none;
+    line-height: 1.6;
+}
+
+#exExtraLabel {
+    color: @subtext@;
+    background: transparent;
+    padding: 4px 0;
+    border: none;
+}
+
+#exPositionTopic {
+    color: @text@;
+    padding: 4px 0;
+    border: none;
+}
+
+#exPositionStance {
+    color: @text@;
+    padding: 4px 0;
+    line-height: 1.8;
+    border: none;
+}
+
+#exTimerIcon {
+    color: @accent_blue@;
+    background: transparent;
+    border: none;
+}
+
+#exTimerDisplay {
+    color: @accent_blue@;
+    background: transparent;
+    border: none;
+}
+
+#exTimerHint {
+    color: @subtext@;
+    background: transparent;
+    border: none;
+}
+
+#exHintsText {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    padding: 0px;
+    border: none;
+}
+
+#exWordCount {
+    color: @subtext@;
+    padding: 4px 0;
+    border: none;
+}
+
+#exRebWordCount {
+    color: @subtext@;
+    padding: 4px 0;
+    border: none;
+}
+
+#exRebuttalInfo {
+    color: @subtext@;
+    padding: 4px 0;
+    border: none;
+}
+
+#exRebuttalHint {
+    color: @subtext@;
+    padding: 4px;
+    border: none;
+}
+
+#exResultTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue_alt@;
+    padding: 0px;
+    border: none;
+}
+
+#exResultScroll {
+    border: none;
+    background: transparent;
+}
+
+#exResultContent {
+    background: transparent;
+}
+
+#exScoreFrame {
+    background-color: @base@;
+    border: 1px solid @overlay@;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+#exScoreTitle {
+    padding: 0px;
+    border: none;
+
+    background-color: transparent;
+    font-size: 10pt;}
+
+#exScoreRow {
+    color: @subtext@;
+    padding: 1px 0;
+    border: none;
+}
+
+#exScoreHLine {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @overlay@;
+    max-height: 1px;
+
+    padding: 0px;}
+
+#exScoreTotal {
+    padding: 0px;
+    border: none;
+
+    background-color: transparent;
+    font-size: 10pt;}
+
+#exTotalBlock {
+    background-color: @base@;
+    border: 1px solid @overlay@;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+#exTotalLabel {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue_alt@;
+    padding: 0px;
+    border: none;
+}
+
+#exEvalBlock {
+    background-color: @base@;
+    border: 1px solid @overlay@;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+#exEvalTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue@;
+    padding: 0px;
+    border: none;
+}
+
+#exEvalSummary {
+    color: @text@;
+    padding: 4px 0;
+    border: none;
+    line-height: 1.6;
+}
+
+#exEvalStrength {
+    color: @accent_green@;
+    padding: 2px 0;
+    border: none;
+}
+
+#exEvalWeakness {
+    color: @accent_blue_alt@;
+    padding: 2px 0;
+    border: none;
+}
+
+#exEvalSuggestion {
+    color: @accent_blue@;
+    padding: 2px 0;
+    border: none;
+}
+
+#exErrorLabel {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_red@;
+    padding: 0px;
+    border: none;
+}
+
+#exHistoryTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @text@;
+    padding: 0px;
+    border: none;
+}
+
+#exHistoryScroll {
+    border: none;
+    background: transparent;
+}
+
+#exHistoryContainer {
+    background: transparent;
+}
+
+#exHistoryBtn {
+    background-color: @base@;
+    color: @text@;
+    border-radius: 6px;
+    padding: 6px 10px;
+    text-align: left;
+}
+
+#exEmptyLabel {
+    color: @muted@;
+    padding: 20px;
+    border: none;
+}
+
+#trainCardIndex {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @muted@;
+    padding: 0px;
+    border: none;
+}
+
+#trainCardType {
+    color: @subtext@;
+    padding: 0;
+    border: none;
+}
+
+#trainCardQuestion {
+    color: @text@;
+    padding: 2px 0;
+    border: none;
+}
+
+#qqEmptyLabel {
+    color: @muted@;
+    padding: 20px;
+    border: none;
+}
+
+#exAISpeechPanel {
+    background-color: @base@;
+}
+
+
+
+/* === 自动扩散自 catppuccin_mocha === */
+#trainContentStack QStackedWidget {
+    background: transparent;
+}
+
+
+
+/* === 自动扩散自 catppuccin_mocha === */
+#trainModeBtn:hover {
+    border: 2px solid @border_dim@ /* FIXME: manual */;
+    background-color: @overlay@;
+}
+
+#trainDiffBtn:hover {
+    border: 2px solid @border_dim@ /* FIXME: manual */;
+    background-color: @overlay@;
+}
+
+#qqSessionBtn:hover {
+    background-color: @overlay@;
+}
+
+#exHistoryBtn:hover {
+    background-color: @overlay@;
+}
+

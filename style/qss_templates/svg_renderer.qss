@@ -1,0 +1,27 @@
+/* ============================================
+   SVG 渲染器 — Notion 深色主题
+   ============================================ */
+
+/* SVG 图标颜色由代码动态设置，此处仅提供基础样式 */
+#svgRenderer {
+    background-color: transparent;
+    border: none;
+}
+
+/* 单色图标 */
+#svgMono {
+    background-color: transparent;
+    border: none;
+}
+
+/* 双色图标 — 主色 */
+#svgDualPrimary {
+    background-color: transparent;
+    border: none;
+}
+
+/* 双色图标 — 辅色 */
+#svgDualAccent {
+    background-color: transparent;
+    border: none;
+}

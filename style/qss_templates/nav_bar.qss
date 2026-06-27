@@ -1,0 +1,41 @@
+/* ============================================
+   导航栏 QSS 样式 — Notion 深色主题
+   ============================================ */
+
+/* 导航面板 — 无边框，靠背景色差 */
+#navPanel {
+    background-color: @surface@;
+    border-radius: 6px;
+}
+
+/* 导航切换按钮 — 幽灵风格 */
+#navToggleBtn {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    font-size: 10pt;
+    color: @subtext@;
+    padding: 8px;
+}
+
+#navToggleBtn:hover {
+    background-color: @hover@;
+    color: @text@;
+}
+
+#navToggleBtn:checked {
+    background-color: @accent_blue@;
+    color: @white@;
+}
+
+/* 导航标签 — 透明背景 + 主题色 */
+#navBtnLabel, #navPluginLabel, #navPanelLabel,
+#poolNavLabel, #speechEditorSpeechLabel, #swNavLabel,
+#aiExpandNavLabel, #notesNavLabel, #trainNavLabel,
+#crossExamNavLabel, #acceptExamNavLabel {
+    background-color: transparent;
+    color: @subtext@;
+    font-size: 10pt;
+    padding: 0px;
+    border: none;
+}

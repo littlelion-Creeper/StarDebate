@@ -1,0 +1,19 @@
+{
+    "name": "辩论智能助手",
+    "plugin_id": "stardebate.辩论智能助手",
+    "version": "1.0.0",
+    "stp_version": "1.0",
+    "min_app_version": "1.0.0",
+    "author": "StarDebate",
+    "description": "AI驱动的辩论分析助手，自动分析辩稿质量、生成改进建议、导出分析报告",
+    "main": "main.py",
+    "enabled": true,
+    "permissions": ["file_read", "ai_api", "settings_read"],
+    "tags": ["AI", "分析", "工具"],
+    "config": {
+        "auto_analyze_on_save": true,
+        "report_format": "markdown",
+        "analysis_depth": "detailed",
+        "max_output_tokens": 2048
+    }
+}

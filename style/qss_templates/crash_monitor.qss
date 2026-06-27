@@ -1,0 +1,48 @@
+/* ============================================
+   崩溃监视 — Notion 深色主题
+   ============================================ */
+
+#crashMonitorPanel {
+    background-color: @base@;
+    border-radius: 6px;
+}
+
+#crashMonitorLog {
+    background-color: @surface@;
+    border: none;
+    border-radius: 6px;
+    padding: 8px;
+    color: @text@;
+    font-family: "Courier New", monospace;
+}
+
+#crashMonitorStatus {
+    color: @subtext@;
+    padding: 4px 8px;
+}
+
+#crashMonitorStatus[level="warning"] {
+    color: @accent_blue_alt@;
+}
+
+#crashMonitorStatus[level="error"] {
+    color: @accent_red@;
+}
+
+#crashMonitorStatus[level="ok"] {
+    color: @accent_green@;
+}
+
+/* 按钮 — 幽灵风格 */
+#crashMonitorPanel QPushButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: @text@;
+    font-size: 11pt;
+}
+
+#crashMonitorPanel QPushButton:hover {
+    background-color: @hover@;
+}

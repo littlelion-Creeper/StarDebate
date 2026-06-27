@@ -1,0 +1,324 @@
+/* ============================================
+   Notion 深色主题 — settings.qss
+   ============================================ */
+
+QWidget {
+    background-color: @base@;
+    color: @text@;
+    font-family: "HarmonyOS Sans SC";
+}
+
+/* ── 标题栏 ── */
+#settingsTitleBar {
+    background-color: @surface@;
+    border-bottom: 1px solid @overlay@;
+}
+
+#settingsDialogTitle {
+    color: @text@;
+    font-size: 11pt;
+    font-weight: 600;
+    background: transparent;
+}
+
+#settingsCloseBtn {
+    background: transparent;
+    border: none;
+    color: @muted@;
+    font-size: 11pt;
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 4px 8px;
+}
+
+#settingsCloseBtn:hover {
+    color: @accent_red@;
+    background-color: @hover@;
+}
+
+/* ── 左侧导航 ── */
+#settingsNav {
+    background-color: @surface@;
+}
+
+/* ── 右侧内容区 ── */
+#settingsContentStack {
+    background-color: @base@;
+}
+
+#settingsPage {
+    background-color: @base@;
+}
+
+#settingsSectionTitle {
+    color: @text@;
+    font-size: 20px;
+    font-weight: 600;
+    background: transparent;
+}
+
+#settingsSectionDesc {
+    color: @muted@;
+    font-size: 11pt;
+    background: transparent;
+}
+
+/* ── 卡片容器 ── */
+#settingsCard {
+    background-color: @surface@;
+    border-radius: 6px;
+}
+
+/* ── 标签 ── */
+#settingsLabel {
+    color: @subtext@;
+    font-size: 11pt;
+    font-weight: 500;
+    background: transparent;
+}
+
+/* ── 输入框 — 底部细线 ── */
+#settingsInput {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 6px 4px;
+    color: @text@;
+    font-size: 11pt;
+}
+
+#settingsInput:focus {
+    border-bottom: 2px solid @accent_blue@;
+}
+
+/* ── 下拉框 ── */
+#settingsCombo {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 5px 8px;
+    color: @text@;
+    font-size: 11pt;
+}
+
+#settingsCombo:hover {
+    background-color: @hover@;
+}
+
+#settingsCombo:focus {
+    border-bottom: 2px solid @accent_blue@;
+}
+
+#settingsCombo QAbstractItemView {
+    background-color: @surface@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 4px;
+    outline: none;
+    color: @text@;
+    selection-background-color: @selected_bg@;
+}
+
+#settingsCombo QAbstractItemView::item {
+    padding: 6px 12px;
+    border-radius: 4px;
+    min-height: 24px;
+}
+
+#settingsCombo QAbstractItemView::item:selected {
+    background-color: @accent_blue@;
+    color: @white@;
+}
+
+/* ── 底部状态栏 ── */
+#settingsFooter {
+    background-color: @surface@;
+    border-top: 1px solid @overlay@;
+}
+
+#settingsFooterInfo {
+    color: @muted@;
+    font-size: 11pt;
+    background: transparent;
+}
+
+/* ── 快捷键录制按钮 ── */
+#settingsKeyRecorder {
+    background-color: transparent;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    color: @text@;
+    font-size: 11pt;
+    padding: 4px 10px;
+}
+
+#settingsKeyRecorder:hover {
+    background-color: @hover@;
+    border-color: @accent_blue@;
+}
+
+#settingsKeyRecorder:pressed {
+    background-color: @border@;
+}
+
+/* ── 滚动条 ── */
+#settingsNavScroll QScrollBar:vertical,
+#settingsContentScroll QScrollBar:vertical {
+    background: transparent;
+    width: 4px;
+    margin: 0;
+}
+
+#settingsNavScroll QScrollBar::handle:vertical,
+#settingsContentScroll QScrollBar::handle:vertical {
+    background: @toggle_off@;
+    border-radius: 2px;
+    min-height: 20px;
+}
+
+#settingsNavScroll QScrollBar::handle:vertical:hover,
+#settingsContentScroll QScrollBar::handle:vertical:hover {
+    background: @subtext@;
+    width: 6px;
+}
+
+#settingsNavScroll QScrollBar::add-line:vertical,
+#settingsNavScroll QScrollBar::sub-line:vertical,
+#settingsContentScroll QScrollBar::add-line:vertical,
+#settingsContentScroll QScrollBar::sub-line:vertical {
+    height: 0;
+}
+
+
+/* === 自动扩散自 catppuccin_mocha === */
+#settingsNavScroll {
+    background-color: @surface@;
+    border: none;
+}
+
+#settingsNavInner {
+    background-color: @surface@;
+}
+
+#settingsNavSep {
+    color: #4A4A4A;
+    font-size: 13px;
+    padding: 4px 8px;
+    background: transparent;
+}
+
+#settingsNavEmpty {
+    color: @muted@;
+    font-size: 14px;
+    padding: 20px;
+    background: transparent;
+}
+
+#settingsVertSep {
+    background-color: @overlay@;
+}
+
+#settingsContentScroll {
+    background-color: @base@;
+    border: none;
+}
+
+#settingsValueLabel {
+    color: @text@;
+    font-size: 15px;
+    background: transparent;
+}
+
+#settingsHint {
+    color: @muted@;
+    font-size: 14px;
+    background: transparent;
+}
+
+#settingsSpin {
+    background-color: @base@;
+    border: 1px solid @overlay@;
+    border-radius: 8px;
+    padding: 5px 10px;
+    color: @text@;
+    font-size: 15px;
+}
+
+#settingsSep {
+    color: @border@;
+}
+
+#shortcutSearchIcon {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+}
+
+#shortcutHeaderAct {
+    color: @muted@;
+    font-size: 13px;
+    background: transparent;
+    border: none;
+}
+
+#shortcutRow {
+    background: transparent;
+}
+
+#shortcutDescLabel {
+    color: @text@;
+    font-size: 15px;
+    background: transparent;
+}
+
+#shortcutKeysLabel {
+    color: @text@;
+    font-size: 14px;
+    background-color: @overlay@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+}
+
+#shortcutResetBtn {
+    background-color: @overlay@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    color: @subtext@;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#shortcutScroll {
+    background: transparent;
+    border: none;
+}
+
+
+
+/* === 自动扩散自 catppuccin_mocha === */
+#settingsInput:disabled {
+    background-color: @crust@ /* FIXME: manual */;
+    color: @muted@;
+}
+
+#settingsSpin:hover {
+    border: 1px solid @surface_dim@ /* FIXME: manual */;
+}
+
+#settingsSpin:focus {
+    border: 1px solid @accent_blue_deep@;
+}
+
+#shortcutResetBtn:hover {
+    background-color: @border_dim@ /* FIXME: manual */;
+    color: @text@;
+}
+
+#shortcutScroll QScrollBar:vertical {
+    background: transparent;
+    width: 6px;
+    margin: 0;
+}
+

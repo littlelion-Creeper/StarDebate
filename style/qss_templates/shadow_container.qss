@@ -1,0 +1,9 @@
+/* ============================================
+   Notion 深色主题 — shadow_container.qss
+   窗口阴影容器的背景色和圆角
+   ============================================ */
+
+#shadowContainerContent {
+    background-color: @base@;
+    border-radius: 12px;
+}

@@ -1,0 +1,371 @@
+/* ============================================
+   plugins.qss — 插件通用 UI 样式 (Notion 深色)
+   ============================================ */
+
+/* ── 面板容器 ── */
+#pluginPanel {
+    background-color: @surface@;
+    border-radius: 6px;
+}
+
+#pluginHeader {
+    background-color: transparent;
+}
+
+#pluginContent {
+    background-color: transparent;
+}
+
+#pluginFooter {
+    background-color: @surface@;
+    border-top: 1px solid @overlay@;
+}
+
+/* ── 面板标题 ── */
+#pluginPanelTitle {
+    color: @text@;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: "HarmonyOS Sans SC";
+}
+
+#pluginSectionTitle {
+    color: @text@;
+    font-size: 11pt;
+    font-weight: 600;
+    font-family: "HarmonyOS Sans SC";
+}
+
+#pluginCardTitle {
+    color: @text@;
+    font-size: 11pt;
+    font-weight: 600;
+    font-family: "HarmonyOS Sans SC";
+}
+
+/* ── 辅助文字 ── */
+#pluginSubText {
+    color: @subtext@;
+    font-size: 11pt;
+    font-family: "HarmonyOS Sans SC";
+}
+
+#pluginHintText {
+    color: @muted@;
+    font-size: 11pt;
+    font-family: "HarmonyOS Sans SC";
+}
+
+/* ── 卡片 — 无边框 ── */
+#pluginCard {
+    background-color: @surface@;
+    border-radius: 6px;
+}
+
+#pluginCard:hover {
+    background-color: @hover@;
+}
+
+/* ── 输入控件 — 底部细线 ── */
+#pluginInput {
+    background-color: transparent;
+    color: @text@;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 6px 4px;
+    font-family: "HarmonyOS Sans SC";
+    font-size: 11pt;
+    min-height: 30px;
+}
+
+#pluginInput:focus {
+    border-bottom: 2px solid @accent_blue@;
+}
+
+#pluginInput:disabled {
+    color: @muted@;
+}
+
+/* ── 下拉框 — 底部细线 ── */
+#pluginCombo {
+    background-color: transparent;
+    color: @text@;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 6px 4px;
+    font-family: "HarmonyOS Sans SC";
+    font-size: 11pt;
+    min-height: 30px;
+}
+
+#pluginCombo:hover {
+    background-color: @hover@;
+}
+
+#pluginCombo:focus {
+    border-bottom: 2px solid @accent_blue@;
+}
+
+#pluginCombo QAbstractItemView {
+    background-color: @surface@;
+    color: @text@;
+    border: 1px solid @border@;
+    border-radius: 4px;
+    selection-background-color: @selected_bg@;
+    outline: none;
+}
+
+/* ── 数字输入框 ── */
+#pluginSpin {
+    background-color: transparent;
+    color: @text@;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 6px 4px;
+    font-family: "HarmonyOS Sans SC";
+    font-size: 11pt;
+    min-height: 30px;
+}
+
+#pluginSpin:focus {
+    border-bottom: 2px solid @accent_blue@;
+}
+
+/* ── 按钮 — 幽灵风格 ── */
+#pluginPrimaryBtn {
+    background-color: @accent_blue@;
+    color: @white@;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-family: "HarmonyOS Sans SC";
+    font-size: 11pt;
+    font-weight: 600;
+    min-height: 34px;
+}
+
+#pluginPrimaryBtn:hover {
+    background-color: @accent_blue_hover@;
+}
+
+#pluginPrimaryBtn:pressed {
+    background-color: @accent_blue_pressed@;
+}
+
+#pluginPrimaryBtn:disabled {
+    background-color: @border@;
+    color: @muted@;
+}
+
+/* 次要按钮 — 幽灵 */
+#pluginSecondaryBtn {
+    background-color: transparent;
+    color: @text@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-family: "HarmonyOS Sans SC";
+    font-size: 11pt;
+    min-height: 34px;
+}
+
+#pluginSecondaryBtn:hover {
+    background-color: @overlay@;
+    border-color: @toggle_off@;
+}
+
+#pluginSecondaryBtn:pressed {
+    background-color: @border@;
+}
+
+/* 危险按钮 — 幽灵，hover 红色 */
+#pluginDangerBtn {
+    background-color: transparent;
+    color: @accent_red@;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-family: "HarmonyOS Sans SC";
+    font-size: 11pt;
+    font-weight: 600;
+    min-height: 34px;
+}
+
+#pluginDangerBtn:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-color: @accent_red@;
+}
+
+#pluginDangerBtn:pressed {
+    background-color: rgba(231, 76, 60, 0.2);
+}
+
+/* ── 滚动区域 ── */
+#pluginScrollArea {
+    background-color: transparent;
+    border: none;
+}
+
+/* ── 水平分隔线 ── */
+#pluginSeparator {
+    background-color: @overlay@;
+    min-height: 1px;
+    max-height: 1px;
+}
+
+/* ── 标签 ── */
+#pluginLabel {
+    color: @text@;
+    font-size: 11pt;
+    font-family: "HarmonyOS Sans SC";
+    font-weight: 500;
+}
+
+/* ── 插件管理面板特有标签 ── */
+#pluginPanelTitleMajor {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue@;
+
+    padding: 0px;}
+
+#pluginWarningTitle {
+    color: @accent_orange@;
+    background: transparent;
+}
+
+#pluginWarningBody {
+    color: @accent_orange@;
+    background: transparent;
+}
+
+#pluginPanelSeparator {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @border@;
+    max-height: 1px;
+
+    padding: 0px;}
+
+#pluginPanelEmptyHint {
+    color: @muted@;
+    padding: 40px;
+}
+
+#pluginPanelSubHint {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @muted@;
+
+    padding: 0px;}
+
+#pluginCardName {
+    color: @text@;
+    background: transparent;
+}
+
+#pluginCardDesc {
+    color: @muted@;
+    background: transparent;
+}
+
+#pluginCardVersion {
+    color: @subtext@;
+    background: transparent;
+}
+
+#pluginCardAuthor {
+    color: @subtext@;
+    background: transparent;
+}
+
+/* ── STP 安装预览对话框 ── */
+#stpInstallPreview {
+    background-color: @base@;
+}
+
+#stpPreviewTitle {
+    color: @text@;
+    font-size: 11pt;
+    font-weight: 600;
+    font-family: "HarmonyOS Sans SC";
+}
+
+#stpPreviewCard {
+    background-color: @surface@;
+    border-radius: 6px;
+}
+
+#stpPreviewCardTitle {
+    color: @text@;
+    font-size: 11pt;
+    font-weight: 600;
+    font-family: "HarmonyOS Sans SC";
+}
+
+#stpPreviewLabel {
+    color: @muted@;
+    font-size: 11pt;
+    font-family: "HarmonyOS Sans SC";
+}
+
+#stpPreviewValue {
+    color: @text@;
+    font-size: 11pt;
+    font-family: "HarmonyOS Sans SC";
+}
+
+#stpPreviewCheckPass {
+    color: @accent_green@;
+    font-size: 11pt;
+    font-family: "HarmonyOS Sans SC";
+}
+
+#stpPreviewHint {
+    color: @muted@;
+    font-size: 11pt;
+    font-family: "HarmonyOS Sans SC";
+}
+
+#stpPreviewSep {
+    background-color: @border@;
+    min-height: 1px;
+    max-height: 1px;
+}
+
+#stpPreviewInstallBtn {
+    background-color: @accent_blue@;
+    color: @white@;
+    border: none;
+    border-radius: 6px;
+    font-size: 11pt;
+    font-weight: 600;
+    font-family: "HarmonyOS Sans SC";
+}
+
+#stpPreviewInstallBtn:hover {
+    background-color: @accent_blue_hover@;
+}
+
+#stpPreviewCancelBtn {
+    background-color: transparent;
+    color: @text@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    font-size: 11pt;
+    font-family: "HarmonyOS Sans SC";
+}
+
+#stpPreviewCancelBtn:hover {
+    background-color: @overlay@;
+}
+
+#stpConflictRadio {
+    color: @text@;
+    font-size: 11pt;
+    font-family: "HarmonyOS Sans SC";
+    spacing: 6px;
+}

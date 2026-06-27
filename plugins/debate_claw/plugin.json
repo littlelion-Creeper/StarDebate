@@ -1,0 +1,24 @@
+{
+  "name": "DebateClaw",
+  "plugin_id": "stardebate.DebateClaw",
+  "version": "1.0.0",
+  "stp_version": "1.0",
+  "min_app_version": "5.0.0",
+  "author": "StarDebate",
+  "description": "DebateClaw 辩论虾，官方辩论助手",
+  "main": "main.py",
+  "enabled": false,
+  "permissions": [
+    "file_read",
+    "file_write",
+    "ai_api",
+    "settings_read",
+    "settings_write"
+  ],
+  "tags": [
+    "工具",
+    "模板"
+  ],
+  "config": {},
+  "checksum": "e71f21d243af8cc889b4e0c8405e457acc8cc5a66892511a247eb74cea3fd172"
+}

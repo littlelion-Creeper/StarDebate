@@ -1,0 +1,124 @@
+/* ============================================
+   框架模块 — Notion 深色主题
+   ============================================ */
+
+/* 框架页面容器 */
+#frameworkPage {
+    background: transparent;
+}
+
+/* 框架画布 */
+#frameworkCanvas {
+    background-color: @crust@;
+    border: 1px solid @border@;
+    border-radius: 8px;
+}
+
+/* 框架节点 — 基础样式 */
+#fwNode {
+    background-color: @surface@;
+    border-radius: 10px;
+}
+#fwNode:hover {
+    border: 2px solid @white@ !important;
+}
+
+/* 节点类型标签 */
+#fwNode QLabel#nodeTypeLabel {
+    border: none;
+    background: transparent;
+}
+
+/* 节点内容标签 */
+#fwNode QLabel#nodeContentLabel {
+    color: @text@;
+    border: none;
+    background: transparent;
+}
+
+/* 提示标签 */
+#frameworkHint {
+    color: @text@;
+    font-size: 10px;
+}
+
+/* 右键菜单 */
+#fwNode QMenu {
+    background-color: @surface@;
+    color: @text@;
+    border: 1px solid @border@;
+}
+#fwNode QMenu::item {
+    padding: 6px 24px;
+}
+#fwNode QMenu::item:selected {
+    background-color: @overlay@;
+}
+
+/* 内联编辑器 */
+#fwNode QTextEdit {
+    background-color: @hover@;
+    color: @white@;
+    border-radius: 4px;
+    padding: 2px 4px;
+}
+
+/* 框架页内小按钮基色（边框色由 Python 动态设置，此处仅文字色） */
+#frameworkPage #smallBtn {
+    background: transparent;
+    border: none;
+    color: @text@;
+    font-size: 11px;
+}
+#frameworkPage #smallBtn:hover {
+    color: @white@;
+}
+
+/* AI 框架生成对话框 */
+QDialog#aiFrameworkDialog {
+    background-color: @base@;
+}
+QDialog#aiFrameworkDialog QLabel {
+    color: @text@;
+}
+QDialog#aiFrameworkDialog QListWidget {
+    background-color: @overlay@;
+    color: @text@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    outline: none;
+}
+QDialog#aiFrameworkDialog QListWidget::item {
+    padding: 8px 12px;
+    border-bottom: 1px solid @border@;
+}
+QDialog#aiFrameworkDialog QListWidget::item:selected {
+    background-color: @selected_bg@;
+    color: @white@;
+}
+QDialog#aiFrameworkDialog QListWidget::item:hover {
+    background-color: @hover@;
+}
+
+/* 对话框按钮 */
+QPushButton#btnOkFramework {
+    background-color: @accent_blue@;
+    color: @white@;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+QPushButton#btnOkFramework:hover {
+    background-color: @accent_blue_hover@;
+}
+
+QPushButton#btnCancelFramework {
+    background-color: @border@;
+    color: @text@;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+QPushButton#btnCancelFramework:hover {
+    background-color: @toggle_off@;
+}

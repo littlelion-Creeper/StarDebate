@@ -1,0 +1,144 @@
+/* ============================================
+   AI写稿面板 — Notion 深色主题
+   ============================================ */
+
+#speechWriterPanel {
+    background-color: @base@;
+}
+
+#speechWriterPanel QScrollArea {
+    background-color: transparent;
+    border: none;
+}
+
+#speechWriterPanel QWidget {
+    background-color: transparent;
+}
+
+#speechWriterPanel QPushButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: @text@;
+    font-size: 11pt;
+}
+
+#speechWriterPanel QPushButton:hover {
+    background-color: @hover@;
+}
+
+#speechWriterPanel #primaryBtn {
+    background-color: @accent_blue@;
+    color: @white@;
+    font-weight: 600;
+}
+
+#speechWriterPanel #primaryBtn:hover {
+    background-color: @accent_blue_hover@;
+}
+
+#speechWriterPanel QScrollBar:vertical {
+    background: transparent;
+    width: 4px;
+    margin: 0;
+}
+
+#speechWriterPanel QScrollBar::handle:vertical {
+    background: @toggle_off@;
+    border-radius: 2px;
+    min-height: 20px;
+}
+
+#speechWriterPanel QScrollBar::handle:vertical:hover {
+    background: @subtext@;
+    width: 6px;
+}
+
+
+/* === 自动扩散自 catppuccin_mocha === */
+#swPanelTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue@;
+    padding: 0px;
+    border: none;
+}
+
+#swResultTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_green@;
+    padding: 0px;
+    border: none;
+}
+
+#swCurrentLabel {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @muted@;
+    padding: 0px;
+    border: none;
+}
+
+#swEmptyHint {
+    color: @overlay@;
+    padding: 40px 20px;
+    border: none;
+}
+
+#swCardTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue@;
+    padding: 0px;
+    border: none;
+}
+
+#swCardSummary {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    font-style: italic;
+    padding: 0px;
+    border: none;
+}
+
+#swCardSep {
+    background-color: @overlay@;
+    max-height: 1px;
+}
+
+#swCardText {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @text@;
+    padding: 0px;
+    border: none;
+    line-height: 1.6;
+}
+
+#swHLTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue_alt@;
+    padding: 0px;
+    border: none;
+}
+
+#swHLTag {
+    color: @accent_blue_alt@;
+    background-color: @overlay@;
+    border-radius: 4px;
+    padding: 2px 8px;
+}
+
+#aiExpandCardsScroll {
+    background-color: @base@;
+    border: none;
+}
+
+#aiCardsContainer {
+    background-color: @base@;
+}
+

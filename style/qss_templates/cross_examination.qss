@@ -1,0 +1,243 @@
+/* ============================================
+   模拟质询 + 模拟接质 — Notion 深色主题
+   ============================================ */
+
+/* ── 模拟质询页面 ── */
+#crossExamPage {
+    background-color: @surface@;
+    border-radius: 6px;
+}
+
+#crossExamScroll {
+    background-color: @base@;
+    border: none;
+}
+
+#crossExamContainer {
+    background-color: @base@;
+}
+
+#crossExamRound {
+    background-color: @surface@;
+    border-radius: 6px;
+    margin: 4px 0;
+    padding: 8px;
+}
+
+/* 质询问题 — 左边框强调 */
+#crossExamQuestion {
+    background-color: @bg_question@;
+    border-radius: 6px;
+    border-left: 3px solid @accent_red@;
+    padding: 8px 12px;
+    margin: 4px 0;
+}
+
+/* 质询回答 — 左边框强调 */
+#crossExamAnswer {
+    background-color: @bg_answer@;
+    border-radius: 6px;
+    border-left: 3px solid @accent_green@;
+    padding: 8px 12px;
+    margin: 4px 0;
+}
+
+/* 思考过程 */
+#crossExamThinking {
+    background-color: @surface@;
+    border-radius: 6px;
+    border: 1px solid @border@;
+    padding: 8px 12px;
+    margin: 4px 0;
+}
+
+/* ── 模拟接质聊天界面 ── */
+#acceptChatContainer {
+    background-color: transparent;
+}
+
+#acceptChatScroll {
+    background-color: transparent;
+    border: none;
+}
+
+#acceptScoreBar {
+    background-color: transparent;
+    border-radius: 6px;
+    border: 1px solid @accent_blue_alt@;
+    padding: 6px 12px;
+}
+
+#acceptInputFrame {
+    background-color: transparent;
+    border-radius: 6px;
+    border: 1px solid @border@;
+    padding: 4px;
+}
+
+/* 聊天气泡 */
+#acceptMsgAI {
+    background-color: transparent;
+    border-radius: 8px;
+    border-left: 3px solid @accent_blue@;
+    padding: 10px 14px;
+    margin: 4px 0;
+}
+
+#acceptMsgUser {
+    background-color: transparent;
+    border-radius: 8px;
+    border-left: 3px solid @accent_green@;
+    padding: 10px 14px;
+    margin: 4px 0;
+}
+
+#acceptMsgSystem {
+    background-color: transparent;
+    border-radius: 6px;
+    border: 1px solid @toggle_off@;
+    padding: 8px 12px;
+    margin: 4px 0;
+}
+
+#acceptMsgScore {
+    background-color: transparent;
+    border-radius: 6px;
+    border-left: 3px solid @accent_blue_alt@;
+    padding: 8px 12px;
+    margin: 4px 0;
+}
+
+#acceptMsgSpeech {
+    background-color: transparent;
+    border-radius: 6px;
+    border-left: 3px solid @accent_blue_hover@;
+    padding: 8px 12px;
+    margin: 4px 0;
+}
+
+#acceptChatEmpty {
+    color: @muted@;
+    font-size: 11pt;
+}
+
+/* 侧边切换按钮 — 幽灵风格 */
+#sideToggleBtn {
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    padding: 4px 12px;
+    color: @text@;
+    font-size: 11pt;
+    font-weight: 500;
+}
+
+#sideToggleBtn:hover {
+    background-color: @hover@;
+    border-color: @border@;
+}
+
+#sideToggleBtn:checked {
+    background-color: @accent_blue@;
+    color: @white@;
+}
+
+/* 滚动条 */
+#crossExamPage QScrollBar:vertical,
+#acceptChatScroll QScrollBar:vertical {
+    background: transparent;
+    width: 4px;
+    margin: 0;
+}
+
+#crossExamPage QScrollBar::handle:vertical,
+#acceptChatScroll QScrollBar::handle:vertical {
+    background: @toggle_off@;
+    border-radius: 2px;
+    min-height: 20px;
+}
+
+#crossExamPage QScrollBar::handle:vertical:hover,
+#acceptChatScroll QScrollBar::handle:vertical:hover {
+    background: @subtext@;
+    width: 6px;
+}
+
+
+/* ── 工具栏按钮 ── */
+#crossExamBackBtn,
+#crossExamRefreshBtn {
+    background: transparent;
+}
+
+/* 悬浮时文字高亮 */
+#crossExamBackBtnText:hover,
+#crossExamRefreshBtnText:hover {
+    color: @accent_blue_alt@;
+}
+
+/* === 自动扩散自 catppuccin_mocha === */
+#crossExamEmpty {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @muted@;
+    padding: 0px;
+    border: none;
+}
+
+#crossExamRoundLabel {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue_deep@;
+    padding: 0px;
+    border: none;
+}
+
+#crossExamQLabel {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_red@;
+    padding: 0px;
+    border: none;
+}
+
+#crossExamQContent {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @text@;
+    padding: 0px;
+    border: none;
+}
+
+#crossExamALabel {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_green@;
+    padding: 0px;
+    border: none;
+}
+
+#crossExamAContent {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @text@;
+    padding: 0px;
+    border: none;
+}
+
+#crossExamTLabel {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue_alt@;
+    padding: 0px;
+    border: none;
+}
+
+#crossExamTContent {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    padding: 0px;
+    border: none;
+}
+

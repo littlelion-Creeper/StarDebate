@@ -1,0 +1,179 @@
+[16:17:51.121] [INFO] ═══ LogService 已启动 ═══
+[16:17:51.122] [INFO] 自动清理: 无过期日志文件
+[16:17:51.122] [INFO] 日志文件: e:\StarDebate\docs/log\debug_20260622_161751.log
+[16:17:51.123] [INFO] [SYS] 系统健康监视已启动 (监控 PID: 64840)
+[16:17:51.124] [INFO] [SYS] 日志服务进入主循环，等待指令...
+[16:17:52.435] [ERROR] [INIT] 赛程 初始化失败: name 'base_dir' is not defined
+[16:17:52.463] [INFO] ═══ StarDebate 启动 ═══
+[16:17:52.464] [INFO] 版本: 5.5.0
+[16:17:52.464] [INFO] 主题: notion_light
+[16:17:52.465] [INFO] 日志文件: e:\StarDebate\docs/log\debug_20260622_161751.log
+[16:17:52.465] [INFO] 日志服务: 独立进程 (LogService)
+[16:17:52.465] [INFO] [CRON] 起居注自动追踪已启用 (v2.0.0)
+[16:17:52.466] [INFO] [CRON] 追踪范围: 插件/API/AI/Qt错误/Worker线程  + traceback + 守护日志环 + 崩溃分析
+[16:17:52.471] [INFO] [NATIVE] 底层事件记录系统已启用 (v1.2.0 M3)
+[16:17:52.471] [INFO] [NATIVE] 钩子: Qt/excepthook/unraisable/audit/gc/c_exception
+[16:17:52.472] [INFO] [NATIVE] 监视: 线程健康/资源跟踪/起居注桥接
+[16:17:52.472] [INFO] [NATIVE] SQLite: e:\StarDebate\docs/log/native.db
+[16:17:52.473] [INFO] 调试监视已开启: 变量, 函数, 插件, API, AI
+[16:17:52.473] [INFO] [CFG] 已加载 log_settings.json，开始同步运行时配置
+[16:17:52.474] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[16:17:52.474] [WARN] [NATIVE] [audit] e:\StarDebate\workers\config\debug_monitor.json: open (e:\StarDebate\workers\config\debug_monitor.json, w, 33665)
+[16:17:52.475] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[16:17:52.475] [WARN] [NATIVE] [audit] e:\StarDebate\workers\config\debug_monitor.json: open (e:\StarDebate\workers\config\debug_monitor.json, w, 33665)
+[16:17:52.475] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[16:17:52.477] [WARN] [NATIVE] [audit] e:\StarDebate\workers\config\debug_monitor.json: open (e:\StarDebate\workers\config\debug_monitor.json, w, 33665)
+[16:17:52.478] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[16:17:52.478] [WARN] [NATIVE] [audit] e:\StarDebate\workers\config\debug_monitor.json: open (e:\StarDebate\workers\config\debug_monitor.json, w, 33665)
+[16:17:52.478] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[16:17:52.479] [WARN] [NATIVE] [audit] e:\StarDebate\workers\config\debug_monitor.json: open (e:\StarDebate\workers\config\debug_monitor.json, w, 33665)
+[16:17:52.479] [WARN] [NATIVE] [audit] e:\StarDebate\workers\config\debug_monitor.json: open (e:\StarDebate\workers\config\debug_monitor.json, w, 33665)
+[16:17:52.479] [WARN] [NATIVE] [audit] e:\StarDebate\workers\config\debug_monitor.json: open (e:\StarDebate\workers\config\debug_monitor.json, w, 33665)
+[16:17:52.480] [INFO] [CFG] 调试监视: 已开启 → 变量, 函数, 插件, API, AI
+[16:17:52.481] [WARN] [NATIVE] [audit] e:\StarDebate\config/chronicle_config.json: open (e:\StarDebate\config/chronicle_config.json, w, 33665)
+[16:17:52.481] [INFO] [CFG] 起居注: 已开启
+[16:17:52.482] [INFO] [CFG] log_settings.json 同步完成
+[16:17:52.482] [ERROR] [NATIVE] [uncaught] spawn.py:L175: [C_EXCEPTION] builtin_function_or_method
+[16:17:52.483] [WARN] [NATIVE] [audit] 3: open (3, w, 33665)
+[16:17:52.495] [INFO] 崩溃监控已启动 (PID: 64840)
+[16:17:52.497] [WARN] [NATIVE] [audit] e:\StarDebate\config/keyboard_shortcuts.json: open (e:\StarDebate\config/keyboard_shortcuts.json, r, 32896)
+[16:17:52.500] [WARN] [NATIVE] [audit] import components.shadow_container: import (components.shadow_container, None, ['e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\python312.zip', 'C:\\Users\\Obl)
+[16:17:52.501] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[16:17:52.501] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[16:17:52.502] [WARN] [NATIVE] [audit] e:\StarDebate\components\shadow_container\__pycache__\__init__.cpython-312.pyc: open (e:\StarDebate\components\shadow_container\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[16:17:52.503] [WARN] [NATIVE] [audit] import components.shadow_container.shadow_container: import (components.shadow_container.shadow_container, None, ['e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\python312.zip', 'C:\\Users\\Obl)
+[16:17:52.503] [WARN] [NATIVE] [audit] e:\StarDebate\components\shadow_container\__pycache__\shadow_container.cpython-312.pyc: open (e:\StarDebate\components\shadow_container\__pycache__\shadow_container.cpython-3, r, 32896)
+[16:17:52.504] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[16:17:52.504] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\theme.json: open (e:\StarDebate\style\themes\notion_light\theme.json, r, 32896)
+[16:17:52.525] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[16:17:52.533] [WARN] [NATIVE] [audit] e:\StarDebate\workers\speech_editor\..\..\icon\index\has_material.svg: open (e:\StarDebate\workers\speech_editor\..\..\icon\index\has_material.svg, r, 32896)
+[16:17:52.596] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\theme.json: open (e:\StarDebate\style\themes\notion_light\theme.json, r, 32896)
+[16:17:52.596] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\theme.json: open (e:\StarDebate\style\themes\notion_light\theme.json, r, 32896)
+[16:17:52.609] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[16:17:52.609] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[16:17:52.610] [WARN] [NATIVE] [audit] e:\StarDebate\workers\training\quick_quiz\__pycache__\__init__.cpython-312.pyc: open (e:\StarDebate\workers\training\quick_quiz\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[16:17:52.623] [WARN] [NATIVE] [audit] import workers.training.quick_quiz.quick_quiz_manager: import (workers.training.quick_quiz.quick_quiz_manager, None, ['e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\python312.zip', 'C:\\Users\\Obl)
+[16:17:52.624] [WARN] [NATIVE] [audit] e:\StarDebate\workers\training\quick_quiz\__pycache__\quick_quiz_manager.cpython-312.pyc: open (e:\StarDebate\workers\training\quick_quiz\__pycache__\quick_quiz_manager.cpython, r, 32896)
+[16:17:52.631] [WARN] [NATIVE] [audit] import workers.training.exercise.exercise_manager: import (workers.training.exercise.exercise_manager, None, ['e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\python312.zip', 'C:\\Users\\Obl)
+[16:17:52.632] [WARN] [NATIVE] [audit] e:\StarDebate\workers\training\exercise\__pycache__\exercise_manager.cpython-312.pyc: open (e:\StarDebate\workers\training\exercise\__pycache__\exercise_manager.cpython-312, r, 32896)
+[16:17:52.694] [INFO] [FUNC] material_pool:build_panel → ✅ 返回(0ms): ''
+[16:17:52.700] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\theme.json: open (e:\StarDebate\style\themes\notion_light\theme.json, r, 32896)
+[16:17:52.796] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[16:17:52.841] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[16:17:52.842] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\theme.json: open (e:\StarDebate\style\themes\notion_light\theme.json, r, 32896)
+[16:17:52.843] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\main.qss: open (e:\StarDebate\style\themes\notion_light\main.qss, r, 32896)
+[16:17:52.843] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\title_bar.qss: open (e:\StarDebate\style\themes\notion_light\title_bar.qss, r, 32896)
+[16:17:52.843] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\nav_bar.qss: open (e:\StarDebate\style\themes\notion_light\nav_bar.qss, r, 32896)
+[16:17:52.844] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\structure.qss: open (e:\StarDebate\style\themes\notion_light\structure.qss, r, 32896)
+[16:17:52.844] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\settings.qss: open (e:\StarDebate\style\themes\notion_light\settings.qss, r, 32896)
+[16:17:52.845] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\ref_doc.qss: open (e:\StarDebate\style\themes\notion_light\ref_doc.qss, r, 32896)
+[16:17:52.845] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\speech_editor.qss: open (e:\StarDebate\style\themes\notion_light\speech_editor.qss, r, 32896)
+[16:17:52.845] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\tournament.qss: open (e:\StarDebate\style\themes\notion_light\tournament.qss, r, 32896)
+[16:17:52.847] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\framework.qss: open (e:\StarDebate\style\themes\notion_light\framework.qss, r, 32896)
+[16:17:52.847] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\speech_writer.qss: open (e:\StarDebate\style\themes\notion_light\speech_writer.qss, r, 32896)
+[16:17:52.848] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\ai_expand.qss: open (e:\StarDebate\style\themes\notion_light\ai_expand.qss, r, 32896)
+[16:17:52.848] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\notes.qss: open (e:\StarDebate\style\themes\notion_light\notes.qss, r, 32896)
+[16:17:52.848] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\training.qss: open (e:\StarDebate\style\themes\notion_light\training.qss, r, 32896)
+[16:17:52.848] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\ai_analysis.qss: open (e:\StarDebate\style\themes\notion_light\ai_analysis.qss, r, 32896)
+[16:17:52.850] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\cross_examination.qss: open (e:\StarDebate\style\themes\notion_light\cross_examination.qss, r, 32896)
+[16:17:52.850] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\new_debate.qss: open (e:\StarDebate\style\themes\notion_light\new_debate.qss, r, 32896)
+[16:17:52.850] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\debug_console.qss: open (e:\StarDebate\style\themes\notion_light\debug_console.qss, r, 32896)
+[16:17:52.851] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\suggest_popup.qss: open (e:\StarDebate\style\themes\notion_light\suggest_popup.qss, r, 32896)
+[16:17:52.851] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\crash_monitor.qss: open (e:\StarDebate\style\themes\notion_light\crash_monitor.qss, r, 32896)
+[16:17:52.851] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\popup_dialog.qss: open (e:\StarDebate\style\themes\notion_light\popup_dialog.qss, r, 32896)
+[16:17:52.852] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\stardebate_format.qss: open (e:\StarDebate\style\themes\notion_light\stardebate_format.qss, r, 32896)
+[16:17:52.940] [INFO] [FUNC] dpapi: load_index
+已初始化
+[16:17:52.946] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[16:17:52.948] [INFO] [FUNC] auto_load_saved_files: 3 files in index
+[16:17:52.948] [INFO] [API] auto_load: 跳过不存在的文件 C:/Users/Oblivion/Desktop/1vs2_20260606.stardebate
+[16:17:52.949] [INFO] [FUNC] open_file_with_stored_password: 1vs2_20260606.stardebate
+[16:17:52.949] [INFO] [FUNC] dpapi: get_password_for_file → 1vs2_20260606.stardebate
+[16:17:52.950] [INFO] [FUNC] dpapi: load_index
+[16:17:52.951] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[16:17:52.951] [INFO] [VAR] dpapi: get_password_for_file → no password set
+[16:17:52.951] [INFO] [FUNC] open_file: path=1vs2_20260606.stardebate
+[16:17:52.952] [INFO] [FUNC] StardebateCompiler.unpack(file_size=8593, has_pwd_input=False)
+[16:17:52.981] [INFO] [FUNC] StardebateCompiler: 第1层内置密钥解密成功
+[16:17:52.982] [INFO] [FUNC] StardebateCompiler.unpack: 解密成功, modules=6, app_version=2.3.0
+[16:17:52.982] [INFO] [FUNC] dpapi: add_file_to_index → 1vs2_20260606.stardebate
+[16:17:52.983] [INFO] [FUNC] dpapi: load_index
+[16:17:52.984] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[16:17:52.985] [INFO] [VAR] dpapi: save_index → 3 files
+[16:17:52.988] [INFO] [VAR] _add_to_project_tree: 1vs2_20260606.stardebate
+[16:17:52.991] [INFO] [VAR] open_file: 解密成功, modules=6, file=1vs2_20260606.stardebate
+[16:17:52.993] [INFO] [API] auto_load: 成功加载 1vs2_20260606.stardebate
+[16:17:52.993] [INFO] [FUNC] open_file_with_stored_password: 1vs2_20260606_01.stardebate
+[16:17:52.994] [INFO] [FUNC] dpapi: get_password_for_file → 1vs2_20260606_01.stardebate
+[16:17:52.994] [INFO] [FUNC] dpapi: load_index
+[16:17:53.001] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.001] [INFO] [FUNC] dpapi: decrypt_password
+[16:17:53.002] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.003] [INFO] [API] dpapi: decrypt_password → ok
+[16:17:53.003] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.005] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.005] [INFO] [API] dpapi: get_password_for_file → ok
+[16:17:53.006] [INFO] [FUNC] open_file: path=1vs2_20260606_01.stardebate
+22_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.006] [WARN] [NATIVE] [audit] C:/Users/Oblivion/Desktop/辩论赛/1vs2_20260606_01.stardebate: open (C:/Users/Oblivion/Desktop/辩论赛/1vs2_20260606_01.stardebate, r, 32896)
+[16:17:53.006] [INFO] [FUNC] StardebateCompiler.unpack(file_size=10782, has_pwd_input=True)
+[16:17:53.007] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.008] [INFO] [FUNC] StardebateCompiler: 第1层内置密钥解密成功
+[16:17:53.008] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.035] [INFO] [FUNC] StardebateCompiler: 第2层密码解密成功
+[16:17:53.036] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.036] [INFO] [FUNC] StardebateCompiler.unpack: 解密成功, modules=8, app_version=2.3.0
+[16:17:53.037] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.037] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.037] [INFO] [FUNC] dpapi: load_index
+[16:17:53.038] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.038] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[16:17:53.039] [WARN] [NATIVE] [audit] e:\StarDebate\config/stardebate_index.json: open (e:\StarDebate\config/stardebate_index.json, r, 32896)
+[16:17:53.039] [INFO] [FUNC] dpapi: encrypt_password
+[16:17:53.039] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.040] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.040] [INFO] [API] dpapi: encrypt_password → ok
+[16:17:53.041] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.041] [INFO] [VAR] dpapi: save_index → 3 files
+[16:17:53.041] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.042] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[16:17:53.042] [WARN] [NATIVE] [audit] e:\StarDebate\config/stardebate_index.json: open (e:\StarDebate\config/stardebate_index.json, w, 33665)
+[16:17:53.042] [INFO] [VAR] _add_to_project_tree: 1vs2_20260606_01.stardebate
+1751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.047] [INFO] [VAR] open_file: 解密成功, modules=8, file=1vs2_20260606_01.stardebate
+[16:17:53.047] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.048] [INFO] [API] auto_load: 成功加载 1vs2_20260606_01.stardebate
+[16:17:53.048] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.048] [INFO] 自动加载 .stardebate: 2 个文件
+[16:17:53.049] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[16:17:53.049] [WARN] [NATIVE] [audit] e:\StarDebate\config/log_settings.json: open (e:\StarDebate\config/log_settings.json, r, 32896)
+[16:17:53.050] [WARN] 部分功能加载失败: 赛程: name 'base_dir' is not defined
+[16:17:53.492] [WARN] [NATIVE] [audit] e:\StarDebate\icon\top_nav_bar\minimise.svg: open (e:\StarDebate\icon\top_nav_bar\minimise.svg, r, 32896)
+[16:17:53.493] [WARN] [NATIVE] [audit] e:\StarDebate\icon\top_nav_bar\full_screen.svg: open (e:\StarDebate\icon\top_nav_bar\full_screen.svg, r, 32896)
+[16:17:53.494] [WARN] [NATIVE] [audit] e:\StarDebate\icon\top_nav_bar\close.svg: open (e:\StarDebate\icon\top_nav_bar\close.svg, r, 32896)
+[16:17:53.637] [ERROR] Traceback (most recent call last):
+omDialog.__init__() got an unexpected keyword argument 'icon_path'
+[16:17:53.639] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.639] [ERROR]   File "e:\StarDebate\StarDebate_app.py", line 435, in _show_non_fatal_warning_dialog
+[16:17:53.639] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.640] [WARN] [NATIVE] [audit] e:\StarDebate\StarDebate_app.py: open (e:\StarDebate\StarDebate_app.py, r, 32896)
+[16:17:53.641] [ERROR]     result = CustomDialog(
+[16:17:53.641] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.642] [ERROR]              ^^^^^^^^^^^^^
+[16:17:53.642] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.643] [ERROR] TypeError: CustomDialog.__init__() got an unexpected keyword argument 'icon_path'
+[16:17:53.643] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:17:53.644] [ERROR] [UNCAUGHT] TypeError: CustomDialog.__init__() got an unexpected keyword argument 'icon_path'
+[16:17:54.055] [WARN] [NATIVE] [audit] e:\StarDebate\_update_staging\update_state.json: open (e:\StarDebate\_update_staging\update_state.json, r, 32896)
+[16:17:54.056] [WARN] [NATIVE] [audit] e:\StarDebate\update_v5.0.0_to_v5.5.0.zip: open (e:\StarDebate\update_v5.0.0_to_v5.5.0.zip, r, 32896)
+[16:17:54.057] [ERROR] 补丁不兼容 (update_v5.0.0_to_v5.5.0.zip): 版本不匹配：当前版本为 v5.5.0，此补丁要求基础版本为 v5.0.0
+[16:17:54.057] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260622_161751.log: open (e:\StarDebate\docs/log\debug_20260622_161751.log, a, 33161)
+[16:18:08.134] [WARN] [SYS] 监视心跳超时: 15秒无新数据 (最后心跳: 16:17:52)
+[16:18:17.670] [WARN] [NATIVE] [audit] e:\StarDebate\icon\top_nav_bar\minimise.svg: open (e:\StarDebate\icon\top_nav_bar\minimise.svg, r, 32896)
+[16:18:17.778] [WARN] [NATIVE] [audit] e:\StarDebate\icon\top_nav_bar\full_screen.svg: open (e:\StarDebate\icon\top_nav_bar\full_screen.svg, r, 32896)
+[16:18:17.969] [WARN] [NATIVE] [audit] e:\StarDebate\icon\top_nav_bar\close.svg: open (e:\StarDebate\icon\top_nav_bar\close.svg, r, 32896)
+[16:18:18.259] [INFO] [EXIT] 本次运行存在功能加载错误，日志已保留
+[16:18:18.323] [INFO] [NATIVE] 底层事件系统已关闭
+[16:18:18.324] [INFO] ═══ StarDebate 正常关闭 ═══
+[16:18:18.324] [INFO] ═══ LogService 正常关闭 ═══
+[16:18:20.144] [INFO] [SYS] LogService 进程退出

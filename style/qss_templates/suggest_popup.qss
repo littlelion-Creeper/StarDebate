@@ -1,0 +1,28 @@
+/* ============================================
+   建议弹窗 — Notion 深色主题
+   ============================================ */
+
+#suggestPopup {
+    background-color: @surface@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+#suggestPopupItem {
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    color: @text@;
+    font-size: 11pt;
+}
+
+#suggestPopupItem:hover {
+    background-color: @hover@;
+}
+
+#suggestPopupItem:selected {
+    background-color: @selected_bg@;
+    color: @accent_blue@;
+}

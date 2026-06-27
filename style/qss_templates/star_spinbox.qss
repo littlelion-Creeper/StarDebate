@@ -1,0 +1,46 @@
+/* ============================================
+   自定义数字输入框 — Notion 深色主题
+   ============================================ */
+
+QSpinBox, QDoubleSpinBox {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 6px 4px;
+    color: @text@;
+    font-size: 11pt;
+    min-height: 30px;
+}
+
+QSpinBox:focus, QDoubleSpinBox:focus {
+    border-bottom: 2px solid @accent_blue@;
+}
+
+QSpinBox::up-button, QDoubleSpinBox::up-button {
+    subcontrol-origin: border;
+    subcontrol-position: top right;
+    background-color: transparent;
+    border-radius: 4px;
+    width: 24px;
+    height: 16px;
+    margin: 3px 4px 0px 0px;
+}
+
+QSpinBox::up-button:hover, QDoubleSpinBox::up-button:hover {
+    background-color: @hover@;
+}
+
+QSpinBox::down-button, QDoubleSpinBox::down-button {
+    subcontrol-origin: border;
+    subcontrol-position: bottom right;
+    background-color: transparent;
+    border-radius: 4px;
+    width: 24px;
+    height: 16px;
+    margin: 0px 4px 3px 0px;
+}
+
+QSpinBox::down-button:hover, QDoubleSpinBox::down-button:hover {
+    background-color: @hover@;
+}

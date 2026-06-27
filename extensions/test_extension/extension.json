@@ -1,0 +1,10 @@
+{
+    "name": "测试扩展包",
+    "extension_id": "test_extension",
+    "version": "1.0.0",
+    "min_app_version": "6.0.0",
+    "author": "StarDebate",
+    "description": "这是一个测试扩展包，用于验证扩展包系统的安装、加载和卸载流程。",
+    "main": "main.py",
+    "tags": ["测试", "开发"]
+}

@@ -1,0 +1,28 @@
+{
+  "name": "123",
+  "positions": [
+    {
+      "name": "",
+      "phases": [
+        {
+          "name": "",
+          "duration": 120,
+          "counterpart": "无（独立环节）"
+        },
+        {
+          "name": "立论",
+          "duration": 120,
+          "counterpart": "无（独立环节）"
+        },
+        {
+          "name": "",
+          "duration": 120,
+          "counterpart": "无（独立环节）"
+        }
+      ]
+    }
+  ],
+  "free_debate": null,
+  "team_size": 4,
+  "type": "custom"
+}

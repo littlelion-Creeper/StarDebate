@@ -1,0 +1,86 @@
+/* ============================================
+   AI 分析报告 — Notion 深色主题
+   ============================================ */
+
+#analysisPage {
+    background-color: @base@;
+}
+
+/* 分析 Tab 控件 — 底部 indicator 风格 */
+QTabWidget#analysisTabs::pane {
+    border: none;
+    background-color: @base@;
+}
+
+QTabWidget#analysisTabs QTabBar::tab {
+    padding: 8px 20px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: @muted@;
+    font-size: 11pt;
+    background: transparent;
+}
+
+QTabWidget#analysisTabs QTabBar::tab:selected {
+    color: @accent_blue_alt@;
+    border-bottom: 2px solid @accent_blue_alt@;
+    font-weight: 600;
+}
+
+QTabWidget#analysisTabs QTabBar::tab:hover:!selected {
+    color: @subtext@;
+}
+
+/* 分析滚动区域 */
+#analysisProScroll,
+#analysisConScroll {
+    background-color: @base@;
+    border: none;
+}
+
+#analysisProWidget,
+#analysisConWidget {
+    background-color: @base@;
+}
+
+/* 元信息卡片 — 无边框 */
+#analysisMetaCard {
+    background-color: @surface@;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+#analysisMetaLabel {
+    color: @subtext@;
+}
+
+/* 分析维度卡片 — 无边框 */
+#analysisCard {
+    background-color: @surface@;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 4px 0;
+}
+
+#analysisCardBody {
+    color: @text@;
+    background: transparent;
+}
+
+/* 滚动条 */
+#analysisPage QScrollBar:vertical {
+    background: transparent;
+    width: 4px;
+    margin: 0;
+}
+
+#analysisPage QScrollBar::handle:vertical {
+    background: @toggle_off@;
+    border-radius: 2px;
+    min-height: 20px;
+}
+
+#analysisPage QScrollBar::handle:vertical:hover {
+    background: @subtext@;
+    width: 6px;
+}

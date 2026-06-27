@@ -1,0 +1,49 @@
+/* ============================================
+   调试控制台 — Notion 深色主题
+   ============================================ */
+
+#debugConsolePanel, #debugConsole {
+    background-color: @base@;
+    border-radius: 6px;
+}
+
+#debugConsoleOutput {
+    background-color: @surface@;
+    border: none;
+    border-radius: 6px;
+    padding: 8px;
+    color: @text@;
+    font-family: "Courier New", monospace;
+    selection-background-color: @selected_bg@;
+}
+
+#debugConsoleInput {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 6px 4px;
+    color: @text@;
+}
+
+#debugConsoleInput:focus {
+    border-bottom: 2px solid @accent_blue@;
+}
+
+/* 滚动条 */
+#debugConsolePanel QScrollBar:vertical {
+    background: transparent;
+    width: 4px;
+    margin: 0;
+}
+
+#debugConsolePanel QScrollBar::handle:vertical {
+    background: @toggle_off@;
+    border-radius: 2px;
+    min-height: 20px;
+}
+
+#debugConsolePanel QScrollBar::handle:vertical:hover {
+    background: @subtext@;
+    width: 6px;
+}

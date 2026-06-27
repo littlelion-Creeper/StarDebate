@@ -1,0 +1,78 @@
+/* ============================================
+   一辩稿导出预览弹窗 — Notion 主题
+   ============================================ */
+
+/* ── 弹窗背景 ── */
+ExportPreviewDialog {
+    background-color: @base@;
+    border: 1px solid @border@;
+}
+
+/* ── Ribbon 工具栏 ── */
+#exportPreviewRibbon {
+    background-color: @surface@;
+    border: none;
+    border-bottom: 1px solid @border@;
+}
+
+#ribbonLabel {
+    color: @subtext@;
+    background: transparent;
+    border: none;
+}
+
+#ribbonCombo {
+    background-color: @overlay@;
+    color: @text@;
+    border: 1px solid @border@;
+    border-radius: 4px;
+    padding: 2px 4px;
+    font-size: 11px;
+}
+
+#ribbonCombo:hover {
+    border: 1px solid @accent_blue@;
+}
+
+#ribbonCombo::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 16px;
+    border-left: none;
+}
+
+#ribbonCombo QAbstractItemView {
+    background-color: @surface@;
+    color: @text@;
+    border: 1px solid @border@;
+    border-radius: 4px;
+    selection-background-color: @overlay@;
+    outline: none;
+}
+
+/* ── 分隔线 ── */
+#exportPreviewSep {
+    background-color: @border@;
+    border: none;
+}
+
+/* ── 预览区域 ── */
+#exportPreviewWeb {
+    background: transparent;
+    border: none;
+}
+
+/* ── 回退标签 ── */
+#exportPreviewFallback {
+    color: @subtext@;
+    background-color: @base@;
+    border: none;
+}
+
+/* ── 底部操作栏 ── */
+#exportPreviewFooter {
+    background-color: @mantle@;
+    border-top: 1px solid @border@;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+}

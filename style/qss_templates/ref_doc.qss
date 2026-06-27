@@ -1,0 +1,75 @@
+/* ============================================
+   参考资料面板 — Notion 深色主题
+   ============================================ */
+
+#refDocPanel {
+    background-color: @base@;
+    border-radius: 6px;
+}
+
+#refDocHeader {
+    background-color: @surface@;
+    border-bottom: 1px solid @overlay@;
+}
+
+#refDocScroll {
+    background-color: transparent;
+    border: none;
+}
+
+#refDocContainer {
+    background-color: transparent;
+}
+
+/* 参考资料卡片 — 无边框 */
+#refDocCard {
+    background-color: @surface@;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+#refDocCard:hover {
+    background-color: @hover@;
+}
+
+/* 按钮 — 幽灵风格 */
+#refDocPanel QPushButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: @text@;
+    font-size: 11pt;
+}
+
+#refDocPanel QPushButton:hover {
+    background-color: @hover@;
+}
+
+#refDocPanel #primaryBtn {
+    background-color: @accent_blue@;
+    color: @white@;
+    font-weight: 600;
+}
+
+#refDocPanel #primaryBtn:hover {
+    background-color: @accent_blue_hover@;
+}
+
+/* 滚动条 */
+#refDocPanel QScrollBar:vertical {
+    background: transparent;
+    width: 4px;
+    margin: 0;
+}
+
+#refDocPanel QScrollBar::handle:vertical {
+    background: @toggle_off@;
+    border-radius: 2px;
+    min-height: 20px;
+}
+
+#refDocPanel QScrollBar::handle:vertical:hover {
+    background: @subtext@;
+    width: 6px;
+}

@@ -1,0 +1,215 @@
+/* ============================================
+   更新器组件 — 模板（颜色占位符从 theme.json 读取）
+   ============================================ */
+
+/* ── UpdateFoundDialog / RecoveryDialog 通用弹窗 ── */
+#updateFoundDialog, #recoveryDialog {
+    background-color: @base@;
+    border: 1px solid @border@;
+    border-radius: 8px;
+    color: @text@;
+}
+
+#updateDialogContent, #recoveryContent {
+    background-color: transparent;
+}
+
+/* 标题栏复用 popup_dialog 样式 */
+#popupTitleBar {
+    background-color: @surface@;
+    border-bottom: 1px solid @border@;
+}
+
+#popupTitleLabel {
+    color: @text@;
+    font-size: 12pt;
+    font-weight: 600;
+}
+
+/* 版本标签 */
+#updateVerLabel {
+    color: @subtext@;
+    font-size: 10pt;
+    background: transparent;
+}
+
+#updateVerValue {
+    color: @subtext@;
+    font-size: 11pt;
+    font-weight: 500;
+    background: transparent;
+}
+
+#updateVerValueNew {
+    color: @accent_blue@;
+    font-size: 13pt;
+    font-weight: 700;
+    background: transparent;
+}
+
+/* 发行说明区域 */
+#updateNotesFrame {
+    background-color: @surface@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+}
+
+#updateNotesTitle {
+    color: @text@;
+    background: transparent;
+}
+
+#updateNotesText {
+    background-color: transparent;
+    color: @text@;
+    border: none;
+    font-size: 10pt;
+    selection-background-color: @accent_blue@;
+    selection-color: @white@;
+}
+
+#updateNotesText:focus {
+    border: 1px solid @accent_blue@;
+}
+
+/* 统计信息 */
+#updateStatLabel {
+    color: @subtext@;
+    font-size: 9.5pt;
+    background: transparent;
+}
+
+#updateFileLabel {
+    color: @muted@;
+    font-size: 9pt;
+    background: transparent;
+}
+
+/* 备份选项复选框 */
+#updateBackupCb {
+    color: @text@;
+    background: transparent;
+}
+
+/* 进度面板 */
+#updateProgressPanel {
+    background-color: @base@;
+    border: 1px solid @border@;
+    border-radius: 10px;
+}
+
+#updateProgressTitle {
+    color: @text@;
+    background: transparent;
+}
+
+QProgressBar#updateProgressBar {
+    background-color: @hover@;
+    border: none;
+    border-radius: 5px;
+    height: 10px;
+    text-align: center;
+}
+
+QProgressBar#updateProgressBar::chunk {
+    background: qlineargradient(
+        x1:0, y1:0, x2:1, y2:0,
+        stop:0 @accent_blue@,
+        stop:1 @accent_blue_hover@
+    );
+    border-radius: 5px;
+}
+
+#updateStatusLabel {
+    color: @subtext@;
+    font-size: 10pt;
+    background: transparent;
+}
+
+#updateCancelBtn {
+    color: @subtext@;
+    background: transparent;
+}
+
+#updateCancelBtn:hover {
+    color: @text@;
+    background-color: @hover@;
+}
+
+/* Toast 通知 */
+#updateSuccessToast {
+    background-color: @base@;
+    border: 1px solid @border@;
+    border-radius: 10px;
+    color: @text@;
+}
+
+#toastIcon {
+    background: transparent;
+}
+
+#toastTitle {
+    color: @text@;
+    background: transparent;
+}
+
+#toastDesc {
+    color: @subtext@;
+    font-size: 9.5pt;
+    background: transparent;
+}
+
+#toastBtn {
+    color: @subtext@;
+    background: transparent;
+    border: 1px solid @border@;
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-size: 9pt;
+}
+
+#toastBtn:hover {
+    color: @text@;
+    border-color: @border_dim@;
+    background-color: @hover@;
+}
+
+/* 恢复对话框 */
+#warningIcon, #recoveryWarnIcon {
+    background: transparent;
+}
+
+#recoveryTitle {
+    color: @accent_yellow_light@;
+    background: transparent;
+}
+
+#recoveryDesc {
+    color: @subtext@;
+    background: transparent;
+    font-size: 10.5pt;
+}
+
+#recoveryInfoFrame {
+    background-color: @surface@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+}
+
+#recoveryInfoFrame QLabel {
+    color: @subtext@;
+    font-size: 9.5pt;
+    background: transparent;
+}
+
+/* 设置页内小按钮 */
+#settingsSmallBtn {
+    color: @accent_blue@;
+    background: transparent;
+    border: 1px solid @accent_blue@;
+    border-radius: 4px;
+}
+
+#settingsSmallBtn:hover {
+    background-color: @hover@;
+}

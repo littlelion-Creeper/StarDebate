@@ -1,0 +1,89 @@
+/* ============================================
+   结构功能模块 — Notion 深色主题
+   ============================================ */
+
+/* 结构树面板 — 无边框 */
+#structurePanel {
+    background-color: @surface@;
+    border-radius: 6px;
+}
+
+/* 结构树标题 */
+#structTitle {
+    font-size: 12pt;
+    font-weight: bold;
+    color: @text@;
+    background-color: transparent;
+    padding: 0px;
+}
+
+/* 结构树控件 */
+#structTree {
+    font-size: 10pt;
+}
+#structTree::item {
+    padding: 5px 4px;
+    border-radius: 4px;
+    min-height: 24px;
+}
+#structTree::item:hover {
+    background-color: @overlay@;
+}
+#structTree::item:selected {
+    background-color: @selected_bg@;
+    color: @accent_blue@;
+}
+
+/* 正方/反方切换按钮 — 幽灵风格 */
+#structSideBtn {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 2px 12px;
+    color: @subtext@;
+    font-size: 11pt;
+}
+
+#structSideBtn:hover {
+    background-color: @hover@;
+}
+
+#structSideBtn:checked {
+    background-color: @accent_blue@;
+    color: @white@;
+    font-weight: 600;
+}
+
+/* AI 结构分析按钮 — 实色强调 */
+#aiStructBtn {
+    background-color: @accent_green@;
+    border: none;
+    border-radius: 6px;
+    padding: 2px 10px;
+    color: @white@;
+    font-size: 11pt;
+    font-weight: 600;
+}
+
+#aiStructBtn:hover {
+    background-color: @accent_green_hover@;
+}
+
+/* 小按钮 — 幽灵风格 */
+#smallBtn {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 2px 10px;
+    color: @text@;
+    font-size: 11pt;
+    font-weight: 500;
+}
+
+#smallBtn:hover {
+    background-color: @overlay@;
+}
+
+#smallBtn:pressed {
+    background-color: @border@;
+}

@@ -1,0 +1,50 @@
+# ── Python ──────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ── IDE / Editors ──────────────────────────────────
+.codebuddy/
+.codegraph/
+.reasonix/
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ── Virtual Environment ────────────────────────────
+.venv/
+venv/
+env/
+.env
+
+# ── Project Config (local paths & API keys) ───────
+config/config.json
+config/api_config.json
+
+# ── Build Artifacts ────────────────────────────────
+Packaged/
+PRE_Packaged/
+updata_packages/
+_update_staging/
+*.exe
+*.iss
+*.zip
+*.7z
+
+# ── Local Data / Backups ──────────────────────────
+backups/
+临时文件/
+exercise_sessions/
+test_extension.sep
+
+# ── HarmonyOS sub-project (separate repo) ────────
+HarmonyApp/
+
+# ── OS / Filesystem ──────────────────────────────
+Thumbs.db
+.DS_Store

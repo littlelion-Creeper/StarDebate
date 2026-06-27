@@ -1,0 +1,9 @@
+{
+  "auto_approve": {
+    "enabled": true,
+    "blacklist": []
+  },
+  "safe_write_mode": {
+    "enabled": false
+  }
+}

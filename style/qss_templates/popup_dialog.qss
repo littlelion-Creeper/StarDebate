@@ -1,0 +1,57 @@
+/* ============================================
+   弹出对话框 — Notion 深色主题
+   ============================================ */
+
+QDialog, QMessageBox, QInputDialog {
+    background-color: @base@;
+    border: 1px solid @border@;
+    border-radius: 12px;
+    color: @text@;
+}
+
+QDialog QLabel, QMessageBox QLabel, QInputDialog QLabel {
+    color: @text@;
+    font-size: 11pt;
+    background: transparent;
+}
+
+QDialog QPushButton, QMessageBox QPushButton, QInputDialog QPushButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    color: @text@;
+    font-size: 11pt;
+    font-weight: 500;
+}
+
+QDialog QPushButton:hover, QMessageBox QPushButton:hover, QInputDialog QPushButton:hover {
+    background-color: @hover@;
+}
+
+QDialog QPushButton#primaryBtn, QMessageBox QPushButton#primaryBtn {
+    background-color: @accent_blue@;
+    color: @white@;
+    font-weight: 600;
+}
+
+QDialog QPushButton#primaryBtn:hover, QMessageBox QPushButton#primaryBtn:hover {
+    background-color: @accent_blue_hover@;
+}
+
+QScrollBar:vertical {
+    background: transparent;
+    width: 4px;
+    margin: 0;
+}
+
+QScrollBar::handle:vertical {
+    background: @toggle_off@;
+    border-radius: 2px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: @subtext@;
+    width: 6px;
+}

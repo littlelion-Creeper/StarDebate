@@ -1,0 +1,31 @@
+/* ============================================
+   自定义复选框 — Notion 深色主题
+   ============================================ */
+
+QCheckBox {
+    color: @text@;
+    font-size: 11pt;
+    spacing: 6px;
+}
+
+QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border: 1px solid @toggle_off@;
+    border-radius: 3px;
+    background-color: transparent;
+}
+
+QCheckBox::indicator:hover {
+    border-color: @accent_blue@;
+}
+
+QCheckBox::indicator:checked {
+    background-color: @accent_blue@;
+    border-color: @accent_blue@;
+}
+
+QCheckBox::indicator:checked:hover {
+    background-color: @accent_blue_hover@;
+    border-color: @accent_blue_hover@;
+}

@@ -1,0 +1,29 @@
+/* BindSourceDialog — 来源绑定弹窗 */
+#bindDialogContainer #primaryBtn {
+    background-color: @accent_blue@;
+    border: none;
+    color: @white@;
+    font-weight: 600;
+}
+
+#bindDialogContainer #primaryBtn:hover {
+    background-color: @accent_blue_hover@;
+}
+
+#bindDialogContainer #primaryBtn:pressed {
+    background-color: @accent_blue_pressed@;
+}
+
+/* 复选框 indicator 与弹窗容器配对（备用） */
+#bindDialogContainer QCheckBox::indicator {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #6C7086;
+    border-radius: 3px;
+    background: transparent;
+}
+
+#bindDialogContainer QCheckBox::indicator:checked {
+    background-color: @accent_blue@;
+    border-color: @accent_blue@;
+}

@@ -1,0 +1,73 @@
+/* ============================================
+   StarDebate 格式 — Notion 深色主题
+   ============================================ */
+
+#stdebImportDialog, #stdebExportDialog {
+    background-color: @base@;
+}
+
+#stardebateFormatPanel {
+    background-color: @base@;
+}
+
+#stardebateFormatPanel QLabel {
+    color: @text@;
+    background: transparent;
+}
+
+#stardebateFormatPanel QPushButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: @text@;
+    font-size: 11pt;
+}
+
+#stardebateFormatPanel QPushButton:hover {
+    background-color: @hover@;
+}
+
+#stardebateFormatPanel QPushButton#primaryBtn {
+    background-color: @accent_blue@;
+    color: @white@;
+    font-weight: 600;
+}
+
+#stardebateFormatPanel QPushButton#primaryBtn:hover {
+    background-color: @accent_blue_hover@;
+}
+
+#stardebateFormatPanel QLineEdit {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 6px 4px;
+    color: @text@;
+}
+
+#stardebateFormatPanel QLineEdit:focus {
+    border-bottom: 2px solid @accent_blue@;
+}
+
+#stardebateFormatPanel QLineEdit::placeholder {
+    color: @subtext@;
+}
+
+QScrollBar:vertical {
+    background: transparent;
+    width: 4px;
+    margin: 0;
+}
+
+QScrollBar::handle:vertical {
+    background: @toggle_off@;
+    border-radius: 2px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: @subtext@;
+    width: 6px;
+}

@@ -1,0 +1,30 @@
+[20:49:26.641] [INFO] ═══ LogService 已启动 ═══
+[20:49:26.641] [INFO] 自动清理: 无过期日志文件
+[20:49:26.641] [INFO] 日志文件: e:\StarDebate\docs/log\debug_20260623_204926.log
+[20:49:26.643] [INFO] [SYS] 系统健康监视已启动 (监控 PID: 33004)
+[20:49:26.645] [INFO] [SYS] 日志服务进入主循环，等待指令...
+[20:49:43.649] [WARN] [SYS] 监视心跳超时: 17秒无新数据 (最后心跳: 20:49:26)
+[20:49:52.661] [ERROR] ════════════════════════════════════════════════════════════
+[20:49:52.661] [ERROR] ═══ [SYS] 主进程异常退出 ═══
+[20:49:52.661] [ERROR] ════════════════════════════════════════════════════════════
+[20:49:52.662] [ERROR]   PID: 33004
+[20:49:52.662] [ERROR]   退出时间: 2026-06-23 20:49:52
+[20:49:52.662] [ERROR]   队列残留条目（已排空）: 0 条
+[20:49:52.663] [ERROR]   应急写入次数: 0
+[20:49:52.663] [ERROR]   最后监视心跳: 20:49:43 (9秒前)
+[20:49:52.665] [ERROR] ────────────────────────────────────────
+[20:49:52.665] [ERROR] ═══ 💡 崩溃自动分析 ═══
+[20:49:52.691] [ERROR]   1. ⚪ 起居注未活跃（无 [CRON] 条目）
+[20:49:52.691] [ERROR]   2. 🟢 崩溃前无 ERROR 级别日志
+[20:49:52.694] [ERROR]   3. 🟡 崩溃前 10.0秒内 WARN: 1 条
+[20:49:52.694] [ERROR]   4. 📊 错误类型分布: 超时:1
+[20:49:52.694] [ERROR]   5. 📁 SQLite native.db 最近 5 条:
+[20:49:52.694] [ERROR]   6.     [17:59:48] [audit] sys.addaudithook: open (e:\StarDebate\icon\top_nav_bar\close.svg, r, 32896)
+[20:49:52.694] [ERROR]   7.     [17:59:48] [audit] sys.addaudithook: open (e:\StarDebate\icon\top_nav_bar\minimise.svg, r, 32896)
+[20:49:52.694] [ERROR]   8.     [17:59:40] [uncaught] sys.setprofile: [C_EXCEPTION] builtin_function_or_method
+[20:49:52.694] [ERROR]   9.     [17:59:40] [uncaught] sys.setprofile: [C_EXCEPTION] builtin_function_or_method
+[20:49:52.694] [ERROR]   10.     [17:59:40] [audit] sys.addaudithook: open (e:\StarDebate\style\themes\notion_light\theme.json, r, 32896)
+[20:49:52.694] [ERROR]   ─── 建议 ───
+[20:49:52.694] [ERROR]   → 无声崩溃（无日志前兆）：可能为 kill/硬件/系统级终止
+[20:49:52.699] [ERROR] ════════════════════════════════════════════════════════════
+[20:49:53.057] [INFO] [SYS] LogService 进程退出

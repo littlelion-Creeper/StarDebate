@@ -1,0 +1,73 @@
+/* ============================================
+   一辩稿编辑器 — Notion 深色主题
+   ============================================ */
+
+#speechPage {
+    background-color: @base@;
+}
+
+/* 立场标签 */
+#speechSideLabel {
+    font-size: 16px;
+    font-weight: bold;
+    background: transparent;
+    border: none;
+}
+
+/* 工具栏按钮行 */
+#speechToolbar {
+    background-color: transparent;
+    border: none;
+}
+
+/* 一辩稿右键菜单 */
+#speechContextMenu {
+    background-color: @surface@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+#speechContextMenu::item {
+    padding: 8px 24px;
+    border-radius: 6px;
+    color: @text@;
+}
+
+#speechContextMenu::item:selected {
+    background-color: @overlay@;
+}
+
+#speechContextMenu::item:disabled {
+    color: @accent_blue_alt@;
+}
+
+#speechContextMenu::separator {
+    height: 1px;
+    background: @border@;
+    margin: 4px 8px;
+}
+
+
+/* 一辩稿编辑器主体 — Notion 深色 */
+#speechEditor {
+    background-color: @base@;
+    color: @text@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 10px;
+    selection-background-color: @accent_blue@;
+    selection-color: @white@;
+}
+#speechEditor:focus {
+    border: 1px solid @accent_blue@;
+}
+
+/* 字数统计 */
+#speechEditorWordCount {
+    font-family: "Cascadia Code", "Consolas", monospace;
+    color: #9399B2;
+    background: transparent;
+    border: none;
+}
+

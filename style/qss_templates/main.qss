@@ -1,0 +1,580 @@
+/* ============================================
+   Notion 深色主题 — main.qss
+   全局基础样式
+   ============================================ */
+
+* { font-size: 11pt; }
+
+QMainWindow {
+    background-color: @base@;
+}
+
+QWidget {
+    color: @text@;
+    font-family: "HarmonyOS Sans SC";
+    font-size: 11pt;
+}
+
+/* 所有 QLabel 默认值 */
+QLabel {
+    background-color: transparent;
+    color: @text@;
+    padding: 0px;
+}
+
+/* ========== 标题栏 ========== */
+#titleBar {
+    background-color: @surface@;
+    border-bottom: 1px solid @overlay@;
+}
+
+#titleLabel {
+    color: @text@;
+    font-weight: 600;
+}
+
+#subtitleLabel {
+    color: @subtext@;
+}
+
+/* ========== 面板 — 无边框，靠背景色差 ========== */
+#treePanel, #centerPanel, #structurePanel {
+    background-color: @surface@;
+    border-radius: 6px;
+}
+
+/* 项目浏览器标题 */
+#treeTitle {
+    font-size: 12pt;
+    font-weight: bold;
+    color: @text@;
+    background-color: transparent;
+    padding: 0px;
+}
+
+/* 项目浏览器树控件 */
+#projectTree {
+    font-size: 10pt;
+}
+#projectTree::item {
+    padding: 5px 4px;
+    border-radius: 4px;
+    min-height: 24px;
+}
+#projectTree::item:hover {
+    background-color: @overlay@;
+}
+#projectTree::item:selected {
+    background-color: @selected_bg@;
+    color: @accent_blue@;
+}
+
+/* ========== Tab 控件 ========== */
+QTabWidget::pane {
+    border: none;
+    border-radius: 6px;
+    background-color: @base@;
+}
+
+QTabBar::tab {
+    padding: 8px 24px;
+    margin-right: 2px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    background: @overlay@;
+    color: @subtext@;
+}
+
+QTabBar::tab:selected {
+    background: @surface@;
+    color: @text@;
+    font-weight: bold;
+    border-bottom: 2px solid @accent_blue@;
+}
+
+QTabBar::tab:hover:!selected {
+    color: @text@;
+}
+
+/* ========== 表格 ========== */
+QTableWidget {
+    background-color: @surface@;
+    border: none;
+    border-radius: 6px;
+    gridline-color: @overlay@;
+    alternate-background-color: @base@;
+    selection-background-color: @selected_bg@;
+    selection-color: @text@;
+}
+
+QTableWidget::item {
+    padding: 6px 10px;
+    border-bottom: 1px solid @overlay@;
+}
+
+QTableWidget::item:selected {
+    background-color: @selected_bg@;
+}
+
+QHeaderView::section {
+    background-color: @overlay@;
+    color: @accent_blue_alt@;
+    font-weight: bold;
+    font-size: 11pt;
+    padding: 8px 10px;
+    border: none;
+    border-bottom: 1px solid @border@;
+}
+
+/* ========== 资料卡片 ========== */
+#refCardsScroll {
+    background-color: transparent;
+    border: none;
+}
+
+#refCardsContainer {
+    background-color: transparent;
+}
+
+#refCard {
+    background-color: transparent;
+    border-radius: 6px;
+}
+
+#refCard:hover {
+    background-color: transparent;
+    border-left: 3px solid @accent_blue@;
+}
+
+/* ========== 小按钮 — 幽灵风格 ========== */
+#smallBtn {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 2px 10px;
+    color: @text@;
+    font-size: 11pt;
+    font-weight: 500;
+}
+
+#smallBtn:hover {
+    background-color: @overlay@;
+}
+
+#smallBtn:pressed {
+    background-color: @border@;
+}
+
+/* ========== 结构树切换按钮 ========== */
+#structSideBtn {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 2px 12px;
+    color: @subtext@;
+    font-size: 11pt;
+}
+
+#structSideBtn:hover {
+    background-color: @overlay@;
+}
+
+#structSideBtn:checked {
+    background-color: @accent_blue@;
+    color: @white@;
+    font-weight: 600;
+}
+
+/* ========== AI 结构分析按钮 ========== */
+#aiStructBtn {
+    background-color: @accent_green@;
+    border: none;
+    border-radius: 6px;
+    padding: 2px 10px;
+    color: @white@;
+    font-size: 11pt;
+    font-weight: 600;
+}
+
+#aiStructBtn:hover {
+    background-color: @accent_green_hover@;
+}
+
+/* ========== 辩论详情页 ========== */
+#detailPage {
+    background-color: transparent;
+}
+
+#proFrame {
+    background-color: transparent;
+    border-left: 3px solid @accent_green@;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+#conFrame {
+    background-color: transparent;
+    border-left: 3px solid @accent_red@;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+/* ========== 文本编辑区 — 透明背景 ========== */
+QTextEdit, QTextBrowser {
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    color: @text@;
+    selection-background-color: @selected_bg@;
+    selection-color: @text@;
+}
+
+QTextEdit:focus, QTextBrowser:focus {
+    background: transparent;
+    border: 1px solid @accent_blue@;
+}
+
+QTextEdit QAbstractScrollArea::viewport,
+QTextBrowser QAbstractScrollArea::viewport {
+    background: transparent;
+}
+
+QPlainTextEdit {
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    color: @text@;
+    selection-background-color: @selected_bg@;
+    selection-color: @text@;
+}
+
+QPlainTextEdit:focus {
+    background: transparent;
+    border: 1px solid @accent_blue@;
+}
+
+QPlainTextEdit QAbstractScrollArea::viewport {
+    background: transparent;
+}
+
+/* ========== 输入框 — 底部细线 ========== */
+QLineEdit {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 6px 4px;
+    color: @text@;
+}
+
+QLineEdit:focus {
+    border-bottom: 2px solid @accent_blue@;
+}
+
+QLineEdit::placeholder {
+    color: @subtext@;
+}
+
+/* ========== 树形控件 ========== */
+QTreeWidget {
+    background-color: @surface@;
+    border: none;
+    border-radius: 6px;
+    padding: 4px;
+    color: @text@;
+    outline: none;
+}
+
+QTreeWidget::item {
+    padding: 5px 4px;
+    border-radius: 4px;
+    min-height: 24px;
+}
+
+QTreeWidget::item:hover {
+    background-color: @overlay@;
+}
+
+QTreeWidget::item:selected {
+    background-color: @selected_bg@;
+    color: @accent_blue@;
+}
+
+/* ========== 列表控件 ========== */
+QListWidget {
+    background-color: @surface@;
+    border: none;
+    border-radius: 6px;
+    padding: 6px;
+    color: @text@;
+}
+
+QListWidget::item {
+    padding: 6px 10px;
+    border-radius: 4px;
+}
+
+QListWidget::item:hover {
+    background-color: @overlay@;
+}
+
+QListWidget::item:selected {
+    background-color: @selected_bg@;
+    color: @accent_blue_alt@;
+}
+
+/* ========== 普通按钮 — 幽灵风格 ========== */
+QPushButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    color: @text@;
+    font-size: 11pt;
+    font-weight: 500;
+}
+
+QPushButton:hover {
+    background-color: @overlay@;
+}
+
+QPushButton:pressed {
+    background-color: @border@;
+}
+
+/* ========== 主按钮 ========== */
+#primaryBtn {
+    background-color: @accent_blue@;
+    border: none;
+    color: @white@;
+    font-size: 11pt;
+    font-weight: 600;
+}
+
+#primaryBtn:hover {
+    background-color: @accent_blue_hover@;
+}
+
+#primaryBtn:pressed {
+    background-color: @accent_blue_pressed@;
+}
+
+/* ========== 分隔条 ========== */
+QSplitter::handle {
+    background-color: @overlay@;
+}
+
+/* ========== 状态栏 ========== */
+#statusBar {
+    background-color: transparent;
+    border-top: 1px solid @overlay@;
+    color: @subtext@;
+}
+
+/* 辩论详情页 */
+#detailPage > QLabel:first { color: @muted@; }
+#detailPage > QLabel:middle { color: @accent_blue_alt@; }
+#proFrame > QLabel:first { color: @accent_green@; }
+#proFrame > QLabel:last { color: @subtext@; }
+#conFrame > QLabel:first { color: @accent_red@; }
+#conFrame > QLabel:last { color: @subtext@; }
+
+/* ========== 滚动条 — 极细，hover 显色 ========== */
+QScrollBar:vertical {
+    background: transparent;
+    width: 4px;
+    margin: 0;
+}
+
+QScrollBar::handle:vertical {
+    background: @toggle_off@;
+    border-radius: 2px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background: @subtext@;
+    width: 6px;
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+QScrollBar:horizontal {
+    background: transparent;
+    height: 4px;
+    margin: 0;
+}
+
+QScrollBar::handle:horizontal {
+    background: @toggle_off@;
+    border-radius: 2px;
+    min-width: 20px;
+}
+
+QScrollBar::handle:horizontal:hover {
+    background: @subtext@;
+    height: 6px;
+}
+
+QScrollBar::add-line:horizontal,
+QScrollBar::sub-line:horizontal {
+    width: 0px;
+}
+
+/* ========== 对话框 ========== */
+QDialog {
+    background-color: @base@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+}
+
+QProgressDialog {
+    background-color: @base@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    color: @text@;
+}
+
+QProgressDialog QLabel {
+    color: @text@;
+}
+
+QProgressDialog QProgressBar {
+    background-color: @surface@;
+    border: 1px solid @border@;
+    border-radius: 4px;
+    text-align: center;
+    color: @text@;
+}
+
+QProgressDialog QProgressBar::chunk {
+    background-color: @accent_blue@;
+    border-radius: 3px;
+}
+
+QMessageBox {
+    background-color: @base@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    color: @text@;
+}
+
+QMessageBox QLabel {
+    color: @text@;
+    font-size: 11pt;
+}
+
+QInputDialog {
+    background-color: @base@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    color: @text@;
+}
+
+/* ========== 树控件右键菜单 ========== */
+#treeContextMenu {
+    background-color: @surface@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+#treeContextMenu::item {
+    padding: 8px 24px;
+    border-radius: 6px;
+    color: @text@;
+}
+
+#treeContextMenu::item:selected {
+    background-color: @overlay@;
+}
+
+#treeContextMenu::separator {
+    height: 1px;
+    background: @border@;
+    margin: 4px 8px;
+}
+
+/* ========== 插件管理面板 ========== */
+#pluginPanel {
+    background-color: @surface@;
+    border-left: 1px solid @overlay@;
+    border-radius: 6px;
+}
+
+#pluginLeftStack, #pluginRightStack {
+    background-color: transparent;
+}
+
+#pluginLeftStack > QWidget,
+#pluginRightStack > QWidget {
+    background-color: @base@;
+    border-radius: 6px;
+}
+
+#pluginScroll {
+    background-color: transparent;
+    border: none;
+}
+
+#pluginListContainer {
+    background-color: transparent;
+}
+
+#pluginCard {
+    background-color: @surface@;
+    border-radius: 6px;
+}
+
+#pluginCard:hover {
+    background-color: @hover@;
+}
+
+#pluginWarningCard {
+    background-color: @overlay@;
+    border-left: 3px solid @accent_orange@;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+#pluginToolBtn {
+    background-color: transparent;
+    color: @text@;
+    border: none;
+    border-radius: 6px;
+}
+
+#pluginToolBtn:hover {
+    background-color: @overlay@;
+}
+
+#pluginCloseBtn {
+    background-color: transparent;
+    color: @text@;
+    border: none;
+    border-radius: 6px;
+}
+
+#pluginCloseBtn:hover {
+    background-color: @accent_red@;
+    color: @white@;
+}
+
+#pluginCardBtn {
+    background-color: transparent;
+    color: @text@;
+    border: 1px solid @border@;
+    border-radius: 4px;
+    font-size: 11pt;
+}
+
+#pluginCardBtn:hover {
+    background-color: @overlay@;
+}
+
+

@@ -1,0 +1,76 @@
+/* ============================================
+   新建辩论 — Notion 深色主题
+   ============================================ */
+
+#newDebatePanel {
+    background-color: @base@;
+    border-radius: 6px;
+}
+
+#newDebatePanel QLabel {
+    color: @text@;
+    background: transparent;
+}
+
+#newDebatePanel QLineEdit {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 6px 4px;
+    color: @text@;
+}
+
+#newDebatePanel QLineEdit:focus {
+    border-bottom: 2px solid @accent_blue@;
+}
+
+#newDebatePanel QLineEdit::placeholder {
+    color: @subtext@;
+}
+
+#newDebatePanel QPushButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    color: @text@;
+    font-size: 11pt;
+    font-weight: 500;
+}
+
+#newDebatePanel QPushButton:hover {
+    background-color: @hover@;
+}
+
+#newDebatePanel #primaryBtn {
+    background-color: @accent_blue@;
+    color: @white@;
+    font-weight: 600;
+}
+
+#newDebatePanel #primaryBtn:hover {
+    background-color: @accent_blue_hover@;
+}
+
+#newDebatePanel QComboBox {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 5px 8px;
+    color: @text@;
+    font-size: 11pt;
+}
+
+#newDebatePanel QComboBox:hover {
+    background-color: @hover@;
+}
+
+#newDebatePanel QComboBox QAbstractItemView {
+    background-color: @surface@;
+    color: @text@;
+    border: 1px solid @border@;
+    border-radius: 4px;
+    selection-background-color: @selected_bg@;
+}

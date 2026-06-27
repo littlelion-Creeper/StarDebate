@@ -1,0 +1,231 @@
+/* ============================================
+   AI扩写面板 — Notion 深色主题
+   ============================================ */
+
+#aiExpandPanel {
+    background-color: @surface@;
+    border-radius: 6px;
+}
+
+#aiExpandHeader {
+    background-color: @base@;
+    border-bottom: 1px solid @overlay@;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+#aiExpandHistorySection {
+    background-color: transparent;
+    border-bottom: 1px solid @overlay@;
+}
+
+#aiExpandHistoryScroll, #aiExpandCardsScroll {
+    background-color: transparent;
+    border: none;
+}
+
+#aiHistoryContainer, #aiCardsContainer {
+    background-color: transparent;
+}
+
+/* 历史卡片 — 无边框 */
+#aiHistoryCard {
+    background-color: @surface@;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+#aiHistoryCard:hover {
+    background-color: @hover@;
+}
+
+/* 结果卡片 — 无边框 */
+#aiExpandResultCard {
+    background-color: @surface@;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+#aiExpandResultCard:hover {
+    border-left: 3px solid @accent_blue@;
+}
+
+/* 保存文件列表 */
+#savedFilesList {
+    background-color: @surface@;
+    border: none;
+    border-radius: 6px;
+    color: @text@;
+    font-size: 11pt;
+    padding: 4px;
+}
+
+#savedFilesList::item {
+    padding: 5px 8px;
+    border-radius: 4px;
+}
+
+#savedFilesList::item:hover {
+    background-color: @overlay@;
+}
+
+#savedFilesList::item:selected {
+    background-color: @selected_bg@;
+    color: @accent_blue@;
+}
+
+/* 历史卡片内标签 */
+#aiHistoryKeyword {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue@;
+
+    padding: 0px;}
+
+#aiHistoryTime {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @muted@;
+
+    padding: 0px;}
+
+/* 通用按钮 — 幽灵风格 */
+#aiExpandPanel QPushButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    color: @text@;
+    font-size: 11pt;
+}
+
+#aiExpandPanel QPushButton:hover {
+    background-color: @overlay@;
+}
+
+/* 主按钮 */
+#aiExpandPanel #primaryBtn {
+    background-color: @accent_blue@;
+    color: @white@;
+    font-weight: 600;
+}
+
+#aiExpandPanel #primaryBtn:hover {
+    background-color: @accent_blue_hover@;
+}
+
+/* 滚动条 */
+#aiExpandPanel QScrollBar:vertical {
+    background: transparent;
+    width: 4px;
+    margin: 0;
+}
+
+#aiExpandPanel QScrollBar::handle:vertical {
+    background: @toggle_off@;
+    border-radius: 2px;
+    min-height: 20px;
+}
+
+#aiExpandPanel QScrollBar::handle:vertical:hover {
+    background: @subtext@;
+    width: 6px;
+}
+
+#aiExpandPanel QScrollBar::add-line:vertical,
+#aiExpandPanel QScrollBar::sub-line:vertical {
+    height: 0px;
+}
+
+
+/* === 自动扩散自 catppuccin_mocha === */
+#aiExpandPanelTitle {
+    background-color: transparent;
+    color: @accent_blue_deep@;
+    font-size: 10pt;
+    padding: 0px;
+    border: none;
+}
+
+#aiExpandHistTitle {
+    background-color: transparent;
+    color: @subtext@;
+    font-size: 10pt;
+    padding: 0px;
+    border: none;
+}
+
+#aiExpandResultTitle {
+    background-color: transparent;
+    color: @accent_green@;
+    font-size: 10pt;
+    padding: 0px;
+    border: none;
+}
+
+#aiExpandCurrentLabel {
+    background-color: transparent;
+    color: @muted@;
+    font-size: 10pt;
+    padding: 0px;
+    border: none;
+}
+
+#aiExpandEmptyHint {
+    background-color: transparent;
+    color: @overlay@;
+    font-size: 10pt;
+    padding: 40px 20px;
+    border: none;
+}
+
+#aiExpandCardTitle {
+    background-color: transparent;
+    color: @accent_blue_deep@;
+    font-size: 10pt;
+    padding: 0px;
+    border: none;
+}
+
+#aiExpandCardSep {
+    background-color: @overlay@;
+    max-height: 1px;
+}
+
+#aiExpandCardText {
+    background-color: transparent;
+    color: @text@;
+    font-size: 10pt;
+    padding: 0px;
+    border: none;
+    line-height: 1.6;
+}
+
+#aiExpandHLTitle {
+    background-color: transparent;
+    color: @accent_blue_alt@;
+    font-size: 10pt;
+    padding: 0px;
+    border: none;
+}
+
+#aiExpandHLTag {
+    color: @accent_blue_alt@;
+    background-color: @overlay@;
+    border-radius: 4px;
+    padding: 2px 8px;
+}
+
+#aiExpandHistoryScroll {
+    background-color: transparent;
+    border: none;
+}
+
+#aiHistoryContainer {
+    background-color: transparent;
+}
+
+#aiExpandCardsSection {
+    background-color: transparent;
+}
+

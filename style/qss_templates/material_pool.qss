@@ -1,0 +1,417 @@
+/* ============================================
+   资料池面板 — Notion 深色主题
+   ============================================ */
+
+#materialPoolPanel, #materialPoolStack {
+    background-color: @base@;
+    border: none;
+}
+
+#poolFilePanel {
+    background-color: @surface@;
+    border-right: 1px solid @overlay@;
+}
+
+#poolSearchBar {
+    background-color: transparent;
+}
+
+/* 搜索框 — 底部细线 */
+#poolSearchInput {
+    background: transparent;
+    color: @text@;
+    border: none;
+    border-bottom: 1px solid @border@;
+    border-radius: 0px;
+    padding: 0 12px;
+}
+
+#poolSearchInput:focus {
+    border-bottom: 2px solid @accent_blue@;
+}
+
+/* 搜索卡片 — 无边框 */
+#searchResultCard {
+    background-color: @surface@;
+    border-radius: 6px;
+    margin: 2px 0;
+    padding: 8px;
+}
+
+#searchResultCard:hover {
+    background-color: @hover@;
+    border-left: 3px solid @accent_blue@;
+}
+
+#searchCardTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @text@;
+    padding: 0px;
+    border: none;
+}
+
+#searchCardScore {
+    padding: 0px;
+    border: none;
+
+    background-color: transparent;
+    font-size: 10pt;}
+
+#searchCardMeta {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @muted@;
+    padding: 0px;
+    border: none;
+}
+
+#searchCardSummary {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    padding: 0px;
+    border: none;
+}
+
+#searchHLine {
+    color: @overlay@;
+    background-color: @overlay@;
+    max-height: 1px;
+}
+
+#searchPageLabel {
+    color: @subtext@;
+    border: none;
+    padding: 0 8px;
+}
+
+/* MD 查看器 */
+#mdViewerHeader {
+    background-color: @surface@;
+    border-bottom: 1px solid @overlay@;
+}
+
+#mdViewerTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @text@;
+    padding: 0px;
+    border: none;
+}
+
+#mdViewerCloseBtn {
+    color: @muted@;
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    padding: 4px 8px;
+}
+
+#mdViewerCloseBtn:hover {
+    color: @accent_red@;
+    background: @hover@;
+}
+
+#mdViewerContent {
+    background-color: @base@;
+    color: @text@;
+    border: none;
+}
+
+/* MD 渲染元素 */
+#mdH1 { background-color: transparent;
+ font-size: 10pt;
+ color: @text@; border: none; padding: 6px 0 2px; 
+ padding: 0px;}
+#mdH2 { background-color: transparent;
+ font-size: 10pt;
+ color: @accent_blue@; border: none; border-bottom: 1px solid @overlay@; padding: 8px 0 4px; 
+ padding: 0px;}
+#mdH3 { background-color: transparent;
+ font-size: 10pt;
+ color: @accent_green@; border: none; padding: 6px 0 2px; 
+ padding: 0px;}
+#mdParagraph { background-color: transparent;
+ font-size: 10pt;
+ color: @text@; border: none; padding: 1px 0; background: transparent; 
+ padding: 0px;}
+
+/* MD 代码块 */
+#mdCodeBlock {
+    background-color: @surface@;
+    border-radius: 6px;
+    margin: 4px 0;
+    padding: 0px;
+}
+
+#mdCodeLabel { background-color: transparent;
+ font-size: 10pt;
+ color: @text@; border: none; background: transparent; 
+ padding: 0px;}
+
+/* MD 引用块 */
+#mdQuoteBlock {
+    background-color: transparent;
+    border-left: 3px solid @accent_green@;
+    margin: 4px 0;
+    padding: 0px;
+}
+
+#mdQuoteLabel { background-color: transparent;
+ font-size: 10pt;
+ color: @subtext@; border: none; font-style: italic; background: transparent; 
+ padding: 0px;}
+
+/* MD 水平线 */
+#mdHr {
+    color: @overlay@;
+    background-color: @overlay@;
+    max-height: 1px;
+    border: none;
+    margin: 8px 0;
+}
+
+#mdSpacer { background: transparent; border: none; }
+
+/* MD 列表项 */
+#mdLiFrame { background: transparent; border: none; padding: 0px; }
+#mdLiBullet { background-color: transparent;
+ font-size: 10pt;
+ color: @accent_blue@; border: none; background: transparent; 
+ padding: 0px;}
+#mdLiText { background-color: transparent;
+ font-size: 10pt;
+ color: @text@; border: none; background: transparent; 
+ padding: 0px;}
+
+/* 详情页 */
+#detailPageContainer, #detailContent {
+    background: transparent;
+}
+
+#detailTopBar {
+    background: @surface@;
+    border: 1px solid @overlay@;
+    border-radius: 6px;
+}
+
+#detailTopTitle, #detailTitle {
+    color: @text@;
+    border: none;
+    padding: 4px 0;
+}
+
+#detailSepLine {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @overlay@;
+    max-height: 2px;
+
+    padding: 0px;}
+
+#detailSectionTitle {
+    color: @accent_blue@;
+    border: none;
+    border-bottom: 1px solid @overlay@;
+    padding: 4px 0;
+}
+
+/* 详情信息卡片 */
+#detailInfoCard {
+    background: @surface@;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+#detailInfoRow {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    padding: 0px;
+    border: none;
+}
+
+/* AI 分析摘要卡片 */
+#detailAICard {
+    background: @surface@;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+#detailMatchTitle { background-color: transparent;
+ font-size: 10pt;
+ color: @accent_blue@; border: none; 
+ padding: 0px;}
+
+#detailMatchText, #detailPreviewText {
+    background: transparent;
+    color: @text@;
+    border: 1px solid @overlay@;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+#detailFooterBar {
+    border-top: 1px solid @overlay@;
+
+    background-color: transparent;
+    font-size: 10pt;
+    padding: 0px;}
+
+/* 资料池表格 */
+#poolTableView {
+    background: @surface@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    gridline-color: @overlay@;
+    alternate-background-color: @base@;
+    selection-background-color: @selected_bg@;
+    selection-color: @text@;
+}
+
+#poolTableView::item {
+    padding: 6px 10px;
+    border-bottom: 1px solid @overlay@;
+}
+
+#poolTableView::item:selected {
+    background-color: @selected_bg@;
+}
+
+#poolContentText {
+    background: @base@;
+    color: @text@;
+    border: 1px solid @overlay@;
+    border-radius: 6px;
+    padding: 12px;
+}
+
+/* 导出进度面板 */
+#exportProgressPanel {
+    background: @surface@;
+    border: 1px solid @overlay@;
+    border-radius: 6px;
+    padding: 6px;
+}
+
+#exportProgressTitle { background-color: transparent;
+ font-size: 10pt;
+ color: @accent_blue@; border: none; 
+ padding: 0px;}
+#exportProgressCount { background-color: transparent;
+ font-size: 10pt;
+ color: @subtext@; border: none; 
+ padding: 0px;}
+#exportProgressInfo { background-color: transparent;
+ font-size: 10pt;
+ color: @muted@; border: none; 
+ padding: 0px;}
+
+/* 详情页滚动区 */
+#detailPageScroll {
+    border: none;
+    background: transparent;
+}
+
+/* 详情页底部按钮 */
+#detailFooterBtn {
+    background: transparent;
+    color: @text@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 6px 18px;
+    font-size: 11pt;
+    font-weight: 500;
+}
+
+#detailFooterBtn:hover {
+    background: @overlay@;
+    border-color: @toggle_off@;
+}
+
+
+/* === 自动扩散自 catppuccin_mocha === */
+#materialPoolPanel {
+    background-color: @base@;
+    border: none;
+}
+
+
+
+#poolContentTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue@;
+    padding: 0px;
+    border: none;
+}
+
+#poolResultCount {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue@;
+    padding: 0px;
+    border: none;
+}
+
+#poolErrorLabel {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @muted@;
+    padding: 0px;
+    border: none;
+}
+
+#poolWelcomeIcon {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @overlay@;
+    padding: 0px;
+    border: none;
+}
+
+#poolWelcomeTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @overlay@;
+    padding: 0px;
+    border: none;
+}
+
+#poolWelcomeSub {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @muted@;
+    padding: 0px;
+    border: none;
+}
+
+#detailPageContainer {
+    background: transparent;
+}
+
+#detailTopTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @text@;
+    padding: 0px;
+    border: none;
+}
+
+#detailMatchText {
+    background: transparent;
+    color: @text@;
+    border: 1px solid @overlay@;
+    border-radius: 8px;
+    padding: 6px;
+}
+
+
+
+/* === 自动扩散自 catppuccin_mocha === */
+#detailFooterBtn:pressed {
+    background: @surface_dim@ /* FIXME: manual */;
+}
+

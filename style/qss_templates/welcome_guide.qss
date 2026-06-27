@@ -1,0 +1,11 @@
+/* Welcome Guide — Notion Dark 主题 */
+#welcomeGuidePanel{background-color:@surface@;border-radius:8px}
+#welcomeStack{background:transparent}
+#welcomeCloseBtn{background-color:transparent;color:@muted@;border:none;border-radius:4px;font-size:14px;font-weight:bold}
+#welcomeCloseBtn:hover{background-color:@hover@;color:@text@}
+#welcomeCloseBtn:pressed{background-color:@overlay@}
+#welcomeCard{background-color:@base@;border:1px solid @overlay@;border-radius:8px}
+#welcomeCard:hover{background-color:@hover@;border-color:@accent_blue@}
+#welcomeCard:pressed{background-color:@overlay@}
+#welcomeDontShowCheck::indicator{width:16px;height:16px;border-radius:3px;border:1px solid @border@;background-color:@base@}
+#welcomeDontShowCheck::indicator:checked{background-color:@accent_green@;border-color:@accent_green@}

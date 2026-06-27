@@ -1,0 +1,414 @@
+/* ============================================
+   赛制模块 — Notion 深色主题
+   ============================================ */
+
+#tournamentPanel {
+    background-color: @base@;
+    border-radius: 6px;
+}
+
+#tournamentPanel QPushButton {
+    background-color: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    color: @text@;
+    font-size: 11pt;
+}
+
+#tournamentPanel QPushButton:hover {
+    background-color: @hover@;
+}
+
+#tournamentPanel QPushButton:checked {
+    background-color: @accent_blue@;
+    color: @white@;
+    font-weight: 600;
+}
+
+#tournamentPanel QScrollBar:vertical {
+    background: transparent;
+    width: 4px;
+    margin: 0;
+}
+
+#tournamentPanel QScrollBar::handle:vertical {
+    background: @toggle_off@;
+    border-radius: 2px;
+    min-height: 20px;
+}
+
+#tournamentPanel QScrollBar::handle:vertical:hover {
+    background: @subtext@;
+    width: 6px;
+}
+
+
+/* === 自动扩散自 catppuccin_mocha === */
+#tournTabContent {
+    background: transparent;
+}
+
+#tournSectionTitle {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @text@;
+    padding: 0px;
+    border: none;
+}
+
+#tournSectionSub {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    padding: 0px;
+    border: none;
+}
+
+#tournDetailLabel {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    padding-top: 4px;
+    padding: 0px;
+    border: none;
+}
+
+#tournEmptyHint {
+    color: @muted@;
+    padding: 8px;
+    border: none;
+}
+
+#tournMutedHint {
+    color: @muted@;
+    padding: 4px 0;
+    border: none;
+}
+
+#tournNoDebate {
+    color: @accent_red@;
+    padding: 20px;
+    border: none;
+}
+
+#tournAssignName {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue@;
+    padding: 0px;
+    border: none;
+}
+
+#tournAssignPhases {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @muted@;
+    padding: 0px;
+    border: none;
+}
+
+#tournAssignFree {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @accent_blue@;
+    padding: 0px;
+    border: none;
+}
+
+#tournFieldLabel {
+    background-color: transparent;
+    font-size: 10pt;
+    color: @subtext@;
+    min-width: 70px;
+    padding: 0px;
+    border: none;
+}
+
+#tournHLine {
+    background-color: @overlay@;
+    max-height: 1px;
+}
+
+#freeDebateCard {
+    background-color: transparent;
+    border: 1px solid @border@;
+    border-radius: 8px;
+}
+
+#tournPhaseCard {
+    background-color: @surface@;
+    border: 1px solid @border@;
+    border-radius: 8px;
+}
+
+#tournDelBtn {
+    background: transparent;
+    border: 1px solid #4A4A4A;
+    border-radius: 4px;
+    color: @accent_red@;
+    padding: 2px 8px;
+}
+
+#tournPhaseDelBtn {
+    background: transparent;
+    border: 1px solid #4A4A4A;
+    border-radius: 4px;
+    color: @accent_red@;
+    padding: 1px 4px;
+}
+
+#tournAddPhaseBtn {
+    background-color: @overlay@;
+    border: 1px dashed #4A4A4A;
+    border-radius: 6px;
+    color: @subtext@;
+    padding: 4px 8px;
+}
+
+#tournPreviewContent {
+    background: transparent;
+}
+
+#formatTitleLabel {
+    color: @accent_blue@;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#formatList {
+    background-color: @surface@;
+    border: none;
+    border-radius: 0 0 8px 8px;
+    color: @text@;
+    font-size: 14px;
+    outline: none;
+}
+
+#formatEditScroll {
+    background-color: @surface@;
+    border: 1px solid @overlay@;
+    border-radius: 8px;
+}
+
+#formatNameInput {
+    background-color: @overlay@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 4px 10px;
+    color: @text@;
+    font-size: 14px;
+}
+
+#formatPosName {
+    background-color: @overlay@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 3px 6px;
+    color: @text@;
+    font-size: 14px;
+}
+
+#formatCombo {
+    background-color: @overlay@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 2px 6px;
+    color: @text@;
+    font-size: 14px;
+}
+
+#formatSectionCard {
+    background-color: transparent;
+    border: 1px solid @overlay@;
+    border-radius: 10px;
+}
+
+#positionCard {
+    background-color: transparent;
+    border: 1px solid @border@;
+    border-radius: 8px;
+}
+
+#formatAddBtn {
+    background-color: @overlay@;
+    border: 1px dashed #4A4A4A;
+    border-radius: 8px;
+    color: @subtext@;
+    font-size: 14px;
+    padding: 6px 0px;
+}
+
+#assignNavBtn {
+    background-color: @overlay@;
+    color: @subtext@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+    padding: 4px 14px;
+}
+
+#assignFormatSection {
+    background-color: @surface@;
+    border: 1px solid @overlay@;
+    border-radius: 8px;
+}
+
+#assignFormatCombo {
+    background-color: @overlay@;
+    color: @text@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 14px;
+}
+
+#assignFormatBtn {
+    background-color: @overlay@;
+    color: @text@;
+    border: 1px solid @border@;
+    border-radius: 6px;
+    font-size: 15px;
+    font-family: "Microsoft YaHei";
+    padding: 6px 12px;
+}
+
+#assignFormatSaveBtn {
+    background-color: @accent_blue@;
+    color: @base@;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    font-family: "Microsoft YaHei";
+    padding: 8px 16px;
+}
+
+
+
+/* === 自动扩散自 catppuccin_mocha === */
+#formatCombo QAbstractItemView {
+    background-color: @base@;
+    border: 1px solid @border@;
+    border-radius: 4px;
+    color: @text@;
+    selection-background-color: @border@;
+}
+
+#assignFormatSection QLabel {
+    background: transparent;
+}
+
+#assignFormatCombo QAbstractItemView {
+    background-color: @overlay@;
+    color: @text@;
+    border: 1px solid @border@;
+    selection-background-color: @border@;
+    selection-color: @text@;
+}
+
+
+
+/* === 自动扩散自 catppuccin_mocha === */
+#tournPhaseCard:hover {
+    border: 1px solid @accent_blue_deep@;
+}
+
+#tournDelBtn:hover {
+    background-color: @accent_red@;
+    color: @base@;
+}
+
+#tournPhaseDelBtn:hover {
+    background-color: @accent_red@;
+    color: @base@;
+}
+
+#tournAddPhaseBtn:hover {
+    background-color: @hover@;
+    border-color: @accent_blue@;
+    color: @accent_blue@;
+}
+
+#formatNameInput:focus {
+    border: 1px solid @accent_blue@;
+}
+
+#formatPosName:focus {
+    border: 1px solid @accent_blue@;
+}
+
+#formatCombo:hover {
+    border: 1px solid @border@;
+}
+
+#positionCard:hover {
+    border: 1px solid @border@;
+}
+
+#freeDebateCard:hover {
+    border: 1px solid @border@;
+}
+
+#formatAddBtn:hover {
+    background-color: @hover@;
+    border: 1px solid @accent_blue@;
+    color: @accent_blue@;
+}
+
+#assignNavBtn:hover {
+    background-color: @hover@;
+    color: @text@;
+}
+
+#assignNavBtn:checked {
+    background-color: @accent_blue@;
+    color: @base@;
+    border-color: @accent_blue@;
+    font-weight: bold;
+}
+
+#assignFormatCombo:hover {
+    border-color: @accent_blue@;
+}
+
+#assignFormatBtn:hover {
+    background-color: @hover@;
+    border-color: @accent_blue@;
+}
+
+#assignFormatSaveBtn:hover {
+    background-color: @accent_blue_hover@;
+}
+
+#assignFormatSaveBtn:disabled {
+    background-color: @hover@;
+    color: @muted@;
+}
+
+
+/* ── 自由辩论 ON/OFF 切换按钮 ── */
+#freeToggleBtn {
+    border: 2px solid @toggle_off@;
+    border-radius: 12px;
+    background: transparent;
+    color: @muted@;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 0px;
+}
+#freeToggleBtn:hover {
+    border-color: @accent_blue@;
+    color: @accent_blue@;
+}
+#freeToggleBtn:checked {
+    background: @accent_green@;
+    border: 2px solid @accent_green@;
+    color: @white@;
+}
+#freeToggleBtn:checked:hover {
+    background: #3CB852;
+    border-color: #3CB852;
+}
+
