@@ -25,6 +25,8 @@ env/
 # ── Project Config (local paths & API keys) ───────
 config/config.json
 config/api_config.json
+config/stardebate_index.json
+config/stardebate_format_config.json
 
 # ── Build Artifacts ────────────────────────────────
 Packaged/

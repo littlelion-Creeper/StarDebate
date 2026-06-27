@@ -18,8 +18,8 @@ def _find_python_with_pyinstaller():
         pass
     # 2) 尝试系统级 Python
     candidates = [
-        r"C:\Users\Oblivion\Python\python.exe",
-        r"C:\Users\Oblivion\AppData\Local\Programs\Python\Python38-32\python.exe",
+        # 请按需替换为你的 Python 路径
+        # r"C:\Users\YourUser\Python\python.exe",
     ]
     for p in candidates:
         if os.path.exists(p):
