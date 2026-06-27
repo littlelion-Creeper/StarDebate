@@ -34,6 +34,7 @@ from PyQt5.QtCore import QTimer, pyqtSignal, QObject
 from .update_utils import (
     get_project_root,
     get_config_version,
+    set_config_version,
     get_staging_dir,
     get_backups_dir,
     get_update_state_path,
@@ -664,6 +665,7 @@ class UpdateManager(QObject):
                 self._progress_panel.complete()
 
             target_version = chain_infos[-1]["to_version"]
+            set_config_version(target_version)
             state = {
                 "status": "files_replaced",
                 "target_version": target_version,
@@ -775,6 +777,7 @@ class UpdateManager(QObject):
             if self._progress_panel:
                 self._progress_panel.complete()
 
+            set_config_version(info["to_version"])
             state = {
                 "status": "files_replaced",   # 标记文件已替换，等待 main_loop 检测
                 "target_version": info["to_version"],

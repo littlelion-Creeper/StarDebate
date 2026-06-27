@@ -248,16 +248,12 @@ class GitHubUpdateChecker(QObject):
             return
 
         try:
-            qba = self._download_reply.readAll()
+            data = self._download_reply.readAll()
             save_path = self._download_save_path
             os.makedirs(os.path.dirname(save_path) or ".", exist_ok=True)
-            # 显式转换为 bytes，避免 PyQt5 QByteArray buffer 协议在 Python 3.12+ 下的边界问题
-            raw_bytes = qba.data() if hasattr(qba, 'data') else bytes(qba)
-            if not raw_bytes:
-                raise ValueError("下载数据为空")
             with open(save_path, "wb") as f:
-                f.write(raw_bytes)
-            logger.info("下载完成: %s (%.1f MB)", save_path, len(raw_bytes) / 1024 / 1024)
+                f.write(data)
+            logger.info("下载完成: %s (%.1f MB)", save_path, len(data) / 1024 / 1024)
             self.download_finished.emit(save_path)
 
             # 如果是链式下载进行中，触发下一个
