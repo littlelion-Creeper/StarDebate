@@ -226,6 +226,9 @@ def _build_update_card(page, layout, parent_dialog):
     btn_row_w = _make_transparent_row(card)
     btn_row = QHBoxLayout(btn_row_w)
     btn_row.setContentsMargins(0, 0, 0, 0)
+    btn_row.setSpacing(10)
+
+    # ── 本地补丁按钮 ────────────────────────────────────────────
     try:
         btn_upd = SiPushButtonRefactor(card)
         btn_upd.setText("选择更新包")
@@ -235,13 +238,43 @@ def _build_update_card(page, layout, parent_dialog):
         _safe_set_style_data(btn_upd, "hover_color", tc("accent_blue_hover"))
         _safe_set_style_data(btn_upd, "click_color", tc("accent_blue_pressed"))
         btn_upd.setMinimumHeight(36)
-        btn_upd.setMinimumWidth(160)
+        btn_upd.setMinimumWidth(140)
         btn_upd.clicked.connect(lambda: _on_select_update(parent_dialog))
         btn_row.addWidget(btn_upd)
     except Exception:
         _logger.warning("SiPushButtonRefactor(选择更新包) 创建失败", exc_info=True)
+
+    # ── GitHub 检查更新按钮 ─────────────────────────────────────
+    try:
+        btn_github = SiPushButtonRefactor(card)
+        btn_github.setText("检查更新")
+        _safe_set_style_data(btn_github, "button_color", tc("accent_green"))
+        _safe_set_style_data(btn_github, "background_color", "#1a3a2a")
+        _safe_set_style_data(btn_github, "text_color", tc("white"))
+        _safe_set_style_data(btn_github, "hover_color", "#2a5a3a")
+        _safe_set_style_data(btn_github, "click_color", "#1a4a2a")
+        btn_github.setMinimumHeight(36)
+        btn_github.setMinimumWidth(130)
+        btn_github.clicked.connect(lambda: _on_github_check(parent_dialog))
+        btn_row.addWidget(btn_github)
+    except Exception:
+        _logger.warning("SiPushButtonRefactor(检查更新) 创建失败", exc_info=True)
+
     btn_row.addStretch()
     card.addWidget(btn_row_w)
+
+    # ── 自动检查复选框 ──────────────────────────────────────────
+    try:
+        from components.star_checkbox import StarCheckBox
+        cb_auto = StarCheckBox(
+            "启动时自动检查更新",
+            checked=True,
+            checkbox_size=18,
+        )
+        cb_auto.toggled.connect(lambda checked: _on_auto_check_toggled(checked))
+        card.addWidget(cb_auto)
+    except Exception:
+        _logger.warning("StarCheckBox(自动检查) 创建失败", exc_info=True)
 
     page._ignored_container_widget = None
     _refresh_ignored_list(page, parent_dialog, card)
@@ -364,6 +397,28 @@ def _on_select_update(parent_dialog):
     mgr = _get_updater_manager(parent_dialog)
     if mgr:
         mgr.show_manual_install()
+
+
+def _on_github_check(parent_dialog):
+    """点击"检查更新"按钮回调 — 启动 GitHub 更新检查。"""
+    mgr = _get_updater_manager(parent_dialog)
+    if mgr:
+        mgr.check_github()
+
+
+def _on_auto_check_toggled(checked: bool):
+    """自动检查更新复选框切换回调。"""
+    from workers.app_config.config_paths import get_config_path
+    import json
+    try:
+        cfg_path = get_config_path("config/config.json")
+        with open(cfg_path, "r", encoding="utf-8") as f:
+            cfg = json.load(f)
+        cfg["auto_check_github_update"] = checked
+        with open(cfg_path, "w", encoding="utf-8") as f:
+            json.dump(cfg, f, ensure_ascii=False, indent=2)
+    except Exception:
+        _logger.warning("保存自动检查更新设置失败", exc_info=True)
 
 
 def _refresh_ignored_list(page: QWidget, parent_dialog, card):

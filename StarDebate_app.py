@@ -423,9 +423,20 @@ class StarDebateApp(UIAssemblyMixin, GlueCodeMixin, QMainWindow):
         # ── ★ 启用 .stp 拖拽安装 ──────────────────────────────────
         self.setAcceptDrops(True)
 
-        # ── ★ 启动时自动检测更新补丁 ─────────────────────────────
+        # ── ★ 启动时自动检测更新 ────────────────────────────────
         if self._updater_mgr is not None:
             QTimer.singleShot(1000, self._updater_mgr.check_on_startup)
+            # 如果开启了 GitHub 自动检查，启动后也触发
+            try:
+                cfg_path = get_config_path("config/config.json")
+                import json
+                with open(cfg_path, "r", encoding="utf-8") as f:
+                    _startup_cfg = json.load(f)
+                if _startup_cfg.get("auto_check_github_update", True):
+                    # 稍微延迟以不影响主窗口加载
+                    QTimer.singleShot(3000, self._updater_mgr.check_github)
+            except Exception:
+                pass
 
         # ── ★ 从 config 恢复导航栏标签显示状态 ────────────────
         QTimer.singleShot(0, self._apply_nav_labels_from_config)

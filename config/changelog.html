@@ -39,7 +39,20 @@ li:before{content:"\25B8 ";color:ACCENT_COLOR;font-size:12pt}
 <div class="timeline">
 
 <div class="version-node">
-<div class="version-header"><span class="version-tag">v6.3.1</span> <span class="version-badge badge-new">最新</span></div>
+<div class="version-header"><span class="version-tag">v6.3.2</span> <span class="version-badge badge-new">最新</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> 基于 GitHub Releases 的在线更新检查器：启动自动检测 + 设置页手动触发，静默检测不打断用户</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-new">新增</span 增量补丁 (patch_*.zip) 自动下载 + 校验 + 同进程覆盖 + 软重启</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-new">新增</span> 大版本更新 (MINOR/MAJOR) 对话框提供「一键下载安装包」+「前往 GitHub 页面」双选项</li>
+<li style="animation-delay:.24s"><span class="version-badge badge-new">新增</span> 设置→关于页面「检查更新」按钮 + 「启动时自动检查更新」复选框</li>
+<li style="animation-delay:.32s"><span class="version-badge badge-new">新增</span> 底部状态栏下载进度条（渐变样式）+ 实时字节数显示</li>
+<li style="animation-delay:.40s"><span class="version-badge badge-new">新增</span> GitHub 更新信息对话框，使用 @components 通用组件（TitleBar/StarButton/StarCheckBox）</li>
+<li style="animation-delay:.48s"><span class="version-badge badge-new">新增</span> icon/common/github.svg 图标</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.3.1</span></div>
 <ul>
 <li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 扩展包管理页面返回后无法再次进入的崩溃（wrapped C/C++ object of type SiLabel has been deleted）：空状态提示 _empty_hint 在 refresh_list 清空循环中被 deleteLater 后 C++ 对象销毁，但 Python 引用仍存导致悬空指针崩溃</li>
 </ul>

@@ -50,3 +50,6 @@ HarmonyApp/
 # ── OS / Filesystem ──────────────────────────────
 Thumbs.db
 .DS_Store
+
+# ── Runtime Data ────────────────────────────────
+docs/log/

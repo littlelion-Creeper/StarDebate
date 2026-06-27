@@ -8,7 +8,7 @@ from components.theme_colors import tc, refresh
 from PyQt5.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel,
     QFrame, QSplitter, QTreeWidget,
-    QStackedWidget,
+    QStackedWidget, QProgressBar,
 )
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QFont
@@ -305,10 +305,42 @@ class UIAssemblyMixin:
         status_layout = QHBoxLayout(status_bar)
         status_layout.setContentsMargins(16, 0, 16, 0)
 
+        # 状态标签（可点击，用于更新提示）
         self.status_label = QLabel("就绪")
         self.status_label.setFont(QFont("Microsoft YaHei", 9))
+        self.status_label.setCursor(Qt.PointingHandCursor)
         status_layout.addWidget(self.status_label)
         status_layout.addStretch()
+
+        # 下载进度条（默认隐藏，更新下载时显示）
+        self._dl_progress_bar = QProgressBar()
+        self._dl_progress_bar.setObjectName("dlProgressBar")
+        self._dl_progress_bar.setFixedWidth(160)
+        self._dl_progress_bar.setFixedHeight(12)
+        self._dl_progress_bar.setTextVisible(False)
+        self._dl_progress_bar.setRange(0, 100)
+        self._dl_progress_bar.setValue(0)
+        self._dl_progress_bar.setVisible(False)
+        self._dl_progress_bar.setStyleSheet(
+            f"QProgressBar {{"
+            f"  background: {tc('overlay')};"
+            f"  border: 1px solid {tc('border')};"
+            f"  border-radius: 4px;"
+            f"}}"
+            f"QProgressBar::chunk {{"
+            f"  background: qlineargradient(x1:0, y1:0, x2:1, y2:0,"
+            f"    stop:0 {tc('accent_blue')}, stop:1 {tc('accent_green')});"
+            f"  border-radius: 3px;"
+            f"}}"
+        )
+        status_layout.addWidget(self._dl_progress_bar)
+
+        # 下载字节数标签（进度条旁）
+        self._dl_size_label = QLabel("")
+        self._dl_size_label.setFont(QFont("Microsoft YaHei", 9))
+        self._dl_size_label.setFixedWidth(120)
+        self._dl_size_label.setVisible(False)
+        status_layout.addWidget(self._dl_size_label)
 
         self._ai_loading_bar = AILoadingBar(self)
 
@@ -631,3 +663,30 @@ class UIAssemblyMixin:
                 self._nav_mgr.rebuild_plugin_buttons(self._plugin_manager),
                 self._top_nav_mgr.rebuild_plugin_buttons(self._plugin_manager)
             ))
+
+    # ═══════════════════════════════════════════════════════════════════
+    #  状态栏进度控制（供 UpdateManager._show_github_status 调用）
+    # ═══════════════════════════════════════════════════════════════════
+
+    def _show_status_progress(self, text: str, received: int, total: int):
+        """在状态栏显示下载进度条。"""
+        if not hasattr(self, '_dl_progress_bar') or self._dl_progress_bar is None:
+            return
+        pct = int(received / max(total, 1) * 100)
+        self._dl_progress_bar.setValue(pct)
+        self._dl_progress_bar.setVisible(True)
+        if hasattr(self, '_dl_size_label'):
+            from workers.updater.update_manager import _fmt_size
+            self._dl_size_label.setText(f"{_fmt_size(received)}/{_fmt_size(total)}")
+            self._dl_size_label.setVisible(True)
+        if hasattr(self, 'status_label') and self.status_label:
+            self.status_label.setText(text)
+
+    def _hide_status_progress(self):
+        """隐藏状态栏下载进度条。"""
+        if hasattr(self, '_dl_progress_bar') and self._dl_progress_bar:
+            self._dl_progress_bar.setValue(0)
+            self._dl_progress_bar.setVisible(False)
+        if hasattr(self, '_dl_size_label') and self._dl_size_label:
+            self._dl_size_label.setText("")
+            self._dl_size_label.setVisible(False)

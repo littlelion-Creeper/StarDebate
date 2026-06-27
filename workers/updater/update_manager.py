@@ -68,6 +68,16 @@ logger = logging.getLogger("StarDebate.updater.manager")
 _NEW_FILES_DIR = "new_files"
 
 
+def _fmt_size(size_bytes: int) -> str:
+    """格式化文件大小为人类可读字符串。"""
+    if size_bytes < 1024:
+        return f"{size_bytes} B"
+    elif size_bytes < 1024 * 1024:
+        return f"{size_bytes / 1024:.1f} KB"
+    else:
+        return f"{size_bytes / 1024 / 1024:.1f} MB"
+
+
 # ════════════════════════════════════════════════════════════════════════
 #  UpdateManager — 主进程侧管理器（同进程软重启版）
 # ════════════════════════════════════════════════════════════════════════
@@ -98,8 +108,12 @@ class UpdateManager(QObject):
         self._progress_panel: UpdateProgressDialog | None = None
         self._current_patch: dict | None = None
         self._updating = False
+        self._github_updating = False  # GitHub 下载进行中
         # 日志客户端引用（由 StarDebateApp 注入）
         self._log_client = None
+        # GitHub 更新检查器（延迟创建，运行时导入）
+        self._github_checker = None  # GitHubUpdateChecker | None
+        self._github_dialog = None   # GitHubUpdateDialog | None
 
     def inject_log_client(self, log_client):
         """注入 LogClient 实例用于监视钩子。"""
@@ -144,6 +158,256 @@ class UpdateManager(QObject):
             self._current_patch = result
             result["current_version"] = get_config_version()
             QTimer.singleShot(500, lambda: self._show_found_dialog(result))
+
+    # ═══════════════════════════════════════════════════════════════════
+    #  GitHub 更新检查
+    # ═══════════════════════════════════════════════════════════════════
+
+    def check_github(self) -> None:
+        """手动触发 GitHub 更新检查（设置页按钮/菜单调用）。"""
+        if self._github_updating:
+            return
+        self._init_github_checker()
+        self._github_checker.check_for_updates()
+        self._monitor("github.check", "手动触发")
+        if self._log_client is not None:
+            self._log_client.info("[UPDATER] GitHub 更新检查已触发（手动）")
+
+    def _init_github_checker(self) -> None:
+        """延迟创建 GitHubUpdateChecker 并连接信号。"""
+        if self._github_checker is not None:
+            return
+        from .github_checker import GitHubUpdateChecker  # lazy — 避免 EXE 下 PyQt5.QtNetwork 未打包
+        current_ver = get_config_version()
+        self._github_checker = GitHubUpdateChecker(current_ver, self)
+        self._github_checker.update_available.connect(self._on_github_update_available)
+        self._github_checker.up_to_date.connect(self._on_github_up_to_date)
+        self._github_checker.check_failed.connect(self._on_github_check_failed)
+        self._github_checker.download_progress.connect(self._on_github_download_progress)
+        self._github_checker.download_finished.connect(self._on_github_download_finished)
+        self._github_checker.download_failed.connect(self._on_github_download_failed)
+        logger.info("GitHubUpdateChecker 已初始化")
+
+    def _on_github_update_available(self, release_info: dict) -> None:
+        """GitHub 发现新版本 — 弹出对话框。"""
+        release_info["current_version"] = get_config_version()
+
+        # 检查是否被忽略
+        ignored_versions = get_ignored_patches()
+        ver = release_info.get("version", "")
+        if any(e.get("filename", "").startswith(f"github_v{ver}") for e in ignored_versions):
+            logger.info("GitHub 版本 v%s 已在忽略列表中，跳过", ver)
+            self._show_github_status(f"已忽略 v{ver}，如需更新请在设置中重新启用")
+            return
+
+        self._monitor("github.found", f"v{release_info.get('version','')}")
+
+        # 在主窗口状态栏显示提示
+        self._show_github_status(f"● 有新版本 v{ver} 可用，点击检查")
+        # 如果 status_label 支持点击事件，在此处连接
+
+        # 弹出更新对话框
+        def on_download(info):
+            self._start_github_download(info)
+
+        def on_navigate(info):
+            url = info.get("html_url", "")
+            if url:
+                from PyQt5.QtGui import QDesktopServices
+                from PyQt5.QtCore import QUrl
+                QDesktopServices.openUrl(QUrl(url))
+                self._monitor("github.navigate", url)
+
+        def on_ignore(version):
+            add_ignored_patch(f"github_v{version}", f"GitHub v{version} 忽略")
+            self._monitor("github.ignore", f"v{version}")
+            self._restore_github_status()
+
+        from PyQt5.QtCore import QTimer
+        QTimer.singleShot(300, lambda: self._show_github_dialog(
+            release_info, on_download, on_navigate, on_ignore,
+        ))
+
+    def _show_github_dialog(self, info, on_dl, on_nav, on_ig):
+        from .github_update_dialog import GitHubUpdateDialog  # lazy
+        self._github_dialog = GitHubUpdateDialog(
+            self._main_window, info,
+            on_download=on_dl, on_navigate=on_nav, on_ignore=on_ig,
+        )
+        self._github_dialog.exec_()
+        self._github_dialog = None
+
+    def _on_github_up_to_date(self) -> None:
+        """GitHub 已是最新版本。"""
+        self._monitor("github.uptodate", get_config_version())
+        if self._main_window and hasattr(self._main_window, '_update_status'):
+            self._main_window._update_status(f"已是最新版本 v{get_config_version()}")
+
+    def _on_github_check_failed(self, error_msg: str) -> None:
+        """GitHub 检查失败。"""
+        self._monitor("github.error", error_msg)
+        if self._main_window and hasattr(self._main_window, '_update_status'):
+            self._main_window._update_status(f"检查更新失败: {error_msg}")
+
+    # ── GitHub 下载流程 ────────────────────────────────────────────────
+
+    def _start_github_download(self, release_info: dict) -> None:
+        """开始下载 GitHub Release 附件。"""
+        update_type = release_info.get("update_type", "patch")
+        version = release_info.get("version", "unknown")
+
+        if update_type == "patch":
+            url = release_info.get("download_url", "")
+            if not url:
+                self._on_github_download_failed("缺少下载地址")
+                return
+            # 保存到根目录，复用现有补丁检测机制
+            save_name = f"update_v{get_config_version()}_to_v{version}.zip"
+            save_path = os.path.join(self._project_root, save_name)
+        else:
+            url = release_info.get("installer_url", "")
+            if not url:
+                self._on_github_download_failed("缺少安装包下载地址")
+                return
+            save_name = f"StarDebate_v{version}_Setup.exe"
+            save_path = os.path.join(self._project_root, save_name)
+
+        self._github_updating = True
+        self._monitor("github.download", f"开始下载 {save_name}")
+        if self._log_client is not None:
+            self._log_client.info(f"[UPDATER] 开始下载 {save_name}")
+
+        # 更新状态栏
+        self._show_github_status(f"正在下载 {save_name}...", is_progress=True)
+
+        self._github_checker.download_asset(url, save_path)
+
+    def _on_github_download_progress(self, received: int, total: int) -> None:
+        """下载进度更新。"""
+        pct = int(received / max(total, 1) * 100)
+        self._show_github_progress(pct, received, total)
+
+    def _on_github_download_finished(self, file_path: str) -> None:
+        """GitHub 下载完成。"""
+        self._github_updating = False
+        self._monitor("github.downloaded", os.path.basename(file_path))
+        if self._log_client is not None:
+            self._log_client.info(f"[UPDATER] 下载完成: {os.path.basename(file_path)}")
+
+        update_type = self._guess_update_type(file_path)
+
+        if update_type == "patch":
+            # 增量补丁 → 复用现有本地补丁检测流程
+            self._restore_github_status()
+            from components.popup_dialog import CustomDialog
+            CustomDialog.information(
+                self._main_window,
+                "下载完成",
+                f"更新补丁已下载至:\n{os.path.basename(file_path)}\n\n"
+                "点击「确定」后将自动关闭软件并应用更新。\n"
+                "请重新启动 StarDebate 以使用新版本。",
+            )
+            # 直接触发应用重启（类似本地补丁安装完成的流程）
+            self._trigger_restart_from_github(file_path)
+        else:
+            # 全量安装包 → 提示用户手动安装
+            self._restore_github_status()
+            from components.popup_dialog import CustomDialog
+            result = CustomDialog.question(
+                self._main_window,
+                "下载完成",
+                f"安装包已下载至:\n{os.path.basename(file_path)}\n\n"
+                "是否立即打开安装包？",
+                buttons=[("稍后安装", "later"), ("立即打开", "open")],
+            )
+            if result == "open":
+                from PyQt5.QtGui import QDesktopServices
+                from PyQt5.QtCore import QUrl
+                QDesktopServices.openUrl(QUrl.fromLocalFile(file_path))
+
+    def _on_github_download_failed(self, error_msg: str) -> None:
+        """GitHub 下载失败。"""
+        self._github_updating = False
+        self._monitor("github.dl_error", error_msg)
+        self._restore_github_status()
+        from components.popup_dialog import CustomDialog
+        CustomDialog.error(self._main_window, "下载失败", error_msg)
+
+    def _trigger_restart_from_github(self, patch_path: str) -> None:
+        """从下载的 GitHub 补丁触发应用更新和重启。"""
+        manifest = read_manifest(patch_path)
+        if not manifest:
+            from components.popup_dialog import CustomDialog
+            CustomDialog.error(self._main_window, "更新失败", "无法读取补丁清单")
+            return
+
+        changes = manifest.get("changes", [])
+        info = {
+            "patch_filename": os.path.basename(patch_path),
+            "patch_path": patch_path,
+            "manifest": manifest,
+            "to_version": manifest.get("to_version", ""),
+            "release_notes": manifest.get("release_notes", ""),
+            "file_stats": {
+                "add": sum(1 for c in changes if c["action"] == "add"),
+                "modify": sum(1 for c in changes if c["action"] == "modify"),
+                "delete": sum(1 for c in changes if c["action"] == "delete"),
+            },
+            "config_affected": any(
+                c["path"].startswith("config/")
+                for c in changes if c["action"] in ("add", "modify")
+            ),
+            "keep_backup": True,
+            "current_version": get_config_version(),
+        }
+        self._current_patch = info
+        self._on_user_confirmed(info)
+
+    @staticmethod
+    def _guess_update_type(file_path: str) -> str:
+        """根据文件扩展名推测更新类型。"""
+        lower = file_path.lower()
+        if lower.endswith(".zip"):
+            return "patch"
+        elif lower.endswith(".exe"):
+            return "major"
+        return "patch"
+
+    # ── 状态栏辅助 ──────────────────────────────────────────────────────
+
+    def _show_github_status(self, text: str, is_progress: bool = False):
+        """在状态栏显示 GitHub 更新相关状态。"""
+        mw = self._main_window
+        if mw is None:
+            return
+        if is_progress and hasattr(mw, '_show_status_progress'):
+            mw._show_status_progress(text, 0, 100)
+        elif hasattr(mw, '_update_status'):
+            mw._update_status(text)
+
+    def _show_github_progress(self, pct: int, received: int, total: int):
+        """在状态栏显示下载进度。"""
+        mw = self._main_window
+        if mw and hasattr(mw, '_show_status_progress'):
+            mw._show_status_progress(
+                f"正在下载更新... {pct}%",
+                received, total,
+            )
+        elif mw and hasattr(mw, '_update_status'):
+            mw._update_status(f"正在下载更新... {pct}%"
+                              f" ({_fmt_size(received)}/{_fmt_size(total)})")
+
+    def _restore_github_status(self):
+        """恢复状态栏普通状态。"""
+        mw = self._main_window
+        if mw and hasattr(mw, '_hide_status_progress'):
+            mw._hide_status_progress()
+        elif mw and hasattr(mw, '_update_status'):
+            mw._update_status("就绪")
+
+    # ═══════════════════════════════════════════════════════════════════
+    #  原 show_manual_install 方法
+    # ═══════════════════════════════════════════════════════════════════
 
     def show_manual_install(self) -> None:
         """弹出文件选择对话框让用户手动选择补丁。"""

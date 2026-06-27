@@ -56,3 +56,5 @@ from .update_dialogs import (
     UpdateSuccessToast,
     RecoveryDialog,
 )
+# GitHub 更新器通过 update_manager 内延迟导入，
+# 避免 EXE 下 PyQt5.QtNetwork 未打包导致的模块级崩溃。
