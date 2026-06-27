@@ -342,7 +342,10 @@ def auto_release_notes(from_ref: str, to_version: str) -> str:
                 lines.append(f"- {msg}")
 
     header = f"## v{to_version}"
-    return header + "\n" + "\n".join(lines)
+    result = header + "\n" + "\n".join(lines)
+    # 清理无效代理字符（Windows PowerShell 输出可能带入）
+    result = result.encode("utf-8", errors="replace").decode("utf-8")
+    return result
 
 
 def load_release_notes_from_file(filepath: str) -> str | None:
@@ -542,13 +545,23 @@ def main():
             print("  (使用自动生成)")
 
     # ── 7. 构建 manifest ──
+    # 清理所有字符串中的代理字符（Windows 终端输出可能含 \udcXX）
+    def _sanitize(obj):
+        if isinstance(obj, str):
+            return obj.encode("utf-8", errors="replace").decode("utf-8")
+        if isinstance(obj, dict):
+            return {k: _sanitize(v) for k, v in obj.items()}
+        if isinstance(obj, list):
+            return [_sanitize(i) for i in obj]
+        return obj
+
     manifest = {
         "from_version": from_version,
         "to_version": to_version,
         "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "min_app_version": from_version,
-        "changes": changes_list,
-        "release_notes": release_notes,
+        "changes": _sanitize(changes_list),
+        "release_notes": _sanitize(release_notes),
     }
 
     # ── 8. 生成 ZIP ──
