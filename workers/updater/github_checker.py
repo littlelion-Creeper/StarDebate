@@ -3,7 +3,7 @@
 使用 QNetworkAccessManager（PyQt5 内建）异步访问 GitHub API，
 支持增量补丁 (patch_*.zip) 和全量安装包 (*Setup.exe) 两种更新类型。
 
-API 地址: https://api.github.com/repos/littlelion-Creeper/StarDebate/releases/latest
+API 地址: https://api.github.com/repos/Chapin-Y/StarDebate/releases/latest
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ from PyQt5.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkRepl
 
 logger = logging.getLogger("StarDebate.updater.github")
 
-_GITHUB_API = "https://api.github.com/repos/littlelion-Creeper/StarDebate/releases/latest"
+_GITHUB_API = "https://api.github.com/repos/Chapin-Y/StarDebate/releases/latest"
 _USER_AGENT = "StarDebate-Updater/1.0"
 
 
@@ -57,6 +57,14 @@ class GitHubUpdateChecker(QObject):
         req = QNetworkRequest(QUrl(_GITHUB_API))
         req.setRawHeader(b"User-Agent", _USER_AGENT.encode())
         req.setRawHeader(b"Accept", b"application/vnd.github.v3+json")
+        # 显式允许跨主机重定向（兼容 Qt 5.15+）
+        try:
+            req.setAttribute(
+                QNetworkRequest.RedirectPolicyAttribute,
+                QNetworkRequest.NoLessSafeRedirectPolicy,
+            )
+        except AttributeError:
+            pass  # Qt < 5.15 不支持，忽略即可
         self._nam.get(req)
         logger.info("GitHub 更新检查已发起")
 
@@ -100,7 +108,7 @@ class GitHubUpdateChecker(QObject):
             if status == 403:
                 err = "GitHub API 访问频率受限 (60次/小时)，请稍后再试。"
             elif status == 404:
-                err = "未找到 GitHub Release 信息，请检查仓库配置。"
+                err = "GitHub 仓库暂无已发布的版本，请在仓库 Releases 页面创建首个版本。"
             elif status == 0 and "Connection" in err:
                 err = "无法连接到 GitHub，请检查网络连接。"
             self.check_failed.emit(f"网络请求失败: {err}")
@@ -119,16 +127,27 @@ class GitHubUpdateChecker(QObject):
         finally:
             reply.deleteLater()
 
+        # ── 检测 GitHub API 通用错误响应（如重定向/仓库不存在）────
+        msg = release.get("message", "")
+        if msg:
+            self.check_failed.emit(f"GitHub API 返回: {msg}")
+            logger.warning("GitHub API 返回错误消息: %s", msg)
+            return
+
         # ── 忽略预发布版本 ────────────────────────────────────────
         if release.get("prerelease", False):
             logger.info("最新 Release 为预发布版本，跳过")
             self.up_to_date.emit()
             return
 
-        tag = release.get("tag_name", "").lstrip("v")
+        tag = release.get("tag_name", "")
         if not tag:
-            self.check_failed.emit("GitHub Release 缺少版本号")
+            self.check_failed.emit(
+                "GitHub Release 缺少版本号（tag_name 为空），"
+                "请确认仓库地址是否正确且已发布版本。"
+            )
             return
+        tag = tag.lstrip("v")
 
         # ── 版本比对 ──────────────────────────────────────────────
         if self._compare_versions(tag, self._current_version) <= 0:

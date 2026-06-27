@@ -169,53 +169,104 @@ def _build_app_info_card(page, layout, current_config):
     page._lbl_version = lbl_ver
 
 
-def _add_info_row(parent, key: str, val: str) -> QWidget:
-    """向卡片添加一行「键=值」信息行，含 fallback。"""
-    row = _make_transparent_row(parent)
-    rl = QHBoxLayout(row)
-    rl.setContentsMargins(0, 0, 0, 0)
-    rl.setSpacing(12)
-    try:
-        lk = SiLabel(parent)
-        lk.setText(key)
-        lk.setTextColor(lk.getColor(SiColor.TEXT_B))
-        lk.setStyleSheet("background: transparent;")
-        lk.setFixedWidth(80)
-        rl.addWidget(lk)
-    except Exception:
-        label_kw = QLabel(key)
-        label_kw.setStyleSheet(f"color: {tc('text')}; font-weight: 600;")
-        label_kw.setFixedWidth(80)
-        rl.addWidget(label_kw)
-    try:
-        lv = SiLabel(parent)
-        lv.setText(val)
-        lv.setTextColor(lv.getColor(SiColor.TEXT_D))
-        lv.setWordWrap(True)
-        lv.setStyleSheet("background: transparent;")
-        rl.addWidget(lv, stretch=1)
-    except Exception:
-        label_vw = QLabel(val)
-        label_vw.setWordWrap(True)
-        rl.addWidget(label_vw, stretch=1)
-    parent.addWidget(row)
-    return row
-
-
 def _build_about_card(page, layout):
-    """关于 StarDebate 卡片。"""
+    """关于 StarDebate 卡片 — 双列表格布局。"""
     card = _safe_create_card(page)
     if card is None:
         return
     _add_silabel(card, "关于 StarDebate", SiColor.TEXT_B)
+
     info_items = [
         ("平台定位", "辩论模拟训练平台"),
         ("技术栈", "PyQt5 + DeepSeek API"),
         ("功能模块", "AI辩论分析 / 模拟质询 / 立论驳论训练 / 插件系统"),
     ]
-    for key, val in info_items:
-        _add_info_row(card, key, val)
+    _build_two_column_table(card, info_items)
     layout.addWidget(card)
+
+
+def _build_oss_card(page, layout):
+    """开源组件声明卡片 — 双列表格布局。"""
+    card = _safe_create_card(page)
+    if card is None:
+        return
+    _add_silabel(card, "开源组件声明", SiColor.TEXT_B)
+
+    oss_items = [
+        ("PyQt5", "GUI 框架（基于 GPL-3.0 许可）"),
+        ("SiliconUI","UI 组件库（GPL-3.0，内嵌修改版）\n作者：ChinaIceF, rainzee wang"),
+    ]
+    _build_two_column_table(card, oss_items)
+    layout.addWidget(card)
+
+
+def _build_two_column_table(parent, items):
+    """构建双列表格：key_frame(100px 右对齐) + val_frame(stretch=1 左对齐)。
+
+    items: list of (key, val) tuples
+    """
+    table_row = _make_transparent_row(parent)
+    table_hl = QHBoxLayout(table_row)
+    table_hl.setContentsMargins(0, 0, 0, 0)
+    table_hl.setSpacing(12)
+
+    key_frame = QFrame(parent)
+    key_frame.setAttribute(Qt.WA_StyledBackground, True)
+    key_frame.setStyleSheet("background: transparent;")
+    key_frame.setFixedWidth(100)
+    key_vl = QVBoxLayout(key_frame)
+    key_vl.setContentsMargins(0, 0, 0, 0)
+    key_vl.setSpacing(0)
+
+    val_frame = QFrame(parent)
+    val_frame.setAttribute(Qt.WA_StyledBackground, True)
+    val_frame.setStyleSheet("background: transparent;")
+    val_vl = QVBoxLayout(val_frame)
+    val_vl.setContentsMargins(0, 0, 0, 0)
+    val_vl.setSpacing(0)
+
+    for key, val in items:
+        try:
+            lk = SiLabel(key_frame)
+            lk.setText(key)
+            lk.setTextColor(lk.getColor(SiColor.TEXT_B))
+            lk.setStyleSheet("background: transparent;")
+            lk.setMinimumHeight(36)
+            lk.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+            key_vl.addWidget(lk)
+        except Exception:
+            label_kw = QLabel(key)
+            label_kw.setStyleSheet(
+                f"color: {tc('text')}; font-weight: 600; background: transparent;"
+            )
+            label_kw.setMinimumHeight(36)
+            label_kw.setAlignment(Qt.AlignRight | Qt.AlignVCenter)
+            key_vl.addWidget(label_kw)
+
+        try:
+            lv = SiLabel(val_frame)
+            lv.setText(val)
+            lv.setTextColor(lv.getColor(SiColor.TEXT_D))
+            lv.setWordWrap(True)
+            lv.setStyleSheet("background: transparent;")
+            lv.setMinimumHeight(36)
+            val_vl.addWidget(lv)
+        except Exception:
+            label_vw = QLabel(val)
+            label_vw.setWordWrap(True)
+            label_vw.setStyleSheet(
+                f"color: {tc('muted')}; background: transparent;"
+            )
+            label_vw.setMinimumHeight(36)
+            val_vl.addWidget(label_vw)
+
+    key_vl.addStretch()
+    val_vl.addStretch()
+
+    table_hl.addWidget(key_frame)
+    table_hl.addWidget(val_frame, stretch=1)
+    parent.addWidget(table_row)
+    return table_row
 
 
 def _build_update_card(page, layout, parent_dialog):
@@ -313,6 +364,7 @@ def build_page(parent_dialog, current_config: dict) -> QWidget:
 
     _build_app_info_card(page, layout, current_config)
     _build_about_card(page, layout)
+    _build_oss_card(page, layout)
     _build_update_card(page, layout, parent_dialog)
     _build_backup_management_card(page, parent_dialog, layout)
     _build_developer_mode_card(page, parent_dialog, layout, current_config)

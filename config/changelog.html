@@ -39,7 +39,17 @@ li:before{content:"\25B8 ";color:ACCENT_COLOR;font-size:12pt}
 <div class="timeline">
 
 <div class="version-node">
-<div class="version-header"><span class="version-tag">v6.3.2</span> <span class="version-badge badge-new">最新</span></div>
+<div class="version-header"><span class="version-tag">v6.3.3</span> <span class="version-badge badge-new">最新</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> GitHub Release 检查器仓库地址更新（littlelion-Creeper → Chapin-Y）：仓库已转移导致 API 返回 301 重定向，PyQt5 不跟随跨主机重定向时收到 {"message":"Moved Permanently"} 无 tag_name，触发「缺少版本号」错误</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-opt">优化</span> 检查更新请求添加显式跨主机重定向跟随策略（NoLessSafeRedirectPolicy，Qt 5.15+）</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-opt">优化</span> GitHub API 错误响应前置检测：从响应体中提取 message 字段，拦截重定向/未授权等通用错误</li>
+<li style="animation-delay:.24s"><span class="version-badge badge-opt">优化</span> 关于页面 UI 重构：信息展示改为双列表格布局（100px 右对齐键 + stretch=1 左对齐值），新增开源组件声明卡片（PyQt5 + SiliconUI）</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.3.2</span></div>
 <ul>
 <li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> 基于 GitHub Releases 的在线更新检查器：启动自动检测 + 设置页手动触发，静默检测不打断用户</li>
 <li style="animation-delay:.08s"><span class="version-badge badge-new">新增</span 增量补丁 (patch_*.zip) 自动下载 + 校验 + 同进程覆盖 + 软重启</li>
