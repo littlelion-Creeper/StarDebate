@@ -1,1 +1,0 @@
-- **user_preferences:性格**: 简单冷静，不绕弯子
