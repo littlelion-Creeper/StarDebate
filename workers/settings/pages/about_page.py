@@ -269,7 +269,7 @@ def _build_two_column_table(parent, items):
     return table_row
 
 
-def _build_update_card(page, layout, parent_dialog):
+def _build_update_card(page, layout, parent_dialog, current_config):
     """更新管理卡片。"""
     card = _safe_create_card(page)
     if card is None:
@@ -317,9 +317,10 @@ def _build_update_card(page, layout, parent_dialog):
     # ── 自动检查复选框 ──────────────────────────────────────────
     try:
         from components.star_checkbox import StarCheckBox
+        checked_val = current_config.get("auto_check_github_update", True)
         cb_auto = StarCheckBox(
             "启动时自动检查更新",
-            checked=True,
+            checked=checked_val,
             checkbox_size=18,
         )
         cb_auto.toggled.connect(lambda checked: _on_auto_check_toggled(checked))
@@ -365,7 +366,7 @@ def build_page(parent_dialog, current_config: dict) -> QWidget:
     _build_app_info_card(page, layout, current_config)
     _build_about_card(page, layout)
     _build_oss_card(page, layout)
-    _build_update_card(page, layout, parent_dialog)
+    _build_update_card(page, layout, parent_dialog, current_config)
     _build_backup_management_card(page, parent_dialog, layout)
     _build_developer_mode_card(page, parent_dialog, layout, current_config)
 

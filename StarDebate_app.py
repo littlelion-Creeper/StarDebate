@@ -14,6 +14,7 @@ StarDebateApp 通过多重继承组合三个职责：
 import sys
 import os
 import json
+import threading
 import time
 import multiprocessing
 
@@ -440,6 +441,111 @@ class StarDebateApp(UIAssemblyMixin, GlueCodeMixin, QMainWindow):
 
         # ── ★ 从 config 恢复导航栏标签显示状态 ────────────────
         QTimer.singleShot(0, self._apply_nav_labels_from_config)
+
+        # ── ★ 初始化 Web DeepSeek 登录按钮 ────────────────────
+        QTimer.singleShot(500, self._init_web_login)
+
+    # ═══════════════════════════════════════════════════════════════
+    #  Web DeepSeek 登录
+    # ═══════════════════════════════════════════════════════════════
+
+    def _init_web_login(self):
+        """初始化标题栏登录按钮（连接信号 + 初始状态）"""
+        btn = getattr(self, "_web_login_btn", None)
+        if btn is None:
+            return
+        btn.clicked.connect(self._on_web_login_clicked)
+        self._refresh_web_login_btn()
+
+    def _refresh_web_login_btn(self):
+        """根据 provider_type 显示/隐藏登录按钮"""
+        btn = getattr(self, "_web_login_btn", None)
+        if btn is None:
+            return
+        try:
+            cfg = self._load_api_config()
+            ptype = cfg.get("provider_type", "auto")
+            if ptype in ("auto", "web"):
+                from workers.web_ai.web_ai_manager import get_web_ai_manager
+                wm = get_web_ai_manager()
+                is_auth = wm.is_authenticated("deepseek")
+                btn.setVisible(True)
+                if is_auth:
+                    btn.setText("已登录 ✓")
+                    btn.setEnabled(
+                        True
+                    )  # 可点击登出（由点击逻辑处理）
+                else:
+                    btn.setText("登录网页 DeepSeek")
+                    btn.setEnabled(True)
+            else:
+                btn.setVisible(False)
+        except Exception:
+            btn.setVisible(False)
+
+    def _on_web_login_clicked(self):
+        """标题栏登录按钮点击处理"""
+        btn = getattr(self, "_web_login_btn", None)
+        if btn is None:
+            return
+
+        from workers.web_ai.web_ai_manager import get_web_ai_manager
+        wm = get_web_ai_manager()
+
+        # 如果已登录 → 登出
+        if wm.is_authenticated("deepseek"):
+            from components.popup_dialog import CustomDialog
+            result = CustomDialog.question(
+                self, "确认登出",
+                "确定要清除 DeepSeek 登录状态吗？\n下次使用将需要重新登录。"
+            )
+            if result:
+                wm.logout("deepseek")
+                self._update_status("已登出")
+                self._refresh_web_login_btn()
+            return
+
+        # 未登录 → 开始自动登录
+        btn.setEnabled(False)
+        btn.setText("登录中...")
+        self._update_status("正在登录 DeepSeek 网页版...")
+
+        from PyQt5.QtCore import QThread
+
+        def _run():
+            try:
+                success, error = wm.auto_login("deepseek")
+                QTimer.singleShot(0, lambda: self._on_login_done(success, error))
+            except Exception as e:
+                QTimer.singleShot(
+                    0, lambda: self._on_login_done(False, str(e))
+                )
+
+        t = threading.Thread(target=_run, daemon=True)
+        t.start()
+
+    def _on_login_done(self, success: bool, error: str):
+        """登录完成回调（在主线程执行）"""
+        btn = getattr(self, "_web_login_btn", None)
+        if btn is None:
+            return
+
+        if success:
+            self._update_status("DeepSeek 网页版已登录")
+        else:
+            self._update_status("登录失败")
+            if error and "未完成" not in error and "取消" not in error:
+                from components.popup_dialog import CustomDialog
+                CustomDialog.warning(self, "登录失败", error)
+
+        self._refresh_web_login_btn()
+        # 如果设置页打开了，同样刷新
+        if hasattr(self, "_web_card_container"):
+            try:
+                from workers.settings.pages.api_config import _refresh_web_status
+                _refresh_web_status(self)
+            except Exception:
+                pass
 
     # ═══════════════════════════════════════════════════════════════
     #  开发者模式配置

@@ -4,10 +4,11 @@
 以及模块 ID → SVG 图标的映射。
 
 用法:
-    from components.icon_loader import load_common_icon, get_module_svg_icon
+    from components.icon_loader import load_common_icon, load_common_svg_bytes, get_module_svg_icon
 
     icon = load_common_icon("STDB.svg")
     module_icon = get_module_svg_icon("speech_pro")
+    svg_bytes = load_common_svg_bytes("key.svg")  # 供 setSvgIcon() 使用
 """
 
 import os
@@ -25,6 +26,15 @@ def load_common_icon(svg_name: str) -> QIcon:
     if not os.path.isfile(icon_path):
         return None
     return NavBarManager._render_svg_themed(icon_path, size=16)
+
+
+def load_common_svg_bytes(svg_name: str) -> bytes:
+    """加载 icon/common/ 下的 SVG 原始字节数据，供 .setSvgIcon() 使用。"""
+    icon_path = os.path.join(_COMMON_ICON_DIR, svg_name)
+    if not os.path.isfile(icon_path):
+        return None
+    with open(icon_path, "rb") as f:
+        return f.read()
 
 
 # ── 模块 ID → SVG 文件名映射 ──

@@ -81,7 +81,7 @@ class TrainingQuestionWorker(QThread):
                 f'"correct":"{correct_choice}",'
                 f'"difficulty":"{self._difficulty}",'
                 '"topic_category":"逻辑推理|论证方法|谬误辨析|辩位职责|辩论理论",'
-                f'"explanation":{"A":"...","B":"...","C":"...","D":"...（正确）"如果正确答案是{correct_choice}，请在对应选项的explanation末尾标注"（正确）"},'
+                f'"explanation":{{"A":"...","B":"...","C":"...","D":"...（正确）"如果正确答案是{correct_choice}，请在对应选项的explanation末尾标注"（正确）"}},'
                 '"improvement_tips":{"A":"...","B":"...","C":"...","D":"..."}\n'
                 f"重要：正确答案必须放在 {correct_choice} 选项中。请先构思好哪个选项是正确答案，然后将正确内容放在 {correct_choice} 位置。\n"
                 "question使用正常从句，不要用倒装或古汉语结构。"
@@ -122,7 +122,7 @@ class TrainingQuestionWorker(QThread):
             '"options":["A. 策略1...","B. 策略2...","C. 策略3...","D. 策略4..."],'
             f'"correct":"{correct_choice}",'
             '"topic_category":"场景策略|攻防决策|危机应对",'
-            f'"strategy_analysis":{"A":"...","B":"...","C":"...","D":"...（最佳策略）"如果正确答案是{correct_choice}，请在对应选项的分析末尾标注"（最佳策略）"},'
+            f'"strategy_analysis":{{"A":"...","B":"...","C":"...","D":"...（最佳策略）"如果正确答案是{correct_choice}，请在对应选项的分析末尾标注"（最佳策略）"}},'
             '"improvement_tips":{"A":"...","B":"...","C":"...","D":"..."}\n'
             f"重要：最佳策略必须放在 {correct_choice} 选项中。请先构思好4个策略，然后将最佳策略放在 {correct_choice} 位置，其余3个放在其他位置。\n"
             "scenario中的所有文本使用正常现代汉语，拒绝文言文或倒装结构。"

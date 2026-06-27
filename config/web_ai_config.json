@@ -1,0 +1,6 @@
+{
+  "provider_id": "deepseek",
+  "webai_timeout": 60,
+  "webai_max_retries": 2,
+  "state_dir": "config/web_ai_sessions/"
+}

@@ -58,6 +58,31 @@ class UIAssemblyMixin:
         self.btn_view = self._top_nav_mgr.get_button("view_menu")
         self.btn_help = self._top_nav_mgr.get_button("help_btn")
 
+        # ── Web DeepSeek 登录按钮（标题栏右侧） ──
+        from PyQt5.QtWidgets import QPushButton
+        self._web_login_btn = QPushButton("登录网页 DeepSeek")
+        self._web_login_btn.setObjectName("webLoginBtn")
+        self._web_login_btn.setFixedHeight(28)
+        self._web_login_btn.setCursor(Qt.PointingHandCursor)
+        self._web_login_btn.setStyleSheet(
+            f"QPushButton {{"
+            f"  background: transparent;"
+            f"  color: {tc('accent_blue')};"
+            f"  border: 1px solid {tc('accent_blue')};"
+            f"  border-radius: 4px;"
+            f"  padding: 2px 10px;"
+            f"  font-size: 11px;"
+            f"}}"
+            f"QPushButton:hover {{"
+            f"  background: {tc('selected_bg')};"
+            f"}}"
+            f"QPushButton:disabled {{"
+            f"  color: {tc('muted')}; border-color: {tc('border')};"
+            f"}}"
+        )
+        self._web_login_btn.setVisible(False)  # 初始隐藏，根据 provider_type 控制
+        self._title_bar.get_right_section().insertWidget(0, self._web_login_btn)
+
         # ── 中间内容区域：QSplitter ──────────────────────────────────
         splitter = QSplitter(Qt.Horizontal)
         splitter.setHandleWidth(2)

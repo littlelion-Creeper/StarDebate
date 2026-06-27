@@ -304,7 +304,10 @@ class ABCButton(QPushButton):
         pixmap.fill(Qt.transparent)
         painter = QPainter(pixmap)
         painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform)
-        svg_renderer = QSvgRenderer(svg_data)
+        # 用 QByteArray 拷贝数据，避免 Python 3.12+ 缓冲协议 GC 检测
+        # "SystemError: deallocated BytesIO object has exported buffers"
+        from PyQt5.QtCore import QByteArray
+        svg_renderer = QSvgRenderer(QByteArray(svg_data))
         svg_renderer.render(painter)
         painter.end()
         self.setIcon(QIcon(pixmap))

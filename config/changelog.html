@@ -39,7 +39,30 @@ li:before{content:"\25B8 ";color:ACCENT_COLOR;font-size:12pt}
 <div class="timeline">
 
 <div class="version-node">
-<div class="version-header"><span class="version-tag">v6.3.3</span> <span class="version-badge badge-new">最新</span></div>
+<div class="version-header"><span class="version-tag">v6.4.0</span> <span class="version-badge badge-new">最新</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> Web AI 网页版支持：通过 Playwright headless 模拟浏览器访问 DeepSeek Chat，无需 API Key 即可使用 AI 功能</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-new">新增</span> DeepSeek Chat Provider：自动/手动登录、Session 持久化（30 天有效期）、重试与超时机制</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-new">新增</span> Chromium 引擎检测与一键安装（~130MB），设置页实时状态显示</li>
+<li style="animation-delay:.24s"><span class="version-badge badge-new">新增</span> API 配置页 v3.0：AI 来源三选一（自动检测/API 模式/网页版），Web 登录卡片 + Chromium 安装卡片 + 超时/重试配置（SiIntSpinBox）</li>
+<li style="animation-delay:.32s"><span class="version-badge badge-new">新增</span> 标题栏 DeepSeek 登录按钮，实时显示登录状态，可一键登录/登出</li>
+<li style="animation-delay:.40s"><span class="version-badge badge-new">新增</span> 统一 AI 调用路由（api_helper.py）：monitored_api_post 根据 provider_type 自动分流到 API 或 Web AI</li>
+<li style="animation-delay:.48s"><span class="version-badge badge-new">新增</span> 设置页 on_page_activated 回调机制，页面切换时轻量刷新状态</li>
+<li style="animation-delay:.56s"><span class="version-badge badge-opt">优化</span> 默认 AI 来源改为 api 模式，避免无 API Key 时自动回退 Web 模式要求 Chromium 安装；设置页可随时切换</li>
+<li style="animation-delay:.64s"><span class="version-badge badge-opt">优化</span> 辩题练习 UI 调整：移除「功能限制」阶段步骤（6 步→5 步），移除导航禁用/左侧面板隐藏逻辑，返回按钮加宽至 180px</li>
+<li style="animation-delay:.72s"><span class="version-badge badge-fix">修复</span> SiUI 按钮 SVG 渲染崩溃（Python 3.12+ SystemError: QSvgRenderer 的 bytes buffer GC 提前释放，改用 QByteArray 拷贝数据）</li>
+<li style="animation-delay:.80s"><span class="version-badge badge-new">新增</span> icon_loader.py 新增 load_common_svg_bytes() 供 SiUI setSvgIcon() 使用</li>
+<li style="animation-delay:.88s"><span class="version-badge badge-new">新增</span> 5 个 SVG 图标文件：check.svg / download.svg / key.svg / trash.svg / warning.svg</li>
+<li style="animation-delay:.96s"><span class="version-badge badge-重构">重构</span> 更新器全面重构为链式补丁架构：支持跨版本跳级更新，自动构建从当前版本到最新的补丁链</li>
+<li style="animation-delay:1.04s"><span class="version-badge badge-new">新增</span> github_checker 链式补丁检查：GET /releases?per_page=30 拉取全部 Release，_build_update_chain 自动串联 patch_*.zip</li>
+<li style="animation-delay:1.12s"><span class="version-badge badge-new">新增</span> 链式下载支持：逐个下载补丁链中所有 patch_*.zip，chain_download_progress / chain_download_finished 信号</li>
+<li style="animation-delay:1.20s"><span class="version-badge badge-new">新增</span> 链式更新管理器 4 步流程：备份配置 → 逐个解压 → 合并文件覆盖 → 更新版本号重启</li>
+<li style="animation-delay:1.28s"><span class="version-badge badge-opt">优化</span> 更新对话框移除大版本安装包路径：移除「前往 GitHub 页面」/「一键下载安装包」按钮，全部统一为「下载并更新」</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.3.3</span></div>
 <ul>
 <li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> GitHub Release 检查器仓库地址更新（littlelion-Creeper → Chapin-Y）：仓库已转移导致 API 返回 301 重定向，PyQt5 不跟随跨主机重定向时收到 {"message":"Moved Permanently"} 无 tag_name，触发「缺少版本号」错误</li>
 <li style="animation-delay:.08s"><span class="version-badge badge-opt">优化</span> 检查更新请求添加显式跨主机重定向跟随策略（NoLessSafeRedirectPolicy，Qt 5.15+）</li>

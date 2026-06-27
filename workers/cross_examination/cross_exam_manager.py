@@ -199,9 +199,12 @@ class CrossExaminationManager:
 
         api_config = mw._load_api_config()
         if not api_config.get("api_key"):
-            CustomDialog.warning(mw, "缺少 API Key",
-                                "请在 api_config.json 中填写您的 DeepSeek API Key 再使用此功能。")
-            return
+            ptype = api_config.get("provider_type", "auto")
+            if ptype not in ("auto", "web"):
+                CustomDialog.warning(mw, "缺少 API Key",
+                                    "请在 api_config.json 中填写您的 DeepSeek API Key 再使用此功能。")
+                return
+            # auto/web 无 key 时静默跳过，由 _resolve_provider_type 回退到 Web
 
         debate_title = ""
         if mw.current_debate_data:

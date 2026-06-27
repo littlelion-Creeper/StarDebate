@@ -69,7 +69,7 @@ class ExerciseManager:
         btn_back = QPushButton("← 返回训练首页")
         btn_back.setObjectName("smallBtn")
         btn_back.setCursor(Qt.PointingHandCursor)
-        btn_back.setFixedSize(120, 28)
+        btn_back.setFixedSize(180, 28)
         btn_back.clicked.connect(lambda: self._tm._train_stack.setCurrentIndex(0))
         layout.addWidget(btn_back)
 
@@ -97,9 +97,7 @@ class ExerciseManager:
             ("④", "第二阶段：驳论（15分钟）",
              "你需要对AI生成的一辩稿进行驳论，可以提前提交<br>"
              "<span style='color:#a6adc8;'>要求：逐点反驳核心论点，指出逻辑漏洞</span>"),
-            ("⑤", "功能限制",
-             "答题期间，左侧<b>项目浏览器/结构树</b>、右侧<b>AI写稿/扩写/框析/质询/接质</b>等功能将暂时<b>禁用</b>"),
-            ("⑥", "AI综合评分",
+            ("⑤", "AI综合评分",
              "完成立论与驳论后，AI将从论点清晰度、逻辑严密性、论据充分度、表达文采等维度<b>综合评定分数</b>"),
         ]
 
@@ -415,9 +413,12 @@ class ExerciseManager:
         mw = self._mw
         api_config = mw._load_api_config()
         if not api_config.get("api_key"):
-            CustomDialog.warning(mw, "缺少 API Key",
-                                "请在 api_config.json 中填写您的 DeepSeek API Key 后再使用此功能。")
-            return
+            ptype = api_config.get("provider_type", "auto")
+            if ptype not in ("auto", "web"):
+                CustomDialog.warning(mw, "缺少 API Key",
+                                    "请在 api_config.json 中填写您的 DeepSeek API Key 后再使用此功能。")
+                return
+            # auto/web 无 key 时静默跳过，由 _resolve_provider_type 回退到 Web
 
         mw._ai_loading_bar.show_loading("AI生成辩题中...")
         worker = DebateExerciseTopicWorker(api_config)
@@ -440,8 +441,6 @@ class ExerciseManager:
         self._ex_rebuttal_speech = ""
         self._ex_eval_data = {}
 
-        mw._set_nav_disabled_state(True)
-        mw._set_left_panel_disabled(True)
         mw._ex_ai_speech_panel.setVisible(False)
 
         topic = topic_data.get("topic", "")
@@ -620,11 +619,6 @@ class ExerciseManager:
 
         mw._ex_ai_speech_editor.setPlainText(speech_text)
         mw._ex_ai_speech_panel.setVisible(True)
-        hsplitter = mw.findChild(QSplitter)
-        if hsplitter:
-            left_vsplit = hsplitter.widget(0)
-            if left_vsplit:
-                left_vsplit.setVisible(False)
 
         opponent_stance = "反方" if self._ex_topic_data.get("assigned_stance", "") == "正方" else "正方"
         mw._lbl_ex_ai_title.setText(f"📄 {opponent_stance}一辩稿")
@@ -680,8 +674,6 @@ class ExerciseManager:
         self._ex_eval_worker = worker
 
         mw._ex_ai_speech_panel.setVisible(False)
-        mw._set_nav_disabled_state(False)
-        mw._set_left_panel_disabled(False)
 
         self._tm._train_stack.setCurrentIndex(self.result_idx)
         self._on_exercise_save_session()
@@ -852,8 +844,6 @@ class ExerciseManager:
         self._ex_position_submitted = False
         self._ex_opponent_pending_speech = ""
         mw._ex_ai_speech_panel.setVisible(False)
-        mw._set_nav_disabled_state(False)
-        mw._set_left_panel_disabled(False)
         self._tm._train_stack.setCurrentIndex(0)
         mw._update_status("已放弃本轮立论与驳论训练")
 
@@ -883,8 +873,6 @@ class ExerciseManager:
         self._ex_position_submitted = False
         self._ex_opponent_pending_speech = ""
         mw._ex_ai_speech_panel.setVisible(False)
-        mw._set_nav_disabled_state(False)
-        mw._set_left_panel_disabled(False)
         self._stop_exercise_timer()
         self._tm._train_stack.setCurrentIndex(0)
 

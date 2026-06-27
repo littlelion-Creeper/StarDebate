@@ -85,10 +85,9 @@ def _fmt_size(size_bytes: int) -> str:
 class UpdateManager(QObject):
     """主进程侧更新管理器（软重启版）。
 
-    用法:
-        mgr = UpdateManager(main_window)
-        mgr.check_on_startup()          # 启动时自动检测
-        mgr.show_manual_install()       # 手动选择补丁
+    支持两种更新路径：
+    1. 本地补丁检测：启动时扫描根目录 update_v*.zip
+    2. GitHub 链式更新：串联下载多个增量补丁 → 顺序安装 → 重启
 
     Signals:
         update_started:    更新流程已开始
@@ -180,59 +179,60 @@ class UpdateManager(QObject):
         from .github_checker import GitHubUpdateChecker  # lazy — 避免 EXE 下 PyQt5.QtNetwork 未打包
         current_ver = get_config_version()
         self._github_checker = GitHubUpdateChecker(current_ver, self)
-        self._github_checker.update_available.connect(self._on_github_update_available)
+        self._github_checker.update_chain_available.connect(self._on_github_chain_available)
         self._github_checker.up_to_date.connect(self._on_github_up_to_date)
         self._github_checker.check_failed.connect(self._on_github_check_failed)
         self._github_checker.download_progress.connect(self._on_github_download_progress)
+        self._github_checker.chain_download_progress.connect(self._on_github_chain_download_progress)
         self._github_checker.download_finished.connect(self._on_github_download_finished)
+        self._github_checker.chain_download_finished.connect(self._on_github_chain_download_finished)
         self._github_checker.download_failed.connect(self._on_github_download_failed)
         logger.info("GitHubUpdateChecker 已初始化")
 
-    def _on_github_update_available(self, release_info: dict) -> None:
-        """GitHub 发现新版本 — 弹出对话框。"""
-        release_info["current_version"] = get_config_version()
-
-        # 检查是否被忽略
-        ignored_versions = get_ignored_patches()
-        ver = release_info.get("version", "")
-        if any(e.get("filename", "").startswith(f"github_v{ver}") for e in ignored_versions):
-            logger.info("GitHub 版本 v%s 已在忽略列表中，跳过", ver)
-            self._show_github_status(f"已忽略 v{ver}，如需更新请在设置中重新启用")
+    def _on_github_chain_available(self, chain: list[dict]) -> None:
+        """GitHub 发现补丁链 — 弹出对话框。"""
+        if not chain:
             return
 
-        self._monitor("github.found", f"v{release_info.get('version','')}")
+        # 注入当前版本到链首（供对话框显示）
+        current_ver = get_config_version()
+        chain[0]["current_version"] = current_ver
+
+        latest_ver = chain[-1].get("version", "")
+
+        # 检查最新版本是否被忽略
+        ignored_versions = get_ignored_patches()
+        if any(e.get("filename", "").startswith(f"github_v{latest_ver}") for e in ignored_versions):
+            logger.info("GitHub 版本 v%s 已在忽略列表中，跳过", latest_ver)
+            self._show_github_status(f"已忽略 v{latest_ver}，如需更新请在设置中重新启用")
+            return
+
+        self._monitor("github.found", f"链: {len(chain)} 个补丁, 终点 v{latest_ver}")
 
         # 在主窗口状态栏显示提示
-        self._show_github_status(f"● 有新版本 v{ver} 可用，点击检查")
-        # 如果 status_label 支持点击事件，在此处连接
+        if len(chain) == 1:
+            self._show_github_status(f"● 有新版本 v{latest_ver} 可用")
+        else:
+            self._show_github_status(f"● 发现 {len(chain)} 个更新 (→v{latest_ver})")
 
         # 弹出更新对话框
-        def on_download(info):
-            self._start_github_download(info)
-
-        def on_navigate(info):
-            url = info.get("html_url", "")
-            if url:
-                from PyQt5.QtGui import QDesktopServices
-                from PyQt5.QtCore import QUrl
-                QDesktopServices.openUrl(QUrl(url))
-                self._monitor("github.navigate", url)
+        def on_download(chain_data):
+            self._start_github_chain_download(chain_data)
 
         def on_ignore(version):
             add_ignored_patch(f"github_v{version}", f"GitHub v{version} 忽略")
             self._monitor("github.ignore", f"v{version}")
             self._restore_github_status()
 
-        from PyQt5.QtCore import QTimer
-        QTimer.singleShot(300, lambda: self._show_github_dialog(
-            release_info, on_download, on_navigate, on_ignore,
+        QTimer.singleShot(300, lambda: self._show_github_chain_dialog(
+            chain, on_download, on_ignore,
         ))
 
-    def _show_github_dialog(self, info, on_dl, on_nav, on_ig):
+    def _show_github_chain_dialog(self, chain, on_dl, on_ig):
         from .github_update_dialog import GitHubUpdateDialog  # lazy
         self._github_dialog = GitHubUpdateDialog(
-            self._main_window, info,
-            on_download=on_dl, on_navigate=on_nav, on_ignore=on_ig,
+            self._main_window, chain,
+            on_download=on_dl, on_ignore=on_ig,
         )
         self._github_dialog.exec_()
         self._github_dialog = None
@@ -249,81 +249,90 @@ class UpdateManager(QObject):
         if self._main_window and hasattr(self._main_window, '_update_status'):
             self._main_window._update_status(f"检查更新失败: {error_msg}")
 
-    # ── GitHub 下载流程 ────────────────────────────────────────────────
+    # ── GitHub 链式下载流程 ────────────────────────────────────────────
 
-    def _start_github_download(self, release_info: dict) -> None:
-        """开始下载 GitHub Release 附件。"""
-        update_type = release_info.get("update_type", "patch")
-        version = release_info.get("version", "unknown")
-
-        if update_type == "patch":
-            url = release_info.get("download_url", "")
-            if not url:
-                self._on_github_download_failed("缺少下载地址")
-                return
-            # 保存到根目录，复用现有补丁检测机制
-            save_name = f"update_v{get_config_version()}_to_v{version}.zip"
-            save_path = os.path.join(self._project_root, save_name)
-        else:
-            url = release_info.get("installer_url", "")
-            if not url:
-                self._on_github_download_failed("缺少安装包下载地址")
-                return
-            save_name = f"StarDebate_v{version}_Setup.exe"
-            save_path = os.path.join(self._project_root, save_name)
-
+    def _start_github_chain_download(self, chain: list[dict]) -> None:
+        """开始串联下载补丁链到暂存目录。"""
+        staging_dir = get_staging_dir()
         self._github_updating = True
-        self._monitor("github.download", f"开始下载 {save_name}")
+        self._monitor("github.chain_download", f"串联下载 {len(chain)} 个补丁")
         if self._log_client is not None:
-            self._log_client.info(f"[UPDATER] 开始下载 {save_name}")
+            self._log_client.info(f"[UPDATER] 开始串联下载 {len(chain)} 个补丁")
 
-        # 更新状态栏
-        self._show_github_status(f"正在下载 {save_name}...", is_progress=True)
-
-        self._github_checker.download_asset(url, save_path)
+        self._show_github_status(
+            f"正在下载第 1/{len(chain)} 个补丁...", is_progress=True
+        )
+        self._github_checker.download_chain(chain, staging_dir)
 
     def _on_github_download_progress(self, received: int, total: int) -> None:
-        """下载进度更新。"""
+        """单个文件下载进度更新。"""
         pct = int(received / max(total, 1) * 100)
         self._show_github_progress(pct, received, total)
 
+    def _on_github_chain_download_progress(self, current_idx: int, total_count: int) -> None:
+        """链式整体进度更新。"""
+        self._show_github_status(
+            f"正在下载第 {current_idx}/{total_count} 个补丁...", is_progress=True
+        )
+
     def _on_github_download_finished(self, file_path: str) -> None:
-        """GitHub 下载完成。"""
-        self._github_updating = False
+        """单链补丁下载完成（链式由 chain_download_finished 接管）。"""
         self._monitor("github.downloaded", os.path.basename(file_path))
+
+    def _on_github_chain_download_finished(self, paths: list[str]) -> None:
+        """链式全部下载完成 — 按顺序应用补丁。"""
+        self._github_updating = False
+        self._restore_github_status()
+        self._monitor("github.chain_done", f"下载完成 {len(paths)} 个补丁")
         if self._log_client is not None:
-            self._log_client.info(f"[UPDATER] 下载完成: {os.path.basename(file_path)}")
+            self._log_client.info(f"[UPDATER] 链式下载完成: {len(paths)} 个补丁")
 
-        update_type = self._guess_update_type(file_path)
+        if not paths:
+            self._on_github_download_failed("未获取到任何补丁文件")
+            return
 
-        if update_type == "patch":
-            # 增量补丁 → 复用现有本地补丁检测流程
-            self._restore_github_status()
-            from components.popup_dialog import CustomDialog
-            CustomDialog.information(
-                self._main_window,
-                "下载完成",
-                f"更新补丁已下载至:\n{os.path.basename(file_path)}\n\n"
-                "点击「确定」后将自动关闭软件并应用更新。\n"
-                "请重新启动 StarDebate 以使用新版本。",
-            )
-            # 直接触发应用重启（类似本地补丁安装完成的流程）
-            self._trigger_restart_from_github(file_path)
-        else:
-            # 全量安装包 → 提示用户手动安装
-            self._restore_github_status()
-            from components.popup_dialog import CustomDialog
-            result = CustomDialog.question(
-                self._main_window,
-                "下载完成",
-                f"安装包已下载至:\n{os.path.basename(file_path)}\n\n"
-                "是否立即打开安装包？",
-                buttons=[("稍后安装", "later"), ("立即打开", "open")],
-            )
-            if result == "open":
-                from PyQt5.QtGui import QDesktopServices
-                from PyQt5.QtCore import QUrl
-                QDesktopServices.openUrl(QUrl.fromLocalFile(file_path))
+        # 构建每个补丁的 info dict
+        chain_infos = []
+        for p in paths:
+            manifest = read_manifest(p)
+            if not manifest:
+                logger.error("无法读取补丁清单: %s", p)
+                self._on_github_download_failed(f"补丁文件损坏: {os.path.basename(p)}")
+                return
+            changes = manifest.get("changes", [])
+            info = {
+                "patch_filename": os.path.basename(p),
+                "patch_path": p,
+                "manifest": manifest,
+                "to_version": manifest.get("to_version", ""),
+                "release_notes": manifest.get("release_notes", ""),
+                "file_stats": {
+                    "add": sum(1 for c in changes if c["action"] == "add"),
+                    "modify": sum(1 for c in changes if c["action"] == "modify"),
+                    "delete": sum(1 for c in changes if c["action"] == "delete"),
+                },
+                "config_affected": any(
+                    c["path"].startswith("config/")
+                    for c in changes if c["action"] in ("add", "modify")
+                ),
+                "keep_backup": True,
+                "current_version": get_config_version(),
+            }
+            chain_infos.append(info)
+
+        # 弹出确认对话框
+        from components.popup_dialog import CustomDialog
+        latest_ver = chain_infos[-1]["to_version"]
+        CustomDialog.information(
+            self._main_window,
+            "下载完成",
+            f"共 {len(chain_infos)} 个更新补丁已下载完成。\n\n"
+            "点击「确定」后将自动关闭软件并应用更新。\n"
+            f"请重新启动 StarDebate 以使用 v{latest_ver}。",
+        )
+
+        # 触发链式更新应用流程
+        self._trigger_chain_update(chain_infos)
 
     def _on_github_download_failed(self, error_msg: str) -> None:
         """GitHub 下载失败。"""
@@ -333,45 +342,25 @@ class UpdateManager(QObject):
         from components.popup_dialog import CustomDialog
         CustomDialog.error(self._main_window, "下载失败", error_msg)
 
-    def _trigger_restart_from_github(self, patch_path: str) -> None:
-        """从下载的 GitHub 补丁触发应用更新和重启。"""
-        manifest = read_manifest(patch_path)
-        if not manifest:
-            from components.popup_dialog import CustomDialog
-            CustomDialog.error(self._main_window, "更新失败", "无法读取补丁清单")
+    def _trigger_chain_update(self, chain_infos: list[dict]) -> None:
+        """触发链式更新：按顺序应用所有补丁后重启。
+
+        对每个补丁依次执行：SHA256 校验 → 解压到暂存区（后覆盖前） → 积累删除列表。
+        所有补丁处理后：备份 config → 统一覆盖 → 统一删除 → 清理 pycache → 重启。
+        """
+        if self._updating:
             return
+        self._updating = True
+        self.update_started.emit()
 
-        changes = manifest.get("changes", [])
-        info = {
-            "patch_filename": os.path.basename(patch_path),
-            "patch_path": patch_path,
-            "manifest": manifest,
-            "to_version": manifest.get("to_version", ""),
-            "release_notes": manifest.get("release_notes", ""),
-            "file_stats": {
-                "add": sum(1 for c in changes if c["action"] == "add"),
-                "modify": sum(1 for c in changes if c["action"] == "modify"),
-                "delete": sum(1 for c in changes if c["action"] == "delete"),
-            },
-            "config_affected": any(
-                c["path"].startswith("config/")
-                for c in changes if c["action"] in ("add", "modify")
-            ),
-            "keep_backup": True,
-            "current_version": get_config_version(),
-        }
-        self._current_patch = info
-        self._on_user_confirmed(info)
+        self._progress_panel = UpdateProgressDialog(self._main_window)
+        self._progress_panel.cancelled.connect(self._on_cancelled)
+        self._progress_panel.show()
 
-    @staticmethod
-    def _guess_update_type(file_path: str) -> str:
-        """根据文件扩展名推测更新类型。"""
-        lower = file_path.lower()
-        if lower.endswith(".zip"):
-            return "patch"
-        elif lower.endswith(".exe"):
-            return "major"
-        return "patch"
+        self._monitor("github.chain_apply",
+                      f"开始应用 {len(chain_infos)} 个补丁的链式更新")
+
+        self._execute_chain_update_steps(chain_infos)
 
     # ── 状态栏辅助 ──────────────────────────────────────────────────────
 
@@ -566,6 +555,131 @@ class UpdateManager(QObject):
     # ═══════════════════════════════════════════════════════════════════
     #  核心更新执行流程（同进程直接覆盖版）
     # ═══════════════════════════════════════════════════════════════════
+
+    def _execute_chain_update_steps(self, chain_infos: list[dict]) -> None:
+        """链式更新执行：验证所有补丁 → 备份 → 逐个解压（后覆盖前）→ 统一覆盖 → 删除 → 清理 → 重启。"""
+        step_order = [
+            "验证补丁完整性",
+            "备份配置文件",
+            "解压补丁文件",
+            "覆盖文件",
+            "删除旧文件",
+            "清理缓存",
+            "准备重启",
+        ]
+        total_steps = len(step_order)
+
+        def step_0():
+            """SHA256 校验所有补丁"""
+            if self._progress_panel:
+                self._progress_panel.set_step(0)
+            for i, info in enumerate(chain_infos):
+                if not self._validate_sha256(info):
+                    self._fail_update(f"第 {i+1} 个补丁 SHA256 校验失败")
+                    self._monitor("chain.validate", f"FAILED at index {i}")
+                    return
+            self._monitor("chain.validate", f"全部 {len(chain_infos)} 个补丁校验通过")
+            QTimer.singleShot(100, step_1)
+
+        def step_1():
+            """备份 config/（有任一补丁影响配置即备份）"""
+            if self._progress_panel:
+                self._progress_panel.set_step(1)
+            need_backup = any(info.get("config_affected") for info in chain_infos)
+            if need_backup:
+                backup_path = backup_config_dir(get_config_version())
+                if backup_path:
+                    self._monitor("chain.backup", f"配置已备份至 {os.path.basename(backup_path)}")
+                else:
+                    self._monitor("chain.backup", "警告：备份失败")
+            else:
+                self._monitor("chain.backup", "跳过（无 config 变更）")
+            QTimer.singleShot(100, step_2)
+
+        def step_2():
+            """逐个解压每个补丁到暂存区（后覆盖前）"""
+            if self._progress_panel:
+                self._progress_panel.set_step(2)
+            for i, info in enumerate(chain_infos):
+                pct = int((i / len(chain_infos)) * 100) if chain_infos else 0
+                if self._progress_panel:
+                    self._progress_panel.set_custom_status(
+                        f"解压第 {i+1}/{len(chain_infos)} 个补丁...", pct
+                    )
+                if not self._extract_to_staging(info):
+                    self._fail_update(f"解压第 {i+1} 个补丁失败")
+                    self._monitor("chain.extract", f"FAILED at index {i}")
+                    return
+            self._monitor("chain.extract", f"全部 {len(chain_infos)} 个补丁解压完成")
+            QTimer.singleShot(100, step_3)
+
+        def step_3():
+            """直接覆盖文件（同进程，合并所有补丁的变更）"""
+            if self._progress_panel:
+                self._progress_panel.set_step(3)
+            self._progress_panel.set_custom_status("正在覆盖文件...", 65)
+
+            from workers.updater import update_utils as _uu_mod
+            _uu_mod._MERGE_JSON_PATHS.discard("config/config.json")
+
+            staging = get_staging_dir()
+            new_files_dir = os.path.join(staging, _NEW_FILES_DIR)
+
+            copied, skipped, applied = apply_new_files(new_files_dir, self._project_root)
+            self._monitor("chain.files", f"覆盖 {copied} 个文件，跳过 {skipped} 个")
+            for p in applied[:10]:
+                self._monitor("chain.file_op", f"覆盖: {p}")
+            if len(applied) > 10:
+                self._monitor("chain.file_op", f"... 及另 {len(applied)-10} 个文件")
+
+            # 积累所有补丁的删除路径
+            all_deletes: list[str] = []
+            for info in chain_infos:
+                changes = info["manifest"].get("changes", [])
+                all_deletes.extend(
+                    c["path"] for c in changes if c["action"] == "delete"
+                    and not is_excluded_path(c["path"])
+                )
+            # 去重
+            all_deletes = list(dict.fromkeys(all_deletes))
+            if all_deletes:
+                deleted, failed = execute_deletes(all_deletes, self._project_root)
+                self._monitor("chain.delete", f"删除 {deleted} 个文件，{failed} 个失败")
+            else:
+                self._monitor("chain.delete", "无删除操作")
+
+            QTimer.singleShot(100, step_4)
+
+        def step_4():
+            """清理 __pycache__"""
+            if self._progress_panel:
+                self._progress_panel.set_step(4)
+            cleaned = clean_pycache()
+            self._monitor("chain.pycache", f"清理 {cleaned} 个 __pycache__ 目录")
+            QTimer.singleShot(100, step_5)
+
+        def step_5():
+            """写入完成状态 + 触发软重启"""
+            if self._progress_panel:
+                self._progress_panel.complete()
+
+            target_version = chain_infos[-1]["to_version"]
+            state = {
+                "status": "files_replaced",
+                "target_version": target_version,
+                "patch_filename": f"chain_{len(chain_infos)}patches",
+                "patch_path": "",
+                "has_backup": any(info.get("config_affected") for info in chain_infos),
+                "has_config_changes": any(info.get("config_affected") for info in chain_infos),
+                "started_at": _time.strftime("%Y-%m-%d %H:%M:%S"),
+            }
+            write_update_state(state)
+            self._monitor("chain.restart",
+                          f"链式更新完成，准备软重启至 v{target_version}")
+
+            QTimer.singleShot(800, self._trigger_restart)
+
+        step_0()
 
     def _execute_update_steps(self, info: dict) -> None:
         """异步逐步执行更新：校验 → 备份 → 解压 → 覆盖 → 删除 → 清理 → 重启。"""

@@ -574,9 +574,12 @@ class MaterialPoolManager:
         # 3. 检查 API 配置
         api_cfg = self._mw._load_api_config() if hasattr(self._mw, '_load_api_config') else {}
         if not api_cfg.get("api_key"):
-            CustomDialog.warning(self._mw, "缺少 API Key",
-                "请在设置中配置 API Key 后再使用 AI 总结导出功能。")
-            return
+            ptype = api_cfg.get("provider_type", "auto")
+            if ptype not in ("auto", "web"):
+                CustomDialog.warning(self._mw, "缺少 API Key",
+                    "请在设置中配置 API Key 后再使用 AI 总结导出功能。")
+                return
+            # auto/web 无 key 时静默跳过，由 _resolve_provider_type 回退到 Web
         # 4. 确认对话框
         fcount = len(files)
         resp = CustomDialog.question(self._mw, "🤖 AI 总结导出",

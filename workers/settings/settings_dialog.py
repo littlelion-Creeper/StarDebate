@@ -389,6 +389,13 @@ class SettingsDialog(QDialog):
             idx_in_stack = self._content_stack.indexOf(widget)
         self._content_stack.setCurrentIndex(idx_in_stack)
 
+        # ★ 通知页面已被激活（用于设置页的轻量刷新）
+        if hasattr(widget, 'on_page_activated'):
+            try:
+                widget.on_page_activated()
+            except Exception:
+                pass
+
         # 记录页面原始高度，钳制内容高度（窗口模式保持紧凑）
         sh = widget.sizeHint()
         self._page_sh = sh.height()

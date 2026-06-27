@@ -88,7 +88,7 @@ class GlobalIconPack:
         pixmap.fill(Qt.transparent)
         painter = QPainter(pixmap)
         painter.setRenderHint(QPainter.RenderHint.SmoothPixmapTransform)
-        svg_renderer = QSvgRenderer(svg_bytes)
+        svg_renderer = QSvgRenderer(QByteArray(svg_bytes))
         svg_renderer.render(painter)
         painter.end()
         return pixmap

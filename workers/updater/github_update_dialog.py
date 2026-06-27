@@ -1,8 +1,9 @@
-"""GitHub 更新信息对话框 — 使用 @components 中的通用组件。
+"""GitHub 更新信息对话框 — 链式补丁版。
 
-脉冲对话框场景：
-  1. 检测到增量补丁 (patch_*.zip) → 显示「下载并更新」按钮
-  2. 检测到大版本安装包 (*Setup.exe) → 显示「一键下载安装包」+「前往 GitHub 页面」按钮
+显示补丁链信息（单补丁或多个补丁），提供「下载并更新」按钮。
+已移除全量安装包相关代码，所有更新均走增量补丁 ZIP。
+
+信号通过 __init__ 的 callable 回调传递。
 """
 
 from __future__ import annotations
@@ -37,29 +38,38 @@ def _load_github_dialog_qss() -> str:
         return ""
 
 
+def _fmt_size(size_bytes: int) -> str:
+    """格式化文件大小。"""
+    if size_bytes < 1024:
+        return f"{size_bytes} B"
+    elif size_bytes < 1024 * 1024:
+        return f"{size_bytes / 1024:.1f} KB"
+    else:
+        return f"{size_bytes / 1024 / 1024:.1f} MB"
+
+
 class GitHubUpdateDialog(QDialog):
-    """GitHub 更新信息对话框。
+    """GitHub 更新信息对话框（链式版）。
 
-    使用 @components/title_bar.TitleBar 作为标题栏，
-    使用 @components/star_button.StarButton 作为按钮，
-    使用 @components/star_checkbox.StarCheckBox 作为选项。
+    接收 release_chain（补丁链列表）：
+    - 链长=1：常规单补丁显示
+    - 链长>1：显示补丁链信息（如 v6.0.0 → v6.1.0 → v6.2.0）
+    - 展示最新版本的更新说明
 
-    Signals:
-        download_clicked:   用户点击「下载并更新」/「一键下载安装包」
-        navigate_clicked:   用户点击「前往 GitHub 页面」
-        ignore_clicked:     用户点击「忽略此版本」
+    Callbacks:
+        download_clicked(chain):  用户点击「下载并更新」
+        ignore_clicked(version):  用户点击「忽略此版本」
     """
 
-    download_clicked = None  # 由 __init__ 传入的 callable
-    navigate_clicked = None
+    download_clicked = None
     ignore_clicked = None
 
-    def __init__(self, parent: QWidget | None, release_info: dict,
-                 on_download=None, on_navigate=None, on_ignore=None):
+    def __init__(self, parent: QWidget | None, release_chain: list[dict],
+                 on_download=None, on_ignore=None):
         super().__init__(parent)
-        self._info = release_info
+        self._chain = release_chain
+        self._latest = release_chain[-1] if release_chain else {}
         self.download_clicked = on_download
-        self.navigate_clicked = on_navigate
         self.ignore_clicked = on_ignore
 
         self.setObjectName("updateFoundDialog")
@@ -77,7 +87,11 @@ class GitHubUpdateDialog(QDialog):
         main_layout.setSpacing(0)
 
         # ── @components/title_bar.TitleBar ──────────────────────
-        title_text = "发现大版本更新" if self._info.get("update_type") == "major" else "发现新版本"
+        chain_len = len(self._chain)
+        if chain_len == 1:
+            title_text = "发现新版本"
+        else:
+            title_text = f"发现 {chain_len} 个更新"
         self._title_bar = TitleBar(self, title=title_text)
         main_layout.addWidget(self._title_bar)
 
@@ -88,67 +102,50 @@ class GitHubUpdateDialog(QDialog):
         cl.setContentsMargins(24, 20, 24, 16)
         cl.setSpacing(12)
 
-        info = self._info
-        current = info.get("current_version", "未知")
-        to_ver = info.get("version", "未知")
-        update_type = info.get("update_type", "patch")
-        notes = info.get("release_notes", "暂无更新说明")
-        patch_size = info.get("size", 0)
-        installer_size = info.get("installer_size", 0)
-        html_url = info.get("html_url", "")
+        current = self._chain[0].get("from_version_hint",
+                     self._chain[0].get("current_version", "未知")) if chain_len > 0 else "未知"
+        # 取调用方传入的 current_version，或从链首推断
 
-        # ── 版本对比行 ──────────────────────────────────────────
+        # ── 版本链展示行 ────────────────────────────────────────
         ver_row = QHBoxLayout()
-        ver_row.setSpacing(8)
+        ver_row.setSpacing(6)
 
-        lbl_cur = QLabel("当前版本:")
-        lbl_cur.setObjectName("updateVerLabel")
-        ver_row.addWidget(lbl_cur)
+        # 构造版本链文本: v6.0.0 → v6.1.0 → v6.2.0
+        versions = [self._chain[0].get("current_version", "")]
+        for entry in self._chain:
+            ver = entry.get("version", "?")
+            versions.append(ver)
+        # 去掉空的首个版本
+        versions = [v for v in versions if v]
 
-        lbl_cur_val = QLabel(f"v{current}")
-        lbl_cur_val.setObjectName("updateVerValue")
-        ver_row.addWidget(lbl_cur_val)
+        chain_label = QLabel(" ".join([
+            f"v{versions[0]}" if versions else "",
+            *[f"→ v{v}" for v in versions[1:]],
+        ]))
+        chain_label.setObjectName("updateVerValue")
+        chain_label.setWordWrap(True)
+        ver_row.addWidget(chain_label, 1)
 
-        ver_row.addWidget(QLabel("→", objectName="updateVerArrow"))
-
-        lbl_new_pre = QLabel("最新版本:")
-        lbl_new_pre.setObjectName("updateVerLabel")
-        ver_row.addWidget(lbl_new_pre)
-
-        lbl_new_val = QLabel(f"v{to_ver}")
-        lbl_new_val.setObjectName("updateVerValueNew")
-        ver_row.addWidget(lbl_new_val)
-
-        ver_row.addStretch()
-
-        # 更新类型标签
-        type_label = QLabel(
-            "增量补丁" if update_type == "patch" else "全量安装包",
+        # 补丁总数标签
+        patch_count_label = QLabel(
+            f"{chain_len} 个增量补丁" if chain_len > 1 else "增量补丁",
             objectName="updateTypeLabel",
         )
-        ver_row.addWidget(type_label)
+        ver_row.addWidget(patch_count_label)
 
         cl.addLayout(ver_row)
 
         # ── 文件大小信息 ─────────────────────────────────────────
-        size_parts = []
-        if update_type == "patch" and patch_size:
-            size_parts.append(f"补丁大小: {_fmt_size(patch_size)}")
-        if installer_size:
-            size_parts.append(f"安装包大小: {_fmt_size(installer_size)}")
-        if size_parts:
-            cl.addWidget(QLabel("  ".join(size_parts), objectName="updateFileLabel"))
-
-        # ── 大版本额外提示 ───────────────────────────────────────
-        if update_type == "major":
-            warn_lbl = QLabel(
-                "⚠ 此版本涉及重大变更，需要下载完整安装包覆盖安装。",
-                objectName="updateMajorWarn",
-            )
-            warn_lbl.setWordWrap(True)
-            cl.addWidget(warn_lbl)
+        total_size = sum(e.get("size", 0) for e in self._chain)
+        size_label = QLabel(
+            f"总大小: {_fmt_size(total_size)} ({chain_len} 个补丁)" if chain_len > 1
+            else f"补丁大小: {_fmt_size(total_size)}",
+            objectName="updateFileLabel",
+        )
+        cl.addWidget(size_label)
 
         # ── 更新说明区域 ───────────────────────────────────────
+        notes = self._latest.get("release_notes", "暂无更新说明")
         notes_frame = QFrame()
         notes_frame.setObjectName("updateNotesFrame")
         nl = QVBoxLayout(notes_frame)
@@ -165,21 +162,29 @@ class GitHubUpdateDialog(QDialog):
         notes_text.setMaximumHeight(160)
         nl.addWidget(notes_text)
 
-        # Git 提交对比链接
-        if html_url:
-            compare_url = html_url.replace("/releases/tag/", "/compare/")
-            compare_url = compare_url.rsplit("/", 1)[0] + f"/v{current}...v{to_ver}"
-            link_lbl = QLabel(
-                f'<a href="{compare_url}" style="color: {tc("accent_blue")}; '
-                f'text-decoration: none;">在 GitHub 上查看变更</a>',
-                objectName="updateCompareLink",
+        # Git 提交对比链接（使用链首→链尾）
+        if chain_len >= 1:
+            first_ver = self._chain[0].get("current_version", "")
+            last_ver = self._latest.get("version", "")
+            html_url = self._latest.get("html_url", "")
+            # 如果没有 current_version，用链首版本作为对比起点
+            compare_from = first_ver if first_ver else (
+                self._chain[0].get("version", "") if chain_len >= 1 else ""
             )
-            link_lbl.setOpenExternalLinks(True)
-            nl.addWidget(link_lbl)
+            if html_url and compare_from and last_ver:
+                compare_url = html_url.replace("/releases/tag/", "/compare/")
+                compare_url = compare_url.rsplit("/", 1)[0] + f"/v{compare_from}...v{last_ver}"
+                link_lbl = QLabel(
+                    f'<a href="{compare_url}" style="color: {tc("accent_blue")}; '
+                    f'text-decoration: none;">在 GitHub 上查看变更</a>',
+                    objectName="updateCompareLink",
+                )
+                link_lbl.setOpenExternalLinks(True)
+                nl.addWidget(link_lbl)
 
         cl.addWidget(notes_frame)
 
-        # ── @components/star_checkbox.StarCheckBox 自动检查 ─────
+        # ── @components/star_checkbox.StarCheckBox 忽略版本 ─────
         self._cb_ignore = StarCheckBox(
             "忽略此版本",
             checked=False,
@@ -203,32 +208,18 @@ class GitHubUpdateDialog(QDialog):
 
         btn_bar.addStretch()
 
-        if update_type == "patch":
-            # 增量补丁: 仅「下载并更新」主按钮
-            btn_download = StarButton(
-                "下载并更新", layout_mode="text_only", ratio_h=0.72,
-                auto_size=True, accent=tc("accent"),
-            )
-            btn_download.setFixedHeight(34)
-            btn_download.clicked.connect(self._on_download)
-            btn_bar.addWidget(btn_download)
+        # 下载按钮（单链/多链通用）
+        if chain_len > 1:
+            btn_text = "串联下载并更新"
         else:
-            # 大版本: 「前往 GitHub 页面」+「一键下载安装包」
-            btn_nav = StarButton(
-                "前往 GitHub 页面", layout_mode="text_only", ratio_h=0.72,
-                auto_size=True,
-            )
-            btn_nav.setFixedHeight(34)
-            btn_nav.clicked.connect(self._on_navigate)
-            btn_bar.addWidget(btn_nav)
-
-            btn_download = StarButton(
-                "一键下载安装包", layout_mode="text_only", ratio_h=0.72,
-                auto_size=True, accent=tc("accent"),
-            )
-            btn_download.setFixedHeight(34)
-            btn_download.clicked.connect(self._on_download)
-            btn_bar.addWidget(btn_download)
+            btn_text = "下载并更新"
+        btn_download = StarButton(
+            btn_text, layout_mode="text_only", ratio_h=0.72,
+            auto_size=True, accent=tc("accent"),
+        )
+        btn_download.setFixedHeight(34)
+        btn_download.clicked.connect(self._on_download)
+        btn_bar.addWidget(btn_download)
 
         cl.addLayout(btn_bar)
         main_layout.addWidget(content, 1)
@@ -239,14 +230,7 @@ class GitHubUpdateDialog(QDialog):
         if self._cb_ignore.isChecked():
             self._do_ignore()
         if callable(self.download_clicked):
-            self.download_clicked(self._info)
-        self.accept()
-
-    def _on_navigate(self):
-        if self._cb_ignore.isChecked():
-            self._do_ignore()
-        if callable(self.navigate_clicked):
-            self.navigate_clicked(self._info)
+            self.download_clicked(self._chain)
         self.accept()
 
     def _on_ignore(self):
@@ -254,7 +238,7 @@ class GitHubUpdateDialog(QDialog):
         self.reject()
 
     def _do_ignore(self):
-        ver = self._info.get("version", "")
+        ver = self._latest.get("version", "")
         if ver and callable(self.ignore_clicked):
             self.ignore_clicked(ver)
 
@@ -283,13 +267,3 @@ class GitHubUpdateDialog(QDialog):
                 (screen.width() - self.width()) // 2,
                 (screen.height() - self.height()) // 2,
             )
-
-
-def _fmt_size(size_bytes: int) -> str:
-    """格式化文件大小。"""
-    if size_bytes < 1024:
-        return f"{size_bytes} B"
-    elif size_bytes < 1024 * 1024:
-        return f"{size_bytes / 1024:.1f} KB"
-    else:
-        return f"{size_bytes / 1024 / 1024:.1f} MB"

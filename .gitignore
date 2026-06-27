@@ -61,3 +61,5 @@ extensions/
 custom_formats/
 plugins/
 web/
+.debug_webai/
+custom_formats/
