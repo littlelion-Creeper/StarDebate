@@ -44,7 +44,7 @@ python tools/gen_patch.py --from v<prev_version> --to <current_version> -a --no-
 
 输出：`update_v<prev>_to_v<current>.zip` 到项目根目录。
 
-> ⚠️ **命名规范**：`gen_patch.py` 生成 `update_` 前缀供本地检测，上传到 GitHub Release 时需**重命名为 `patch_` 前缀**（链式更新器只匹配 `patch_.*\.zip`）。两个文件内容相同，分别服务于不同更新路径。
+> ⚠️ **命名规范**：`gen_patch.py` 生成 `update_` 前缀的 ZIP，**上传到 GitHub Release 时保持原名 `update_` 前缀**，链式更新器与本地检测均匹配 `update_.*\.zip`。
 
 ---
 
@@ -112,16 +112,11 @@ result = json.loads(resp.read().decode())
 
 ### 5.3 上传补丁附件
 
-> ⚠️ 上传前先复制为 `patch_` 前缀（GitHub 链式更新器只匹配 `patch_.*\.zip`）：
-> ```bash
-> Copy-Item update_v<prev>_to_v<current>.zip patch_v<prev>_to_v<current>.zip
-> ```
-
 ```python
 import json, os, urllib.request
 
 token = '<token>'
-zip_path = 'patch_v<prev>_to_v<current>.zip'  # 使用 patch_ 前缀
+zip_path = 'update_v<prev>_to_v<current>.zip'
 with open(zip_path, 'rb') as f:
     zip_data = f.read()
 
