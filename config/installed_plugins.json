@@ -1,0 +1,22 @@
+[
+  {
+    "id": "debate_assistant",
+    "enabled": false
+  },
+  {
+    "id": "debate_timer",
+    "enabled": false
+  },
+  {
+    "id": "debate_argument_bank",
+    "enabled": false
+  },
+  {
+    "id": "crash_simulator",
+    "enabled": true
+  },
+  {
+    "id": "debate_claw",
+    "enabled": true
+  }
+]

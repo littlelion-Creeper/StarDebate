@@ -1,0 +1,284 @@
+{
+    "version": "1.0.0",
+    "description": "导航栏按钮注册表 — 控制每个按钮/分隔符的位置、启用状态和属性。修改此文件即可增删改导航按钮，无需改动代码。",
+    "settings": {
+        "panel_width": 62,
+        "button_size": [50, 50],
+        "label_font_size": 7,
+        "spacing": 8,
+        "margins": [6, 12, 6, 12],
+        "icon_checked_color": "white",
+        "icon_unchecked_color": ""
+    },
+
+    "left_nav": [
+        {
+            "id": "project_tree",
+            "type": "button",
+            "icon": "program_manager.svg",
+            "text": "📁",
+            "label": "项目",
+            "tooltip": "显示/隐藏 项目浏览器",
+            "section": "top",
+            "position": 1,
+            "enabled": true,
+            "checkable": true,
+            "default_checked": true
+        },
+        {
+            "id": "structure_tree",
+            "type": "button",
+            "icon": "structure.svg",
+            "text": "📋",
+            "label": "结构",
+            "tooltip": "显示/隐藏 一辩稿结构树",
+            "section": "top",
+            "position": 2,
+            "enabled": true,
+            "checkable": true,
+            "default_checked": true
+        },
+        {
+            "id": "match_schedule",
+            "type": "button",
+            "icon": "schedule.svg",
+            "text": "🏆",
+            "label": "赛程",
+            "tooltip": "显示/隐藏 赛程管理",
+            "section": "top",
+            "position": 3,
+            "enabled": true,
+            "checkable": true,
+            "default_checked": false
+        },
+        {
+            "id": "stardebate_browser",
+            "type": "button",
+            "icon": "STDB.svg",
+            "text": "📦",
+            "label": "STDB",
+            "tooltip": "显示/隐藏 .stardebate 模块浏览",
+            "section": "top",
+            "position": 4,
+            "enabled": true,
+            "checkable": true,
+            "default_checked": false
+        },
+        {
+            "id": "material_pool",
+            "type": "button",
+            "icon": "material_pool.svg",
+            "text": "📚",
+            "label": "资料池",
+            "tooltip": "资料池 — 资料统筹与AI智能搜索",
+            "section": "top",
+            "position": 5,
+            "enabled": true,
+            "checkable": true,
+            "default_checked": false,
+            "module": "material_pool"
+        },
+        {
+            "type": "separator",
+            "id": "sep_left_top",
+            "section": "top",
+            "position": 6
+        },
+        {
+            "id": "new_debate",
+            "type": "button",
+            "icon": "new_program.svg",
+            "text": "🆕",
+            "label": "新建",
+            "tooltip": "新建辩论",
+            "section": "middle",
+            "position": 7,
+            "enabled": true
+        },
+        {
+            "id": "framework",
+            "type": "button",
+            "icon": "framework.svg",
+            "text": "🧠",
+            "label": "框架",
+            "tooltip": "辩论框架（思维导图）",
+            "section": "middle",
+            "position": 8,
+            "enabled": true
+        },
+        {
+            "id": "create_speech",
+            "type": "button",
+            "icon": "speech_editer.svg",
+            "text": "📄",
+            "label": "辩稿",
+            "tooltip": "创建/编辑一辩稿",
+            "section": "middle",
+            "position": 9,
+            "enabled": true,
+            "module": "speech_editor"
+        },
+        {
+            "id": "ref_doc",
+            "type": "button",
+            "icon": "ref_form.svg",
+            "text": "📑",
+            "label": "资料",
+            "tooltip": "创建/编辑资料稿",
+            "section": "middle",
+            "position": 10,
+            "enabled": true
+        },
+        {
+            "id": "ref_cards",
+            "type": "button",
+            "icon": "ref_card.svg",
+            "text": "🃏",
+            "label": "卡片",
+            "tooltip": "查看资料卡片",
+            "section": "middle",
+            "position": 11,
+            "enabled": true
+        },
+        {
+            "type": "stretch",
+            "id": "stretch_left",
+            "section": "middle",
+            "position": 12
+        },
+        {
+            "type": "plugin_area",
+            "id": "plugin_area_left",
+            "section": "bottom",
+            "position": 13
+        },
+        {
+            "id": "settings",
+            "type": "button",
+            "icon": "settings.svg",
+            "text": "⚙️",
+            "label": "设置",
+            "tooltip": "打开设置",
+            "section": "bottom",
+            "position": 14,
+            "enabled": true
+        }
+    ],
+
+    "right_nav": [
+        {
+            "id": "speech_writer",
+            "type": "button",
+            "icon": "speech_writer.svg",
+            "text": "✍️",
+            "label": "写稿",
+            "tooltip": "AI写稿 — 生成多个稿本方案",
+            "section": "top",
+            "position": 1,
+            "enabled": true,
+            "module": "speech_writer"
+        },
+        {
+            "id": "ai_expand",
+            "type": "button",
+            "icon": "ai_expand.svg",
+            "text": "🤖",
+            "label": "扩写",
+            "tooltip": "AI扩写 — 生成多个扩写方案",
+            "section": "top",
+            "position": 2,
+            "enabled": true,
+            "module": "ai_expand"
+        },
+        {
+            "id": "notes",
+            "type": "button",
+            "icon": "note.svg",
+            "text": "📝",
+            "label": "便签",
+            "tooltip": "便签 — 快速记录和整理思路",
+            "section": "top",
+            "position": 3,
+            "enabled": true,
+            "module": "notes"
+        },
+        {
+            "id": "training",
+            "type": "button",
+            "icon": "training.svg",
+            "text": "🎯",
+            "label": "训练",
+            "tooltip": "模拟训练 — 快速提升辩论能力",
+            "section": "top",
+            "position": 4,
+            "enabled": true,
+            "module": "training"
+        },
+        {
+            "type": "separator",
+            "id": "sep_right_top",
+            "section": "top",
+            "position": 5
+        },
+        {
+            "id": "ai_framework",
+            "type": "button",
+            "icon": "framework_analysis.svg",
+            "text": "🧠",
+            "label": "框析",
+            "tooltip": "AI框架 — 从一辩稿提取辩论框架",
+            "section": "middle",
+            "position": 6,
+            "enabled": true
+        },
+        {
+            "id": "cross_exam",
+            "type": "button",
+            "icon": "cross_examination.svg",
+            "text": "⚡",
+            "label": "质询",
+            "tooltip": "模拟质询",
+            "section": "middle",
+            "position": 7,
+            "enabled": true,
+            "module": "cross_examination"
+        },
+        {
+            "id": "accept_exam",
+            "type": "button",
+            "icon": "accept_mgr.svg",
+            "text": "🛡️",
+            "label": "接质",
+            "tooltip": "模拟接质",
+            "section": "middle",
+            "position": 8,
+            "enabled": true,
+            "module": "accept_examination"
+        },
+        {
+            "type": "stretch",
+            "id": "stretch_right",
+            "section": "middle",
+            "position": 9
+        },
+        {
+            "type": "plugin_area",
+            "id": "plugin_area_right",
+            "section": "bottom",
+            "position": 10
+        },
+        {
+            "id": "plugin_manager",
+            "type": "button",
+            "icon": "plugins.svg",
+            "text": "🔌",
+            "label": "插件",
+            "tooltip": "开关 插件管理",
+            "section": "bottom",
+            "position": 11,
+            "enabled": true,
+            "checkable": true,
+            "default_checked": false
+        }
+    ]
+}

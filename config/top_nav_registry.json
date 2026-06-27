@@ -1,0 +1,64 @@
+{
+    "version": "1.0.0",
+    "description": "顶部导航栏按钮注册表 — 控制顶部菜单栏的按钮/菜单/插件区排列",
+    "settings": {
+        "bar_height": 42,
+        "button_min_width": 80,
+        "button_height": 34,
+        "font_size": 13,
+        "spacing": 4,
+        "margins": [8, 4, 8, 4]
+    },
+    "items": [
+        {
+            "id": "file_menu",
+            "type": "menu_button",
+            "text": "文件",
+            "tooltip": "文件操作",
+            "position": 1,
+            "enabled": true,
+            "items": [
+                {"id": "new_project",  "type": "sub_menu", "text": "创建项目", "position": 1, "callback": "_on_create_project"},
+                {"id": "open_project", "type": "sub_menu", "text": "打开项目", "position": 2, "callback": "_on_open_project"},
+                {"id": "sep_file_1",   "type": "separator",  "position": 3},
+                {"id": "exit_app",     "type": "sub_menu", "text": "退出",     "position": 4, "callback": "_on_exit_app"}
+            ]
+        },
+        {
+            "id": "edit_menu",
+            "type": "menu_button",
+            "text": "编辑",
+            "tooltip": "编辑操作",
+            "position": 2,
+            "enabled": true,
+            "items": []
+        },
+        {
+            "id": "view_menu",
+            "type": "menu_button",
+            "text": "视图",
+            "tooltip": "视图切换",
+            "position": 3,
+            "enabled": true,
+            "items": []
+        },
+        {
+            "id": "plugin_area_top",
+            "type": "plugin_area",
+            "position": 10
+        },
+        {
+            "id": "stretch_top",
+            "type": "stretch",
+            "position": 11
+        },
+        {
+            "id": "help_menu",
+            "type": "button",
+            "text": "帮助",
+            "tooltip": "帮助信息",
+            "position": 12,
+            "enabled": true
+        }
+    ]
+}

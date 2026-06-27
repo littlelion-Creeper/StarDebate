@@ -1,0 +1,22 @@
+{
+    "enabled": true,
+    "db_path": "docs/log/native.db",
+    "batch_interval_ms": 200,
+    "batch_max_size": 100,
+    "max_rows_per_table": 50000,
+    "retention_days": 7,
+    "text_log_enabled": true,
+    "text_log_level": "INFO",
+    "hooks": {
+        "qt_handler": true,
+        "excepthook": true,
+        "unraisablehook": true,
+        "audithook": true,
+        "gc_callbacks": true,
+        "c_exception_profile": true
+    },
+    "throttle": {
+        "enable": true,
+        "max_per_second_per_category": 50
+    }
+}

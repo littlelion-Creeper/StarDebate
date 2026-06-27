@@ -1,0 +1,21 @@
+{
+    "default_selected_modules": [
+        "accept_exam_con",
+        "accept_exam_pro",
+        "analysis_con",
+        "analysis_pro",
+        "basic",
+        "cross_exam",
+        "framework",
+        "notes",
+        "ref_doc_con",
+        "ref_doc_pro",
+        "speech_con",
+        "speech_pro",
+        "structure",
+        "training"
+    ],
+    "last_export_path": "C:/Users/Oblivion/Desktop",
+    "remember_password_option": false,
+    "last_import_path": ""
+}

@@ -1,0 +1,188 @@
+{
+  "version": 1,
+  "tree": {
+    "help": { "meta": { "cat": "基本操作", "desc": "显示所有可用命令列表" } },
+    "clear": { "meta": { "cat": "基本操作", "desc": "清空当前日志显示区" } },
+    "status": { "meta": { "cat": "基本操作", "desc": "显示系统运行状态概览" } },
+    "version": { "meta": { "cat": "系统命令", "desc": "显示 StarDebate 应用版本号" } },
+    "log": {
+      "meta": { "cat": "日志命令", "desc": "日志管理" },
+      "children": {
+        "level": {
+          "meta": { "desc": "设置日志显示级别", "args": "[DEBUG|INFO|WARN|ERROR]" },
+          "children": {
+            "DEBUG": { "dynamic": null },
+            "INFO": { "dynamic": null },
+            "WARN": { "dynamic": null },
+            "ERROR": { "dynamic": null }
+          }
+        },
+        "export": { "meta": { "desc": "导出当前日志到文件" } },
+        "clean": { "meta": { "desc": "手动清理超过7天的旧日志" } },
+        "path": { "meta": { "desc": "显示当前日志文件路径" } },
+        "keep": { "meta": { "desc": "保留本次运行日志，退出时不自动删除" } }
+      }
+    },
+    "config": {
+      "meta": { "cat": "配置命令", "desc": "应用配置管理" },
+      "children": {
+        "show": { "meta": { "desc": "显示当前配置信息(Key脱敏)" } },
+        "reload": { "meta": { "desc": "重新加载所有配置文件" } }
+      }
+    },
+    "plugin": {
+      "meta": { "cat": "插件命令", "desc": "插件管理" },
+      "children": {
+        "list": { "meta": { "desc": "列出所有已安装插件及状态" } },
+        "reload": { "meta": { "desc": "重新加载所有插件" } },
+        "disable": {
+          "meta": { "desc": "禁用指定插件", "args": "<插件ID>" },
+          "children": {
+            "<插件ID>": { "dynamic": "plugin_list" }
+          }
+        },
+        "enable": {
+          "meta": { "desc": "启用指定插件", "args": "<插件ID>" },
+          "children": {
+            "<插件ID>": { "dynamic": "plugin_list" }
+          }
+        },
+        "info": {
+          "meta": { "desc": "查看指定插件详细信息", "args": "<插件ID>" },
+          "children": {
+            "<插件ID>": { "dynamic": "plugin_list" }
+          }
+        }
+      }
+    },
+    "theme": {
+      "meta": { "cat": "系统命令", "desc": "主题管理" },
+      "children": {
+        "list": { "meta": { "desc": "列出所有可用主题" } },
+        "set": {
+          "meta": { "desc": "切换主题", "args": "<主题名>" },
+          "children": {
+            "<主题名>": { "dynamic": "theme_list" }
+          }
+        },
+        "reload": { "meta": { "desc": "重新加载当前主题 QSS" } }
+      }
+    },
+    "timer": {
+      "meta": { "cat": "计时器命令", "desc": "倒计时器" },
+      "children": {
+        "start": {
+          "meta": { "desc": "启动倒计时器", "args": "<秒数>" },
+          "children": {
+            "300": { "meta": { "desc": "5 分钟" } },
+            "60": { "meta": { "desc": "1 分钟" } },
+            "120": { "meta": { "desc": "2 分钟" } },
+            "180": { "meta": { "desc": "3 分钟" } },
+            "600": { "meta": { "desc": "10 分钟" } },
+            "<秒数>": { "dynamic": null }
+          }
+        },
+        "stop": { "meta": { "desc": "停止当前计时器" } }
+      }
+    },
+    "api": {
+      "meta": { "cat": "系统命令", "desc": "API 连接管理" },
+      "children": {
+        "test": { "meta": { "desc": "测试 AI API 连接状态" } },
+        "models": { "meta": { "desc": "列出当前 API 可用模型" } },
+        "config": { "meta": { "desc": "显示当前 AI 配置(URL/Model/Token)" } }
+      }
+    },
+    "monitor": {
+      "meta": { "cat": "调试监视", "desc": "调试监视管理" },
+      "children": {
+        "status": { "meta": { "desc": "显示所有监视开关状态" } },
+        "enable": {
+          "meta": { "desc": "启用监视类型", "args": "<类型>" },
+          "children": {
+            "all": { "meta": { "desc": "全部启用" } },
+            "variable": { "meta": { "desc": "启用变量监视" } },
+            "function": { "meta": { "desc": "启用函数监视" } },
+            "plugin": { "meta": { "desc": "启用插件监视" } },
+            "api": { "meta": { "desc": "启用 API 监视" } },
+            "ai": { "meta": { "desc": "启用 AI 监视" } }
+          }
+        },
+        "disable": {
+          "meta": { "desc": "禁用监视类型", "args": "<类型>" },
+          "children": {
+            "all": { "meta": { "desc": "全部禁用" } },
+            "variable": { "meta": { "desc": "禁用变量监视" } },
+            "function": { "meta": { "desc": "禁用函数监视" } },
+            "plugin": { "meta": { "desc": "禁用插件监视" } },
+            "api": { "meta": { "desc": "禁用 API 监视" } },
+            "ai": { "meta": { "desc": "禁用 AI 监视" } }
+          }
+        },
+        "log": {
+          "meta": { "cat": "调试监视" },
+          "children": {
+            "view": { "meta": { "desc": "查看监视日志(过滤显示)" } },
+            "export": { "meta": { "desc": "导出监视日志到文件" } }
+          }
+        }
+      }
+    },
+    "panel": {
+      "meta": { "cat": "面板导航", "desc": "功能面板快速导航" },
+      "children": {
+        "open": {
+          "meta": { "desc": "打开功能面板", "args": "<面板名>" },
+          "children": {
+            "speech": { "meta": { "desc": "打开 AI 写稿面板" } },
+            "expand": { "meta": { "desc": "打开 AI 扩写面板" } },
+            "notes": { "meta": { "desc": "打开便签面板" } },
+            "training": { "meta": { "desc": "打开训练面板" } },
+            "material": { "meta": { "desc": "打开资料池面板" } }
+          }
+        },
+        "close": { "meta": { "desc": "关闭当前功能面板" } }
+      }
+    },
+    "project": {
+      "meta": { "cat": "项目管理", "desc": "项目管理" },
+      "children": {
+        "info": { "meta": { "desc": "显示当前辩论项目信息" } },
+        "list": { "meta": { "desc": "列出最近打开的项目" } }
+      }
+    },
+    "check": {
+      "meta": { "cat": "系统诊断", "desc": "系统诊断" },
+      "children": {
+        "all": { "meta": { "desc": "全面诊断所有组件加载状态" } },
+        "manager": { "meta": { "desc": "检查所有管理器加载状态" } },
+        "plugin": { "meta": { "desc": "检查插件加载状态" } },
+        "panel": { "meta": { "desc": "检查功能面板加载状态" } }
+      }
+    },
+    "alias": {
+      "meta": { "cat": "基本操作", "desc": "管理命令别名" },
+      "children": {
+        "set": {
+          "meta": { "desc": "设置别名", "args": "<别名> <命令>" },
+          "children": {
+            "<别名>": {
+              "dynamic": null,
+              "meta": { "desc": "别名名称" },
+              "children": {
+                "<命令>": { "dynamic": "command_completions" }
+              }
+            }
+          }
+        },
+        "remove": {
+          "meta": { "desc": "删除别名", "args": "<别名>" },
+          "children": {
+            "<别名>": { "dynamic": "alias_list" }
+          }
+        },
+        "list": { "meta": { "desc": "列出所有已设置别名" } }
+      }
+    }
+  }
+}

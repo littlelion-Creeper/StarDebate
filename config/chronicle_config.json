@@ -1,0 +1,11 @@
+{
+    "enabled": true,
+    "categories": {
+        "feature": true,
+        "plugin": true,
+        "api": true,
+        "ai": true
+    },
+    "min_duration_ms": 0,
+    "log_level": "INFO"
+}

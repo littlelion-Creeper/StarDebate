@@ -1,0 +1,116 @@
+{
+    "version": "1.0.0",
+    "window": "main_window",
+    "description": "StarDebate 主窗口菜单栏注册表 — 注入到 TitleBar 标题栏",
+    "settings": {
+        "bar_height": 42,
+        "button_min_width": 70,
+        "button_height": 30,
+        "font_size": 12,
+        "spacing": 3,
+        "margins": [8, 4, 8, 4]
+    },
+    "menu_area": [
+        {
+            "id": "file_menu",
+            "type": "menu_button",
+            "text": "文件",
+            "tooltip": "文件操作",
+            "position": 1,
+            "enabled": true,
+            "section": "menu_area",
+            "items": [
+                {"id": "new_project",  "type": "sub_menu", "text": "创建项目", "position": 1, "callback": "_on_create_project"},
+                {"id": "open_project", "type": "sub_menu", "text": "打开项目", "position": 2, "callback": "_on_open_project"},
+                {"id": "sep_file_1",   "type": "separator",  "position": 3},
+                {"id": "export_stardebate", "type": "sub_menu", "text": "导出 .stardebate", "position": 4, "callback": "_on_export_stardebate"},
+                {"id": "import_stardebate", "type": "sub_menu", "text": "导入 .stardebate", "position": 5, "callback": "_on_import_stardebate"},
+                {"id": "edit_stardebate", "type": "sub_menu", "text": "编辑 .stardebate", "position": 6, "callback": "_on_edit_stardebate"},
+                {"id": "sep_file_2",   "type": "separator",  "position": 7},
+                {"id": "exit_app",     "type": "sub_menu", "text": "退出",     "position": 8, "callback": "_on_exit_app"}
+            ]
+        },
+        {
+            "id": "edit_menu",
+            "type": "menu_button",
+            "text": "编辑",
+            "tooltip": "编辑操作",
+            "position": 2,
+            "enabled": true,
+            "section": "menu_area",
+            "items": []
+        },
+        {
+            "id": "view_menu",
+            "type": "button",
+            "text": "视图",
+            "tooltip": "视图切换",
+            "position": 3,
+            "enabled": true,
+            "section": "menu_area",
+            "callback": "_on_view_menu_clicked"
+        }
+    ],
+    "right_area": [
+        {
+            "id": "extension_menu",
+            "type": "menu_button",
+            "text": "扩展",
+            "tooltip": "扩展包管理",
+            "position": 0,
+            "enabled": true,
+            "section": "right_area",
+            "items": [
+                {
+                    "id": "open_extension_manager",
+                    "type": "sub_menu",
+                    "text": "管理扩展包",
+                    "position": 1,
+                    "callback": "_toggle_extension_panel"
+                },
+                {
+                    "id": "sep_ext_1",
+                    "type": "separator",
+                    "position": 2
+                }
+            ]
+        },
+        {
+            "id": "plugin_area_top",
+            "type": "plugin_area",
+            "position": 1,
+            "section": "right_area"
+        },
+        {
+            "id": "help_btn",
+            "type": "menu_button",
+            "text": "帮助",
+            "tooltip": "帮助信息",
+            "position": 2,
+            "enabled": true,
+            "section": "right_area",
+            "items": [
+                {
+                    "id": "open_welcome_guide",
+                    "type": "sub_menu",
+                    "text": "快速上手",
+                    "position": 1,
+                    "callback": "_on_open_welcome_guide"
+                },
+                {
+                    "id": "sep_help_1",
+                    "type": "separator",
+                    "position": 2
+                },
+                {
+                    "id": "debug_console",
+                    "type": "sub_menu",
+                    "text": "调试台",
+                    "position": 3,
+                    "callback": "_on_open_debug_console",
+                    "dev_feature_id": "debug_console"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "master_enabled": true,
+  "debug_monitor": {
+    "enabled": true,
+    "monitors": {
+      "variable_watch": true,
+      "function_watch": true,
+      "plugin_watch": true,
+      "api_watch": true,
+      "ai_watch": true
+    },
+    "function_min_duration_ms": 500
+  },
+  "chronicle": {
+    "enabled": true,
+    "categories_active": {
+      "feature": true,
+      "plugin": true,
+      "api": true,
+      "ai": true
+    },
+    "min_duration_ms": 0,
+    "max_duration_ms": {
+      "feature": 0,
+      "api": 0,
+      "ai": 0,
+      "plugin": 0
+    },
+    "capture_traceback": true,
+    "snapshot_interval_s": 0
+  },
+  "log_service": {
+    "auto_clean": true,
+    "keep_normal_exit_log": false
+  },
+  "native_event": {
+    "enabled": true,
+    "hooks": {
+      "qt_handler": true,
+      "excepthook": true,
+      "unraisablehook": true,
+      "audithook": true,
+      "gc_callbacks": true,
+      "c_exception_profile": false
+    },
+    "thread_monitor": {
+      "stuck_threshold": 30,
+      "deadlock_threshold": 60
+    },
+    "resource_monitor": {
+      "fd_threshold": 1000
+    },
+    "throttle": {
+      "max_per_second": 50
+    }
+  }
+}

@@ -39,7 +39,7 @@ StarDebate/
 ├── StarDebate_app.py        # 主应用窗口
 ├── star_debate_log.py       # 日志系统
 ├── components/              # 通用 UI 组件
-│   └── siui/                # 自研 PyQt5 UI 库（SiliconUI）
+│   └── siui/                # PyQt-SiliconUI（基于 PyQt5 的美观 UI 库，内嵌修改版）
 ├── workers/                 # 功能模块（按功能分文件夹）
 │   ├── ai_analysis/         # AI 辩论分析
 │   ├── cross_examination/   # 质询练习
@@ -64,12 +64,20 @@ StarDebate/
 | 层 | 技术 |
 |----|------|
 | GUI 框架 | PyQt5 |
-| UI 组件 | 自研 SiliconUI（基于 PyQt5） |
+| UI 组件 | [PyQt-SiliconUI](https://github.com/ChinaIceF/PyQt-SiliconUI)（内嵌修改版） |
 | AI | DeepSeek API（兼容 OpenAI 格式） |
 | 文档解析 | pdfplumber, python-docx, openpyxl, beautifulsoup4 |
 | 加密 | cryptography (Fernet / AES-256-GCM) |
 | 样式 | QSS 模板 + Catppuccin 主题 |
 
-## 许可
+## 许可与致谢
 
-本项目源码仅供学习和个人使用。
+本项目基于 **GNU General Public License v3 (GPL-3.0)** 发布。
+
+### 致谢
+
+- **PyQt-SiliconUI** — 本项目内嵌了 [PyQt-SiliconUI](https://github.com/ChinaIceF/PyQt-SiliconUI)（作者：ChinaIceF、rainzee wang）作为 UI 组件库，并在其基础上进行了修改和适配。该库同样基于 GPL-3.0 许可。
+
+- **DeepSeek** — AI 分析功能调用 DeepSeek API。
+
+- **Catppuccin** — 主题配色参考 [Catppuccin](https://github.com/catppuccin/catppuccin) 社区配色方案。

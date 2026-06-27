@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<style>
+@keyframes fadeSlideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-10px)}to{opacity:1;transform:translateX(0)}}
+@keyframes dotPulse{0%,100%{box-shadow:0 0 0 0 ACCENT_COLOR}50%{box-shadow:0 0 0 5px transparent}}
+body{font-family:"Microsoft YaHei","HarmonyOS Sans SC",sans-serif;background:transparent;color:TEXT_COLOR;margin:0;padding:4px 0}
+h1{font-size:13pt;font-weight:700;color:TEXT_COLOR;margin-bottom:14px;padding-bottom:8px;border-bottom:1.5px solid BORDER_COLOR;animation:fadeSlideUp .3s ease-out}
+/* 时间轴容器 */
+.timeline{position:relative;padding-left:28px}
+/* 竖线 */
+.timeline::before{content:"";position:absolute;left:9px;top:6px;bottom:4px;width:2px;background:BORDER_COLOR;border-radius:1px}
+/* 每个版本节点 */
+.version-node{position:relative;margin-bottom:14px;padding:12px 14px;background:SURFACE_COLOR;border-radius:8px;animation:fadeSlideUp .4s ease-out both}
+.version-node:nth-child(1){animation-delay:0s}
+.version-node:nth-child(2){animation-delay:.1s}
+.version-node:nth-child(3){animation-delay:.2s}
+.version-node:hover{background:HOVER_COLOR;transition:background .2s}
+/* 时间轴圆点 */
+.version-node::before{content:"";position:absolute;left:-22px;top:16px;width:10px;height:10px;border-radius:50%;background:ACCENT_COLOR;border:2px solid SURFACE_COLOR}
+.version-node:first-child::before{background:ACCENT_GREEN;animation:dotPulse 2s infinite}
+/* 版本标题行 */
+.version-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.version-tag{font-size:12pt;font-weight:700;color:TEXT_COLOR}
+.version-badge{display:inline-block;font-size:10pt;padding:1px 10px;border-radius:10px;font-weight:700}
+.badge-new{background:ACCENT_GREEN;color:#fff}
+.badge-fix{background:ACCENT_RED;color:#fff}
+.badge-opt{background:ACCENT_YELLOW;color:#1e1e2e}
+/* 条目列表 */
+ul{list-style:none;padding:0;margin:0}
+li{padding:3px 0;font-size:11pt;color:SUBTEXT_COLOR;animation:slideIn .3s ease-out both;line-height:1.5}
+li:before{content:"\25B8 ";color:ACCENT_COLOR;font-size:12pt}
+</style>
+</head>
+<body>
+<h1>&#x1F389; 更新日志</h1>
+<div class="timeline">
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.3.1</span> <span class="version-badge badge-new">最新</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 扩展包管理页面返回后无法再次进入的崩溃（wrapped C/C++ object of type SiLabel has been deleted）：空状态提示 _empty_hint 在 refresh_list 清空循环中被 deleteLater 后 C++ 对象销毁，但 Python 引用仍存导致悬空指针崩溃</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.3.0</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> 扩展包系统（.sep）：超级插件架构，全权限+内置入口+安装即启用，独立于 plugins/ 的 extensions/ 目录</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-new">新增</span> ExtensionManager 核心类：支持 .sep ZIP 包安装/文件夹安装/自动发现/禁用重启生效</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-new">新增</span> ExtensionAPI：继承 PluginSafeAPI + get_main_window() 直接暴露全量核心对象 + register_top_menu/register_center_page/modify_theme_colors 高级方法</li>
+<li style="animation-delay:.24s"><span class="version-badge badge-new">新增</span> 扩展包管理面板（centre_stack 页面）：SiUI 平面卡片列表+SiToggleButtonRefactor 状态切换+SiLongPressButtonRefactor 长按删除</li>
+<li style="animation-delay:.32s"><span class="version-badge badge-new">新增</span> 顶部导航栏「扩展」菜单按钮（含「管理扩展包」子菜单），独立于插件按钮区</li>
+<li style="animation-delay:.40s"><span class="version-badge badge-new">新增</span> 加载时序优化：扩展包在管理器就绪后、UI 构建前（阶段 D→E 之间）加载，允许扩展现有 UI</li>
+<li style="animation-delay:.48s"><span class="version-badge badge-new">新增</span> extension.svg 图标 + docs/extension_dev_guide.md 开发文档</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.2.12</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> 侧边通用消息弹窗 SideMessageBox：5 种预设类型（normal/success/info/warning/error），按钮交互+自动消除混合模式，悬浮暂停折叠，静态 API（.information()/.success() 等）</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-opt">优化</span> 设置对话框主界面全面迁移 SiUI：导航按钮→SiToggleButtonRefactor，底部按钮→SiPushButtonRefactor，导航容器→SiScrollAreaRefactor，清理 QSS 死规则（7 条）</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-opt">优化</span> API 配置页 SiUI 重构 v2.0.0：SiPushButton→SiPushButtonRefactor，SiLineEdit→SiCapsuleLineEdit，容器→SiPanelCard，加错误保护回退路径</li>
+<li style="animation-delay:.24s"><span class="version-badge badge-opt">优化</span> 关于页面 SiUI 重构 v2.0.0：卡片→SiPanelCard，标签→SiLabel，切换开关→SiToggleButtonRefactor，长按清理→SiLongPressButtonRefactor</li>
+<li style="animation-delay:.32s"><span class="version-badge badge-opt">优化</span> 日志设置页面 SiUI 重构 v3.0.0：开关→SiSwitchRefactor，微调框→SiSpinBox/SiDoubleSpinBox，图标 emoji→SVG log.svg</li>
+<li style="animation-delay:.40s"><span class="version-badge badge-fix">修复</span> 质询模拟卡片容器深色模式显示浅色：移除内联 setStyleSheet，移至 QSS 模板组件跨主题管理</li>
+<li style="animation-delay:.48s"><span class="version-badge badge-fix">修复</span> API Key 密码切换时光标丢失：切换前保存/切换后恢复 cursorPosition 与 text</li>
+<li style="animation-delay:.56s"><span class="version-badge badge-fix">修复</span> API 配置页 D 盘 EXE 无法显示：新增 _safe_set_style_data / _safe_create_card 错误保护，SiUI 组件失败时自动降级为 Qt 原生</li>
+<li style="animation-delay:.64s"><span class="version-badge badge-fix">修复</span> SiCapsuleLineEdit 聚焦时底部紫色指示线改为主题色 accent_blue</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.2.11</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 设置对话框内容区高度不自动调整（三处根因：add_silabel 缺少 QWidget.layout() 回退导致标题静默丢失、updateGeometry 传播到 QScrollArea 后短路跳过、窗口模式高度钳制被过度移除）</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-opt">优化</span> 抽取设置页通用工具模块 _page_utils.py，about_page 与 api_config 消除代码重复（safe_set_style_data / safe_create_card / add_silabel / make_transparent_row）</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-opt">优化</span> 关于页面全面改用 tc() 动态主题色，消除全部硬编码色值（6处 #f38ba8 / #a6e3a1 / #6c7086 / #1e1e2e），结构去重提取 3 个工厂函数</li>
+<li style="animation-delay:.24s"><span class="version-badge badge-opt">优化</span> API 配置页改用共享工具函数 + 闭包 nonlocal 替代列表 hack，代码减少 22%（345→268行）</li>
+<li style="animation-delay:.32s"><span class="version-badge badge-opt">优化</span> SiGlobal 颜色同步补齐 22 个缺失的 SiColor→theme.json 映射（工具提示/单选/复选框/文字按钮/长按按钮/开关/滚动条/进度条/标题指示器等）</li>
+<li style="animation-delay:.40s"><span class="version-badge badge-new">新增</span> about.svg / api.svg 设置页 SVG 图标文件</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.2.10</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 设置页→API 配置全面升级 SiUI 重构版组件：SiPushButtonRefactor / SiCapsuleLineEdit / SiPanelCard，废弃旧版 SiPushButton/SiLineEdit</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-fix">修复</span> API 配置页 9 项 SiUI 兼容性错误（不存在的类名/方法名/枚举值），现已正常打开</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-fix">修复</span> API 配置页 SiCapsuleLineEdit 黑块显示：style_data 全部改用 tc() 同步主题色</li>
+<li style="animation-delay:.24s"><span class="version-badge badge-fix">修复</span> API 配置页颜色不匹配主界面：按钮/卡片/编辑框颜色均使用 theme.json 定义色值</li>
+<li style="animation-delay:.32s"><span class="version-badge badge-fix">修复</span> API 配置页原布局 bug：温度标签误添加到模型列而非温度列</li>
+<li style="animation-delay:.40s"><span class="version-badge badge-opt">优化</span> 简化 API 配置页布局：删除连接参数标题、最大 Tokens 和温度展示行</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.2.9</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> 设置页外观 → 导航栏 →「显示导航栏按钮名称」开关，控制左右两侧所有导航按钮下方文字标签的显示/隐藏</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-fix">修复</span> 导航栏标签开关状态在应用重启后不持久化：启动时从 config.json 读取 show_nav_labels 并应用到导航栏</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-fix">修复</span> 插件按钮标签不受导航栏名称开关控制：新建标签时跟随 _labels_visible 状态标志</li>
+<li style="animation-delay:.24s"><span class="version-badge badge-fix">修复</span> 深色模式下搜索框 placeholder 文字变为黑色：QSS 模板中补充 QLineEdit::placeholder 显式颜色 @subtext@</li>
+<li style="animation-delay:.32s"><span class="version-badge badge-fix">修复</span> QSS 模板 checker 误报未定义 @key@ 占位符（updater.qss 文档注释中的假阳性）</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.2.8</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 导出 .docx 时报错 "value must be <type 'int'>, got <class 'Mm'>"：自定义 Mm 类不被 python-docx 识别，改用 docx.shared.Mm</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-fix">修复</span> 导出 .docx 纸张大小不随设置同步：_page_size_mm() 直接返回 reportlab 的 points 值而非 mm，导致页面偏大 2.8 倍，增加单位转换</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-fix">修复</span> EXE 版启动时 NameError: name 'A4' is not defined：reportlab/docx 条件导入 except 分支缺少回退常量，导致模块级 PAGE_SIZE_MAP/ALIGN_MAP_DOCX 解析失败</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.2.7</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 浅色主题下更新弹窗配色异常：updater.qss 中 15 处硬编码色值全部替换为 @key@ 占位符，更新说明背景/文字/边框/标题栏等随主题正确切换</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-opt">优化</span> 更新内容显示区从纯文本（QTextEdit）改为 Markdown 渲染（QTextBrowser），release_notes 支持标题/列表/粗体等格式</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.2.6</span> <span class="version-badge badge-fix">修复</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 「打开项目」菜单/快捷键完全无效：explorer_manager.py 方法名不匹配 + glue.py 缺少 _on_open_project 回调，导致菜单项与 Ctrl+O 均静默失败</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-fix">修复</span> 「退出」菜单完全无效：glue.py 缺少 _on_exit_app 回调，菜单退出无响应</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-fix">修复</span> 关闭窗口不保存文件：StarDebate_app.py 存在两个冲突 closeEvent，且未调用 super() 导致 GlueCodeMixin 的 .stardebate 保存/插件关闭逻辑死代码化</li>
+<li style="animation-delay:.24s"><span class="version-badge badge-opt">优化</span> 删除「保存项目」菜单项（从未实现，一直为死链接）</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.2.5</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 更新对话框 QSS 样式加载失效：四个对话框类（发现更新/更新进度/成功提示/恢复弹窗）改用模板替换函数 _load_updater_qss()，适配 v6.2.0+ 模板系统</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-fix">修复</span> 更新完成弹窗版本号显示为"v最新版本"：_trigger_restart() 在清理状态文件前保存 target_version，确保弹窗正确显示实际目标版本</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.2.4</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-opt">优化</span> 启动横幅：将 "★ StarDebate" 文字标题替换为软件主Logo图标（96×96 SVG），视觉更统一</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-new">新增</span> icon/common/main.svg 主Logo矢量图标文件</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.2.3</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 浅色主题下 6 处硬编码深色背景色（框架画布、质询问答、训练按钮、设置页、警告卡片）现改用 @key@ 动态取色，跟随主题切换</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-new">新增</span> theme.json 新增 bg_question / bg_answer 两个颜色键，质询面板正反方背景色在深浅主题下分别适配</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.2.2</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 通用提示弹窗（CustomDialog）标题栏背景未设置，显示为透明</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.2.1</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">重构</span> QSS 主题系统全面重构：引入模板机制（@key@ 占位符），33 个 QSS 模板替代旧的 66 个硬编码文件</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-new">新增</span> theme.json 新增 7 个颜色键</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-new">新增</span> 开发工具链：模板生成/验证/引用地图</li>
+<li style="animation-delay:.24s"><span class="version-badge badge-opt">优化</span> 新主题开发门槛降低：只需创建 theme.json，无需碰任何 QSS 文件</li>
+<li style="animation-delay:.32s"><span class="version-badge badge-opt">优化</span> 所有 QLabel 控件默认透明背景</li>
+<li style="animation-delay:.40s"><span class="version-badge badge-fix">修复</span> 设置页备用样式 f-string 与 CSS 大括号冲突</li>
+<li style="animation-delay:.48s"><span class="version-badge badge-fix">修复</span> 设置页版本号标签背景缺失透明</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.2.0</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">重构</span> 一辩稿编辑器：删除正反方 Tab 切换，改为单编辑器页面，通过结构树节点自动切换立场</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-new">新增</span> 新建一辩稿时弹出立场选择弹窗（竖向卡片式选择），两方文件都不存在时自动弹出</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-new">新增</span> 设置页「切换文件时自动保存」开关，控制切换立场时自动保存或弹窗询问</li>
+<li style="animation-delay:.24s"><span class="version-badge badge-opt">优化</span> 工具栏按钮合并为统一行：[保存]蓝底白字 [索引] [查看分析] [AI分析]</li>
+<li style="animation-delay:.32s"><span class="version-badge badge-opt">优化</span> AI写稿「导入」按钮从两个合并为一个，自动导入到对应立场</li>
+<li style="animation-delay:.40s"><span class="version-badge badge-fix">修复</span> 键盘快捷键和字数统计在单编辑器模式下正常工作</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.1.9</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> 替换软件图标（窗口图标、任务栏图标、标题栏图标统一显示新图标）</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-opt">优化</span> 标题栏支持图片图标（TitleBar 新增 icon_path 参数，优先加载图片回退文字）</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.1.8</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 修复设置页最大化后显示高度仍维持窗口模式大小的问题</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.1.7</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 修复插件导航按钮回调因 PyQt5 clicked 信号传递 checked 参数导致 TypeError</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.1.6</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-opt">优化</span> 开发者模式：开启时弹出警告确认弹窗（类型改为警告）</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-opt">优化</span> 通用弹窗增加 12px 圆角（Windows 无边框窗口支持）</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.1.5</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> 开发者模式（设置→关于→开发者模式开关，关闭时隐藏调试台入口）</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-new">新增</span> 更新器 JSON 字段级合并（config.json 更新时保留用户配置）</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-opt">优化</span> 关于页面 UI，新增开发者模式卡片</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.1.4</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> 更新器底层支持 JSON 字段级合并</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-opt">优化</span> 更新器文档同步至 v2.2.0</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.1.3</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 修复引导面板注入位置干扰原有 centre_stack 索引</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.1.1</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 修复更新包中更新日志缺失问题</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.1.0</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> 介绍与引导页（首次运行 + 版本更新后展示）</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-opt">优化</span> 启动速度优化，加载逻辑调整</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-fix">修复</span> 修复已知 UI 显示异常</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.0.8</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> 本地增量更新器模块</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-opt">优化</span> 更新流程改进</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.0.7</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> 插件系统升级，支持更多 API</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-opt">优化</span> 改进 AI 分析响应速度</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.0.6</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> 资料池 AI 综合总结导出</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-fix">修复</span> 修正部分 QSS 样式不跟随主题问题</li>
+</ul>
+</div>
+
+</div>
+</body>
+</html>

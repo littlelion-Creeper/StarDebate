@@ -1,0 +1,28 @@
+{
+  "files": [
+    {
+      "path": "C:/Users/Oblivion/Desktop/1vs2_20260606.stardebate",
+      "uuid": "83562d25-1075-47da-af7e-d88d31beffb5",
+      "has_password": false,
+      "pwd_blob": "",
+      "added_at": 1780772379,
+      "updated_at": 1780920699
+    },
+    {
+      "path": "C:/Users/Oblivion/Desktop/辩论赛/1vs2_20260606.stardebate",
+      "uuid": "dfefb4ca-50f3-4721-913b-52c940cf4c75",
+      "has_password": false,
+      "pwd_blob": "",
+      "added_at": 1781052420,
+      "updated_at": 1782551987
+    },
+    {
+      "path": "C:/Users/Oblivion/Desktop/辩论赛/1vs2_20260606_01.stardebate",
+      "uuid": "420dbd96-c646-4eb1-87da-55fc37726a80",
+      "has_password": true,
+      "pwd_blob": "AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAo5PNf4qRyUOXB4x67wVWpQAAAAA+AAAAUwB0AGEAcgBEAGUAYgBhAHQAZQAuAHMAdABhAHIAZABlAGIAYQB0AGUALgBwAGEAcwBzAHcAbwByAGQAAAAQZgAAAAEAACAAAABqU5wjMDuzNfLn5hv2KhPWnA7neS0xwfTzy03QQ+PkqgAAAAAOgAAAAAIAACAAAACOjzKXrbGACh0msyCmCsQeZ7J55wjWjrmB0fEI7K5BBhAAAABdimcC3DHUXjarNn+Q5kQ/QAAAAAie+8PzeUYaIhXJTzsDeLBLNgMDAJ+UWeDILNnVv71YhlIELshBRiOGI4vkqdtGo1A3qNzueTapr4xHT1JnHX0=",
+      "added_at": 1781053043,
+      "updated_at": 1782551997
+    }
+  ]
+}
