@@ -344,10 +344,49 @@ function loadDoc(slug,dir,file){
       const html = marked.parse(text);
       content.innerHTML = html;
 
-      // Post-process links in content to be external
-      content.querySelectorAll('a[href^="http"]').forEach(a=>{
-        a.setAttribute('target','_blank');
-        a.setAttribute('rel','noopener');
+      // Post-process internal links
+      content.querySelectorAll('a[href]').forEach(a=>{
+        const href = a.getAttribute('href');
+
+        // External links → new tab
+        if(href.startsWith('http')){
+          a.setAttribute('target','_blank');
+          a.setAttribute('rel','noopener');
+          return;
+        }
+
+        // Anchor links (#section) → smooth scroll in content-wrapper
+        if(href.startsWith('#')){
+          a.addEventListener('click',e=>{
+            e.preventDefault();
+            const id = href.slice(1);
+            let target = document.getElementById(id);
+            // Fallback: find heading whose inner text matches (decoded)
+            if(!target){
+              const decoded = decodeURIComponent(id).replace(/[、，,.\-]/g,'');
+              target = Array.from(content.querySelectorAll('h1,h2,h3,h4,h5,h6'))
+                .find(h=>h.textContent.replace(/[、，,.\-]/g,'').trim() === decoded);
+            }
+            if(target){
+              const wrapper = document.getElementById('content-wrapper');
+              const top = target.offsetTop - wrapper.offsetTop - 16;
+              wrapper.scrollTo({top, behavior:'smooth'});
+            }
+          });
+          return;
+        }
+
+        // Cross-file .md links → route through loadDoc
+        if(href.endsWith('.md')){
+          const fileName = href.split('/').pop();
+          const entry = FILES.find(f=>f.file === fileName);
+          if(entry){
+            a.addEventListener('click',e=>{
+              e.preventDefault();
+              loadDoc(entry.slug,entry.dir,entry.file);
+            });
+          }
+        }
       });
 
       // Scroll to top
@@ -391,7 +430,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   // Handle hash changes (back/forward)
   window.addEventListener('hashchange',()=>{
     const h = window.location.hash.replace('#','');
-    if(h !== currentSlug){
+    // Only handle file-slug hashes, ignore anchor-only hashes (#section)
+    if(h && h !== currentSlug && FILES.some(f=>f.slug===h)){
       const entry = FILES.find(f=>f.slug===h);
       if(entry) loadDoc(entry.slug,entry.dir,entry.file);
     }
