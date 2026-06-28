@@ -53,9 +53,12 @@ Thumbs.db
 .DS_Store
 
 # ── Docs Subdirectories (local dev records) ────
-docs/bug_fix_records/
-docs/log/
-docs/Skill/
+docs/dev-docs/bug_fix_records/
+docs/dev-docs/log/
+docs/dev-docs/Skill/
+
+# ── Web Pages (moved to docs/, local only) ──────
+web/
 
 # ── User Data (not included in source repo) ──
 extensions/
