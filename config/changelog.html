@@ -39,7 +39,28 @@ li:before{content:"\25B8 ";color:ACCENT_COLOR;font-size:12pt}
 <div class="timeline">
 
 <div class="version-node">
-<div class="version-header"><span class="version-tag">v6.4.0</span> <span class="version-badge badge-new">最新</span></div>
+<div class="version-header"><span class="version-tag">v6.4.1</span> <span class="version-badge badge-new">最新</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> GitHub Pages 介绍页 + Web 应用页，搭建立体化在线文档站点</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-new">新增</span> 线上文档查看器（内置浏览器）：搜索 + 分类浏览全部文档，分类精简为用户指南 / 开发指南 / 法律声明</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-new">新增</span> 为所有网页页面添加 favicon（StarDebate.ico）</li>
+<li style="animation-delay:.24s"><span class="version-badge badge-new">新增</span> Web AI (DeepSeek 网页版) 接入说明文档（docs/dev-docs/user-guide/web_ai_deepseek.md）</li>
+<li style="animation-delay:.32s"><span class="version-badge badge-opt">优化</span> 更新器补丁文件统一前缀（patch_ → update_），gen_patch.py + update_manager 同步适配</li>
+<li style="animation-delay:.40s"><span class="version-badge badge-opt">优化</span> 文档目录全面重组：开发文档移入 docs/dev-docs/，用户指南 / 命令速查 / 调试台 / 主题开发按子目录分类</li>
+<li style="animation-delay:.48s"><span class="version-badge badge-opt">优化</span> 文档查看器 UI 打磨：内容区 820px→自适应 95%，移除冗余分类导航项</li>
+<li style="animation-delay:.56s"><span class="version-badge badge-opt">优化</span> 统一文档中旧 Catppuccin/Nord 主题引用为 Notion Dark/Light（用户指南、命令速查、调试台、主题开发指南、Star spinbox 设计、插件开发手册）</li>
+<li style="animation-delay:.64s"><span class="version-badge badge-opt">优化</span> 分离 GPL-3.0 许可说明到独立文件 docs/dev-docs/dev-guide/LICENSE.md，修正版权声明格式</li>
+<li style="animation-delay:.72s"><span class="version-badge badge-fix">修复</span> 更新完成后写入 config.json 版本号（set_config_version），解决更新后版本号未刷新的问题</li>
+<li style="animation-delay:.80s"><span class="version-badge badge-fix">修复</span> QByteArray 下载写文件时显式转 bytes，避免 manifest 读取失败</li>
+<li style="animation-delay:.88s"><span class="version-badge badge-fix">修复</span> 文档查看器中文文件名 URL 编码 bug（loadDoc + prefetchTitles + onclick 统一编码）</li>
+<li style="animation-delay:.96s"><span class="version-badge badge-fix">修复</span> 文档网页端跨文件链接和目录锚点跳转</li>
+<li style="animation-delay:1.04s"><span class="version-badge badge-fix">修复</span> 防止文档内 ToC 锚点哈希污染 URL</li>
+<li style="animation-delay:1.12s"><span class="version-badge badge-fix">修复</span> 快速刷题 Sessions 列表卡片多行文字截断：StarButton _content_size() 不处理 \n 换行，改为 QPushButton 原生多行处理</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.4.0</span></div>
 <ul>
 <li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> Web AI 网页版支持：通过 Playwright headless 模拟浏览器访问 DeepSeek Chat，无需 API Key 即可使用 AI 功能</li>
 <li style="animation-delay:.08s"><span class="version-badge badge-new">新增</span> DeepSeek Chat Provider：自动/手动登录、Session 持久化（30 天有效期）、重试与超时机制</li>

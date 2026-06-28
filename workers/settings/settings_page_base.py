@@ -105,6 +105,10 @@ class SettingsPageInfo:
         if not self.load_module():
             return None
 
+        # 强制 GC 回收，减少 Python 3.12+ BytesIO 缓冲协议残留导致的 SystemError
+        import gc
+        gc.collect()
+
         try:
             if self.source == "plugin" and self._create_widget_fn:
                 # 插件页面：直接回调
@@ -117,7 +121,7 @@ class SettingsPageInfo:
                 current_config = self._load_saved_config()
                 self._widget = build_func(parent_dialog, current_config)
             return self._widget
-        except Exception:
+        except BaseException:
             traceback.print_exc()
             logging.getLogger(__name__).exception(
                 "设置页构建失败: %s", self.name
@@ -167,7 +171,7 @@ class SettingsPageInfo:
             try:
                 with open(save_path, "r", encoding="utf-8") as f:
                     return json.load(f)
-            except Exception:
+            except BaseException:
                 pass
         return self.get_default_config()
 

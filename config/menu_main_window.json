@@ -98,15 +98,22 @@
                     "callback": "_on_open_welcome_guide"
                 },
                 {
+                    "id": "open_changelog",
+                    "type": "sub_menu",
+                    "text": "更新日志",
+                    "position": 2,
+                    "callback": "_on_open_changelog"
+                },
+                {
                     "id": "sep_help_1",
                     "type": "separator",
-                    "position": 2
+                    "position": 3
                 },
                 {
                     "id": "debug_console",
                     "type": "sub_menu",
                     "text": "调试台",
-                    "position": 3,
+                    "position": 4,
                     "callback": "_on_open_debug_console",
                     "dev_feature_id": "debug_console"
                 }

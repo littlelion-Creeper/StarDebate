@@ -4,13 +4,13 @@ import os
 import random
 from datetime import datetime
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont, QFontMetrics
+from PyQt5.QtCore import Qt, QTimer
+from PyQt5.QtGui import QFont
 from components.theme_colors import tc, refresh
 from PyQt5.QtWidgets import (
     QFrame, QVBoxLayout, QHBoxLayout, QLabel,
     QStackedWidget, QScrollArea, QWidget, QComboBox,
-    QSizePolicy,
+    QSizePolicy, QPushButton,
 )
 from components.star_button import StarButton
 from components.popup_dialog import CustomDialog
@@ -360,13 +360,15 @@ class QuickQuizManager:
         self._cards_scroll = QScrollArea()
         self._cards_scroll.setObjectName("qqScrollArea")
         self._cards_scroll.setWidgetResizable(True)
+        self._cards_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self._cards_container = QWidget()
         self._cards_container.setObjectName("qqScrollContainer")
+        self._cards_container.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.MinimumExpanding)
         self._cards_list_layout = QVBoxLayout(self._cards_container)
         self._cards_list_layout.setSpacing(4)
         self._cards_list_layout.addStretch()
         self._cards_scroll.setWidget(self._cards_container)
-        layout.addWidget(self._cards_scroll)
+        layout.addWidget(self._cards_scroll, stretch=1)
 
         cards_btn_row = QHBoxLayout()
         btn_back_cards = StarButton("← 返回会话列表", None, layout_mode="text_only", ratio_h=0.7)
@@ -1050,13 +1052,16 @@ class QuickQuizManager:
             correct = sess.get("correct_count", 0)
             score = sess.get("score", 0)
 
-            btn = StarButton(
+            btn = QPushButton(
                 f"{mode} · {diff}    {date_str}\n"
-                f"总{total}题 · 正确{correct} · {score}分",
-                None, layout_mode="text_only", ratio_h=0.7)
-            btn.setMinimumHeight(48)
+                f"总{total}题 · 正确{correct} · {score}分"
+            )
             btn.setObjectName("qqSessionBtn")
-            btn.clicked.connect(lambda s=sess: self._on_view_session(s))
+            btn.setFont(QFont("Microsoft YaHei", 9))
+            btn.setCursor(Qt.PointingHandCursor)
+            btn.setMinimumHeight(48)
+            btn.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
+            btn.clicked.connect(lambda checked, s=sess: self._on_view_session(s))
             self._sessions_list_layout.insertWidget(self._sessions_list_layout.count() - 1, btn)
 
     def _on_view_session(self, session: dict):
@@ -1077,6 +1082,10 @@ class QuickQuizManager:
         self._btn_del_session.setVisible(True)
         self._btn_del_session._session_data = session
 
+        # 延迟一帧填充卡片：等待 layout 完成，确保宽度确定后正确显示
+        QTimer.singleShot(0, lambda: self._populate_cards(session))
+
+    def _populate_cards(self, session: dict):
         while self._cards_list_layout.count() > 1:
             item = self._cards_list_layout.takeAt(0)
             if item.widget():
@@ -1102,6 +1111,7 @@ class QuickQuizManager:
         card = QFrame()
         card.setObjectName("trainingCard")
         card.setCursor(Qt.PointingHandCursor)
+        card.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         card_layout = QHBoxLayout(card)
         card_layout.setContentsMargins(8, 6, 8, 6)
         card_layout.setSpacing(8)
@@ -1109,7 +1119,8 @@ class QuickQuizManager:
         lbl_idx = QLabel(f"#{idx}")
         lbl_idx.setObjectName("trainCardIndex")
         lbl_idx.setFont(QFont("Microsoft YaHei", 9, QFont.Bold))
-        lbl_idx.setFixedWidth(28)
+        lbl_idx.setFixedWidth(32)
+        lbl_idx.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Minimum)
         card_layout.addWidget(lbl_idx)
 
         lbl_type = QLabel(f"{type_icon}\n{diff_icon}")
@@ -1117,14 +1128,14 @@ class QuickQuizManager:
         lbl_type.setFont(QFont("Microsoft YaHei", 8))
         lbl_type.setAlignment(Qt.AlignCenter)
         lbl_type.setMinimumWidth(56)
+        lbl_type.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Minimum)
         card_layout.addWidget(lbl_type)
 
         lbl_q = QLabel(question_text)
         lbl_q.setObjectName("trainCardQuestion")
         lbl_q.setFont(QFont("Microsoft YaHei", 9))
         lbl_q.setWordWrap(True)
-        lbl_q.setMinimumHeight(0)
-        lbl_q.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        lbl_q.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Minimum)
         card_layout.addWidget(lbl_q, stretch=1)
 
         lbl_score = QLabel(f"{score_icon}\n{score_text}")
@@ -1132,7 +1143,8 @@ class QuickQuizManager:
         lbl_score.setAlignment(Qt.AlignCenter)
         lbl_score.setStyleSheet(
             "color: #a6e3a1; padding: 0;" if is_correct else "color: #f38ba8; padding: 0;")
-        lbl_score.setFixedWidth(36)
+        lbl_score.setFixedWidth(40)
+        lbl_score.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Minimum)
         card_layout.addWidget(lbl_score)
 
         card.mouseDoubleClickEvent = lambda event, qdata=q: self._on_view_detail(qdata)

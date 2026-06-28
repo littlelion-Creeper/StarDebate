@@ -80,6 +80,7 @@ class WelcomeGuideStepPanel(QFrame):
         self._current_step = 0
         self._total_steps = 5
         self._mode = "first_run"
+        self._changelog_only_mode = False
         self._log = getattr(mw, '_log_client', None)
         self.setObjectName("welcomeGuidePanel")
         if self._log:
@@ -98,6 +99,20 @@ class WelcomeGuideStepPanel(QFrame):
             html = self._load_changelog()
             if html and hasattr(self, '_cl_browser'):
                 self._cl_browser.setHtml(html)
+
+    def show_changelog_only(self):
+        """纯更新日志模式 — 隐藏导航控件，仅显示日志内容+关闭按钮。"""
+        self._changelog_only_mode = True
+        self._btn_skip.setVisible(False)
+        self._btn_prev.setVisible(False)
+        self._btn_next.setVisible(False)
+        self._indicator.setVisible(False)
+        self._title_lbl.setText("更新日志")
+        # 刷新 changelog HTML
+        html = self._load_changelog()
+        if html and hasattr(self, '_cl_browser'):
+            self._cl_browser.setHtml(html)
+        self._stack.setCurrentIndex(3)
 
     def _build_ui(self):
         layout = QVBoxLayout(self)
@@ -292,6 +307,18 @@ class WelcomeGuideStepPanel(QFrame):
         self.finished.emit()
 
     def _on_close(self):
+        if self._changelog_only_mode:
+            # 纯日志模式关闭：不保存版本号，直接返回
+            self._changelog_only_mode = False
+            self._btn_skip.setVisible(True)
+            self._btn_prev.setVisible(True)
+            self._btn_next.setVisible(True)
+            self._indicator.setVisible(True)
+            self._update_step()
+            cs = getattr(self._mw, 'centre_stack', None)
+            if cs and cs.count() > 0:
+                cs.setCurrentIndex(0)
+            return
         if self._log:
             self._log.info("[WELCOME] 用户关闭引导")
         self.finished.emit()

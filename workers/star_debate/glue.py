@@ -533,6 +533,34 @@ class GlueCodeMixin:
             import traceback
             traceback.print_exc()
 
+    def _on_open_changelog(self):
+        """打开更新日志（帮助菜单「更新日志」入口，纯日志模式，不保存版本号）。
+
+        监视钩子：功能与插件加载与卸载（welcome_guide_mgr 存在性检测）。
+        """
+        try:
+            mgr = getattr(self, '_welcome_guide_mgr', None)
+            if mgr is None:
+                log = getattr(self, '_log_client', None)
+                if log:
+                    log.warn("[WELCOME] _welcome_guide_mgr 为 None，无法打开更新日志")
+                self._update_status("引导页未初始化")
+                return
+            if not hasattr(mgr, '_panel') or mgr._panel is None:
+                log = getattr(self, '_log_client', None)
+                if log:
+                    log.warn("[WELCOME] 引导面板为 None，无法打开更新日志")
+                self._update_status("引导面板未就绪")
+                return
+            mgr.show_changelog()
+            self._update_status("已打开更新日志")
+        except Exception as e:
+            log = getattr(self, '_log_client', None)
+            if log:
+                log.error(f"[WELCOME] 打开更新日志异常: {e}")
+            import traceback
+            traceback.print_exc()
+
     def _on_open_debug_console(self):
         """打开调试台窗口（含开发者模式防御检查）"""
         disabled = getattr(self, "_disabled_features", [])

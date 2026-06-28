@@ -249,6 +249,20 @@ def build_page(parent_dialog, current_config: dict) -> QWidget:
     Returns:
         QWidget: 页面内容
     """
+    # 安全兜底：SystemError 是 BaseException，不继承 Exception，需要额外保护
+    try:
+        return _build_page_impl(parent_dialog, current_config)
+    except BaseException:
+        _logger.exception("日志设置页 build_page 崩溃")
+        # 返回一个极简占位页面，防止 SettingsDialog 切换页面时崩溃
+        fallback = QWidget()
+        fallback.setObjectName("settingsPage")
+        _logger.info("已返回日志设置页占位组件")
+        return fallback
+
+
+def _build_page_impl(parent_dialog, current_config: dict) -> QWidget:
+    """日志设置页实现（内层，被 build_page 兜底保护）。"""
     page = QWidget()
     page.setObjectName("settingsPage")
     layout = QVBoxLayout(page)

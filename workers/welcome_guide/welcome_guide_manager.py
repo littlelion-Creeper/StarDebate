@@ -84,6 +84,20 @@ class WelcomeGuideManager(QObject):
                            f"centre_stack={self._centre_stack is not None}")
         self._show_guide("manual")
 
+    def show_changelog(self):
+        """用户从帮助菜单「更新日志」单独打开更新日志面板。
+        
+        监视钩子：功能与插件加载与卸载（面板存在性检测）。
+        """
+        if self._panel is None or self._centre_stack is None:
+            if self._log:
+                self._log.warn("[WELCOME] 面板未就绪，无法显示更新日志")
+            return
+        if self._log:
+            self._log.info("[WELCOME] 打开更新日志（纯日志模式）")
+        self._panel.show_changelog_only()
+        self._centre_stack.setCurrentWidget(self._panel)
+
     # ── 内部方法（监视钩子：每 def 函数执行追踪）───────────────
 
     def _detect_mode(self):
