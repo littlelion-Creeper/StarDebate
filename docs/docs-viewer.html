@@ -299,7 +299,7 @@ function buildSidebar(){
     group.innerHTML = `<div class="cat-header" onclick="this.parentElement.classList.toggle('collapsed')">
       <span class="arrow">▼</span><span>${cat.label}</span><span class="cat-count">${files.length}</span>
     </div><ul class="cat-files">${files.map(f=>{
-      return `<li><a href="#${f.slug}" data-slug="${f.slug}" data-dir="${f.dir}" data-file="${encodeURIComponent(f.file)}" onclick="loadDoc('${f.slug}','${f.dir}','${encodeURIComponent(f.file)}');return false">${f.file.replace('.md','')}</a></li>`;
+      return `<li><a href="#${f.slug}" data-slug="${f.slug}" data-dir="${f.dir}" data-file="${f.file}" onclick="loadDoc('${f.slug}','${f.dir}','${f.file.replace(/'/g,"&#39;")}');return false">${f.file.replace('.md','')}</a></li>`;
     }).join('')}</ul>`;
     nav.appendChild(group);
   });
@@ -319,7 +319,7 @@ function prefetchTitles(){
   // async load uncached titles
   FILES.forEach(f=>{
     if(titleCache[f.slug]) return;
-    fetch(`dev-docs/${f.dir}/${f.file}`)
+    fetch(`dev-docs/${f.dir}/${encodeURIComponent(f.file)}`)
       .then(r=>r.text())
       .then(text=>{
         const m = text.match(/^#\s+(.+)/m);
@@ -353,7 +353,7 @@ function loadDoc(slug,dir,file){
   // Update URL hash
   history.replaceState(null,null,`#${slug}`);
 
-  fetch(`dev-docs/${dir}/${file}`)
+  fetch(`dev-docs/${dir}/${encodeURIComponent(file)}`)
     .then(r=>{if(!r.ok)throw new Error(`HTTP ${r.status}`);return r.text()})
     .then(text=>{
       const html = marked.parse(text);
