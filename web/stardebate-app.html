@@ -1,0 +1,3307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>StarDebate ★ 辩之星 | AI专业辩论备赛助手</title>
+<style>
+/* ===== CSS Variables (Catppuccin Mocha) ===== */
+:root {
+  --bg-base: #1e1e2e;
+  --bg-mantle: #181825;
+  --bg-crust: #11111b;
+  --bg-surface0: #313244;
+  --bg-surface1: #45475a;
+  --bg-surface2: #585b70;
+  --text: #cdd6f4;
+  --subtext0: #a6adc8;
+  --subtext1: #bac2de;
+  --overlay0: #6c7086;
+  --overlay1: #7f849c;
+  --green: #a6e3a1;
+  --red: #f38ba8;
+  --blue: #89b4fa;
+  --yellow: #f9e2af;
+  --peach: #fab387;
+  --mauve: #cba6f7;
+  --pink: #f5c2e7;
+  --teal: #94e2d5;
+  --gold: #dfb460;
+  --nav-w: 56px;
+  --left-panel-w: 280px;
+  --right-panel-w: 420px;
+}
+
+/* ===== Reset & Base ===== */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; overflow:hidden; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg-mantle);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--bg-surface1); border-radius:3px; }
+::-webkit-scrollbar-thumb:hover { background:var(--bg-surface2); }
+
+/* ===== App Layout ===== */
+#app {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ===== Left Navigation ===== */
+#left-nav {
+  width: var(--nav-w);
+  background: var(--bg-crust);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0;
+  gap: 4px;
+  border-right: 1px solid var(--bg-surface0);
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+.nav-btn {
+  width: 42px; height: 42px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent;
+  border: none; border-radius: 10px;
+  color: var(--overlay0);
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+}
+.nav-btn:hover { background: var(--bg-surface0); color: var(--text); }
+.nav-btn.active { background: var(--bg-surface0); color: var(--gold); }
+.nav-btn .badge {
+  position: absolute; top: 2px; right: 2px;
+  width: 8px; height: 8px;
+  background: var(--red); border-radius: 50%;
+  display: none;
+}
+.nav-divider {
+  width: 28px; height: 1px;
+  background: var(--bg-surface0);
+  margin: 4px 0;
+}
+
+/* ===== Left Panel ===== */
+#left-panel {
+  width: var(--left-panel-w);
+  background: var(--bg-base);
+  border-right: 1px solid var(--bg-surface0);
+  display: flex; flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: width 0.25s ease;
+}
+#left-panel.collapsed { width: 0; }
+.panel-header {
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--subtext0);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--bg-surface0);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.panel-header .hint {
+  font-size: 10px; color: var(--overlay0);
+  font-weight: 400;
+  cursor: pointer;
+}
+.panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+/* ===== Project Tree ===== */
+.tree-item {
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px;
+  color: var(--subtext0);
+  transition: background 0.15s, color 0.15s;
+  user-select: none;
+}
+.tree-item:hover { background: var(--bg-surface0); color: var(--text); }
+.tree-item.active { background: var(--bg-surface0); color: var(--text); border-left: 3px solid var(--gold); padding-left: 9px; }
+.tree-item .folder-icon { color: var(--yellow); font-size: 14px; }
+.tree-item .file-icon { color: var(--overlay0); font-size: 12px; }
+.tree-item .debate-icon { color: var(--mauve); }
+.tree-item-indent { padding-left: 28px; }
+
+/* ===== Structure Tree ===== */
+.structure-toggle {
+  display: flex; gap: 2px; margin-bottom: 8px;
+}
+.structure-toggle button {
+  flex: 1; padding: 6px;
+  border: 1px solid var(--bg-surface0); border-radius: 6px;
+  background: transparent; color: var(--overlay0);
+  font-size: 11px; cursor: pointer;
+  transition: all 0.12s;
+}
+.structure-toggle button.active {
+  background: var(--bg-surface0);
+  color: var(--green);
+  border-color: var(--green);
+}
+.structure-tree .tree-item { padding: 4px 8px; font-size: 12px; }
+.st-action {
+  display: flex; gap: 6px; padding: 8px 0; border-top: 1px solid var(--bg-surface0); margin-top: 8px;
+}
+.small-btn {
+  padding: 5px 10px; font-size: 11px;
+  background: var(--bg-surface0); color: var(--subtext0);
+  border: none; border-radius: 5px;
+  cursor: pointer; transition: all 0.12s;
+}
+.small-btn:hover { color: var(--text); background: var(--bg-surface1); }
+.small-btn.primary {
+  background: rgba(203, 166, 247, 0.12);
+  color: var(--mauve);
+}
+.small-btn.primary:hover { background: rgba(203, 166, 247, 0.22); }
+
+/* ===== Format Browser ===== */
+.format-list { display: flex; flex-direction: column; gap: 4px; }
+.format-item {
+  padding: 10px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.12s;
+}
+.format-item:hover { background: var(--bg-surface0); }
+.format-item.selected { border-color: var(--gold); background: rgba(223,180,96,0.06); }
+.format-item .format-name { font-size:13px; font-weight:600; color:var(--text); }
+.format-item .format-desc { font-size:11px; color:var(--overlay0); margin-top:2px; }
+.format-detail {
+  margin-top: 10px; padding: 14px;
+  background: var(--bg-surface0); border-radius: 8px;
+  font-size: 12px; color: var(--subtext0);
+}
+.format-detail .fd-title { font-size:13px; color:var(--gold); font-weight:600; margin-bottom:8px; }
+.format-detail .fd-row { display:flex; justify-content:space-between; padding:3px 0; }
+.format-detail .fd-phase { color:var(--subtext1); }
+.format-detail .fd-time { color:var(--overlay0); font-size:11px; }
+
+/* ===== Center Panel ===== */
+#center-panel {
+  flex: 1;
+  display: flex; flex-direction: column;
+  background: var(--bg-mantle);
+  overflow: hidden;
+  min-width: 0;
+}
+.centre-header {
+  padding: 12px 20px;
+  font-size: 15px; font-weight: 600;
+  border-bottom: 1px solid var(--bg-surface0);
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+}
+.centre-header .back-btn {
+  background: transparent; border: none;
+  color: var(--overlay0); font-size: 18px;
+  cursor: pointer; padding: 4px 8px; border-radius: 4px;
+}
+.centre-header .back-btn:hover { color: var(--text); background: var(--bg-surface0); }
+.centre-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex; flex-direction: column;
+}
+
+/* ===== Empty State ===== */
+.empty-state {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  gap: 12px;
+  color: var(--overlay0);
+}
+.empty-state .es-icon { font-size: 48px; opacity: 0.5; }
+.empty-state .es-title { font-size: 20px; color: var(--subtext0); font-weight: 600; }
+.empty-state .es-desc { font-size: 13px; max-width: 360px; line-height: 1.7; }
+
+/* ===== Speech Editor ===== */
+.editor-tabs {
+  display: flex; gap: 2px;
+  border-bottom: 1px solid var(--bg-surface0);
+  margin-bottom: 12px;
+}
+.editor-tab {
+  padding: 8px 16px;
+  border: none; background: transparent;
+  color: var(--overlay0); font-size: 12px;
+  cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all 0.12s;
+}
+.editor-tab.active {
+  color: var(--text);
+  border-bottom-color: var(--blue);
+}
+.editor-tab.pro-tab.active { border-bottom-color: var(--green); }
+.editor-tab.con-tab.active { border-bottom-color: var(--red); }
+.speech-editor-wrap {
+  flex: 1;
+  display: flex;
+  background: var(--bg-crust);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.line-numbers {
+  width: 44px;
+  padding: 12px 0;
+  background: var(--bg-mantle);
+  color: var(--overlay0);
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  font-size: 12px; line-height: 1.7;
+  text-align: right;
+  user-select: none;
+  overflow: hidden;
+  border-right: 1px solid var(--bg-surface0);
+}
+.line-numbers div { padding: 0 8px; }
+#speech-editor {
+  flex: 1;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-family: 'Cascadia Code', 'Consolas', monospace;
+  font-size: 13px; line-height: 1.7;
+  resize: none;
+  outline: none;
+}
+.editor-actions {
+  display: flex; gap: 8px;
+  padding: 10px 0;
+  flex-wrap: wrap;
+}
+.btn {
+  padding: 8px 16px;
+  border: none; border-radius: 6px;
+  font-size: 12px; font-weight: 500;
+  cursor: pointer; transition: all 0.12s;
+}
+.btn-save { background: var(--green); color: var(--bg-crust); }
+.btn-save:hover { opacity: 0.85; }
+.btn-secondary {
+  background: var(--bg-surface0);
+  color: var(--subtext0);
+}
+.btn-secondary:hover { background: var(--bg-surface1); color: var(--text); }
+.btn-ai {
+  background: rgba(137,180,250,0.12);
+  color: var(--blue);
+}
+.btn-ai:hover { background: rgba(137,180,250,0.22); }
+.btn-danger {
+  background: rgba(243,139,168,0.12);
+  color: var(--red);
+}
+.btn-danger:hover { background: rgba(243,139,168,0.22); }
+
+/* ===== Analysis Cards ===== */
+.analysis-cards { display: flex; flex-direction: column; gap: 14px; }
+.analysis-card {
+  background: var(--bg-base);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 10px;
+  padding: 18px;
+  overflow: hidden;
+}
+.analysis-card .ac-header {
+  font-size: 14px; font-weight: 600;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--bg-surface0);
+}
+.analysis-card .ac-body {
+  font-size: 13px; color: var(--subtext0);
+  line-height: 1.7;
+}
+.ac-thesis .ac-header { color: var(--green); }
+.ac-argument .ac-header { color: var(--blue); }
+.ac-evidence .ac-header { color: var(--peach); }
+.ac-strength .ac-header { color: var(--mauve); }
+.ac-suggestion .ac-header { color: var(--pink); }
+
+/* ===== Cross-Exam ===== */
+.exam-round {
+  background: var(--bg-base);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.exam-round .er-label {
+  font-size: 11px; color: var(--overlay0); margin-bottom: 6px;
+}
+.exam-round .er-question {
+  font-size: 13px; color: var(--blue); margin-bottom: 8px;
+  padding-left: 12px; border-left: 2px solid var(--blue);
+}
+.exam-round .er-answer {
+  font-size: 13px; color: var(--subtext0);
+  padding-left: 12px; border-left: 2px solid var(--green);
+}
+
+/* ===== Accept Exam Chat ===== */
+.chat-container {
+  flex: 1;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex; flex-direction: column;
+  gap: 12px;
+}
+.chat-bubble {
+  max-width: 72%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.chat-bubble.ai {
+  align-self: flex-start;
+  background: rgba(137,180,250,0.08);
+  border: 1px solid rgba(137,180,250,0.12);
+  color: var(--blue);
+  border-bottom-left-radius: 6px;
+}
+.chat-bubble.user {
+  align-self: flex-end;
+  background: rgba(166,227,161,0.08);
+  border: 1px solid rgba(166,227,161,0.12);
+  color: var(--green);
+  border-bottom-right-radius: 6px;
+}
+.chat-bubble.score {
+  align-self: center;
+  background: rgba(223,180,96,0.1);
+  border: 1px solid rgba(223,180,96,0.15);
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: 600;
+}
+.chat-input-row {
+  display: flex; gap: 8px;
+  padding: 12px; border-top: 1px solid var(--bg-surface0);
+}
+#chat-input {
+  flex: 1;
+  background: var(--bg-crust);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 13px;
+  padding: 10px 14px;
+  resize: none;
+  outline: none;
+  min-height: 40px;
+  max-height: 100px;
+  font-family: inherit;
+}
+
+/* ===== Training ===== */
+.training-config {
+  display: flex; flex-direction: column; gap: 18px;
+}
+.training-config h4 {
+  font-size: 12px; color: var(--overlay0); font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+/* 训练按钮过渡动画 */
+.training-config button {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative; overflow: hidden;
+}
+.training-config button:active {
+  transform: scale(0.96);
+  transition: transform 0.08s ease;
+}
+/* 选中态增强 */
+.training-config .btn-ai {
+  box-shadow: 0 0 0 1px var(--blue), 0 0 12px rgba(137,180,250,0.15);
+}
+.training-config .btn-save {
+  box-shadow: 0 0 0 1px var(--green), 0 0 12px rgba(166,227,161,0.15);
+}
+/* 难度按钮选中保持深色底 + 对应颜色发光 */
+.training-config button.btn-save[onclick*="trainSetDiff"] {
+  background: var(--bg-surface0) !important;
+  border-color: var(--green) !important;
+}
+
+/* ===== 答题选项预选择动画 ===== */
+.train-option {
+  padding: 10px 12px; margin-bottom: 6px;
+  border-radius: 8px; cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+  position: relative;
+  background: var(--bg-mantle);
+}
+.train-option::before {
+  content: ''; position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 0; border-radius: 0 2px 2px 0;
+  background: var(--gold);
+  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.train-option:hover {
+  background: var(--bg-surface0) !important;
+  border-color: var(--bg-surface1);
+  padding-left: 22px;
+}
+.train-option:hover::before {
+  width: 3px;
+}
+.train-option:hover span:first-child {
+  color: #ffe082 !important;
+}
+.train-option:active {
+  transform: scale(0.985);
+  transition: transform 0.06s ease;
+}
+.train-option.answered {
+  cursor: default;
+}
+.train-option.answered:hover {
+  padding-left: 12px;
+  background: inherit !important;
+  border-color: transparent;
+}
+.train-option.answered:hover::before {
+  width: 0;
+}
+/* 涟漪反馈 */
+.training-config button::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0.06);
+  opacity: 0; transition: opacity 0.3s;
+}
+.training-config button:hover::after { opacity: 1; }
+.training-config button:active::after { opacity: 0; }
+.mode-buttons, .diff-buttons {
+  display: flex; gap: 6px;
+}
+.mode-btn, .diff-btn {
+  flex: 1; padding: 10px 8px;
+  border: 1px solid var(--bg-surface0); border-radius: 8px;
+  background: transparent; color: var(--overlay0);
+  font-size: 11px; cursor: pointer;
+  text-align: center; transition: all 0.12s;
+}
+.mode-btn:hover, .diff-btn:hover { border-color: var(--bg-surface1); color: var(--text); }
+.mode-btn.selected { border-color: var(--blue); color: var(--blue); background: rgba(137,180,250,0.06); }
+.diff-btn.selected { border-color: var(--gold); color: var(--gold); background: rgba(223,180,96,0.06); }
+#quiz-area {
+  flex: 1;
+  display: flex; flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+}
+.quiz-progress {
+  font-size: 12px; color: var(--overlay0);
+}
+.quiz-question {
+  font-size: 15px; color: var(--text);
+  font-weight: 500;
+  padding: 16px;
+  background: var(--bg-base);
+  border-radius: 10px;
+  border: 1px solid var(--bg-surface0);
+}
+.quiz-options {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.quiz-option {
+  padding: 14px 16px;
+  background: var(--bg-base);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 8px;
+  color: var(--subtext0);
+  font-size: 13px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.12s;
+}
+.quiz-option:hover { border-color: var(--bg-surface1); background: var(--bg-surface0); }
+.quiz-option.correct { border-color: var(--green); background: rgba(166,227,161,0.08); color: var(--green); }
+.quiz-option.wrong { border-color: var(--red); background: rgba(243,139,168,0.08); color: var(--red); }
+.quiz-option.disabled { pointer-events: none; opacity: 0.6; }
+.quiz-feedback {
+  padding: 14px;
+  background: var(--bg-base);
+  border-radius: 8px;
+  border: 1px solid var(--bg-surface0);
+  font-size: 12px; color: var(--subtext0);
+  line-height: 1.6;
+}
+.quiz-feedback .qf-label {
+  font-weight: 600; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+.quiz-actions {
+  display: flex; gap: 8px;
+  justify-content: center;
+}
+
+/* ===== Notes (Fixed Search) ===== */
+.notes-search {
+  margin-bottom: 10px;
+}
+.notes-search input {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--bg-crust);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 12px;
+  outline: none;
+}
+.note-card {
+  background: var(--bg-base);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 8px;
+  transition: all 0.12s;
+}
+.note-card:hover { border-color: var(--bg-surface1); }
+.note-card .note-header {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 6px;
+}
+.note-color-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.note-card .note-text {
+  font-size: 12px; color: var(--subtext0);
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.note-card .note-actions {
+  display: flex; gap: 6px;
+  margin-top: 8px; justify-content: flex-end;
+}
+.note-card .note-actions button {
+  padding: 3px 8px; font-size: 10px;
+  background: transparent; border: none;
+  color: var(--overlay0); cursor: pointer;
+  border-radius: 4px;
+}
+.note-card .note-actions button:hover { color: var(--text); background: var(--bg-surface0); }
+.note-input-area {
+  display: flex; flex-direction: column; gap: 8px;
+  padding-top: 8px; border-top: 1px solid var(--bg-surface0);
+}
+.note-colors {
+  display: flex; gap: 6px;
+}
+.note-color-btn {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+.note-color-btn.selected { border-color: var(--text); }
+#note-input {
+  width: 100%;
+  padding: 8px 12px;
+  background: var(--bg-crust);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 12px;
+  resize: vertical;
+  min-height: 60px;
+  outline: none;
+  font-family: inherit;
+}
+
+/* ===== AI Loading ===== */
+.ai-loading {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px;
+  padding: 12px;
+  color: var(--blue);
+  font-size: 12px;
+  animation: pulse 1.5s infinite;
+}
+.ai-loading.hidden { display: none; }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.spinner {
+  width: 16px; height: 16px;
+  border: 2px solid var(--bg-surface0);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ===== Right Panel ===== */
+#right-panel {
+  width: var(--right-panel-w);
+  background: var(--bg-base);
+  border-left: 1px solid var(--bg-surface0);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: absolute; right: var(--nav-w); top: 0; bottom: 28px;
+  z-index: 0;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#right-panel.open { transform: translateX(0); }
+.rp-header {
+  padding: 12px 16px;
+  font-size: 13px; font-weight: 600;
+  border-bottom: 1px solid var(--bg-surface0);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.rp-body {
+  flex: 1; overflow-y: auto; padding: 12px;
+}
+
+/* ===== Right Navigation ===== */
+#right-nav {
+  width: var(--nav-w);
+  background: var(--bg-crust);
+  display: flex; flex-direction: column;
+  align-items: center;
+  padding: 8px 0; gap: 4px;
+  border-left: 1px solid var(--bg-surface0);
+  flex-shrink: 0;
+  overflow-y: auto;
+  position: relative; z-index: 2;
+}
+
+/* ===== Status Bar ===== */
+#status-bar {
+  height: 28px;
+  background: var(--bg-crust);
+  border-top: 1px solid var(--bg-surface0);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px;
+  font-size: 11px; color: var(--overlay0);
+  flex-shrink: 0;
+}
+
+/* ===== AI Write Cards ===== */
+.writer-cards {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.writer-card {
+  background: var(--bg-mantle);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 8px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.writer-card:hover { border-color: var(--bg-surface1); }
+.writer-card .wc-title { font-size: 11px; color: var(--overlay0); margin-bottom: 6px; }
+.writer-card .wc-preview { font-size: 11px; color: var(--subtext0); line-height: 1.5; overflow: hidden; max-height: 60px; }
+.writer-card.expanded .wc-preview { max-height: none; }
+.writer-card .wc-actions { display: flex; gap: 6px; margin-top: 8px; }
+
+/* ===== Panel Tabs ===== */
+.panel-tabs {
+  display: flex; gap: 2px;
+  border-bottom: 1px solid var(--bg-surface0);
+  margin-bottom: 12px;
+}
+.panel-tab {
+  padding: 6px 14px;
+  border: none; background: transparent;
+  color: var(--overlay0); font-size: 11px;
+  cursor: pointer; border-bottom: 2px solid transparent;
+}
+.panel-tab.active {
+  color: var(--text);
+  border-bottom-color: var(--gold);
+}
+
+/* ===== Framework Canvas ===== */
+#fw-canvas-wrap {
+  flex: 1; position: relative;
+  background: var(--bg-crust);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 8px;
+  overflow: hidden;
+  min-height: 400px;
+}
+#fw-canvas {
+  position: absolute; inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle, rgba(49,50,68,0.3) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.fw-node-el {
+  position: absolute;
+  min-width: 100px; min-height: 40px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(205,214,244,0.12);
+  background: var(--bg-base);
+  cursor: pointer;
+  user-select: none;
+  font-size: 11px;
+  transition: box-shadow 0.15s;
+  z-index: 1;
+}
+.fw-node-el:hover { z-index: 3; box-shadow: 0 0 0 2px rgba(223,180,96,0.15); }
+.fw-node-el.selected { z-index: 2; box-shadow: 0 0 0 2px var(--gold); }
+.fw-node-el.connecting { z-index: 3; box-shadow: 0 0 0 2px var(--mauve); animation: fwPulse 1s infinite; }
+@keyframes fwPulse { 0%,100% { box-shadow: 0 0 0 2px var(--mauve); } 50% { box-shadow: 0 0 0 4px rgba(203,166,247,0.5); } }
+#fw-connections line {
+  transition: x1 0.08s linear, y1 0.08s linear, x2 0.08s linear, y2 0.08s linear;
+}
+.fw-node-el .fw-type-label {
+  font-size: 9px; font-weight: 600;
+  margin-bottom: 2px; opacity: 0.8;
+}
+.fw-node-el .fw-text { color: var(--text); line-height: 1.4; word-break: break-word; }
+.fw-node-el .fw-delete {
+  position: absolute; top: -6px; right: -6px;
+  width: 16px; height: 16px;
+  background: var(--red); color: #fff;
+  border: none; border-radius: 50%;
+  font-size: 10px; cursor: pointer;
+  display: none; align-items: center; justify-content: center;
+}
+.fw-node-el:hover .fw-delete { display: flex; }
+.fw-node-el .fw-handle {
+  position: absolute; bottom: 0; right: 0;
+  width: 12px; height: 12px;
+  background: rgba(205,214,244,0.12);
+  border-radius: 3px 0 6px 0;
+  cursor: nwse-resize;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.fw-node-el:hover .fw-handle { opacity: 1; }
+.fw-toolbar {
+  display: flex; gap: 6px;
+  padding: 8px 12px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--bg-surface0);
+  flex-shrink: 0;
+}
+.fw-toolbar button {
+  padding: 5px 10px; font-size: 11px;
+  background: var(--bg-surface0); color: var(--subtext0);
+  border: none; border-radius: 5px;
+  cursor: pointer; transition: all 0.12s;
+}
+.fw-toolbar button:hover { background: var(--bg-surface1); color: var(--text); }
+.fw-toolbar button.active { background: rgba(223,180,96,0.12); color: var(--gold); }
+
+/* ===== Ref Doc ===== */
+.ref-table-wrap {
+  flex: 1; overflow: auto;
+  border: 1px solid var(--bg-surface0);
+  border-radius: 8px;
+  background: var(--bg-crust);
+}
+.ref-table-wrap table {
+  width: 100%; border-collapse: collapse;
+}
+.ref-table-wrap th {
+  padding: 10px 12px; font-size: 11px; font-weight: 600;
+  color: var(--overlay0); text-align: left;
+  background: var(--bg-mantle);
+  border-bottom: 1px solid var(--bg-surface0);
+  position: sticky; top: 0; z-index: 2;
+}
+.ref-table-wrap td {
+  padding: 6px 12px; border-bottom: 1px solid rgba(49,50,68,0.5);
+  vertical-align: top;
+}
+.ref-table-wrap td textarea {
+  width: 100%; min-height: 32px;
+  background: transparent; border: none;
+  color: var(--text); font-size: 12px;
+  resize: vertical; outline: none;
+  font-family: inherit; line-height: 1.5;
+}
+.ref-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px; padding: 8px 0;
+}
+.ref-card {
+  background: var(--bg-base);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 10px; padding: 16px;
+  transition: all 0.12s;
+}
+.ref-card:hover { border-color: var(--bg-surface1); }
+.ref-card .rc-label { font-size: 10px; color: var(--overlay0); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+.ref-card .rc-text { font-size: 12px; color: var(--subtext0); line-height: 1.6; }
+
+/* ===== Modals ===== */
+.desktop-modal-overlay, .new-debate-overlay {
+  position: fixed; inset: 0;
+  z-index: 10001;
+  background: rgba(10,10,20,0.65);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  animation: dmFadeIn 0.25s ease;
+}
+.desktop-modal, .new-debate-form {
+  background: var(--bg-base);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 14px; padding: 32px;
+  max-width: 400px; width: 90%;
+  text-align: center;
+  animation: dmPop 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.new-debate-form { max-width: 540px; text-align: left; }
+.nd-header { font-size: 18px; font-weight: 700; color: var(--mauve); margin-bottom: 20px; }
+.nd-side-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.nd-field { display: flex; flex-direction: column; gap: 6px; }
+.nd-field label { font-size: 12px; font-weight: 600; }
+.nd-field input, .nd-field textarea {
+  padding: 10px 12px;
+  background: var(--bg-mantle);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 13px; font-family: inherit;
+  outline: none;
+}
+.nd-actions { display: flex; gap: 12px; justify-content: flex-end; margin-top: 20px; }
+.nd-cancel { background: var(--bg-surface0); color: var(--subtext0); padding: 10px 24px; border-radius: 8px; border: none; cursor: pointer; }
+.nd-create { background: linear-gradient(135deg, #dfb460, #c8963a); color: #0a0a14; font-weight: 600; padding: 10px 24px; border-radius: 8px; border: none; cursor: pointer; }
+.back-home {
+  position: fixed; bottom: 36px; right: 72px; z-index: 50;
+  padding: 8px 14px; background: rgba(30,30,46,0.9); border: 1px solid var(--bg-surface0);
+  border-radius: 8px; color: var(--overlay0); font-size: 11px; cursor: pointer; text-decoration: none;
+  backdrop-filter: blur(8px);
+}
+.back-home:hover { color: var(--gold); border-color: rgba(223,180,96,0.3); }
+.demo-badge { display: inline-block; padding: 2px 10px; font-size: 10px; font-weight: 600; color: var(--gold); background: rgba(223,180,96,0.1); border-radius: 100px; }
+@keyframes dmFadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes dmPop { 0% { transform: scale(0.9); opacity:0; } 100% { transform: scale(1); opacity:1; } }
+
+/* ===== AI Button Dot ===== */
+.nav-ai-dot {
+  position: absolute; top: 6px; right: 6px;
+  width: 6px; height: 6px;
+  background: var(--mauve); border-radius: 50%;
+  opacity: 0.7;
+}
+.nav-btn.ai-only { opacity: 0.6; }
+.nav-btn.ai-only:hover { opacity: 1; }
+
+/* ===== Desktop Modal Inner ===== */
+.desktop-modal .dm-icon { font-size: 48px; margin-bottom: 12px; }
+.desktop-modal .dm-title { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+.desktop-modal .dm-desc { font-size: 13px; color: var(--subtext0); margin-bottom: 20px; line-height: 1.6; }
+.desktop-modal .dm-close {
+  padding: 10px 28px;
+  background: var(--gold); color: var(--bg-crust);
+  border: none; border-radius: 8px;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: opacity 0.15s;
+}
+.desktop-modal .dm-close:hover { opacity: 0.85; }
+
+/* ===== Context Menu ===== */
+/* ===== Structure Tree ===== */
+.structure-tree { overflow-y: auto; max-height: 300px; }
+.structure-tree .st-node { /* wrapper for indentation */ }
+.st-section {
+  display: flex; align-items: center; gap: 4px;
+  padding: 5px 8px; cursor: pointer; border-radius: 4px;
+  font-size: 12px; transition: background 0.1s;
+}
+.st-section:hover { background: var(--bg-surface0); }
+.st-toggle, .st-toggle-placeholder { width: 14px; font-size: 9px; color: var(--overlay0); flex-shrink: 0; }
+.st-name { flex: 1; }
+.st-icons { display: flex; gap: 3px; }
+.st-icon { font-size: 10px; }
+.st-sub {
+  padding: 2px 8px 2px 24px; font-size: 11px; color: var(--subtext0);
+  cursor: pointer; border-radius: 3px;
+}
+.st-sub:hover { background: var(--bg-surface0); }
+.st-ref-sub { color: #f5c2e7; }
+.st-note-sub { color: #a6e3a1; }
+.st-kw-sub { color: #f9e2af; }
+.st-children { display: none; }
+.st-children.open { display: block; }
+.struct-empty { padding: 16px; text-align: center; color: var(--overlay0); font-size: 12px; }
+.st-toggle { cursor: pointer; }
+.st-toggle:hover { color: var(--gold); }
+.ai-notice {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; margin: 8px;
+  background: rgba(203,166,247,0.08); border: 1px solid rgba(203,166,247,0.15);
+  border-radius: 8px;
+}
+.ai-notice-icon { font-size: 18px; }
+.ai-notice-text { flex: 1; font-size: 11px; color: var(--subtext0); }
+.ai-notice-text strong { color: var(--mauve); }
+
+/* ===== Context Menu (also used by structure tree) ===== */
+.tree-context-menu {
+  position: fixed;
+  z-index: 10000;
+  background: var(--bg-base);
+  border: 1px solid var(--bg-surface0);
+  border-radius: 8px;
+  padding: 4px 0;
+  min-width: 170px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+  animation: dmFadeIn 0.12s ease;
+}
+.cm-item {
+  padding: 8px 16px;
+  font-size: 12px;
+  color: var(--subtext0);
+  cursor: pointer;
+  transition: background 0.1s, color 0.1s;
+  white-space: nowrap;
+}
+.cm-item:hover { background: var(--bg-surface0); color: var(--text); }
+.cm-item.danger { color: var(--red); }
+.cm-item.danger:hover { background: rgba(243,139,168,0.1); }
+.cm-divider { height: 1px; background: var(--bg-surface0); margin: 4px 0; }
+
+/* ===== Download Notice ===== */
+.download-notice {
+  padding: 16px; background: rgba(203,166,247,0.06);
+  border-radius: 12px; border: 1px solid rgba(203,166,247,0.1);
+}
+.download-notice .dn-title { font-size: 13px; font-weight: 600; color: var(--mauve); margin-bottom: 6px; }
+.download-notice .dn-desc { font-size: 11px; color: var(--overlay0); line-height: 1.6; }
+.download-notice .dn-btn {
+  display: inline-block; margin-top: 10px;
+  padding: 8px 20px; background: var(--gold);
+  color: var(--bg-crust); border-radius: 6px;
+  text-decoration: none; font-size: 12px; font-weight: 600;
+  transition: opacity 0.15s;
+}
+.download-notice .dn-btn:hover { opacity: 0.85; }
+
+/* ===== Page Transition Animation (在两个页面之间统一) ===== */
+.page-transition {
+  position: fixed; inset: 0; z-index: 10000;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  pointer-events: none; opacity: 0;
+}
+.page-transition.active {
+  pointer-events: all;
+  animation: transitionIn 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.page-transition .pt-bg {
+  position: absolute; inset: 0;
+  background: #0a0a14;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+.page-transition.active .pt-bg {
+  animation: scaleDown 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.page-transition .pt-content {
+  position: relative; z-index: 1;
+  text-align: center; opacity: 0;
+  transform: translateY(20px);
+}
+.page-transition.active .pt-content {
+  animation: fadeUp 0.5s 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.page-transition .pt-icon {
+  font-size: 2.5rem; margin-bottom: 16px;
+  display: inline-block;
+  animation: starSpin 0.6s 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.page-transition .pt-text {
+  font-size: 1rem; color: #dfb460; font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.page-transition .pt-load {
+  margin-top: 20px; width: 120px; height: 3px;
+  background: rgba(223, 180, 96, 0.1);
+  border-radius: 2px; overflow: hidden;
+}
+.page-transition .pt-load::after {
+  content: ''; display: block;
+  width: 30%; height: 100%;
+  background: #dfb460; border-radius: 2px;
+  animation: loadSweep 1s 0.5s infinite;
+}
+@keyframes transitionIn {
+  0%{opacity:1} 85%{opacity:1} 100%{opacity:0}
+}
+@keyframes scaleDown {
+  0%{transform:scaleY(0)} 100%{transform:scaleY(1)}
+}
+@keyframes fadeUp {
+  0%{opacity:0;transform:translateY(20px)} 100%{opacity:1;transform:translateY(0)}
+}
+@keyframes starSpin {
+  0%{transform:rotate(-30deg) scale(0);opacity:0} 100%{transform:rotate(0deg) scale(1);opacity:1}
+}
+@keyframes loadSweep {
+  0%{transform:translateX(-100%)} 100%{transform:translateX(400%)}
+}
+
+/* ===== Entrance Animation — ✦ 锚点 curtain 揭开 ===== */
+.app-entrance {
+  position: fixed; inset: 0; z-index: 9999;
+  pointer-events: none;
+  animation: aeFadeAway 0.4s 1.8s forwards;
+  background: #0a0a14;
+}
+/* 上半 curtain — 从 ✦ 线向上滑开 */
+.app-entrance .ae-curtain-t {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 50%; background: #0a0a14;
+  animation: aeCurtainUp 0.9s 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+/* 下半 curtain — 从 ✦ 线向下滑开 */
+.app-entrance .ae-curtain-b {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 50%; background: #0a0a14;
+  animation: aeCurtainDown 0.9s 0.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+/* ✦ 锚点 — 与介绍页衔接的同一个 ✦ */
+.app-entrance .ae-icon {
+  position: absolute; z-index: 3;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-size: 2.6rem; color: #dfb460;
+  text-shadow: 0 0 12px rgba(223,180,96,0.4);
+  opacity: 1;
+  animation: aePinFade 0.6s 1.0s ease-out forwards;
+}
+/* ✦ 光晕脉冲 */
+.app-entrance .ae-icon-pulse {
+  position: absolute; z-index: 2;
+  top: 50%; left: 50%;
+  width: 60px; height: 60px; margin-left: -30px; margin-top: -30px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(223,180,96,0.15) 0%, transparent 70%);
+  animation: aePulseExpand 0.9s 0.5s ease-out forwards;
+}
+/* 分裂线 — ✦ 两侧的水平线 */
+.app-entrance .ae-split-line {
+  position: absolute; z-index: 2;
+  top: 50%; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(223,180,96,0.5) 30%, rgba(223,180,96,0.8) 48%, transparent 48%),
+              linear-gradient(90deg, transparent 52%, rgba(223,180,96,0.8) 52%, rgba(223,180,96,0.5) 70%, transparent 100%);
+  animation: aeSplitGlow 1.2s 0.4s ease-out forwards;
+}
+/* 标题 — curtain 分开后浮现 */
+.app-entrance .ae-text {
+  position: absolute; z-index: 2;
+  bottom: 20%; left: 0; right: 0;
+  text-align: center;
+  font-size: 1.2rem; font-weight: 600;
+  color: #cdd6f4; opacity: 0;
+  animation: aeTextIn 0.6s 0.9s ease-out forwards;
+}
+.app-entrance .ae-sub {
+  position: absolute; z-index: 2;
+  bottom: 15%; left: 0; right: 0;
+  text-align: center;
+  font-size: 0.75rem; color: rgba(166,173,200,0.5);
+  opacity: 0;
+  animation: aeTextIn 0.6s 1.05s ease-out forwards;
+}
+
+/* ===== Keyframes ===== */
+@keyframes aeCurtainUp {
+  0%{transform:translateY(0)} 100%{transform:translateY(-105%)}
+}
+@keyframes aeCurtainDown {
+  0%{transform:translateY(0)} 100%{transform:translateY(105%)}
+}
+@keyframes aePinFade {
+  0%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.8)}
+}
+@keyframes aePulseExpand {
+  0%{transform:scale(1);opacity:0.8} 100%{transform:scale(8);opacity:0}
+}
+@keyframes aeSplitGlow {
+  0%{opacity:1} 60%{opacity:1} 100%{opacity:0}
+}
+@keyframes aeTextIn {
+  0%{opacity:0;transform:translateY(16px)} 100%{opacity:1;transform:translateY(0)}
+}
+@keyframes aeFadeAway {
+  0%{opacity:1} 100%{opacity:0;visibility:hidden}
+}
+
+/* ===== App 元素进入动画（curtain 揭开后同步） ===== */
+#app {
+  opacity: 0;
+  animation: aeAppReveal 0.6s 1.1s ease-out forwards;
+}
+@keyframes aeAppReveal {
+  0%{opacity:0} 100%{opacity:1}
+}
+#left-nav {
+  transform: translateX(-20px); opacity: 0;
+  animation: aeSlideLeft 0.6s 1.15s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+@keyframes aeSlideLeft {
+  0%{transform:translateX(-20px);opacity:0} 100%{transform:translateX(0);opacity:1}
+}
+/* 左侧导航按钮错落入场 */
+#left-nav .nav-btn {
+  opacity: 0; transform: translateX(-12px);
+  animation: aeNavBtnIn 0.4s forwards;
+}
+#left-nav .nav-btn:nth-child(1) { animation-delay: 1.20s; }
+#left-nav .nav-btn:nth-child(2) { animation-delay: 1.25s; }
+#left-nav .nav-btn:nth-child(3) { animation-delay: 1.30s; }
+#left-nav .nav-btn:nth-child(4) { animation-delay: 1.35s; }
+#left-nav .nav-btn:nth-child(5) { animation-delay: 1.40s; }
+#left-nav .nav-btn:nth-child(6) { animation-delay: 1.45s; }
+#left-nav .nav-btn:nth-child(7) { animation-delay: 1.50s; }
+#left-nav .nav-btn:nth-child(8) { animation-delay: 1.55s; }
+@keyframes aeNavBtnIn {
+  0%{opacity:0;transform:translateX(-12px)} 100%{opacity:1;transform:translateX(0)}
+}
+/* 中央区域 — 缩放淡入 */
+#centre-body {
+  opacity: 0; transform: scale(0.96);
+  animation: aeCenterIn 0.6s 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes aeCenterIn {
+  0%{opacity:0;transform:scale(0.96)} 100%{opacity:1;transform:scale(1)}
+}
+/* 状态栏 — 从底部滑入 */
+#status-bar {
+  transform: translateY(10px); opacity: 0;
+  animation: aeSlideUp 0.5s 1.1s ease-out forwards;
+}
+@keyframes aeSlideUp {
+  0%{transform:translateY(10px);opacity:0} 100%{transform:translateY(0);opacity:1}
+}
+
+/* ===== 面板切换动画 ===== */
+/* 左侧面板 — 从左侧滑入 */
+.panel-slide-in {
+  animation: panelSlideLeft 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes panelSlideLeft {
+  0%{opacity:0;transform:translateX(-16px)} 100%{opacity:1;transform:translateX(0)}
+}
+/* 右侧面板 — 从右侧滑入 */
+.panel-slide-right {
+  animation: panelSlideRight 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes panelSlideRight {
+  0%{opacity:0;transform:translateX(16px)} 100%{opacity:1;transform:translateX(0)}
+}
+/* 中央区域 — 缩放 + 淡入 */
+.view-crossfade {
+  animation: viewCrossfade 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes viewCrossfade {
+  0%{opacity:0;transform:scale(0.97) translateY(8px)}
+  100%{opacity:1;transform:scale(1) translateY(0)}
+}
+
+</style>
+</head>
+<body>
+<!-- Page Transition Overlay -->
+<div class="page-transition" id="pageTransition">
+  <div class="pt-bg"></div>
+  <div class="pt-content">
+    <div class="pt-icon">✦</div>
+    <div class="pt-text" id="ptLabel">正在进入 StarDebate...</div>
+    <div class="pt-load"></div>
+  </div>
+</div>
+
+<!-- Entrance Overlay — ✦ 锚点 curtain 揭开 -->
+<div class="app-entrance">
+  <div class="ae-curtain-t"></div>
+  <div class="ae-curtain-b"></div>
+  <div class="ae-icon-pulse"></div>
+  <div class="ae-split-line"></div>
+  <div class="ae-icon">✦</div>
+  <div class="ae-text">StarDebate ★ 辩之星</div>
+  <div class="ae-sub">AI 专业辩论备赛助手</div>
+</div>
+
+<div id="app">
+  <!-- Left Navigation -->
+  <div id="left-nav">
+    <button class="nav-btn active" data-panel="project">📁</button>
+    <button class="nav-btn" data-panel="structure">📋</button>
+    <button class="nav-btn" data-panel="format">🏆</button>
+    <div class="nav-divider"></div>
+    <button class="nav-btn" data-action="new-debate">🆕</button>
+    <button class="nav-btn" data-action="framework">🧠</button>
+    <button class="nav-btn" data-action="speech">📝</button>
+    <button class="nav-btn" data-action="ref-doc">📑</button>
+    <button class="nav-btn" data-action="ref-cards">🃏</button>
+    <button class="nav-btn ai-only" data-action="cross-exam">⚡<span class="nav-ai-dot"></span></button>
+    <button class="nav-btn ai-only" data-action="accept-exam">🛡️<span class="nav-ai-dot"></span></button>
+  </div>
+
+  <div id="left-panel"><div id="lp-content"></div></div>
+
+  <div id="center-panel">
+    <div class="centre-header" id="centre-header"><span>StarDebate ★ 辩之星</span><span class="demo-badge">体验版</span></div>
+    <div class="centre-body" id="centre-body"></div>
+  </div>
+
+  <div id="right-panel"><div id="rp-content"></div></div>
+
+  <div id="right-nav">
+    <button class="nav-btn ai-only" data-rpanel="ai-write">✍️<span class="nav-ai-dot"></span></button>
+    <button class="nav-btn ai-only" data-rpanel="ai-expand">🤖<span class="nav-ai-dot"></span></button>
+    <button class="nav-btn" data-rpanel="notes">📝</button>
+    <button class="nav-btn" data-rpanel="training">🎯</button>
+    <div class="nav-divider"></div>
+    <button class="nav-btn ai-only" data-action="ai-structure">🧠<span class="nav-ai-dot"></span></button>
+  </div>
+</div>
+<div id="status-bar"><span id="status-text">就绪</span><span id="status-loading" class="ai-loading hidden"><span class="spinner"></span> AI运行中</span><span style="margin-left:auto;font-size:11px;color:var(--overlay0);cursor:pointer;transition:all 0.15s;padding:2px 10px;border-radius:4px;border:1px solid transparent;" onmouseover="this.style.color='var(--gold)';this.style.borderColor='rgba(223,180,96,0.3)';this.style.background='rgba(223,180,96,0.08)'" onmouseout="this.style.color='var(--overlay0)';this.style.borderColor='transparent';this.style.background='transparent'" onclick="navigateToLanding()">🏠 介绍页</span><span>v1.0.0</span></div>
+
+<script>
+// ======================== 全局存储 ========================
+const STORE = {
+  currentDebate: null, debates: [], pinnedItems: [], activeLeftPanel: 'project', activeRightPanel: null, rightPanelOpen: false,
+  activeCentreView: 'empty', activeSpeechTab: 'pro', activeStructureSide: 'pro', activeFormat: null,
+  customFormats: [], notes: [], projectFilter: '',
+  training: { mode: 'technique', difficulty: 'medium', questions: [], currentQ: 0, score: 0, correct: 0, answered: false, sessionActive: false, sessions: [] },
+  framework: { pro: { nodes: [] }, con: { nodes: [] } },
+  refDoc: { rows: [] },
+  fwData: { nodes: [], nextId: 1 }, fwSide: 'pro',
+  structData: { pro: [], con: [] },
+  importedFiles: []
+};
+function loadStore() { try { let d = JSON.parse(localStorage.getItem('stardebate_data')||'{}'); STORE.notes = d.notes||[]; STORE.customFormats = d.customFormats||[]; STORE.debates = d.debates||[]; STORE.pinnedItems = d.pinnedItems||[]; STORE.framework = d.framework||{pro:{nodes:[]},con:{nodes:[]}}; STORE.refDoc = d.refDoc||{rows:[]}; STORE.fwData = d.fwData||{nodes:[],nextId:1}; if(!Array.isArray(STORE.fwData.nodes)) STORE.fwData.nodes=[]; if(!STORE.fwData.nextId||STORE.fwData.nextId<1) STORE.fwData.nextId=1; STORE.fwData.nodes = STORE.fwData.nodes.filter(n=>n&&n.id); STORE.structData = d.structData||{pro:[],con:[]}; if(d.trainSessions) STORE.training.sessions = d.trainSessions; } catch(e) {} }
+function saveStore() { localStorage.setItem('stardebate_data', JSON.stringify({ notes:STORE.notes, customFormats:STORE.customFormats, debates:STORE.debates, pinnedItems:STORE.pinnedItems, framework:STORE.framework, refDoc:STORE.refDoc, fwData:STORE.fwData, structData:STORE.structData, trainSessions:STORE.training.sessions })); }
+loadStore();
+
+let speechContent = { pro: '', con: '' };
+const $ = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+function fwEsc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+function setStatus(text, isLoading=false) { $('#status-text').textContent=text; $('#status-loading').classList.toggle('hidden',!isLoading); }
+function navigateToLanding() {
+  let overlay = document.getElementById('pageTransition');
+  if (!overlay) { window.location.href = 'index.html'; return; }
+  // 设置文字
+  let label = document.getElementById('ptLabel');
+  if (label) label.textContent = '返回介绍页...';
+  // 保存应用状态
+  saveStore();
+  overlay.classList.add('active');
+  setTimeout(() => { window.location.href = 'index.html'; }, 1000);
+}
+function setCentreHeader(title, showBack=false, backAction=null) { const h=$('#centre-header'); if(showBack) { h.innerHTML=`<button class="back-btn" id="centre-back">←</button><span>${title}</span>`; document.getElementById('centre-back').onclick=()=>{ if(backAction) backAction(); else backToEmpty(); }; } else h.innerHTML=`<span>${title}</span>`; }
+function setCentreBody(html) { var el=$('#centre-body'); el.innerHTML=html; el.classList.remove('view-crossfade'); void el.offsetWidth; el.classList.add('view-crossfade'); }
+function backToEmpty() { STORE.activeCentreView='empty'; setCentreHeader('StarDebate ★ 辩之星<span class="demo-badge" style="margin-left:8px;">体验版</span>'); setCentreBody(renderEmptyState()); }
+function renderEmptyState() { return `<div class="empty-state"><div class="es-icon">✦</div><div class="es-title">StarDebate ★ 辩之星<span class="demo-badge" style="margin-left:8px;">体验版</span></div><div class="es-desc">与你一起专业备赛「AI专业备赛助手」</div><div style="margin-top:8px;display:flex;gap:8px;"><button class="btn btn-save" onclick="actionNewDebate()">🆕 新建辩论</button><button class="btn btn-ai" onclick="actionSpeech()">📝 编辑一辩稿</button></div><div class="download-notice" style="margin-top:20px;padding:16px;background:rgba(203,166,247,0.05);border-radius:12px;"><div class="dn-title">🤖 AI 功能需下载桌面版</div><div class="dn-desc">AI写稿、分析、模拟质询等需要完整版</div><a href="javascript:void(0)" class="dn-btn" style="display:inline-block;margin-top:10px;padding:8px 20px;background:#dfb460;color:#0a0a14;border-radius:6px;text-decoration:none;cursor:pointer;transition:all 0.15s;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'" onclick="navigateToLanding()">📥 了解桌面版</a></div></div>`; }
+
+// ======================== 核心功能：打开辩论 ========================
+function openDebate(id) {
+  const debate = STORE.debates.find(d=>d.id===id);
+  if(!debate) return;
+  STORE.currentDebate = id;
+  speechContent.pro = debate.speeches?.pro || '';
+  speechContent.con = debate.speeches?.con || '';
+  saveStore();
+  renderLeftPanel();
+  STORE.activeCentreView = 'detail';
+  setCentreHeader(`${debate.pro} vs ${debate.con}`, true);
+  setCentreBody(renderDebateDetail(debate));
+  setStatus(`已打开辩论: ${debate.pro} vs ${debate.con}`);
+  setTimeout(()=>setStatus('就绪'),1500);
+}
+function renderDebateDetail(debate) {
+  if(!debate) return '<div>辩论不存在</div>';
+  return `<div class="analysis-cards"><div class="analysis-card" style="border-left:3px solid var(--green);"><div class="ac-header">🟢 正方：${debate.pro}</div><div class="ac-body"><div>立场：${debate.pro_args}</div><div>一辩稿：${(debate.speeches?.pro||'').length}字</div><div style="margin-top:8px;"><button class="small-btn primary" onclick="speechContent={pro:debate.speeches?.pro||'',con:debate.speeches?.con||''};switchSpeechTab('pro');actionSpeech()">📝 编辑一辩稿</button></div></div></div><div class="analysis-card" style="border-left:3px solid var(--red);"><div class="ac-header">🔴 反方：${debate.con}</div><div class="ac-body"><div>立场：${debate.con_args}</div><div>一辩稿：${(debate.speeches?.con||'').length}字</div><div style="margin-top:8px;"><button class="small-btn primary" onclick="speechContent={pro:debate.speeches?.pro||'',con:debate.speeches?.con||''};switchSpeechTab('con');actionSpeech()">📝 编辑一辩稿</button></div></div></div></div><div style="display:flex;gap:8px;margin-top:16px;"><button class="btn btn-ai" onclick="showDesktopRequired('模拟质询')">⚡ 模拟质询</button><button class="btn btn-ai" onclick="showDesktopRequired('模拟接质')">🛡️ 模拟接质</button></div>`;
+}
+
+// ======================== 导入项目文件（只读查看） ========================
+function importProjectFile() {
+  let input = document.createElement('input');
+  input.type = 'file'; input.accept = '.json';
+  input.multiple = true;
+  input.onchange = function(e) {
+    let files = Array.from(e.target.files);
+    if (!files.length) return;
+    setStatus('正在导入...');
+    let processed = 0;
+    files.forEach(f => {
+      let reader = new FileReader();
+      reader.onload = function(ev) {
+        processed++;
+        try {
+          let data = JSON.parse(ev.target.result);
+          // Detect file type
+          let ftype = 'other';
+          if (f.name.match(/debate_\d{8}_\d{6}\.json/)) ftype = 'debate';
+          else if (f.name.includes('一辩稿') && f.name.endsWith('.json')) ftype = 'speech';
+          else if (f.name.includes('资料稿') && f.name.endsWith('.json')) ftype = 'refdoc';
+          else if (f.name.includes('分析') && f.name.endsWith('.json')) ftype = 'analysis';
+          else if (f.name.startsWith('train_') && f.name.endsWith('.json')) ftype = 'training';
+
+          let entry = {
+            id: 'imp_' + Date.now() + '_' + processed,
+            fname: f.name, ftype: ftype, readonly: true,
+            data: data
+          };
+
+          // Deduce side for speech files
+          if (ftype === 'speech') {
+            entry.side = f.name.includes('正方') ? 'pro' : 'con';
+            entry.sideLabel = entry.side === 'pro' ? '正方' : '反方';
+          }
+
+          if (!STORE.importedFiles) STORE.importedFiles = [];
+          STORE.importedFiles.push(entry);
+        } catch(e) {
+          if (!STORE.importedFiles) STORE.importedFiles = [];
+          STORE.importedFiles.push({
+            id: 'imp_err_' + Date.now() + '_' + processed,
+            fname: f.name, ftype: 'error', readonly: true,
+            error: e.message
+          });
+        }
+        if (processed >= files.length) {
+          renderLeftPanel();
+          setStatus('已导入 ' + files.length + ' 个文件（只读）');
+          setTimeout(function(){setStatus('就绪')}, 2500);
+        }
+      };
+      reader.readAsText(f);
+    });
+  };
+  input.click();
+}
+
+function clearImported() {
+  if (!confirm('清除全部导入文件？')) return;
+  STORE.importedFiles = [];
+  renderLeftPanel();
+  setStatus('已清除导入文件');
+  setTimeout(function(){setStatus('就绪')}, 1500);
+}
+
+function openImportedFileByIdx(i) { var imp = (STORE.importedFiles||[])[i]; if(imp) openImportedFile(imp); }
+function openImportedFile(entry) {
+  if (!entry) return;
+  let ftype = entry.ftype || 'other';
+  if (ftype === 'debate') {
+    let d = entry.data || {};
+    let html = '<div class="analysis-cards">';
+    html += '<div class="analysis-card" style="border-left:3px solid var(--green);"><div class="ac-header">' + '🟢 正方：' + fwEsc(d.pro||'—') + '</div><div class="ac-body"><div>立场：' + fwEsc(d.pro_args||'—') + '</div></div></div>';
+    html += '<div class="analysis-card" style="border-left:3px solid var(--red);"><div class="ac-header">' + '🔴 反方：' + fwEsc(d.con||'—') + '</div><div class="ac-body"><div>立场：' + fwEsc(d.con_args||'—') + '</div></div></div>';
+    html += '</div>';
+    STORE.activeCentreView = 'import-debate';
+    setCentreHeader('📋 ' + fwEsc(entry.fname) + ' <span class="demo-badge" style="margin-left:4px;">只读</span>', true, backToEmpty);
+    setCentreBody(html);
+  } else if (ftype === 'speech') {
+    let d = entry.data || {};
+    let content = d.content || '';
+    let sideLabel = entry.sideLabel || '';
+    let fw = d.framework || null;
+    let fwNodes = (fw && fw.nodes) ? fw.nodes : [];
+    let hasFramework = fwNodes.length > 0;
+    speechContent = { pro: '', con: '' };
+    speechContent[entry.side || 'pro'] = content;
+    STORE.activeCentreView = 'import-speech';
+    setCentreHeader('📝 ' + sideLabel + '一辩稿 <span class="demo-badge" style="margin-left:4px;">只读</span>', true, backToEmpty);
+    if (hasFramework) {
+      // 用原生框架画布展示，节点设为只读
+      // 桌面版用"node_type"字段，网页版用"type"，做兼容转换
+      STORE.fwData = { nodes: fwNodes.map(function(n){
+        var nd = {};
+        for (var k in n) nd[k] = n[k];
+        if (nd.node_type && !nd.type) nd.type = nd.node_type;
+        if (!nd.type) nd.type = 'argument';
+        // 兼容旧字段名
+        if (nd.width && !nd.w) nd.w = nd.width;
+        if (nd.height && !nd.h) nd.h = nd.height;
+        if (nd.x === undefined) nd.x = 50;
+        if (nd.y === undefined) nd.y = 50;
+        if (!nd.w) nd.w = 140;
+        if (!nd.h) nd.h = 60;
+        if (!nd.children) nd.children = [];
+        if (!nd.text) nd.text = '';
+        return nd;
+      }), nextId: (fw && fw.nextId) || 1 };
+      // 上下等分：辩稿正文 + 框架画布
+      let html = '<div style="display:flex;flex-direction:column;">' +
+        '<div style="padding:16px;background:var(--bg-mantle);color:var(--text);font-size:14px;line-height:1.8;font-family:inherit;white-space:pre-wrap;word-break:break-word;">' + fwEsc(content) + '</div>' +
+        '<div id="fw-readonly-container" style="position:relative;border-top:1px solid var(--bg-surface0);">' +
+          '<div style="font-size:10px;color:var(--overlay0);padding:4px 12px;">🧠 辩论框架 · ' + fwNodes.length + '节点 <span class="demo-badge">只读</span></div>' +
+          renderFramework() +
+        '</div>' +
+      '</div>' +
+      '<div style="font-size:10px;color:var(--overlay0);padding:4px 12px;flex:none;">🔒 只读模式 · ' + content.length + '字</div>';
+      setCentreBody(html);
+      setTimeout(function(){
+        fwAutoLayout(7);  // 导入只读模式增加2行冗余
+        setTimeout(function(){
+          refreshFwCanvas();
+          var maxBottom = 200;
+          document.querySelectorAll('.fw-node-el').forEach(function(el){
+            var b = (parseInt(el.style.top)||0) + (parseInt(el.style.height)||0);
+            if (b > maxBottom) maxBottom = b;
+          });
+          var wrap = document.getElementById('fw-canvas-wrap');
+          var container = document.getElementById('fw-readonly-container');
+          if (wrap) {
+            wrap.style.overflow = 'visible';
+            wrap.style.flex = 'none';
+            wrap.style.minHeight = (maxBottom + 40) + 'px';
+          }
+          if (container) {
+            container.style.minHeight = (maxBottom + 60) + 'px';
+          }
+          // 容器尺寸变更后重绘连接线以匹配新 viewBox
+          fwDrawConnections();
+          // 给所有节点加只读样式，禁用交互
+          document.querySelectorAll('.fw-node-el').forEach(function(el){
+            el.style.cursor = 'default';
+            el.style.pointerEvents = 'none';
+          });
+          // 隐藏工具栏按钮
+          let tb = document.querySelector('.fw-toolbar');
+          if (tb) tb.style.display = 'none';
+        }, 30);
+      }, 50);
+    } else {
+      let html = '<div style="padding:12px;">' +
+        '<div style="background:var(--bg-mantle);color:var(--text);border:1px solid var(--bg-surface0);border-radius:8px;padding:16px;font-size:14px;line-height:1.8;font-family:inherit;white-space:pre-wrap;word-break:break-word;">' + fwEsc(content) + '</div>' +
+        '<div style="font-size:10px;color:var(--overlay0);">🔒 只读模式 · ' + content.length + '字</div>' +
+        '</div>';
+      setCentreBody(html);
+    }
+  } else if (ftype === 'refdoc') {
+    let d = entry.data || {};
+    let rows = d.rows || [];
+    STORE.activeCentreView = 'import-refdoc';
+    setCentreHeader('📑 ' + fwEsc(entry.fname) + ' <span class="demo-badge" style="margin-left:4px;">只读</span>', true, backToEmpty);
+    setCentreBody(renderRefDocReadOnly(rows));
+  } else if (ftype === 'analysis') {
+    let d = entry.data || {};
+    let text = d.analysis || '';
+    let side = entry.fname.includes('正方') ? '正方' : '反方';
+    STORE.activeCentreView = 'import-analysis';
+    setCentreHeader('🤖 ' + side + 'AI分析 <span class="demo-badge" style="margin-left:4px;">只读</span>', true, backToEmpty);
+    let html = '<div style="padding:12px;">' +
+      '<div style="background:var(--bg-mantle);border:1px solid var(--bg-surface0);border-radius:8px;padding:16px;font-size:12px;line-height:1.7;white-space:pre-wrap;max-height:calc(100vh - 140px);overflow-y:auto;">' + fwEsc(text) + '</div>' +
+      '<div style="font-size:10px;color:var(--overlay0);margin-top:4px;">🔒 只读模式 · ' + text.length + '字</div>' +
+      '</div>';
+    setCentreBody(html);
+  } else if (ftype === 'training') {
+    let d = entry.data || {};
+    STORE.activeCentreView = 'import-training';
+    setCentreHeader('🎯 训练记录 <span class="demo-badge" style="margin-left:4px;">只读</span>', true, backToEmpty);
+    let html = '<div style="padding:12px;overflow-y:auto;max-height:calc(100vh - 100px);">' +
+      '<div style="margin-bottom:8px;font-size:12px;"><span>模式：' + (d.mode||'—') + ' · 难度：' + (d.difficulty||'—') + ' · ' + (d.correct_count||0) + '/' + (d.total_questions||0) + '题 · ' + (d.score||0) + '分</span></div>';
+    let qs = d.questions || [];
+    qs.forEach(function(q, i) {
+      html += '<div style="padding:8px;margin-bottom:4px;background:var(--bg-mantle);border-radius:6px;border-left:3px solid ' + (q.is_correct ? 'var(--green)' : 'var(--red)') + ';font-size:11px;">' +
+        '<span>' + (q.is_correct ? '✅' : '❌') + ' ' + fwEsc((q.question||'').substring(0, 60)) + '</span>' +
+        '<span style="float:right;font-size:10px;color:var(--overlay0);">' + (q.user_answer||'-') + '→' + (q.is_correct ? '✓' : '✗') + '</span>' +
+        '</div>';
+    });
+    html += '<div style="font-size:10px;color:var(--overlay0);margin-top:4px;">🔒 只读模式 · ' + qs.length + '题</div></div>';
+    setCentreBody(html);
+  }
+}
+
+function renderImportedFramework(nodes) {
+  if (!nodes || !nodes.length) return '<div style="font-size:10px;color:var(--overlay0);text-align:center;padding:20px;">（无框架数据）</div>';
+  return nodes.map(nd => {
+    let t = (FW_TYPES[nd.type] || FW_TYPES.argument);
+    return '<div style="margin-bottom:6px;padding:6px 8px;background:rgba(0,0,0,0.15);border-radius:4px;border-left:3px solid ' + t[1] + ';">' +
+      '<div style="font-size:9px;color:' + t[1] + ';font-weight:600;">' + t[0] + '</div>' +
+      '<div style="font-size:10px;color:var(--subtext0);margin-top:2px;">' + fwEsc((nd.text||'未命名').substring(0,60)) + '</div>' +
+      (nd.children&&nd.children.length?'<div style="font-size:9px;color:var(--overlay0);margin-top:2px;">↳ ' + nd.children.length + '子节点</div>':'') +
+      '</div>';
+  }).join('');
+}
+
+function renderRefDocReadOnly(rows) {
+  let trs = rows.map(function(r, i) {
+    let a = typeof r === 'object' ? (r.argument || '') : (r[0] || '');
+    let c = typeof r === 'object' ? (r.content || '') : (r[1] || '');
+    let s = typeof r === 'object' ? (r.source || '') : (r[2] || '');
+    var bg = i % 2 === 0 ? 'var(--bg-base)' : 'var(--bg-mantle)';
+    return '<tr style=\"background:' + bg + ';\">' +
+      '<td style=\"padding:8px 12px;font-size:12px;border-bottom:1px solid var(--bg-surface0);\">' + fwEsc(a || '—') + '</td>' +
+      '<td style=\"padding:8px 12px;font-size:12px;border-bottom:1px solid var(--bg-surface0);\">' + fwEsc(c || '—') + '</td>' +
+      '<td style=\"padding:8px 12px;font-size:12px;border-bottom:1px solid var(--bg-surface0);color:var(--subtext0);\">' + fwEsc(s || '—') + '</td>' +
+      '</tr>';
+  }).join('');
+  if (!trs) trs = '<tr><td colspan="3" style="text-align:center;color:var(--overlay0);padding:32px;">（无数据）</td></tr>';
+  return '<div class="ref-table-wrap">' +
+    '<table>' +
+    '<thead><tr><th style="width:25%;">论证观点</th><th style="width:40%;">论证内容</th><th style="width:35%;">资料来源</th></tr></thead>' +
+    '<tbody>' + trs + '</tbody>' +
+    '</table></div>' +
+    '<div style="font-size:10px;color:var(--overlay0);padding:8px 12px;">🔒 只读模式 · ' + rows.length + '条记录</div>';
+}
+
+// ======================== 左侧面板 & 其余基础函数 ========================
+function renderLeftPanel() {
+  const lp = $('#lp-content');
+  if(STORE.activeLeftPanel==='project') lp.innerHTML = renderProjectTree();
+  else if(STORE.activeLeftPanel==='structure') lp.innerHTML = renderStructureTree();
+  else lp.innerHTML = renderFormatBrowser();
+  lp.classList.remove('panel-slide-in'); void lp.offsetWidth; lp.classList.add('panel-slide-in');
+}
+function renderProjectTree() {
+  let filter = (STORE.projectFilter||'').toLowerCase();
+  let debates = STORE.debates || [];
+  // Filter
+  let filtered = filter ? debates.filter(d=>d.pro.toLowerCase().includes(filter)||d.con.toLowerCase().includes(filter)) : debates;
+  // Sort: pinned first, then by id
+  filtered.sort((a,b)=>{ let aPin=STORE.pinnedItems.includes(a.id)?0:1, bPin=STORE.pinnedItems.includes(b.id)?0:1; return aPin!==bPin?aPin-bPin:a.id>b.id?1:-1; });
+
+  let html = '';
+  // Header with search
+  html += `<div class="panel-header">📁 项目浏览器</div>`;
+  html += `<div class="notes-search" style="margin:8px;"><input id="project-filter" placeholder="搜索项目名称..." value="${fwEsc(STORE.projectFilter||'')}" oninput="STORE.projectFilter=this.value;renderLeftPanel()"></div>`;
+  html += '<div class="panel-body">';
+
+  let imported = STORE.importedFiles || [];
+  if (!debates.length && !imported.length) {
+    html += '<div style="padding:20px;text-align:center;color:var(--overlay0);font-size:12px;">📂 暂无辩论项目<br><button class="btn btn-save" style="margin-top:12px;" onclick="actionNewDebate()">🆕 新建辩论</button></div>';
+  } else if (!filtered.length && !imported.length) {
+    html += '<div style="padding:20px;text-align:center;color:var(--overlay0);font-size:12px;">🔍 无匹配项目</div>';
+  } else {
+    // Pinned section
+    let pinnedList = filtered.filter(d=>STORE.pinnedItems.includes(d.id));
+    let unpinnedList = filtered.filter(d=>!STORE.pinnedItems.includes(d.id));
+    let total = debates.length;
+
+    // Stats header
+    html += `<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 12px;font-size:10px;color:var(--overlay0);margin-bottom:4px;">`;
+    html += `<span>📁 项目 (${total}个${filter?'，匹配'+filtered.length+'个':''})</span>`;
+    html += `<span style="display:flex;gap:8px;">
+      <span onclick="importProjectFile()" style="cursor:pointer;color:var(--gold);" title="导入项目文件(只读)">📥</span>
+      <span onclick="actionNewDebate()" style="cursor:pointer;color:var(--blue);" title="新建辩论">➕</span>
+    </span>`;
+    html += `</div>`;
+
+    if (pinnedList.length) {
+      html += `<div class="tree-item" style="color:var(--gold);font-weight:600;font-size:11px;padding:4px 12px;">📌 置顶 (${pinnedList.length})</div>`;
+      pinnedList.forEach(d=>html+=renderDebateItem(d));
+    }
+    if (unpinnedList.length) {
+      if (pinnedList.length) html += `<div style="margin:2px 0;"></div>`;
+      unpinnedList.forEach(d=>html+=renderDebateItem(d));
+    }
+  }
+  // Imported files section
+    if (imported.length && (!filter || filter.length)) {
+      if (debates.length) html += '<div style="border-top:1px solid var(--bg-surface0);margin:6px 0;"></div>';
+      html += '<div style="display:flex;align-items:center;justify-content:space-between;padding:4px 12px;font-size:10px;color:var(--overlay0);">';
+      html += '<span>📥 导入文件 (' + imported.length + '个) <span class="demo-badge" style="font-size:8px;">只读</span></span>';
+      html += '<span onclick="clearImported()" style="cursor:pointer;color:var(--red);font-size:9px;" title="清除全部导入">🗑</span>';
+      html += '</div>';
+      imported.forEach(function(imp) {
+        let icon = '📄';
+        let label = imp.fname;
+        let typeLabel = '';
+        let color = 'var(--overlay0)';
+        if (imp.ftype === 'debate') { icon = '📋'; color = 'var(--gold)'; typeLabel = '辩论'; }
+        else if (imp.ftype === 'speech') { icon = '📝'; color = imp.side === 'pro' ? 'var(--green)' : 'var(--red)'; typeLabel = (imp.sideLabel||'') + '一辩稿'; }
+        else if (imp.ftype === 'refdoc') { icon = '📑'; color = 'var(--blue)'; typeLabel = '资料稿'; }
+        else if (imp.ftype === 'analysis') { icon = '🤖'; color = 'var(--mauve)'; typeLabel = 'AI分析'; }
+        else if (imp.ftype === 'training') { icon = '🎯'; color = 'var(--peach)'; typeLabel = '训练'; }
+        html += '<div class="tree-item" onclick="openImportedFileByIdx('+imported.indexOf(imp)+')" style="font-size:11px;padding:6px 12px;cursor:pointer;">' +
+          '<span style="color:' + color + ';">' + icon + '</span>' +
+          '<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-left:6px;">' + fwEsc(label) + '</span>' +
+          '<span style="flex-shrink:0;font-size:9px;color:var(--overlay0);margin-left:4px;" class="demo-badge">只读</span>' +
+          '<span style="font-size:9px;color:var(--overlay0);margin-left:4px;">' + typeLabel + '</span>' +
+          '</div>';
+      });
+    }
+  html += '</div>';
+  return html;
+}
+
+function renderDebateItem(d) {
+  let active = STORE.currentDebate===d.id?' active':'';
+  let isPinned = STORE.pinnedItems.includes(d.id);
+  let pinIcon = isPinned ? '📌 ' : '';
+  let name = `${pinIcon}${fwEsc(d.pro)} vs ${fwEsc(d.con)}`;
+  let proLen = d.speeches?.pro?.length || 0;
+  let conLen = d.speeches?.con?.length || 0;
+
+  let html = `<div class="tree-item${active}" onclick="openDebate('${d.id}')" oncontextmenu="showTreeContextMenu(event,'${d.id}');return false;" title="${isPinned?'已置顶 · ':''}正方:${proLen}字 反方:${conLen}字">`;
+  html += `<span style="color:var(--mauve);">📄</span>`;
+  html += `<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${name}</span>`;
+  html += `<span style="font-size:9px;color:var(--overlay0);margin-left:4px;">${proLen||0}+${conLen||0}字</span>`;
+  html += `<span style="font-size:10px;color:var(--overlay0);margin-left:4px;opacity:0;" class="tree-actions">`;
+  html += `<span onclick="event.stopPropagation();togglePinItem('${d.id}')" title="置顶/取消置顶" style="cursor:pointer;">📌</span>`;
+  html += `<span onclick="event.stopPropagation();deleteDebate('${d.id}')" title="删除" style="cursor:pointer;">🗑</span>`;
+  html += `</span>`;
+  html += `</div>`;
+
+  // Sub-items for active debate
+  if (STORE.currentDebate===d.id) {
+    html += `<div class="tree-item tree-item-indent" onclick="switchSpeechTab('pro');actionSpeech()">🟢 正方一辩稿<span style="margin-left:auto;font-size:10px;color:var(--overlay0);">${proLen||'0'}字</span></div>`;
+    html += `<div class="tree-item tree-item-indent" onclick="switchSpeechTab('con');actionSpeech()">🔴 反方一辩稿<span style="margin-left:auto;font-size:10px;color:var(--overlay0);">${conLen||'0'}字</span></div>`;
+    html += `<div class="tree-item tree-item-indent" onclick="STORE.activeCentreView='ref-doc';STORE.refViewMode='table';setCentreHeader('📑 资料稿',true);setCentreBody(renderRefDoc());">📊 资料稿<span style="margin-left:auto;font-size:10px;color:var(--overlay0);">${(STORE.refDoc.rows||[]).length}条</span></div>`;
+    html += `<div class="tree-item tree-item-indent" onclick="STORE.activeLeftPanel='structure';renderLeftPanel();">🌳 结构树</div>`;
+    html += `<div class="tree-item tree-item-indent" onclick="STORE.activeCentreView='framework';setCentreHeader('🧠 辩论框架',true);setCentreBody(renderFramework());setTimeout(refreshFwCanvas,10);">🧠 辩论框架<span style="margin-left:auto;font-size:10px;color:var(--overlay0);">${(STORE.fwData.nodes||[]).length}节点</span></div>`;
+  }
+  return html;
+}
+
+function togglePinItem(id) {
+  let idx = STORE.pinnedItems.indexOf(id);
+  if (idx>=0) STORE.pinnedItems.splice(idx,1); else STORE.pinnedItems.push(id);
+  saveStore(); renderLeftPanel();
+  setStatus(idx>=0?'已取消置顶':'已置顶');
+  setTimeout(()=>setStatus('就绪'),1500);
+}
+
+// ======================== 右键菜单（对齐桌面版 _on_tree_context_menu） ========================
+function showTreeContextMenu(e, id) {
+  e.preventDefault(); e.stopPropagation();
+  hideTreeContextMenu();
+  let debate = STORE.debates.find(d=>d.id===id);
+  if (!debate) return;
+  let isPinned = STORE.pinnedItems.includes(id);
+
+  let menu = document.createElement('div');
+  menu.className = 'tree-context-menu';
+  menu.id = 'tree-context-menu';
+  menu.style.left = e.clientX + 'px';
+  menu.style.top = e.clientY + 'px';
+  // Keep menu within viewport
+  setTimeout(()=>{
+    let r = menu.getBoundingClientRect();
+    if (r.right > window.innerWidth) menu.style.left = (e.clientX - r.width) + 'px';
+    if (r.bottom > window.innerHeight) menu.style.top = (e.clientY - r.height) + 'px';
+  },0);
+
+  menu.innerHTML = `
+    <div class="cm-item" onclick="togglePinItem('${id}');hideTreeContextMenu()">${isPinned?'📌 取消置顶':'📌 置顶'}</div>
+    <div class="cm-divider"></div>
+    <div class="cm-item" onclick="openDebate('${id}');hideTreeContextMenu()">📖 打开辩论详情</div>
+    <div class="cm-item" onclick="switchSpeechTab('pro');actionSpeech();hideTreeContextMenu()">🟢 编辑正方一辩稿</div>
+    <div class="cm-item" onclick="switchSpeechTab('con');actionSpeech();hideTreeContextMenu()">🔴 编辑反方一辩稿</div>
+    <div class="cm-divider"></div>
+    <div class="cm-item danger" onclick="deleteDebate('${id}');hideTreeContextMenu()">🗑 删除项目</div>
+  `;
+  document.body.appendChild(menu);
+  // Close on click outside
+  setTimeout(()=>document.addEventListener('click', hideTreeContextMenu, {once:true}), 0);
+}
+
+function hideTreeContextMenu() {
+  let m = document.getElementById('tree-context-menu');
+  if (m) m.remove();
+}
+function deleteDebate(id) { if(!confirm('删除辩论？'))return; STORE.debates=STORE.debates.filter(d=>d.id!==id); if(STORE.currentDebate===id) STORE.currentDebate=STORE.debates[0]?.id||null; saveStore(); renderLeftPanel(); if(!STORE.currentDebate) backToEmpty(); else openDebate(STORE.currentDebate); setStatus('辩论已删除'); }
+function renderStructureTree() {
+  let side = STORE.activeStructureSide || 'pro';
+  let data = (STORE.structData||{})[side] || [];
+  let label = side==='pro'?'正方':'反方';
+  let html = `<div class="panel-header">
+    <span>📋 ${label}一辩稿结构 <span class="demo-badge">体验版</span></span>
+  </div>
+  <div class="structure-toggle">
+    <button class="${side==='pro'?'active':''}" onclick="switchStructSide('pro')">🟦 正方</button>
+    <button class="${side==='con'?'active':''}" onclick="switchStructSide('con')">🟥 反方</button>
+  </div>
+  <div class="structure-tree" id="struct-tree">
+    ${renderStructNodes(data, side)}
+  </div>
+  <div style="padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px;border-top:1px solid var(--bg-surface0);">
+    <button class="btn btn-save" onclick="structAddRootSection('${side}')" style="font-size:11px;padding:4px 10px;">+ 新增章节</button>
+    <button class="btn btn-save" onclick="structExpandAll()" style="font-size:11px;padding:4px 10px;">展开</button>
+    <button class="btn btn-save" onclick="structCollapseAll()" style="font-size:11px;padding:4px 10px;">折叠</button>
+  </div>
+  <div class="ai-notice">
+    <div class="ai-notice-icon">🤖</div>
+    <div class="ai-notice-text">
+      <strong>AI分析结构</strong> — 需下载桌面版客户端<br>
+      <span style="font-size:10px;opacity:0.6;">桌面版自动分析一辩稿生成结构化大纲</span>
+    </div>
+    <button class="btn btn-ai" onclick="showDesktopRequired('AI结构分析')" style="font-size:10px;padding:4px 10px;white-space:nowrap;">📥 了解</button>
+  </div>`;
+  return html;
+}
+
+function renderStructNodes(nodes, side, depth=0) {
+  if (!nodes || !nodes.length) return '<div class="struct-empty">（暂无结构，点击下方 + 新增章节 添加）</div>';
+  return nodes.map((nd, i) => renderStructNode(nd, side, depth, i)).join('');
+}
+
+function renderStructNode(nd, side, depth, idx) {
+  let name = fwEsc(nd.name || '未命名章节');
+  let kwCount = (nd.keywords || []).length;
+  let hasNote = !!(nd.note);
+  let hasRef = !!(nd.reference);
+  let hasChildren = !!(nd.children && nd.children.length);
+  let pad = depth * 16;
+  let icons = [];
+  if (kwCount) icons.push(`<span class="st-icon st-kw">🔑${kwCount}</span>`);
+  if (hasNote) icons.push(`<span class="st-icon st-note">📝</span>`);
+  if (hasRef) icons.push(`<span class="st-icon st-ref">📎</span>`);
+
+  let cls = hasChildren ? 'st-section has-children' : 'st-section';
+  let toggleBtn = hasChildren ? `<span class="st-toggle" id="st-toggle-${idx}" onclick="event.stopPropagation();structToggleChildren(${idx})">▶</span>` : `<span class="st-toggle-placeholder"></span>`;
+
+  let html = `<div class="st-node" style="padding-left:${pad}px;">
+    <div class="${cls}" oncontextmenu="structContextMenu(event,${JSON.stringify(idx).replace(/"/g,'&quot;')},'${side}');return false;">
+      ${toggleBtn}
+      <span class="st-name" style="color:#89b4fa">📌 ${name}</span>
+      <span class="st-icons">${icons.join(' ')}</span>
+    </div>
+    <div class="st-children" id="st-children-${idx}">
+      ${hasRef ? `<div class="st-sub st-ref-sub">📎 <span>${fwEsc((nd.reference||'').substring(0,40))}${(nd.reference||'').length>40?'…':''}</span></div>` : ''}
+      ${hasNote ? `<div class="st-sub st-note-sub">📝 <span>${fwEsc((nd.note||'').substring(0,40))}${(nd.note||'').length>40?'…':''}</span></div>` : ''}
+      ${(nd.keywords||[]).map((kw,kwi)=>{
+        let w = typeof kw==='string'?kw:kw.word;
+        let n = (typeof kw==='object'&&kw.note)?' 📝':'';
+        let r = (typeof kw==='object'&&kw.reference)?' 📎':'';
+        return `<div class="st-sub st-kw-sub" oncontextmenu="structKwContextMenu(event,${idx},${kwi},'${side}');return false;">🔑 ${fwEsc(w)}${n}${r}</div>`;
+      }).join('')}
+      ${hasChildren ? renderStructNodes(nd.children, side, depth+1) : ''}
+    </div>
+  </div>`;
+  return html;
+}
+
+// ─── Side switching ───
+function switchStructSide(side) {
+  STORE.activeStructureSide = side;
+  renderLeftPanel();
+}
+
+function structExpandAll() {
+  document.querySelectorAll('.st-children').forEach(el => el.classList.add('open'));
+  document.querySelectorAll('.st-toggle').forEach(el => el.textContent = '▼');
+}
+function structCollapseAll() {
+  document.querySelectorAll('.st-children').forEach(el => el.classList.remove('open'));
+  document.querySelectorAll('.st-toggle').forEach(el => el.textContent = '▶');
+}
+function structToggleChildren(idx) {
+  let children = document.getElementById('st-children-'+idx);
+  let toggle = document.getElementById('st-toggle-'+idx);
+  if (children && toggle) {
+    children.classList.toggle('open');
+    toggle.textContent = children.classList.contains('open') ? '▼' : '▶';
+  }
+}
+
+// ─── Helper to get node by path ───
+function structGetNode(side, pathArr) {
+  let data = (STORE.structData||{})[side] || [];
+  let cur = data;
+  let node = null;
+  for (let i = 0; i < pathArr.length; i++) {
+    let idx = pathArr[i];
+    if (i === pathArr.length - 1) {
+      node = cur[idx];
+    } else {
+      cur = (cur[idx]&&cur[idx].children) || [];
+    }
+  }
+  return node;
+}
+
+function structSetNode(side, pathArr, newNode) {
+  let data = (STORE.structData||{})[side] || [];
+  let cur = data;
+  for (let i = 0; i < pathArr.length - 1; i++) {
+    cur = cur[pathArr[i]].children || [];
+  }
+  if (newNode === null) {
+    cur.splice(pathArr[pathArr.length-1], 1);
+  } else {
+    cur[pathArr[pathArr.length-1]] = newNode;
+  }
+  if (!STORE.structData) STORE.structData = {pro:[],con:[]};
+  STORE.structData[side] = data;
+}
+
+// ─── CRUD: Add root section ───
+function structAddRootSection(side) {
+  let name = prompt('请输入新章节名称：');
+  if (!name || !name.trim()) return;
+  let node = { name: name.trim(), keywords: [], children: [], note: '', reference: '' };
+  if (!STORE.structData) STORE.structData = {pro:[],con:[]};
+  STORE.structData[side].push(node);
+  saveStore(); renderLeftPanel();
+  setStatus('已添加章节'); setTimeout(()=>setStatus('就绪'),1500);
+}
+
+// ─── CRUD: Add child section ───
+function structAddChildSection(side, pathArr) {
+  let parent = structGetNode(side, pathArr);
+  if (!parent) return;
+  let name = prompt('请输入子章节名称：');
+  if (!name || !name.trim()) return;
+  if (!parent.children) parent.children = [];
+  parent.children.push({ name: name.trim(), keywords: [], children: [], note: '', reference: '' });
+  saveStore(); renderLeftPanel();
+  setStatus('已添加子章节'); setTimeout(()=>setStatus('就绪'),1500);
+}
+
+// ─── CRUD: Rename section ───
+function structRenameSection(side, pathArr) {
+  let node = structGetNode(side, pathArr);
+  if (!node) return;
+  let name = prompt('重命名章节：', node.name||'');
+  if (!name || !name.trim()) return;
+  node.name = name.trim();
+  saveStore(); renderLeftPanel();
+  setStatus('已重命名'); setTimeout(()=>setStatus('就绪'),1500);
+}
+
+// ─── CRUD: Delete section (recursive) ───
+function structDeleteSection(side, pathArr) {
+  let node = structGetNode(side, pathArr);
+  if (!node) return;
+  let childCount = node.children ? node.children.length : 0;
+  let msg = childCount ? `删除"${node.name}"及其${childCount}个子章节？` : `确定删除"${node.name}"？`;
+  if (!confirm(msg)) return;
+  structSetNode(side, pathArr, null);
+  saveStore(); renderLeftPanel();
+  setStatus('已删除'); setTimeout(()=>setStatus('就绪'),1500);
+}
+
+// ─── CRUD: Add keyword ───
+function structAddKeyword(side, pathArr) {
+  let node = structGetNode(side, pathArr);
+  if (!node) return;
+  let text = prompt('输入关键词（多个用空格或逗号分隔）：');
+  if (!text || !text.trim()) return;
+  if (!node.keywords) node.keywords = [];
+  let words = text.split(/[,\s]+/).filter(w=>w.trim());
+  words.forEach(w => {
+    if (!node.keywords.some(k=>(typeof k==='string'?k:k.word)===w)) {
+      node.keywords.push({ word: w, note: '', reference: '' });
+    }
+  });
+  saveStore(); renderLeftPanel();
+  setStatus('已添加关键词'); setTimeout(()=>setStatus('就绪'),1500);
+}
+
+// ─── CRUD: Delete keyword ───
+function structDeleteKeyword(side, pathArr, kwIdx) {
+  let node = structGetNode(side, pathArr);
+  if (!node || !node.keywords) return;
+  let kw = node.keywords[kwIdx];
+  let w = typeof kw==='string'?kw:kw.word;
+  if (!confirm(`删除关键词"${w}"？`)) return;
+  node.keywords.splice(kwIdx, 1);
+  saveStore(); renderLeftPanel();
+  setStatus('已删除关键词'); setTimeout(()=>setStatus('就绪'),1500);
+}
+
+// ─── CRUD: Edit keyword note ───
+function structEditKwNote(side, pathArr, kwIdx) {
+  let node = structGetNode(side, pathArr);
+  if (!node || !node.keywords) return;
+  let kw = node.keywords[kwIdx];
+  if (typeof kw==='string') { kw = { word: kw, note: '', reference: '' }; node.keywords[kwIdx] = kw; }
+  let text = prompt('编辑关键词注释：', kw.note||'');
+  if (text === null) return;
+  kw.note = text.trim();
+  saveStore(); renderLeftPanel();
+  setStatus('已更新注释'); setTimeout(()=>setStatus('就绪'),1500);
+}
+
+// ─── CRUD: Add keyword reference ───
+function structAddKwRef(side, pathArr, kwIdx) {
+  let node = structGetNode(side, pathArr);
+  if (!node || !node.keywords) return;
+  let kw = node.keywords[kwIdx];
+  if (typeof kw==='string') { kw = { word: kw, note: '', reference: '' }; node.keywords[kwIdx] = kw; }
+  let text = prompt('添加原文引用：', kw.reference||'');
+  if (text === null) return;
+  kw.reference = text.trim();
+  saveStore(); renderLeftPanel();
+  setStatus('已添加引用'); setTimeout(()=>setStatus('就绪'),1500);
+}
+
+// ─── CRUD: Edit section note ───
+function structEditNote(side, pathArr) {
+  let node = structGetNode(side, pathArr);
+  if (!node) return;
+  let text = prompt('编辑章节注释：', node.note||'');
+  if (text === null) return;
+  node.note = text.trim();
+  saveStore(); renderLeftPanel();
+  setStatus('已更新注释'); setTimeout(()=>setStatus('就绪'),1500);
+}
+
+// ─── CRUD: Add section reference ───
+function structEditRef(side, pathArr) {
+  let node = structGetNode(side, pathArr);
+  if (!node) return;
+  let text = prompt('添加/编辑原文引用：', node.reference||'');
+  if (text === null) return;
+  node.reference = text.trim();
+  saveStore(); renderLeftPanel();
+  setStatus('已更新引用'); setTimeout(()=>setStatus('就绪'),1500);
+}
+
+// ─── Right-click context menus ───
+var _structCtxMenu = null;
+
+function hideStructCtxMenu() {
+  if (_structCtxMenu) { _structCtxMenu.remove(); _structCtxMenu = null; }
+}
+
+function structContextMenu(e, pathIdx, side) {
+  e.preventDefault(); e.stopPropagation();
+  hideStructCtxMenu();
+  let node = structGetNode(side, [pathIdx]);
+  if (!node) return;
+  let items = [
+    `<div class="cm-item" onclick="structAddChildSection('${side}',[${pathIdx}]);hideStructCtxMenu()">➕ 添加子章节</div>`,
+    `<div class="cm-item" onclick="structAddKeyword('${side}',[${pathIdx}]);hideStructCtxMenu()">🔑 添加关键词</div>`,
+  ];
+  if (!node.note) items.push(`<div class="cm-item" onclick="structEditNote('${side}',[${pathIdx}]);hideStructCtxMenu()">📝 添加注释</div>`);
+  else items.push(`<div class="cm-item" onclick="structEditNote('${side}',[${pathIdx}]);hideStructCtxMenu()">📝 编辑注释</div>`);
+  if (!node.reference) items.push(`<div class="cm-item" onclick="structEditRef('${side}',[${pathIdx}]);hideStructCtxMenu()">📎 添加原文引用</div>`);
+  else items.push(`<div class="cm-item" onclick="structEditRef('${side}',[${pathIdx}]);hideStructCtxMenu()">📎 编辑原文引用</div>`);
+  items.push(`<div class="cm-divider"></div>`);
+  items.push(`<div class="cm-item" onclick="structRenameSection('${side}',[${pathIdx}]);hideStructCtxMenu()">✏️ 重命名</div>`);
+  items.push(`<div class="cm-item danger" onclick="structDeleteSection('${side}',[${pathIdx}]);hideStructCtxMenu()">🗑️ 删除章节</div>`);
+  showStructCtxMenu(e, items.join(''));
+}
+
+function structKwContextMenu(e, pathIdx, kwIdx, side) {
+  e.preventDefault(); e.stopPropagation();
+  hideStructCtxMenu();
+  let items = [
+    `<div class="cm-item" onclick="structEditKwNote('${side}',[${pathIdx}],${kwIdx});hideStructCtxMenu()">📝 编辑注释</div>`,
+    `<div class="cm-item" onclick="structAddKwRef('${side}',[${pathIdx}],${kwIdx});hideStructCtxMenu()">📎 添加/编辑引用</div>`,
+    `<div class="cm-divider"></div>`,
+    `<div class="cm-item danger" onclick="structDeleteKeyword('${side}',[${pathIdx}],${kwIdx});hideStructCtxMenu()">🗑️ 删除关键词</div>`,
+  ];
+  showStructCtxMenu(e, items.join(''));
+}
+
+function showStructCtxMenu(e, itemsHtml) {
+  let menu = document.createElement('div');
+  menu.className = 'tree-context-menu';
+  menu.style.left = e.clientX + 'px';
+  menu.style.top = e.clientY + 'px';
+  menu.innerHTML = itemsHtml;
+  document.body.appendChild(menu);
+  _structCtxMenu = menu;
+
+  // Adjust if off-screen
+  let r = menu.getBoundingClientRect();
+  if (r.right > window.innerWidth) menu.style.left = (e.clientX - r.width) + 'px';
+  if (r.bottom > window.innerHeight) menu.style.top = (e.clientY - r.height) + 'px';
+
+  setTimeout(() => {
+    document.addEventListener('mousedown', function sc(ev) {
+      if (menu.parentNode && !menu.contains(ev.target)) menu.remove();
+      document.removeEventListener('mousedown', sc);
+    });
+  }, 80);
+}
+// ======================== 赛制浏览 ========================
+const COMPETITION_PRESETS = {
+  "华语辩论赛制": { team_size:4, positions:[
+    { name:"一辩", phases:[{name:"立论",duration:180},{name:"接质询",duration:120}] },
+    { name:"二辩", phases:[{name:"驳论",duration:150},{name:"盘问",duration:120},{name:"接质询",duration:90}] },
+    { name:"三辩", phases:[{name:"对辩",duration:180},{name:"盘问",duration:120},{name:"接质询",duration:90}] },
+    { name:"四辩", phases:[{name:"总结陈词",duration:240}] } ],
+    free_debate:{name:"自由辩论",duration:480,desc:"双方交替发言"}
+  },
+  "世界大学生辩论赛制": { team_size:3, positions:[
+    { name:"一辩", phases:[{name:"立论",duration:180},{name:"接质询",duration:120}] },
+    { name:"二辩", phases:[{name:"驳论",duration:150},{name:"盘问",duration:120},{name:"接质询",duration:90}] },
+    { name:"三辩", phases:[{name:"对辩",duration:180},{name:"总结陈词",duration:240}] } ],
+    free_debate:{name:"自由辩论",duration:360,desc:"双方交替发言"}
+  },
+  "英国议会制辩论": { team_size:2, positions:[
+    { name:"首相 (正方一辩)", phases:[{name:"立论",duration:420}] },
+    { name:"反对党领袖 (反方一辩)", phases:[{name:"立论",duration:420}] },
+    { name:"副首相 (正方二辩)", phases:[{name:"论证展开",duration:420}] },
+    { name:"反对党副领袖 (反方二辩)", phases:[{name:"论证展开",duration:420}] } ],
+    free_debate:null
+  },
+  "政策辩论赛制": { team_size:2, positions:[
+    { name:"正方一辩", phases:[{name:"立论",duration:480},{name:"接质询",duration:180}] },
+    { name:"反方一辩", phases:[{name:"立论",duration:480},{name:"接质询",duration:180}] },
+    { name:"正方二辩", phases:[{name:"反驳",duration:300},{name:"接质询",duration:180}] },
+    { name:"反方二辩", phases:[{name:"反驳",duration:300},{name:"接质询",duration:180}] } ],
+    free_debate:null
+  },
+  "腾讯辩论赛制": { team_size:3, positions:[
+    { name:"一辩", phases:[{name:"立论",duration:180},{name:"接质询",duration:90}] },
+    { name:"二辩", phases:[{name:"论证展开",duration:180},{name:"接质询",duration:90}] },
+    { name:"三辩", phases:[{name:"总结陈词",duration:240}] } ],
+    free_debate:{name:"自由辩论",duration:360,desc:"双方交替发言"}
+  }
+};
+
+function renderFormatBrowser() {
+  let html = `<div class="panel-header">🏆 赛制浏览 <span class="demo-badge">体验版</span></div>
+    <div class="panel-body" style="overflow-y:auto;">
+      <div style="font-size:11px;color:var(--overlay0);margin-bottom:8px;">📌 预设赛制</div>`;
+  Object.entries(COMPETITION_PRESETS).forEach(([name, fmt]) => {
+    let selected = STORE.activeFormat === name;
+    html += `<div onclick="selectFormat('${name}')" style="padding:10px 12px;cursor:pointer;border-radius:6px;margin-bottom:2px;font-size:12px;transition:all 0.15s;background:${selected?'var(--bg-surface0)':''};border-left:${selected?'3px solid var(--gold)':'3px solid transparent'};" onmouseover="if(!this.style.background)this.style.background='var(--bg-mantle)'" onmouseout="if(this.style.background==='var(--bg-mantle)')this.style.background=">
+      🏷 ${fwEsc(name)}
+      <span style="font-size:10px;color:var(--overlay0);float:right;">${fmt.team_size}人/方</span>
+    </div>`;
+  });
+  html += `<div class="ai-notice" style="margin:10px 0;">
+    <div class="ai-notice-icon">🔧</div>
+    <div class="ai-notice-text"><strong>自定义赛制</strong><br><span style="font-size:9px;">体验版不支持自定义赛制编辑，需桌面版客户端</span></div>
+  </div>`;
+
+  if (STORE.activeFormat && COMPETITION_PRESETS[STORE.activeFormat]) {
+    html += renderFormatDetail(STORE.activeFormat, COMPETITION_PRESETS[STORE.activeFormat]);
+  }
+  html += `</div>`;
+  return html;
+}
+
+function selectFormat(name) {
+  STORE.activeFormat = STORE.activeFormat === name ? null : name;
+  renderLeftPanel();
+}
+
+function renderFormatDetail(name, fmt) {
+  let html = `<div class="format-detail" style="margin-top:12px;padding:12px;background:var(--bg-mantle);border-radius:8px;border:1px solid var(--bg-surface0);">
+    <div class="fd-title">📌 ${fwEsc(name)}</div>
+    <div style="font-size:11px;color:var(--overlay0);margin-bottom:8px;">👥 队伍人数：${fmt.team_size} 人/方</div>`;
+
+  fmt.positions.forEach((pos, pi) => {
+    html += `<div style="margin-bottom:10px;">
+      <div style="font-size:12px;font-weight:600;color:var(--blue);margin-bottom:4px;">▸ ${fwEsc(pos.name)}</div>`;
+    pos.phases.forEach(ph => {
+      let mins = Math.floor(ph.duration/60);
+      let secs = ph.duration%60;
+      let timeStr = secs ? `${mins}分${secs}秒` : `${mins}分钟`;
+      html += `<div class="fd-row"><span class="fd-phase">${fwEsc(ph.name)}</span><span class="fd-time">${timeStr}</span></div>`;
+    });
+    html += `</div>`;
+  });
+
+  if (fmt.free_debate) {
+    let mins = Math.floor(fmt.free_debate.duration/60);
+    let secs = fmt.free_debate.duration%60;
+    let timeStr = secs ? `${mins}分${secs}秒` : `${mins}分钟`;
+    html += `<div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--bg-surface0);">
+      <div style="font-size:11px;color:var(--peach);font-weight:600;">🔥 公共环节</div>
+      <div class="fd-row"><span class="fd-phase">${fwEsc(fmt.free_debate.name)}</span><span class="fd-time">${timeStr}</span></div>
+      ${fmt.free_debate.desc?`<div style="font-size:10px;color:var(--overlay0);margin-top:2px;">${fwEsc(fmt.free_debate.desc)}</div>`:''}
+    </div>`;
+  }
+
+  html += `</div>`;
+  return html;
+}
+
+// 一辩稿编辑器
+function actionSpeech() { if(!STORE.currentDebate) { setStatus('请先创建或打开辩论'); return; } STORE.activeCentreView='speech'; setCentreHeader('一辩稿',true); setCentreBody(renderSpeechEditor()); let editor=document.getElementById('speech-editor'); if(editor) editor.value=speechContent[STORE.activeSpeechTab]||''; updateLineNumbers(); }
+function renderSpeechEditor() { return `<div class="editor-tabs"><button class="editor-tab pro-tab ${STORE.activeSpeechTab==='pro'?'active':''}" onclick="switchSpeechTab('pro')">🟢 正方一辩稿</button><button class="editor-tab con-tab ${STORE.activeSpeechTab==='con'?'active':''}" onclick="switchSpeechTab('con')">🔴 反方一辩稿</button></div><div class="speech-editor-wrap"><div class="line-numbers" id="line-numbers"><div>1</div></div><textarea id="speech-editor" placeholder="撰写一辩稿..." spellcheck="false"></textarea></div><div class="editor-actions"><button class="btn btn-save" onclick="saveSpeech()">💾 保存</button><button class="btn btn-ai" onclick="showDesktopRequired('AI分析')">🧠 AI分析</button></div>`; }
+function switchSpeechTab(tab) { let editor=document.getElementById('speech-editor'); if(editor) speechContent[STORE.activeSpeechTab]=editor.value; STORE.activeSpeechTab=tab; setCentreBody(renderSpeechEditor()); let newEd=document.getElementById('speech-editor'); if(newEd) { newEd.value=speechContent[tab]||''; newEd.addEventListener('input',updateLineNumbers); updateLineNumbers(); } }
+function updateLineNumbers() { let ed=document.getElementById('speech-editor'), ln=document.getElementById('line-numbers'); if(!ed||!ln) return; ln.innerHTML=ed.value.split('\n').map((_,i)=>`<div>${i+1}</div>`).join(''); }
+function saveSpeech() { let ed=document.getElementById('speech-editor'); if(ed) speechContent[STORE.activeSpeechTab]=ed.value; if(STORE.currentDebate){ let d=STORE.debates.find(x=>x.id===STORE.currentDebate); if(d){ if(!d.speeches)d.speeches={}; d.speeches[STORE.activeSpeechTab]=speechContent[STORE.activeSpeechTab]; saveStore(); } } setStatus('已保存'); setTimeout(()=>setStatus('就绪'),1500); }
+
+// 新建辩论
+function actionNewDebate() { showNewDebateModal(); }
+function showNewDebateModal() {
+  let ov=document.createElement('div'); ov.className='new-debate-overlay';
+  ov.innerHTML=`<div class="new-debate-form"><div class="nd-header">🆕 新建辩论</div><div class="nd-side-row"><div class="nd-field"><label>🟢 正方</label><input id="nd-pro" placeholder="正方名称"></div><div class="nd-field"><label>🔴 反方</label><input id="nd-con" placeholder="反方名称"></div></div><div class="nd-field"><label>正方论点</label><textarea id="nd-pro-args" placeholder="立论概要"></textarea></div><div class="nd-field"><label>反方论点</label><textarea id="nd-con-args" placeholder="立论概要"></textarea></div><div class="nd-actions"><button class="nd-cancel" onclick="this.closest('.new-debate-overlay').remove()">取消</button><button class="nd-create" onclick="ndConfirm()">创建辩论</button></div></div>`;
+  document.body.appendChild(ov);
+}
+function ndConfirm() {
+  let pro=document.getElementById('nd-pro')?.value.trim(), con=document.getElementById('nd-con')?.value.trim(), proArgs=document.getElementById('nd-pro-args')?.value.trim(), conArgs=document.getElementById('nd-con-args')?.value.trim();
+  if(!pro||!con) return alert('请填写双方名称');
+  let ts=Date.now().toString(36)+Math.random().toString(36).substr(2,5);
+  let debate={ id:`d_${ts}`, pro, con, pro_args:proArgs||'', con_args:conArgs||'', speeches:{ pro:'', con:'' } };
+  STORE.debates.unshift(debate); STORE.currentDebate=debate.id; speechContent={ pro:'', con:'' }; saveStore(); renderLeftPanel();
+  document.querySelector('.new-debate-overlay')?.remove();
+  openDebate(debate.id);
+  setStatus(`辩论已创建: ${pro} vs ${con}`);
+}
+
+// AI 桌面版提示 - 各功能介绍
+const DESKTOP_FEATURES = {
+  'AI分析': {icon:'🧠', title:'AI 智能分析', desc:'深度解析一辩稿结构，自动识别论点框架、论证逻辑与论据支撑，生成结构化分析报告。'},
+  'AI写稿': {icon:'✍️', title:'AI 一辩稿写作', desc:'基于辩论框架稿，自动生成逻辑严密的正方/反方一辩稿，支持多风格、多策略输出。'},
+  'AI扩写': {icon:'🤖', title:'AI 关键词扩写', desc:'将辩题关键词和论点要点智能扩写为完整论证段落，丰富论据库与素材储备。'},
+  'AI框架生成': {icon:'🧠', title:'AI 框架生成', desc:'将一辩稿文本自动转化为结构化辩论思维导图，清晰展示论点层级与论证关系。'},
+  '模拟质询': {icon:'⚡', title:'AI 模拟质询', desc:'AI扮演对方辩手发起质询攻击，训练临场应变与逻辑防守能力，支持多轮对话。'},
+  '模拟接质': {icon:'🛡️', title:'AI 模拟接质', desc:'AI模拟对手连续提问，训练接质回应技巧，实时评估回答质量并给出改进建议。'},
+  'AI结构分析': {icon:'📋', title:'AI 结构分析', desc:'自动拆解一辩稿的章节层次与论据结构，生成可视化结构树，快速把握全文脉络。'},
+  'AI功能': {icon:'💻', title:'AI 智能功能', desc:'包括AI写稿、AI分析、AI框架生成、模拟质询/接质等深度学习功能，需下载桌面版完整体验。'}
+};
+function showDesktopRequired(feature) {
+  navigateToLanding();
+}
+
+// ======================== 模拟训练 ========================
+// ── 默认题库（16题，无需AI）──
+const DEFAULT_QUESTIONS = [
+  {"type": "choice", "question": "在辩论中，“稻草人谬误”指的是？", "options": ["A. 歪曲对方论点后攻击", "B. 偷换概念进行诡辩", "C. 以权威代替论证", "D. 用情感操控听众"], "correct": "A", "difficulty": "easy", "topic": "谬误辨析", "explanation": {"A": "正确。稻草人谬误是故意歪曲或简化对方的论点，使其更容易被攻击。", "B": "这是偷换概念谬误", "C": "这是诉诸权威谬误", "D": "这是诉诸情感谬误"}, "tips": {"A": "很好！记住“歪曲后攻击”这个核心特征", "B": "偷换概念是改变关键词含义", "C": "诉诸权威≠歪曲论点", "D": "情感操控是另一类谬误"}},
+  {"type": "choice", "question": "辩论中“举证责任”由谁承担？", "options": ["A. 提出主张的一方", "B. 辩论评委", "C. 双方共同承担", "D. 反方承担"], "correct": "A", "difficulty": "easy", "topic": "辩论理论", "explanation": {"A": "正确。谁主张谁举证是辩论基本原则。", "B": "评委不承担举证责任", "C": "举证责任由主张方承担，不是共同", "D": "反方也有主张时才承担"}, "tips": {"A": "核心原则：谁主张，谁举证", "B": "评委负责评判，不举证", "C": "不是平摊，是主张方专属", "D": "只有反方提出独立主张时才需举证"}},
+  {"type": "choice", "question": "以下哪种属于“归纳推理”？", "options": ["A. 从个别案例总结出一般规律", "B. 从一般规律推演到个别案例", "C. 两者同时使用", "D. 直接引用权威观点"], "correct": "A", "difficulty": "easy", "topic": "逻辑推理", "explanation": {"A": "正确。归纳是从特殊到一般的推理。", "B": "这是演绎推理", "C": "归纳和演绎是不同的推理方式", "D": "这属于诉诸权威"}, "tips": {"A": "归纳 = 特殊→一般，记住这个方向", "B": "演绎 = 一般→特殊", "C": "虽然辩论中两者并用，但归纳特指从个案到规律", "D": "权威观点本身不是推理方法"}},
+  {"type": "choice", "question": "驳辩位（二辩）的核心职责是？", "options": ["A. 针对对方一辩稿进行驳斥", "B. 提出全新的核心论点", "C. 总结全场所有交锋", "D. 负责自由辩论的提问"], "correct": "A", "difficulty": "easy", "topic": "辩位职责", "explanation": {"A": "正确。驳辩位的首要任务是驳斥对方立论。", "B": "这是立论位的职责", "C": "这是结辩位的职责", "D": "自由辩论是全体辩手参与"}, "tips": {"A": "驳辩=驳斥+辩护，以驳斥为主", "B": "新论点是立论位的任务", "C": "总结是结辩的专属任务", "D": "自由辩论各辩位分工不同"}},
+  {"type": "choice", "question": "“滑坡论证”的逻辑漏洞是什么？", "options": ["A. 夸大了因果链条必然性", "B. 前提本身就不成立", "C. 混淆了相关和因果", "D. 用个别代替全体"], "correct": "A", "difficulty": "medium", "topic": "谬误辨析", "explanation": {"A": "正确。滑坡论证错误地假设一连串事件必然发生。", "B": "前提可能成立，问题在推理过程", "C": "混淆相关因果是另一个谬误", "D": "这是以偏概全"}, "tips": {"A": "滑坡谬误的本质是“过度推断连锁反应”", "B": "反驳时要指出推理中的跳跃", "C": "混淆相关因果≠滑坡", "D": "以偏概全是样本问题"}},
+  {"type": "choice", "question": "在论证中引用数据时，最重要的是？", "options": ["A. 说明数据的来源和时效性", "B. 尽可能多地堆砌数据", "C. 选择对自己最有利的数据", "D. 只使用百分数表示"], "correct": "A", "difficulty": "medium", "topic": "论证方法", "explanation": {"A": "正确。数据需要可靠来源和时效才有说服力。", "B": "堆砌数据不代表论证有力", "C": "选择性使用数据是典型的数据操纵", "D": "百分数只是表达形式之一"}, "tips": {"A": "数据三要素：来源、时效、相关性", "B": "质量重于数量", "C": "刻意挑选数据会被质疑偏见", "D": "根据场景选择最合适的表达方式"}},
+  {"type": "choice", "question": "“诉诸人身攻击”(ad hominem) 的特征是？", "options": ["A. 攻击对方的人格而非论点", "B. 用对方过去的错误否定现在", "C. 因为多数人同意所以正确", "D. 故意模糊概念边界"], "correct": "A", "difficulty": "medium", "topic": "谬误辨析", "explanation": {"A": "正确。诉诸人身攻击是针对人而非观点。", "B": "这也是一种人身攻击变体", "C": "这是诉诸大众", "D": "这是模糊谬误"}, "tips": {"A": "记住：对人不对事就是ad hominem", "B": "翻旧账在辩论中常见但也是谬误", "C": "多数人同意≠正确", "D": "模糊概念是另一类问题"}},
+  {"type": "choice", "question": "当对方提出“你无法证明它不存在，所以它可能存在”时，这是？", "options": ["A. 诉诸无知的谬误", "B. 正确的逻辑推理", "C. 反证法", "D. 归谬法"], "correct": "A", "difficulty": "medium", "topic": "逻辑推理", "explanation": {"A": "正确。无法证明不存在≠存在，这是诉诸无知。", "B": "这是一个经典逻辑谬误", "C": "反证法需要逻辑推导", "D": "归谬法是另一种推理方式"}, "tips": {"A": "举证责任在主张存在的一方", "B": "“不能证伪≠真”是核心原则", "C": "反证法≠逃避举证", "D": "归谬法是通过推导矛盾来反驳"}},
+  {"type": "choice", "question": "辩论中引入“典型案例”的主要风险是？", "options": ["A. 以偏概全，忽略普遍性", "B. 案例太复杂观众听不懂", "C. 与辩论主题不相关", "D. 案例可能过时"], "correct": "A", "difficulty": "medium", "topic": "论证方法", "explanation": {"A": "正确。个案不代表整体，过度依赖典型是危险的。", "B": "好的案例应该简洁易懂", "C": "选择相关案例是基本要求", "D": "时效性可以注明来规避"}, "tips": {"A": "案例是辅助，不能代替系统论证", "B": "选择案例要兼顾典型性和简洁性", "C": "案例必须紧密服务论点", "D": "用最新案例增强说服力"}},
+  {"type": "truefalse", "question": "在辩论中，只要逻辑没有错误，论证就是有效的。", "options": ["正确", "错误"], "correct": "B", "difficulty": "easy", "topic": "逻辑推理", "explanation": {"A": "不正确。逻辑有效≠论证有效，还需要前提真实", "B": "正确！逻辑形式上正确不等于实质正确，前提是否真实同样关键。"}, "tips": {"A": "记住：论证有效 = 逻辑正确 + 前提真实", "B": "很好！你理解了论证的双重要求"}},
+  {"type": "truefalse", "question": "辩论中主动承认对方的合理观点会削弱自己的立场。", "options": ["正确", "错误"], "correct": "B", "difficulty": "easy", "topic": "辩论理论", "explanation": {"A": "不对。承认合理点反而显得客观、有风度，能提升可信度。", "B": "正确！适度让步体现辩证思维，反而增强整体说服力。"}, "tips": {"A": "有策略地让步是高级辩论技巧", "B": "让步不是认输，是战场选择"}},
+  {"type": "truefalse", "question": "自由辩论环节应该由主辩手一个人完成。", "options": ["正确", "错误"], "correct": "B", "difficulty": "easy", "topic": "辩位职责", "explanation": {"A": "不对。自由辩论是团队协作，各辩位分工配合。", "B": "正确！自由辩论需要整个团队配合，各展所长。"}, "tips": {"A": "自由辩论=团队战，不是个人秀", "B": "各辩位分工合作才能最大化效果"}},
+  {"type": "choice", "question": "在驳论中，最高效的反驳策略是？", "options": ["A. 直接指出对方论证的前提错误", "B. 逐字逐句反驳对方", "C. 提出完全相反的观点", "D. 质疑对方的动机"], "correct": "A", "difficulty": "hard", "topic": "辩位职责", "explanation": {"A": "正确。攻击前提是最高效的驳斥，因为前提错了结论自动动摇。", "B": "逐句反驳效率低且易迷失重点", "C": "对立观点需要有独立论证", "D": "质疑动机是人身攻击，无效反驳"}, "tips": {"A": "驳斥王道：揪前提>打逻辑>怼案例", "B": "选择性反驳比全面反驳更高效", "C": "纯粹对立≠有效反驳", "D": "永远攻击论点，不攻击人"}},
+  {"type": "choice", "question": "当对方使用“二难推理”时，最佳应对是？", "options": ["A. 指出第三种可能性打破困局", "B. 在两个选项中选更好的一个", "C. 拒绝回答这个两难问题", "D. 模仿对方提出反向二难"], "correct": "A", "difficulty": "hard", "topic": "逻辑推理", "explanation": {"A": "正确。二难推理的破绽往往在于忽视了其他可能。", "B": "接受框架就输了", "C": "拒绝回答等于认输", "D": "反向二难有时有效但不是最佳"}, "tips": {"A": "破解二难=找出第三选项", "B": "永远不要接受对方设定的二分框架", "C": "沉默是最糟的回应", "D": "反向二难适用于特殊场景"}},
+  {"type": "choice", "question": "以下关于“价值升华”的说法，正确的是？", "options": ["A. 将具体问题提升到价值观层面讨论", "B. 脱离事实只讲虚无的价值观", "C. 在比赛最后阶段才使用", "D. 只用于反驳对方论点"], "correct": "A", "difficulty": "hard", "topic": "论证方法", "explanation": {"A": "正确。价值升华是将议题提升到更深层的价值层面。", "B": "价值升华需要建立在事实基础上", "C": "任何阶段都可以进行价值升华", "D": "价值升华可用于立论和结辩"}, "tips": {"A": "价值升华 = 具体→抽象→再具体", "B": "好的价值升华需要事实支撑", "C": "价值思考贯穿辩论全程", "D": "立论和结辩都需要价值维度"}},
+  {"type": "choice", "question": "在“政策辩论”中，正方最需要论证的是？", "options": ["A. 现状有问题且政策能解决", "B. 政策一定能完美实施", "C. 反方的方案完全不可行", "D. 政策不会有任何副作用"], "correct": "A", "difficulty": "hard", "topic": "辩论理论", "explanation": {"A": "正确。正方需证明需求性（现状有问题）+ 解决力（政策有效）。", "B": "完美方案不存在，只需证明优于现状", "C": "正方只需证明己方方案更优", "D": "承认局限性反而增加可信度"}, "tips": {"A": "政策辩论 = 需求性 + 解决力 + 损益比", "B": "不要承诺完美，要证明更优", "C": "正方举证责任在己方方案", "D": "坦诚局限 > 假装完美"}},
+];
+
+// ── 训练面板渲染 ──
+function renderTrainingPanel() {
+  let t = STORE.training;
+  if (t.sessionActive) {
+    return renderTrainingQuiz();
+  }
+  let modes = [
+    { key:'technique', label:'辩论技巧', desc:'选择题+判断题 · 基础理论', icon:'🧠' },
+    { key:'scenario', label:'辩论场景', desc:'场景模拟题 · 实战应用', icon:'🎭' },
+    { key:'mixed', label:'混合训练', desc:'随机交替 · 全面检验', icon:'🔄' }
+  ];
+  let diffs = [
+    { key:'easy', label:'简单', color:'var(--green)', score:10, desc:'基础概念 · 每题+10分' },
+    { key:'medium', label:'中等', color:'var(--yellow)', score:15, desc:'理论应用 · 每题+15分' },
+    { key:'hard', label:'困难', color:'var(--red)', score:20, desc:'深度辨析 · 每题+20分' }
+  ];
+
+  let modeHtml = modes.map(m=>`<button class="btn ${t.mode===m.key?'btn-ai':''}" onclick="trainSetMode('${m.key}')" style="flex:1;text-align:center;padding:10px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:4px;"><span style="font-size:20px;">${m.icon}</span>${m.label}<span style="font-size:9px;opacity:0.6;">${m.desc}</span></button>`).join('');
+  let diffHtml = diffs.map(d=>`<button class="btn ${t.difficulty===d.key?'btn-save':''}" onclick="trainSetDiff('${d.key}')" style="flex:1;text-align:center;padding:8px;font-size:11px;background:var(--bg-surface0);border:1px solid var(--bg-surface1);"><div style="font-weight:700;color:${d.color};">${d.label}</div><div style="font-size:9px;opacity:0.6;color:var(--subtext0);">${d.desc}</div></button>`).join('');
+
+  // History
+  let sessions = t.sessions || [];
+  let histHtml = '';
+  if (sessions.length) {
+    let recent = sessions.slice(0, 5);
+    histHtml = `<div style="margin-top:8px;border-top:1px solid var(--bg-surface0);padding-top:8px;"><div style="font-size:11px;color:var(--overlay0);margin-bottom:6px;">📜 最近训练记录</div>`;
+    recent.forEach(s=>{
+      histHtml += `<div onclick="trainViewSession('${s.id}')" style="padding:6px 8px;cursor:pointer;border-radius:4px;font-size:11px;margin-bottom:2px;transition:background 0.1s;" onmouseover="this.style.background=var(--bg-surface0)" onmouseout="this.style.background="${2}">
+        <span>${trainModeLabel(s.mode)}</span> · <span style="color:${trainDiffColor(s.difficulty)}">${s.difficulty=== 'easy'?'简单':s.difficulty==='hard'?'困难':'中等'}</span>
+        <span style="float:right;">${s.correct}/${s.total} ${s.score}分</span>
+        <div style="font-size:9px;color:var(--overlay0);">${s.date}</div>
+      </div>`;
+    });
+    histHtml += `</div>`;
+  }
+
+  return `<div class="panel-header">🎯 模拟训练 <span class="demo-badge">体验版</span></div>
+    <div class="rp-body" style="padding:10px;overflow-y:auto;">
+      <div class="training-config">
+        <h4>训练模式</h4>
+        <div style="display:flex;gap:6px;margin-top:6px;">${modeHtml}</div>
+        <h4 style="margin-top:12px;">难度等级</h4>
+        <div style="display:flex;gap:6px;margin-top:6px;">${diffHtml}</div>
+      </div>
+      <button class="btn btn-ai" onclick="trainStart()" style="width:100%;margin-top:12px;padding:12px;font-size:13px;">🚀 开始训练 (${trainQuestionCount()}题)</button>
+      <div class="ai-notice" style="margin:10px 0;">
+        <div class="ai-notice-icon">🤖</div>
+        <div class="ai-notice-text"><strong>AI出题 & 总结</strong><br><span style="font-size:9px;">体验版使用默认题库，AI动态出题和智能总结需桌面版</span></div>
+      </div>
+      ${histHtml}
+    </div>`;
+}
+
+function trainQuestionCount() { return DEFAULT_QUESTIONS.length; }
+function trainModeLabel(m) { return m==='technique'?'🧠 技巧':m==='scenario'?'🎭 场景':'🔄 混合'; }
+function trainDiffColor(d) { return d==='easy'?'var(--green)':d==='hard'?'var(--red)':'var(--yellow)'; }
+function trainDiffScore(d) { return {easy:10,medium:15,hard:20}[d]||15; }
+function trainSetMode(m) { STORE.training.mode=m; refreshTrainingPanel(); }
+function trainSetDiff(d) { STORE.training.difficulty=d; refreshTrainingPanel(); }
+
+// ── 开始训练 ──
+function trainStart() {
+  let t = STORE.training;
+  let mode = t.mode;
+  let diff = t.difficulty;
+
+  // 从默认题库筛选
+  let pool = DEFAULT_QUESTIONS.slice();
+  if (mode !== 'mixed') {
+    // 场景模式目前用所有题(体验版)，桌面版AI会生成专门场景题
+    if (mode === 'technique') pool = pool.filter(q=>q.type!=='scenario'&&q.topic!=='场景策略');
+  }
+  // 按难度筛选（体验版默认题库题数有限，不过度筛选）
+  let questions = pool.filter(q=>q.difficulty===diff);
+  if (questions.length < 5) questions = pool;  // 不够5题就用全部
+
+  // Shuffle and pick 8
+  questions = shuffleArray(questions).slice(0, 8);
+
+  t.questions = questions.map((q,i)=>{ return {...q, index:i+1, user_answer:'', is_correct:false}; });
+  t.currentQ = 0;
+  t.score = 0;
+  t.correct = 0;
+  t.answered = false;
+  t.sessionActive = true;
+  setStatus('训练开始！共 '+questions.length+' 题');
+  setTimeout(()=>setStatus('就绪'), 2000);
+  refreshTrainingPanel();
+}
+
+function shuffleArray(arr) { let a=arr.slice(); for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+
+// ── 答题页 ──
+function renderTrainingQuiz() {
+  let t = STORE.training;
+  let q = t.questions[t.currentQ];
+  if (!q) { t.sessionActive=false; return renderTrainingPanel(); }
+
+  let progress = `${t.currentQ+1} / ${t.questions.length}`;
+  let typeLabel = q.type==='truefalse'?'判断题':'选择题';
+  let html = `<div class="panel-header">🎯 模拟训练</div>
+    <div class="rp-body" style="padding:10px;overflow-y:auto;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <span style="font-size:11px;color:var(--overlay0);">${typeLabel} · ${progress}</span>
+        <button class="btn" onclick="trainEnd()" style="font-size:11px;padding:4px 12px;border:1px solid rgba(243,139,168,0.3);color:var(--red);border-radius:6px;transition:all 0.2s;" onmouseover="this.style.background='rgba(243,139,168,0.1)'" onmouseout="this.style.background=">✕ 结束</button>
+      </div>
+      <div style="font-size:11px;color:var(--blue);margin-bottom:4px;">[${trainDiffColor(q.difficulty)}] ${q.topic||''}</div>
+      <div style="font-size:13px;line-height:1.6;margin-bottom:12px;font-weight:500;color:var(--text);">${fwEsc(q.question)}</div>`;
+
+  // Options
+  q.options.forEach((opt, i) => {
+    let letter = String.fromCharCode(65+i);
+    let sel = q.user_answer === letter;
+    let correct = q.is_correct && q.correct === letter;
+    let wrong = t.answered && !q.is_correct && q.user_answer === letter;
+    let showCorrect = t.answered && q.correct === letter;
+    let bg = sel ? 'var(--bg-surface0)' : '';
+    if (correct) bg = 'rgba(166,227,161,0.12)';
+    if (wrong) bg = 'rgba(243,139,168,0.12)';
+    let border = '';
+    if (correct||showCorrect) border = 'border:1px solid var(--green);';
+    if (wrong) border = 'border:1px solid var(--red);';
+
+    let cls = t.answered ? 'train-option answered' : 'train-option';
+    html += `<div class="${cls}" onclick="trainAnswer(${i})" style="background:${bg};${border}">
+      ${fwEsc(opt)}
+      ${correct?' ✅':''}${wrong?' ❌':''}
+    </div>`;
+  });
+
+  // Result feedback
+  if (t.answered) {
+    let isCorrect = q.is_correct;
+    let score = trainDiffScore(q.difficulty);
+    let expl = (typeof q.explanation==='object') ? q.explanation[q.correct] : (q.explanation||'');
+    let tip = (typeof q.tips==='object') ? (q.tips[q.correct]||q.tips[q.user_answer]||'') : '';
+
+    html += `<div style="margin-top:12px;padding:12px;background:${isCorrect?'rgba(166,227,161,0.06)':'rgba(243,139,168,0.06)'};border-radius:8px;border-left:3px solid ${isCorrect?'var(--green)':'var(--red)'};">
+      <div style="font-weight:700;font-size:13px;color:${isCorrect?'var(--green)':'var(--red)'};">${isCorrect?`✅ 回答正确！+${score}分`:`❌ 回答错误 (正确答案: ${fwEsc(q.correct)}) +0分`}</div>
+      ${expl?`<div style="margin-top:8px;font-size:11px;color:var(--subtext0);">📖 ${fwEsc(expl)}</div>`:''}
+      ${tip?`<div style="margin-top:6px;font-size:11px;color:var(--yellow);">💡 ${fwEsc(tip)}</div>`:''}
+    </div>`;
+
+    let isLast = t.currentQ >= t.questions.length - 1;
+    html += `<button class="btn btn-ai" onclick="${isLast?'trainFinish()':'trainNext()'}" style="width:100%;margin-top:10px;padding:10px;">${isLast?'查看成绩':'下一题 →'}</button>`;
+  }
+
+  html += `</div>`;
+  return html;
+}
+
+function trainAnswer(idx) {
+  let t = STORE.training;
+  if (t.answered) return;
+  let q = t.questions[t.currentQ];
+  q.user_answer = String.fromCharCode(65+idx);
+  q.is_correct = q.user_answer === q.correct;
+  if (q.is_correct) { t.score += trainDiffScore(q.difficulty); t.correct++; }
+  t.answered = true;
+  refreshTrainingPanel();
+}
+
+function trainNext() {
+  let t = STORE.training;
+  if (t.currentQ < t.questions.length - 1) {
+    t.currentQ++;
+    t.answered = false;
+  }
+  refreshTrainingPanel();
+}
+
+function trainEnd() {
+  if (!confirm('确定结束训练？当前进度将丢失。')) return;
+  STORE.training.sessionActive = false;
+  refreshTrainingPanel();
+  setStatus('训练已取消');
+  setTimeout(()=>setStatus('就绪'),1500);
+}
+
+function trainFinish() {
+  let t = STORE.training;
+  t.sessionActive = false;
+  // Save session
+  let now = new Date();
+  let session = {
+    id: 'train_'+now.getTime(),
+    date: now.toLocaleDateString('zh-CN')+' '+now.toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit'}),
+    mode: t.mode, difficulty: t.difficulty,
+    total: t.questions.length, correct: t.correct, score: t.score,
+    questions: t.questions
+  };
+  if (!t.sessions) t.sessions = [];
+  t.sessions.unshift(session);
+  if (t.sessions.length > 50) t.sessions = t.sessions.slice(0, 50);  // keep max 50
+  saveStore();
+  // Show summary
+  renderTrainingSummary(session);
+}
+
+function renderTrainingSummary(session) {
+  let correctRate = session.total ? Math.round(session.correct/session.total*100) : 0;
+  let grade = correctRate>=90?'🏆 优秀':correctRate>=70?'⭐ 良好':correctRate>=50?'📚 加油':'💪 继续努力';
+  // Difficulty stats
+  let diffStats = {};
+  session.questions.forEach(q=>{
+    let d = q.difficulty||'medium';
+    if (!diffStats[d]) diffStats[d] = {total:0,correct:0};
+    diffStats[d].total++;
+    if (q.is_correct) diffStats[d].correct++;
+  });
+
+  let diffHtml = Object.entries(diffStats).map(([k,v])=>{
+    let rate = v.total?Math.round(v.correct/v.total*100):0;
+    let barW = Math.max(2, rate);
+    return `<div style="margin:4px 0;font-size:11px;">
+      <span style="display:inline-block;width:40px;color:${trainDiffColor(k)};">${k==='easy'?'简单':k==='hard'?'困难':'中等'}</span>
+      <span style="display:inline-block;width:60px;">${v.correct}/${v.total}题</span>
+      <span style="display:inline-block;width:80px;height:6px;background:var(--bg-surface0);border-radius:3px;vertical-align:middle;">
+        <span style="display:block;width:${barW}%;height:100%;background:${trainDiffColor(k)};border-radius:3px;"></span>
+      </span>
+    </div>`;
+  }).join('');
+
+  let html = `<div class="panel-header">📊 训练成绩</div>
+    <div class="rp-body" style="padding:10px;overflow-y:auto;">
+      <div style="text-align:center;padding:16px 0;">
+        <div style="font-size:2rem;font-weight:700;color:var(--gold);">${session.score}分</div>
+        <div style="font-size:13px;color:var(--subtext0);margin-top:4px;">${session.correct}/${session.total}题正确 · ${correctRate}%</div>
+        <div style="font-size:24px;margin-top:8px;">${grade}</div>
+      </div>
+      <div style="border-top:1px solid var(--bg-surface0);padding-top:8px;">
+        <div style="font-size:11px;color:var(--overlay0);margin-bottom:4px;">📊 难度分布</div>
+        ${diffHtml}
+      </div>
+      <div class="ai-notice" style="margin:10px 0;">
+        <div class="ai-notice-icon">🤖</div>
+        <div class="ai-notice-text"><strong>AI智能总结</strong><br><span style="font-size:9px;">体验版不支持AI总结，桌面版可生成200-300字个性化评价</span></div>
+      </div>
+      <button class="btn btn-save" onclick="trainNewSession()" style="width:100%;margin-top:8px;padding:10px;">🔄 开始新训练</button>
+      <button class="btn" onclick="trainViewSession('${session.id}')" style="width:100%;margin-top:4px;padding:8px;font-size:11px;">📋 查看详细记录</button>
+    </div>`;
+  openRightPanel('training-summary', html);
+}
+
+function trainViewSession(sid) {
+  let s = (STORE.training.sessions||[]).find(x=>x.id===sid);
+  if (!s) return;
+  let html = `<div class="panel-header">📋 训练记录</div>
+    <div class="rp-body" style="padding:10px;overflow-y:auto;">
+      <div style="font-size:11px;color:var(--overlay0);">${trainModeLabel(s.mode)} · ${s.date} · ${s.correct}/${s.total}题 ${s.score}分</div>
+      <div style="margin-top:8px;">`;
+  s.questions.forEach((q,i)=>{
+    let icon = q.is_correct?'✅':'❌';
+    html += `<div onclick="trainViewDetail('${sid}',${i})" style="padding:8px;cursor:pointer;border-radius:4px;margin-bottom:3px;font-size:11px;transition:background 0.1s;border-left:3px solid ${q.is_correct?'var(--green)':'var(--red)'};background:${i%2?'var(--bg-mantle)':''};" onmouseover="this.style.background=var(--bg-surface0)" onmouseout="this.style.background='${i%2?'var(--bg-mantle)':''}'">
+        <span>${icon} ${fwEsc(q.question.substring(0,40))}${q.question.length>40?'...':''}</span>
+        <span style="float:right;font-size:10px;color:var(--overlay0);">${q.user_answer||'-'}→${q.is_correct?'✓':'✗'}</span>
+      </div>`;
+  });
+  html += `</div>
+    <button class="btn btn-save" onclick="trainNewSession()" style="width:100%;margin-top:8px;padding:8px;">🔄 开始新训练</button>
+    <button class="btn" onclick="renderRightPanel()" style="width:100%;margin-top:4px;padding:8px;font-size:11px;">← 返回训练</button>
+  </div>`;
+  openRightPanel('training-detail', html);
+}
+
+function trainViewDetail(sid, qIdx) {
+  let s = (STORE.training.sessions||[]).find(x=>x.id===sid);
+  if (!s || qIdx>=s.questions.length) return;
+  let q = s.questions[qIdx];
+  let letter = q.user_answer||'-';
+  let correctLetter = q.correct||'';
+  let expl = (typeof q.explanation==='object') ? q.explanation[correctLetter] : (q.explanation||'');
+  let tip = (typeof q.tips==='object') ? (q.tips[letter]||'') : '';
+  let rightTip = (typeof q.tips==='object') ? (q.tips[correctLetter]||'') : '';
+
+  let html = `<div class="panel-header">📋 题目详情</div>
+    <div class="rp-body" style="padding:10px;overflow-y:auto;">
+      <div style="font-size:11px;color:var(--overlay0);">${qIdx+1}/${s.questions.length} · [${trainDiffColor(q.difficulty)}] ${q.topic||''}</div>
+      <div style="font-size:13px;font-weight:500;margin:8px 0;">${fwEsc(q.question)}</div>
+      <div style="margin:8px 0;">
+        <span style="font-size:11px;color:var(--overlay0);">你的答案：</span><span style="color:${q.is_correct?'var(--green)':'var(--red)'};">${letter}. ${fwEsc(q.options[q.user_answer.charCodeAt(0)-65]||'未作答')} ${q.is_correct?'✅':'❌'}</span>
+      </div>
+      <div style="margin:8px 0;">
+        <span style="font-size:11px;color:var(--overlay0);">正确答案：</span><span style="color:var(--green);">${correctLetter}. ${fwEsc(q.options[correctLetter.charCodeAt(0)-65]||'')}</span>
+      </div>
+      ${expl?`<div style="margin-top:8px;padding:8px;background:rgba(137,180,250,0.05);border-radius:6px;font-size:11px;">📖 ${fwEsc(expl)}</div>`:''}
+      ${rightTip?`<div style="margin-top:6px;font-size:11px;color:var(--yellow);">💡 ${fwEsc(rightTip)}</div>`:''}
+      ${tip&&!q.is_correct?`<div style="margin-top:6px;font-size:11px;color:var(--peach);">⚠️ ${fwEsc(tip)}</div>`:''}
+      <div style="display:flex;gap:6px;margin-top:12px;">
+        <button class="btn btn-save" onclick="trainViewDetail('${sid}',${qIdx-1})" ${qIdx<=0?'disabled':''} style="flex:1;padding:8px;font-size:11px;">← 上一题</button>
+        <button class="btn btn-save" onclick="trainViewDetail('${sid}',${qIdx+1})" ${qIdx>=s.questions.length-1?'disabled':''} style="flex:1;padding:8px;font-size:11px;">下一题 →</button>
+      </div>
+      <button class="btn" onclick="trainViewSession('${sid}')" style="width:100%;margin-top:6px;padding:8px;font-size:11px;">← 返回记录</button>
+    </div>`;
+  openRightPanel('training-qdetail', html);
+}
+
+function trainNewSession() {
+  STORE.training.sessionActive = false;
+  STORE.activeRightPanel = 'training';
+  refreshTrainingPanel();
+  setTimeout(()=>setStatus('就绪'), 500);
+}
+
+function refreshTrainingPanel() {
+  if (!$('#rp-content') || !STORE.rightPanelOpen) return;
+  $('#rp-content').innerHTML = renderTrainingPanel();
+}
+
+function renderRightPanel() {
+  refreshTrainingPanel();
+}
+// 便签面板 (修复递归)
+// ======================== 便签 ========================
+const NOTES_COLORS = { green:"#a6e3a1", yellow:"#f9e2af", orange:"#fab387", red:"#f38ba8", purple:"#cba6f7" };
+var _notesColor = 'green';  // 当前选中颜色
+var _notesSearchTerm = '';
+
+function renderNotesPanel() {
+  let pinCount = STORE.notes.filter(n=>n.pinned).length;
+  let headerHtml = `<div class="panel-header">📝 便签
+    <span style="font-size:10px;color:var(--overlay0);margin-left:auto;">
+      ${STORE.notes.length}条 ${pinCount>0?'🔝'+pinCount:''}
+    </span>`;
+  // Color picker row
+  let colorRow = Object.entries(NOTES_COLORS).map(([k,c])=>
+    `<span onclick="setNotesColor('${k}')" style="display:inline-block;width:16px;height:16px;border-radius:50%;background:${c};cursor:pointer;margin-right:4px;border:${_notesColor===k?'2px solid #fff':'2px solid transparent'};transition:all 0.15s;" title="${k}"></span>`
+  ).join('');
+
+  headerHtml += `</div>`;
+  return headerHtml + `<div class="rp-body" style="display:flex;flex-direction:column;height:calc(100% - 40px);">
+    <div class="notes-search"><input id="note-search" placeholder="🔍 搜索便签..." oninput="notesSearch()" value="${fwEsc(_notesSearchTerm)}"><button class="btn" onclick="notesExport()" style="padding:4px 8px;font-size:10px;white-space:nowrap;" title="导出全部便签">📤</button></div>
+    <div id="notes-list-container" style="flex:1;overflow-y:auto;">${renderNotesList()}</div>
+    <div class="note-input-area">
+      <div style="margin-bottom:4px;">${colorRow}</div>
+      <textarea id="note-input" placeholder="写便签...(Ctrl+Enter 添加)" onkeydown="notesKeydown(event)"></textarea>
+      <button class="btn btn-save" onclick="notesAdd()">+ 添加</button>
+    </div>
+  </div>`;
+}
+
+function renderNotesList() {
+  let term = (_notesSearchTerm||'').toLowerCase();
+  let notes = STORE.notes.slice();
+  // 排序: 置顶优先, 搜索结果按匹配次数降序
+  if (term) {
+    let scored = notes.map(n=>{ return {note:n, score:(n.text||'').toLowerCase().split(term).length-1}; }).filter(x=>x.score>0);
+    scored.sort((a,b)=>b.score-a.score);
+    notes = scored.map(x=>x.note);
+  } else {
+    notes.sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0));
+  }
+  if (!notes.length) return '<div style="text-align:center;padding:20px;color:var(--overlay0);">暂无便签</div>';
+  return notes.map((n,i)=>{
+    let realIdx = STORE.notes.indexOf(n);
+    let colorHex = NOTES_COLORS[n.color]||'#a6e3a1';
+    let isPinned = !!n.pinned;
+    let text = n.text||'';
+    let shortText = text.length>80?text.substring(0,80)+'...':text;
+    let expanded = n.expanded || false;
+    // 搜索高亮
+    let displayText = term ? highlightText(expanded?text:shortText, term) : (expanded?text:shortText);
+    let needToggle = text.length > 80;
+    let cardBg = isPinned ? 'var(--bg-surface0)' : 'var(--bg-mantle)';
+    let cardBorder = isPinned ? `2px solid ${colorHex}` : '1px solid var(--bg-surface0)';
+    let pinIcon = isPinned ? '🔝' : '📌';
+    let pinTitle = isPinned ? '取消置顶' : '置顶';
+    return `<div class="note-card" style="background:${cardBg};border:${cardBorder};margin-bottom:6px;border-radius:8px;overflow:hidden;">
+      <div style="display:flex;">
+        <div style="width:5px;flex-shrink:0;background:${colorHex};border-radius:4px 0 0 4px;"></div>
+        <div style="flex:1;padding:8px 10px;min-width:0;">
+          <div class="note-text" style="font-size:11px;line-height:1.5;white-space:pre-wrap;word-break:break-word;">${displayText}</div>
+          ${needToggle?`<span onclick="notesToggle(${realIdx})" style="font-size:10px;color:var(--blue);cursor:pointer;margin-top:2px;display:inline-block;">${expanded?'▲ 收起':'▼ 展开全部'}</span>`:''}
+          <div style="display:flex;gap:4px;margin-top:4px;align-items:center;">
+            <span style="font-size:9px;color:var(--overlay0);">${n.created_at||''}</span>
+            <span style="flex:1;"></span>
+            <button onclick="notesPin(${realIdx})" style="background:none;border:none;cursor:pointer;font-size:10px;padding:1px 3px;color:var(--overlay0);" title="${pinTitle}">${pinIcon}</button>
+            <button onclick="notesChangeColor(${realIdx})" style="background:none;border:none;cursor:pointer;font-size:10px;padding:1px 3px;color:var(--overlay0);" title="改颜色">🎨</button>
+            <button onclick="notesEdit(${realIdx})" style="background:none;border:none;cursor:pointer;font-size:10px;padding:1px 3px;color:var(--overlay0);" title="编辑">✏️</button>
+            <button onclick="notesDelete(${realIdx})" style="background:none;border:none;cursor:pointer;font-size:10px;padding:1px 3px;color:var(--red);" title="删除">✕</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function highlightText(text, term) {
+  if (!term) return fwEsc(text);
+  let re = new RegExp('('+term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+  return fwEsc(text).replace(re, '<mark style="background:rgba(249,226,175,0.25);color:#f9e2af;border-radius:2px;padding:0 1px;">$1</mark>');
+}
+
+function notesSearch() {
+  _notesSearchTerm = document.getElementById('note-search')?.value || '';
+  let container = document.getElementById('notes-list-container');
+  if (container) container.innerHTML = renderNotesList();
+}
+
+function notesKeydown(e) {
+  if (e.key==='Enter' && e.ctrlKey) { e.preventDefault(); notesAdd(); }
+}
+
+function notesAdd() {
+  let input = document.getElementById('note-input');
+  if (!input || !input.value.trim()) return;
+  let now = new Date().toLocaleString('zh-CN',{hour:'2-digit',minute:'2-digit',month:'numeric',day:'numeric'});
+  STORE.notes.unshift({ text:input.value.trim(), color:_notesColor, pinned:false, expanded:false, created_at:now });
+  saveStore(); input.value='';
+  let container = document.getElementById('notes-list-container');
+  if (container) container.innerHTML = renderNotesList();
+  document.getElementById('note-input')?.focus();
+}
+
+function notesEdit(idx) {
+  let n = STORE.notes[idx]; if (!n) return;
+  let txt = prompt('编辑便签：', n.text);
+  if (txt !== null) { n.text = txt; saveStore(); notesRefresh(); }
+}
+
+function notesDelete(idx) {
+  if (!confirm('删除这条便签？')) return;
+  STORE.notes.splice(idx, 1); saveStore(); notesRefresh();
+}
+
+function notesPin(idx) {
+  let n = STORE.notes[idx]; if (!n) return;
+  n.pinned = !n.pinned; saveStore(); notesRefresh();
+}
+
+function notesToggle(idx) {
+  let n = STORE.notes[idx]; if (!n) return;
+  n.expanded = !n.expanded; notesRefresh();
+}
+
+function setNotesColor(color) {
+  _notesColor = color;
+  // Highlight the active color dot
+  document.querySelectorAll('.note-input-area span').forEach(s=>{
+    s.style.border = '2px solid transparent';
+  });
+}
+
+function notesChangeColor(idx) {
+  let n = STORE.notes[idx]; if (!n) return;
+  let colors = ['green','yellow','orange','red','purple'];
+  let cur = colors.indexOf(n.color);
+  n.color = colors[(cur+1)%colors.length];
+  saveStore(); notesRefresh();
+}
+
+function notesRefresh() {
+  let container = document.getElementById('notes-list-container');
+  if (container) container.innerHTML = renderNotesList();
+}
+
+function notesExport() {
+  let notes = STORE.notes;
+  if (!notes.length) { setStatus('没有便签可导出'); setTimeout(()=>setStatus('就绪'),1500); return; }
+  let pinned = notes.filter(n=>n.pinned);
+  let normal = notes.filter(n=>!n.pinned);
+  let now = new Date().toLocaleString('zh-CN');
+  let md = `# StarDebate 便签导出 (${now})\n\n`;
+  if (pinned.length) { md += `## 🔝 已置顶\n\n`; pinned.forEach(n=>md+=`- [${n.color||'green'}] ${n.text}\n`); md += '\n'; }
+  if (normal.length) { md += `## 📝 普通\n\n`; normal.forEach(n=>md+=`- [${n.color||'green'}] ${n.text}\n`); }
+  let blob = new Blob([md],{type:'text/plain;charset=utf-8'});
+  let a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `notes_${Date.now()}.md`;
+  a.click();
+  setStatus('便签已导出'); setTimeout(()=>setStatus('就绪'),1500);
+}
+// 右侧面板
+function openRightPanel(panel, html) { STORE.activeRightPanel=panel; STORE.rightPanelOpen=true; $('#right-panel').classList.add('open'); var rp=$('#rp-content'); rp.innerHTML=html; rp.classList.remove('panel-slide-right'); void rp.offsetWidth; rp.classList.add('panel-slide-right'); }
+function toggleRightPanel(panel, renderFn) { if(STORE.rightPanelOpen&&STORE.activeRightPanel===panel) { STORE.rightPanelOpen=false; $('#right-panel').classList.remove('open'); } else openRightPanel(panel, renderFn()); }
+// ======================== 辩论框架画布 (对齐桌面版 FrameworkCanvas + FrameworkNodeWidget) ========================
+const FW_TYPES = { position:["🧭 立场","#f38ba8"], definition:["📖 定义","#89b4fa"], criterion:["⚖️ 判准","#f9e2af"], argument:["💡 论点","#a6e3a1"], evidence:["📊 论据","#fab387"], value:["💎 价值","#cba6f7"] };
+var fwPendingSource = null;  // 正在连接的源节点 id
+
+function renderFramework() {
+  let btns = Object.entries(FW_TYPES).map(([k,v])=>`<button onclick="fwAddNode('${k}')" style="border-left:3px solid ${v[1]};padding-left:8px;">${v[0]}</button>`).join('');
+  return `<div class="fw-toolbar">
+    ${btns}
+    <span style="flex:1"></span>
+    <button onclick="fwAutoLayout()" title="自动调整框架布局" style="color:var(--gold);">🔧 自动布局</button>
+  </div>
+  <div id="fw-canvas-wrap">
+    <svg id="fw-connections" style="position:absolute;inset:0;pointer-events:none;z-index:9999;"></svg>
+    <div id="fw-canvas" style="position:absolute;inset:0;"></div>
+  </div>`;
+}
+
+function fwAutoSave() { saveStore(); }
+function fwNodeEl(id) { return document.getElementById('fw-node-'+id); }
+
+function refreshFwCanvas() {
+  let canvas = document.getElementById('fw-canvas');
+  let svg = document.getElementById('fw-connections');
+  if (!canvas || !svg) return;
+  let nodes = STORE.fwData.nodes || [];
+
+  // Clear old nodes
+  canvas.innerHTML = '';
+
+  // Render nodes
+  nodes.forEach(nd => {
+    let el = document.createElement('div');
+    el.className = 'fw-node-el';
+    el.id = 'fw-node-' + nd.id;
+    el.style.left = (nd.x||50) + 'px';
+    el.style.top = (nd.y||50) + 'px';
+    el.style.width = (nd.w||140) + 'px';
+    el.style.height = (nd.h||60) + 'px';
+    let t = FW_TYPES[nd.type] || FW_TYPES.argument;
+    el.style.borderColor = t[1];
+    el.style.background = t[1]+'10';  // tinted background
+
+    el.innerHTML = `<div class="fw-type-label" style="color:${t[1]}">${t[0]}</div>
+      <div class="fw-text">${fwTruncate(nd.text||'双击编辑', nd.w||140)}</div>
+      <button class="fw-delete" onclick="event.stopPropagation();fwDeleteNode(${nd.id})">×</button>
+      <div class="fw-handle" data-fw-resize="${nd.id}"></div>`;
+    el.setAttribute('oncontextmenu', 'fwNodeContextMenu(event,'+nd.id+');return false;');
+    el.setAttribute('onmousedown', 'fwNodeMouseDown(event,'+nd.id+')');
+    el.setAttribute('ondblclick', 'fwEditNode('+nd.id+')');
+    canvas.appendChild(el);
+  });
+
+  // Draw connections
+  fwDrawConnections();
+
+  // Canvas click on empty space cancels connection
+  canvas.parentElement.onclick = function(e) {
+    if (fwPendingSource && e.target === canvas || e.target === canvas.parentElement) {
+      fwCancelConnect();
+    }
+  };
+}
+
+// ─── Text Truncation (对齐 _truncate_text) ───
+function fwTruncate(text, nodeW) {
+  if (!text) return '双击编辑';
+  let cpl = Math.max(10, Math.floor((nodeW - 20) / 10));
+  let maxLines = 5;
+  let paragraphs = text.split('\n');
+  let lines = [];
+  for (let para of paragraphs) {
+    if (!para) { lines.push(''); if (lines.length>=maxLines) break; continue; }
+    for (let i=0; i<para.length; i+=cpl) {
+      lines.push(para.slice(i, i+cpl));
+      if (lines.length>=maxLines) break;
+    }
+    if (lines.length>=maxLines) break;
+    if (lines.length>0 && lines.length>=maxLines) {
+      let last = lines[lines.length-1];
+      if (last.length > cpl-1) last = last.slice(0, cpl-1);
+      lines[lines.length-1] = last + '…';
+      break;
+    }
+  }
+  return lines.join('\n') || '双击编辑';
+}
+
+// ─── Drag ───
+var fwDragId=null, fwDragOX=0, fwDragOY=0;
+function fwNodeMouseDown(e, id) {
+  // 连接模式：点击目标节点完成连接
+  if (fwPendingSource) {
+    if (fwPendingSource !== id) { fwFinishConnect(id); }
+    else { fwCancelConnect(); }
+    return;
+  }
+  if (e.button!==0) return;
+  if (e.target.closest('.fw-handle')) { fwResizeStart(e, id); return; }
+  if (e.target.closest('.fw-delete')) return;
+  e.preventDefault();
+  fwDragId = id;
+  fwDragOX = e.clientX; fwDragOY = e.clientY;
+  let nd = getFwNode(id);
+  nd._savedX = nd.x; nd._savedY = nd.y;
+  let el = fwNodeEl(id);
+  if (el) el.style.cursor = 'move';
+  document.addEventListener('mousemove', fwDragMove);
+  document.addEventListener('mouseup', fwDragEnd);
+}
+
+function fwDragMove(e) {
+  if (!fwDragId) return;
+  let dx = e.clientX - fwDragOX, dy = e.clientY - fwDragOY;
+  if (Math.abs(dx) < 2 && Math.abs(dy) < 2) return; // 防抖：移动小于2px不处理
+  let nd = getFwNode(fwDragId);
+  nd.x = Math.max(0, nd.x + dx);
+  nd.y = Math.max(0, nd.y + dy);
+  // Move descendants too (对齐 _move_descendants)
+  fwMoveDescendants(fwDragId, dx, dy);
+  fwDragOX = e.clientX; fwDragOY = e.clientY;
+  let el = fwNodeEl(fwDragId);
+  if (el) { el.style.left = nd.x+'px'; el.style.top = nd.y+'px'; }
+  fwDrawConnections();
+}
+
+function fwDragEnd() {
+  document.removeEventListener('mousemove', fwDragMove);
+  document.removeEventListener('mouseup', fwDragEnd);
+  if (fwDragId) {
+    fwAutoSave();
+    let el = fwNodeEl(fwDragId);
+    if (el) el.style.cursor = '';
+  }
+  fwDragId = null;
+}
+
+// ─── Resize (对齐右下角 HANDLE_SIZE) ───
+var fwResizeId=null, fwResizeOX=0, fwResizeOY=0, fwResizeOW=0, fwResizeOH=0;
+function fwResizeStart(e, id) {
+  e.preventDefault(); e.stopPropagation();
+  fwResizeId = id;
+  fwResizeSX = e.clientX; fwResizeSY = e.clientY;
+  let nd = getFwNode(id);
+  fwResizeOW = nd.w; fwResizeOH = nd.h;
+  document.addEventListener('mousemove', fwResizeMove);
+  document.addEventListener('mouseup', fwResizeEnd);
+}
+
+function fwResizeMove(e) {
+  if (!fwResizeId) return;
+  let dx = e.clientX - fwResizeSX, dy = e.clientY - fwResizeSY;
+  let nd = getFwNode(fwResizeId);
+  nd.w = Math.max(100, Math.min(400, fwResizeOW + dx));
+  nd.h = Math.max(40, Math.min(200, fwResizeOH + dy));
+  let el = fwNodeEl(fwResizeId);
+  if (el) {
+    el.style.width = nd.w+'px'; el.style.height = nd.h+'px';
+    el.querySelector('.fw-text').textContent = fwTruncate(nd.text||'双击编辑', nd.w);
+  }
+  fwDrawConnections();
+}
+
+function fwResizeEnd() {
+  document.removeEventListener('mousemove', fwResizeMove);
+  document.removeEventListener('mouseup', fwResizeEnd);
+  if (fwResizeId) fwAutoSave();
+  fwResizeId = null;
+}
+
+// ─── Draw SVG connections (对齐 paintEvent 贝塞尔曲线) ───
+function fwDrawConnections() {
+  let svg = document.getElementById('fw-connections');
+  let wrap = document.getElementById('fw-canvas-wrap');
+  if (!svg || !wrap) return;
+  // 动态设置 SVG 视口尺寸匹配容器实际大小（默认300×150会导致坐标裁剪）
+  let wW = wrap.clientWidth || 800, wH = wrap.clientHeight || 600;
+  svg.setAttribute('width', wW);
+  svg.setAttribute('height', wH);
+  svg.setAttribute('viewBox', '0 0 ' + wW + ' ' + wH);
+  let nodes = STORE.fwData.nodes || [];
+  let html = '';
+  // SVG marker for arrowheads (one per color)
+  let markerDefs = '';
+  Object.values(FW_TYPES).forEach(([_,c])=>{
+    markerDefs += `<marker id="fw-arrow-${c.slice(1)}" viewBox="0 0 8 6" refX="8" refY="3" markerWidth="8" markerHeight="6" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="${c}" opacity="0.7"/></marker>`;
+  });
+
+  nodes.forEach(nd => {
+    let srcEl = fwNodeEl(nd.id);
+    if (!srcEl) return;
+    (nd.children||[]).forEach(cid => {
+      let tgtEl = fwNodeEl(cid);
+      if (!tgtEl) return;
+      let srcR = srcEl.getBoundingClientRect(), tgtR = tgtEl.getBoundingClientRect();
+      let wrapR = document.getElementById('fw-canvas-wrap').getBoundingClientRect();
+      let x1 = srcR.right - wrapR.left + 2, y1 = srcR.top - wrapR.top + srcR.height/2;
+      let x2 = tgtR.left - wrapR.left - 2, y2 = tgtR.top - wrapR.top + tgtR.height/2;
+      let cpDist = Math.max(Math.abs(x2-x1)*0.45, 50);
+      let c = (FW_TYPES[nd.type]||FW_TYPES.argument)[1];
+      let markerId = 'fw-arrow-'+c.slice(1);
+      // Glow layer
+      html += `<path d="M${x1},${y1} C${x1+cpDist},${y1} ${x2-cpDist},${y2} ${x2},${y2}" stroke="rgba(255,255,255,0.1)" stroke-width="6" fill="none" stroke-linecap="round"/>`;
+      // Main line with arrow
+      html += `<path d="M${x1},${y1} C${x1+cpDist},${y1} ${x2-cpDist},${y2} ${x2},${y2}" stroke="${c}" stroke-width="2" fill="none" stroke-linecap="round" marker-end="url(#${markerId})"/>`;
+    });
+  });
+  svg.innerHTML = `<defs>${markerDefs}</defs>${html}`;
+}
+
+// ─── Descendant movement (对齐 _move_descendants) ───
+function fwMoveDescendants(rootId, dx, dy) {
+  let nodes = STORE.fwData.nodes || [];
+  let descendants = fwGetDescendantIds(rootId);
+  descendants.forEach(did => {
+    let nd = nodes.find(n=>n.id===did);
+    if (nd) { nd.x = Math.max(0, nd.x + dx); nd.y = Math.max(0, nd.y + dy); }
+    let el = fwNodeEl(did);
+    if (el) { el.style.left = nd.x+'px'; el.style.top = nd.y+'px'; }
+  });
+}
+
+function fwGetDescendantIds(rootId, visited) {
+  visited = visited || new Set();
+  let nodes = STORE.fwData.nodes || [];
+  let root = nodes.find(n=>n.id===rootId);
+  if (!root) return [];
+  let ids = [];
+  (root.children||[]).forEach(cid => {
+    if (!visited.has(cid)) { visited.add(cid); ids.push(cid); ids = ids.concat(fwGetDescendantIds(cid, visited)); }
+  });
+  return ids;
+}
+
+// ─── Node CRUD ───
+function getFwNode(id) {
+  let nodes = STORE.fwData.nodes;
+  let nd = nodes.find(n=>n.id===id);
+  if (!nd) { nd = { id, type:'argument', text:'', x:50, y:50, w:140, h:60, children:[] }; nodes.push(nd); }
+  return nd;
+}
+
+function fwAddNode(type) {
+  let nodes = STORE.fwData.nodes || [];
+  let id = STORE.fwData.nextId++;
+  let x = 50 + Math.random()*200, y = 50 + nodes.length*70;
+  nodes.push({ id, type, text:'', x, y, w:140, h:60, children:[] });
+  fwAutoSave(); refreshFwCanvas();
+  setStatus('已添加节点');
+  setTimeout(()=>setStatus('就绪'), 1500);
+}
+
+function fwAddChildNode(parentId, type) {
+  let nodes = STORE.fwData.nodes || [];
+  let parent = nodes.find(n=>n.id===parentId);
+  if (!parent) return;
+  let id = STORE.fwData.nextId++;
+  let x = parent.x + parent.w + 70, y = parent.y + (parent.children||[]).length * 70;
+  nodes.push({ id, type, text:'', x, y, w:140, h:60, children:[] });
+  (parent.children = parent.children||[]).push(id);
+  fwAutoSave(); refreshFwCanvas();
+  setStatus('已添加子节点');
+  setTimeout(()=>setStatus('就绪'), 1500);
+}
+
+function fwDeleteNode(id) {
+  if (!confirm('确定删除该节点及所有后代？')) return;
+  let nodes = STORE.fwData.nodes || [];
+  let toDelete = new Set([id, ...fwGetDescendantIds(id)]);
+  // Remove from children lists
+  nodes.forEach(n => { if (n.children) n.children = n.children.filter(c=>!toDelete.has(c)); });
+  STORE.fwData.nodes = nodes.filter(n=>!toDelete.has(n.id));
+  if (fwPendingSource === id) fwPendingSource = null;
+  fwAutoSave(); refreshFwCanvas();
+  setStatus('节点已删除');
+  setTimeout(()=>setStatus('就绪'), 1500);
+}
+
+// ─── Inline Editing (对齐 _edit_text) ───
+function fwEditNode(id) {
+  let el = fwNodeEl(id);
+  if (!el) return;
+  let nd = getFwNode(id);
+  let textEl = el.querySelector('.fw-text');
+  if (!textEl || el.querySelector('.fw-edit-input')) return;
+  let t = FW_TYPES[nd.type] || FW_TYPES.argument;
+  let input = document.createElement('textarea');
+  input.className = 'fw-edit-input';
+  input.value = nd.text || '';
+  input.style.cssText = 'position:absolute;top:18px;left:8px;right:8px;bottom:4px;background:#2a2a3a;color:#fff;border:1px solid '+t[1]+';border-radius:4px;padding:2px 4px;font-size:11px;resize:none;outline:none;font-family:inherit;z-index:5;';
+  textEl.style.display = 'none';
+  el.appendChild(input);
+  input.focus();
+  input.select();
+  input.addEventListener('keydown', function(ev) {
+    if (ev.key==='Escape') { commit(); return; }
+    if (ev.key==='Enter' && ev.ctrlKey) { commit(); return; }
+  });
+  input.addEventListener('blur', commit);
+  function commit() {
+    nd.text = input.value.trim() || '双击编辑';
+    input.remove();
+    textEl.style.display = '';
+    textEl.textContent = fwTruncate(nd.text, nd.w);
+    fwAutoSave();
+    fwDrawConnections();
+  }
+}
+
+// ─── Context Menu ───
+function fwNodeContextMenu(e, id) {
+  hideFwContextMenu();
+  let menu = document.createElement('div');
+  menu.className = 'tree-context-menu';
+  menu.id = 'fw-context-menu';
+  menu.style.left = e.clientX + 'px';
+  menu.style.top = e.clientY + 'px';
+
+  let typeBtns = Object.entries(FW_TYPES).map(([k,v])=>
+    `<div class="cm-item" onclick="fwAddChildNode(${id},'${k}');hideFwContextMenu()">${v[0]}</div>`
+  ).join('');
+
+  menu.innerHTML = `
+    <div class="cm-item" onclick="fwEditNode(${id});hideFwContextMenu()">✏️ 编辑文本</div>
+    <div class="cm-item" onclick="fwDeleteNode(${id});hideFwContextMenu()">🗑 删除节点</div>
+    <div class="cm-divider"></div>
+    <div style="padding:4px 16px;font-size:10px;color:var(--overlay0);">➕ 添加子节点</div>
+    ${typeBtns}
+    <div class="cm-divider"></div>
+    ${!fwPendingSource ? `<div class="cm-item" onclick="fwStartConnect(${id});hideFwContextMenu()">🔗 连接到子节点</div>` : ''}
+    ${fwPendingSource ? `<div class="cm-item" onclick="fwCancelConnect();hideFwContextMenu()">❌ 取消连接</div>` : ''}
+  `;
+  document.body.appendChild(menu);
+  // Viewport edge correction
+  let r = menu.getBoundingClientRect();
+  if (r.right > window.innerWidth) menu.style.left = (e.clientX - r.width) + 'px';
+  if (r.bottom > window.innerHeight) menu.style.top = (e.clientY - r.height) + 'px';
+  // Close on next click outside (delayed to skip current event)
+  setTimeout(function() {
+    document.addEventListener('mousedown', function fwClose(ev) {
+      if (menu && menu.parentNode && !menu.contains(ev.target)) menu.remove();
+      document.removeEventListener('mousedown', fwClose);
+    });
+  }, 80);
+}
+
+function hideFwContextMenu() {
+  let m = document.getElementById('fw-context-menu');
+  if (m) m.remove();
+}
+
+// ─── Connection ───
+function fwStartConnect(id) {
+  fwPendingSource = id;
+  let el = fwNodeEl(id);
+  if (el) el.classList.add('connecting');
+  setStatus('🔗 已选择源节点，请点击目标子节点完成连接 (右键/点空白取消)');
+}
+
+function fwCancelConnect() {
+  if (fwPendingSource) {
+    let el = fwNodeEl(fwPendingSource);
+    if (el) el.classList.remove('connecting');
+  }
+  fwPendingSource = null;
+  setStatus('连接已取消');
+  setTimeout(()=>setStatus('就绪'),1500);
+}
+
+function fwFinishConnect(targetId) {
+  if (!fwPendingSource || fwPendingSource===targetId) { fwCancelConnect(); return; }
+  let descendants = fwGetDescendantIds(targetId);
+  if (descendants.includes(fwPendingSource) || fwGetDescendantIds(fwPendingSource).includes(targetId)) {
+    alert('不能形成循环连接'); fwCancelConnect(); return;
+  }
+  let source = getFwNode(fwPendingSource);
+  (source.children = source.children||[]).push(targetId);
+  let srcEl = fwNodeEl(fwPendingSource);
+  if (srcEl) srcEl.classList.remove('connecting');
+  fwPendingSource = null;
+  fwAutoSave(); refreshFwCanvas();
+  setStatus('✅ 连接完成');
+  setTimeout(()=>setStatus('就绪'),1500);
+}
+
+// ─── Auto Layout (对齐 auto_adjust_layout BFS 树形布局) ───
+function fwAutoLayout(maxLines) {
+  let nodes = STORE.fwData.nodes || [];
+  if (!nodes.length) return;
+
+  const MAX_LINES = maxLines || 5;
+  const CHAR_W = 10;
+  const LINE_H = 17;
+  const MARGIN_W = 24;
+  const TYPE_H = 24;
+  const PAD_BOT = 12;
+
+  nodes.forEach(nd => {
+    let text = nd.text || "";
+    if (!text) { nd.w = 140; nd.h = 52; return; }
+    let chars = text.length;
+    let min_cpl = Math.max(10, Math.ceil(chars / MAX_LINES));
+    let best_w = 100, best_h = 40, best_score = Infinity;
+    for (let cpl = min_cpl; cpl < Math.min(min_cpl + 30, 42); cpl++) {
+      let w = Math.max(100, Math.min(400, Math.round(cpl * CHAR_W) + MARGIN_W));
+      let lines = Math.min(Math.max(1, Math.ceil(chars / cpl)), MAX_LINES);
+      let h = Math.max(40, Math.min(200, TYPE_H + Math.round(lines * LINE_H) + PAD_BOT));
+      let t_cpl = Math.max(10, Math.floor((w - 20) / 10));
+      let canShowAll = (t_cpl * MAX_LINES >= chars);
+      let score = canShowAll ? Math.abs(w - h) : (100000 + Math.abs(w - h));
+      if (score < best_score) { best_score = score; best_w = w; best_h = h; }
+    }
+    nd.w = best_w;
+    nd.h = best_h;
+  });
+
+  let childIds = new Set();
+  nodes.forEach(n => { (n.children || []).forEach(c => childIds.add(c)); });
+  let roots = nodes.filter(n => !childIds.has(n.id));
+
+  let nodeMap = {};
+  nodes.forEach(n => nodeMap[n.id] = n);
+  let heights = {};
+
+  let stack = [];
+  roots.forEach(r => stack.push([r.id, false]));
+  while (stack.length) {
+    let [nodeId, processed] = stack.pop();
+    if (!nodeMap[nodeId]) { heights[nodeId] = 0; continue; }
+    if (processed) {
+      let nd = nodeMap[nodeId];
+      let children = (nd.children || []).filter(c => nodeMap[c]);
+      if (!children.length) { heights[nodeId] = nd.h; }
+      else {
+        let chH = children.reduce((s, c) => s + (heights[c] || 0), 0);
+        heights[nodeId] = Math.max(nd.h, chH + (children.length - 1) * 24);
+      }
+    } else {
+      if (nodeId in heights) continue;
+      stack.push([nodeId, true]);
+      let nd = nodeMap[nodeId];
+      let chArr = nd.children || [];
+      for (let ci = chArr.length - 1; ci >= 0; ci--) {
+        if (!(chArr[ci] in heights)) stack.push([chArr[ci], false]);
+      }
+    }
+  }
+
+  const GAP_X = 70, MARGIN_L = 40, GAP_TREE = 50, CHILD_GAP = 24;
+  let currentY = MARGIN_L;
+  let queue = [];
+  roots.forEach(r => {
+    let subH = heights[r.id] || 0;
+    queue.push({id: r.id, x: MARGIN_L, yc: currentY + subH / 2});
+    currentY += subH + GAP_TREE;
+  });
+  let visited = new Set();
+  while (queue.length) {
+    let q = queue.shift();
+    if (visited.has(q.id) || !nodeMap[q.id]) continue;
+    visited.add(q.id);
+    let nd = nodeMap[q.id];
+    nd.x = q.x;
+    nd.y = Math.round(q.yc - nd.h / 2);
+    let children = (nd.children || []).filter(c => nodeMap[c]);
+    if (!children.length) continue;
+    let childX = q.x + nd.w + GAP_X;
+    let totalH = children.reduce((s, c) => s + (heights[c] || 0), 0) + (children.length - 1) * CHILD_GAP;
+    let cur = q.yc - totalH / 2;
+    children.forEach(c => {
+      let sh = heights[c] || 0;
+      queue.push({id: c, x: childX, yc: cur + sh / 2});
+      cur += sh + CHILD_GAP;
+    });
+  }
+
+  nodes.forEach(nd => {
+    let el = fwNodeEl(nd.id);
+    if (el) {
+      el.style.left = nd.x + "px";
+      el.style.top = nd.y + "px";
+      el.style.width = nd.w + "px";
+      el.style.height = nd.h + "px";
+      let t = el.querySelector(".fw-text");
+      if (t) t.textContent = fwTruncate(nd.text || "双击编辑", nd.w);
+    }
+  });
+
+  fwAutoSave(); fwDrawConnections();
+  setStatus("框架布局已自动调整");
+  setTimeout(() => setStatus("就绪"), 1500);
+}
+
+function renderRefDoc() {
+  let rows = (STORE.refDoc||{}).rows || [];
+  let mode = STORE.refViewMode || 'table';
+
+  let toolbar = `<div class="fw-toolbar" style="justify-content:flex-start;">
+    <button onclick="refAddRow()" style="color:var(--green);">+ 添加行</button>
+    <button onclick="refDeleteRow()" style="color:var(--red);">− 删除行</button>
+    <span style="flex:1;"></span>
+    <button onclick="switchRefView('table')" style="${mode==='table'?'color:var(--gold);':'color:var(--overlay0);'}">📑 表格视图</button>
+    <button onclick="switchRefView('cards')" style="${mode==='cards'?'color:var(--gold);':'color:var(--overlay0);'}">🃏 卡片视图</button>
+    <button onclick="refSaveCurrent()" style="color:var(--blue);">💾 保存</button>
+  </div>`;
+
+  if (mode === 'cards') {
+    return toolbar + renderRefCards(rows);
+  }
+  return toolbar + renderRefTable(rows);
+}
+
+function renderRefTable(rows) {
+  let trs = rows.map((r,i) => {
+    let a = typeof r==='object' ? (r.argument||'') : (r[0]||'');
+    let c = typeof r==='object' ? (r.content||'') : (r[1]||'');
+    let s = typeof r==='object' ? (r.source||'') : (r[2]||'');
+    return `<tr data-row="${i}" style="background:${i%2===0?'var(--bg-base)':'var(--bg-mantle)'};">
+      <td><textarea oninput="refCellChanged(this,${i},'argument')" onblur="refCellChanged(this,${i},'argument')">${fwEsc(a)}</textarea></td>
+      <td><textarea oninput="refCellChanged(this,${i},'content')" onblur="refCellChanged(this,${i},'content')">${fwEsc(c)}</textarea></td>
+      <td><textarea oninput="refCellChanged(this,${i},'source')" onblur="refCellChanged(this,${i},'source')">${fwEsc(s)}</textarea></td>
+    </tr>`;
+  }).join('');
+  if (!trs) trs = `<tr><td colspan="3" style="text-align:center;color:var(--overlay0);padding:32px;">（暂无数据，点击上方 + 添加行）</td></tr>`;
+  return `<div class="ref-table-wrap">
+    <table>
+      <thead><tr><th style="width:25%;">论证观点</th><th style="width:40%;">论证内容</th><th style="width:35%;">资料来源</th></tr></thead>
+      <tbody>${trs}</tbody>
+    </table>
+  </div>
+  <div style="padding:8px 12px;font-size:10px;color:var(--overlay0);border-top:1px solid var(--bg-surface0);">共 ${rows.length} 条记录 · 双击单元格编辑 · Ctrl+Enter 换行</div>`;
+}
+
+function renderRefCards(rows) {
+  if (!rows.length) return `<div class="ref-table-wrap"><div style="text-align:center;color:var(--overlay0);padding:32px;">（暂无数据，点击上方 + 添加行）</div></div>`;
+  let cards = rows.map((r,i) => {
+    let a = typeof r==='object' ? (r.argument||'') : (r[0]||'');
+    let c = typeof r==='object' ? (r.content||'') : (r[1]||'');
+    let s = typeof r==='object' ? (r.source||'') : (r[2]||'');
+    return `<div class="ref-card">
+      <div class="rc-label" style="color:#dfb460;">#${i+1} · 论证观点</div>
+      <div class="rc-text" style="color:var(--text);margin-bottom:10px;font-size:14px;">${fwEsc(a||'（未填写）')}</div>
+      <div class="rc-label" style="color:var(--green);">▎论证内容</div>
+      <div class="rc-text" style="margin-bottom:10px;">${fwEsc(c||'（未填写）')}</div>
+      <div class="rc-label" style="color:var(--blue);">▎资料来源</div>
+      <div class="rc-text" style="font-size:11px;">${fwEsc(s||'（未填写）')}</div>
+    </div>`;
+  }).join('');
+  return `<div class="ref-card-grid">${cards}</div>
+    <div style="padding:8px 12px;font-size:10px;color:var(--overlay0);border-top:1px solid var(--bg-surface0);">共 ${rows.length} 张卡片</div>`;
+}
+
+function switchRefView(mode) {
+  STORE.refViewMode = mode;
+  setCentreBody(renderRefDoc());
+}
+
+// ─── CRUD ───
+function refAddRow() {
+  if (!STORE.refDoc) STORE.refDoc = { rows: [] };
+  if (!STORE.refDoc.rows) STORE.refDoc.rows = [];
+  STORE.refDoc.rows.push({ argument: '', content: '', source: '' });
+  saveStore();
+  setCentreBody(renderRefDoc());
+  // Auto-focus the new row's first textarea
+  setTimeout(() => {
+    let tds = document.querySelectorAll('.ref-table-wrap tbody tr:last-child textarea');
+    if (tds.length) tds[0].focus();
+  }, 50);
+  setStatus('已添加新行');
+  setTimeout(() => setStatus('就绪'), 1500);
+}
+
+function refDeleteRow() {
+  let rows = (STORE.refDoc||{}).rows || [];
+  if (!rows.length) { setStatus('没有可删除的行'); return; }
+  let idx = prompt(`共 ${rows.length} 行，输入要删除的行号 (1-${rows.length})：`);
+  if (idx === null) return;
+  idx = parseInt(idx) - 1;
+  if (isNaN(idx) || idx < 0 || idx >= rows.length) { setStatus('无效行号'); return; }
+  let row = rows[idx];
+  let a = typeof row==='object' ? (row.argument||'') : (row[0]||'');
+  if (!confirm(`删除第 ${idx+1} 行：${a ? a.substring(0,30)+'...' : '（空行）'}？`)) return;
+  rows.splice(idx, 1);
+  saveStore();
+  setCentreBody(renderRefDoc());
+  setStatus('已删除'); setTimeout(() => setStatus('就绪'), 1500);
+}
+
+function refCellChanged(textarea, rowIdx, field) {
+  let rows = (STORE.refDoc||{}).rows || [];
+  if (rowIdx >= rows.length) return;
+  let row = rows[rowIdx];
+  if (typeof row !== 'object' || Array.isArray(row)) {
+    // 兼容旧格式：简单数组转对象格式
+    let old = row || [];
+    let newRow = { argument: old[0]||'', content: old[1]||'', source: old[2]||'' };
+    newRow[field] = textarea.value;
+    rows[rowIdx] = newRow;
+  } else {
+    row[field] = textarea.value;
+  }
+  saveStore();
+}
+
+function refSaveCurrent() {
+  saveStore();
+  setStatus('资料稿已保存');
+  setTimeout(() => setStatus('就绪'), 1500);
+}
+// 绑定导航事件
+$$('#left-nav .nav-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ let panel=btn.dataset.panel, action=btn.dataset.action; $$('#left-nav .nav-btn').forEach(b=>b.classList.remove('active')); if(panel) btn.classList.add('active'); if(panel){ STORE.activeLeftPanel=panel; renderLeftPanel(); } if(action){ if(action==='new-debate') actionNewDebate(); if(action==='speech') actionSpeech(); if(action==='framework') { STORE.activeCentreView='framework'; setCentreHeader('🧠 辩论框架',true); setCentreBody(renderFramework()); setTimeout(refreshFwCanvas,10); } if(action==='ref-doc') { STORE.activeCentreView='ref-doc'; setCentreHeader('📑 资料稿',true); setCentreBody(renderRefDoc()); } if(action==='ref-cards') { STORE.activeCentreView='ref-doc'; setCentreHeader('🃏 资料卡片',true); setCentreBody(renderRefDoc()); } if(action==='cross-exam') showDesktopRequired('模拟质询'); if(action==='accept-exam') showDesktopRequired('模拟接质'); if(action==='ai-structure') showDesktopRequired('AI结构分析'); } }); });
+$$('#right-nav .nav-btn').forEach(btn=>{ btn.addEventListener('click',()=>{ let rpanel=btn.dataset.rpanel, action=btn.dataset.action; if(rpanel==='notes') toggleRightPanel('notes',renderNotesPanel); else if(rpanel==='training') toggleRightPanel('training',renderTrainingPanel); else if(rpanel==='ai-write') showDesktopRequired('AI写稿'); else if(rpanel==='ai-expand') showDesktopRequired('AI扩写'); else if(action==='ai-structure') showDesktopRequired('AI框架生成'); else showDesktopRequired('AI功能'); }); });
+// 初始化
+renderLeftPanel();
+backToEmpty();
+</script>
+</body>
+</html>

@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StarDebate ★ 辩之星 — AI 专业辩论备赛助手</title>
+<style>
+/* ===== Reset & Base ===== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  background: #0a0a14;
+  color: #cdd6f4;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== 流动渐变背景 ===== */
+.bg-flow {
+  position: fixed; inset: 0; z-index: 0;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.35;
+}
+/* 渐变光球 1 — 暖金 */
+.bg-flow::before {
+  content: '';
+  position: absolute;
+  width: 60vmax; height: 60vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(223,180,96,0.25) 0%, transparent 70%);
+  top: -20%; left: -10%;
+  animation: bgOrbit1 18s ease-in-out infinite alternate;
+}
+/* 渐变光球 2 — 蓝紫 */
+.bg-flow::after {
+  content: '';
+  position: absolute;
+  width: 50vmax; height: 50vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(137,180,250,0.2) 0%, transparent 70%);
+  bottom: -15%; right: -10%;
+  animation: bgOrbit2 22s ease-in-out infinite alternate;
+}
+/* 第三光球 — 深紫 */
+.bg-flow .bg-orb3 {
+  position: absolute;
+  width: 45vmax; height: 45vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(203,166,247,0.18) 0%, transparent 70%);
+  top: 40%; left: 40%;
+  animation: bgOrbit3 25s ease-in-out infinite alternate;
+}
+/* 第四光球 — 暖橙 */
+.bg-flow .bg-orb4 {
+  position: absolute;
+  width: 35vmax; height: 35vmax;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(250,179,135,0.15) 0%, transparent 70%);
+  top: 10%; right: 20%;
+  animation: bgOrbit4 15s ease-in-out infinite alternate;
+}
+/* 总混合层 — 叠加磨砂感 */
+.bg-flow .bg-frost {
+  position: absolute; inset: -40px;
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  mask: radial-gradient(ellipse at 50% 40%, black 40%, transparent 100%);
+  -webkit-mask: radial-gradient(ellipse at 50% 40%, black 40%, transparent 100%);
+  opacity: 0.5;
+}
+
+@keyframes bgOrbit1 {
+  0%   { transform: translate(0,0) rotate(0deg) scale(1); }
+  100% { transform: translate(12%,18%) rotate(25deg) scale(1.15); }
+}
+@keyframes bgOrbit2 {
+  0%   { transform: translate(0,0) rotate(0deg) scale(1); }
+  100% { transform: translate(-18%,-12%) rotate(-30deg) scale(1.1); }
+}
+@keyframes bgOrbit3 {
+  0%   { transform: translate(0,0) scale(1); }
+  100% { transform: translate(-8%,-20%) scale(1.2); }
+}
+@keyframes bgOrbit4 {
+  0%   { transform: translate(0,0) rotate(0deg) scale(1); }
+  100% { transform: translate(20%,-10%) rotate(40deg) scale(1.25); }
+}
+
+/* ===== Variables ===== */
+:root {
+  --bg-deep: #0a0a14;
+  --bg-card: #141428;
+  --bg-card-hover: #1a1a32;
+  --border: rgba(205, 214, 244, 0.08);
+  --text-primary: #cdd6f4;
+  --text-secondary: #a6adc8;
+  --text-muted: #6c7086;
+  --accent-gold: #dfb460;
+  --accent-gold-dim: rgba(223, 180, 96, 0.15);
+  --accent-purple: #b4befe;
+  --accent-blue: #89b4fa;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== Noise Texture Overlay ===== */
+.noise {
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ===== Nav ===== */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(10, 10, 20, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+.nav-logo .star {
+  color: var(--accent-gold);
+  font-size: 1.3rem;
+}
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.875rem;
+  transition: color var(--transition);
+}
+.nav-links a:hover {
+  color: var(--accent-gold);
+}
+
+/* ===== Hero ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 120px 32px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(180, 190, 254, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  animation: fadeInUp 0.8s ease-out;
+}
+.hero-badge .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-gold);
+  animation: pulse 2s infinite;
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.8s 0.1s ease-out both;
+}
+.hero h1 .star-text {
+  background: linear-gradient(135deg, #dfb460 0%, #f5d78a 50%, #dfb460 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  max-width: 560px;
+  margin-bottom: 40px;
+  animation: fadeInUp 0.8s 0.2s ease-out both;
+}
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: fadeInUp 0.8s 0.3s ease-out both;
+}
+.btn-primary {
+  padding: 14px 32px;
+  background: linear-gradient(135deg, #dfb460 0%, #c8963a 100%);
+  color: #0a0a14;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(223, 180, 96, 0.25);
+}
+.btn-outline {
+  padding: 14px 32px;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid rgba(205, 214, 244, 0.2);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition);
+}
+.btn-outline:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+/* ===== Scroll Indicator ===== */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+}
+.scroll-indicator span {
+  display: block;
+  width: 24px;
+  height: 40px;
+  border: 1.5px solid rgba(205, 214, 244, 0.2);
+  border-radius: 12px;
+  position: relative;
+}
+.scroll-indicator span::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 8px;
+  background: var(--accent-gold);
+  border-radius: 2px;
+  animation: scrollDot 1.5s infinite;
+}
+
+/* ===== Section Common ===== */
+section {
+  padding: 120px 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.section-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent-gold);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.section-title {
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+.section-desc {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  max-width: 600px;
+  margin-bottom: 56px;
+}
+
+/* ===== Features Grid ===== */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+.feature-card {
+  background: rgba(20, 20, 40, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(205, 214, 244, 0.08);
+  border-radius: var(--radius);
+  padding: 32px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.feature-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(223, 180, 96, 0.03) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.feature-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(223, 180, 96, 0.15);
+  transform: translateY(-4px);
+}
+.feature-card:hover::before {
+  opacity: 1;
+}
+.feature-icon {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  display: block;
+}
+.feature-card h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.feature-card p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* ===== AI Capabilities ===== */
+#ai-capabilities {
+  position: relative;
+}
+.ai-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.ai-card {
+  background: rgba(20, 20, 40, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(205, 214, 244, 0.06);
+  border-radius: var(--radius);
+  padding: 28px;
+  transition: all var(--transition);
+}
+.ai-card:hover {
+  border-color: rgba(180, 190, 254, 0.2);
+}
+.ai-card .ai-number {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+}
+.ai-card h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.ai-card .ai-tag {
+  display: inline-block;
+  padding: 3px 10px;
+  background: var(--accent-gold-dim);
+  color: var(--accent-gold);
+  border-radius: 100px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-top: 12px;
+}
+
+/* ===== Showcase ===== */
+.showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+.showcase-reverse {
+  direction: initial;
+}
+.showcase-text h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.showcase-text p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.showcase-visual {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== Debate Scale Visual ===== */
+.scale-visual {
+  position: relative;
+  width: 160px;
+  height: 160px;
+}
+.scale-bar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 2px;
+  background: var(--accent-gold);
+  transform: translate(-50%, -50%) rotate(-6deg);
+  transform-origin: center;
+  transition: transform 0.6s ease;
+}
+.scale-visual:hover .scale-bar {
+  transform: translate(-50%, -50%) rotate(6deg);
+}
+.scale-pan {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 2px solid var(--accent-gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+.scale-pan.left {
+  top: 10px;
+  left: 5px;
+}
+.scale-pan.right {
+  bottom: 10px;
+  right: 5px;
+}
+.scale-pivot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: var(--accent-gold);
+  border-radius: 50%;
+}
+
+/* ===== Speech Bubble Visual ===== */
+.speech-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 320px;
+}
+.speech-bubble {
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 0.85rem;
+  max-width: 80%;
+  animation: float 4s ease-in-out infinite;
+}
+.speech-bubble:nth-child(2) { animation-delay: 0.5s; }
+.speech-bubble:nth-child(3) { animation-delay: 1s; }
+.speech-bubble.left {
+  background: rgba(180, 190, 254, 0.1);
+  border: 1px solid rgba(180, 190, 254, 0.15);
+  color: var(--accent-purple);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+.speech-bubble.right {
+  background: rgba(223, 180, 96, 0.08);
+  border: 1px solid rgba(223, 180, 96, 0.15);
+  color: var(--accent-gold);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+  text-align: right;
+}
+
+/* ===== Tree Structure Visual ===== */
+.tree-visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.tree-node {
+  padding: 8px 20px;
+  background: var(--bg-card-hover);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+.tree-node.root {
+  background: rgba(223, 180, 96, 0.1);
+  border-color: rgba(223, 180, 96, 0.2);
+  color: var(--accent-gold);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.tree-branch {
+  display: flex;
+  gap: 24px;
+  position: relative;
+  padding-top: 12px;
+}
+.tree-branch::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 60%;
+  height: 2px;
+  background: var(--border);
+  transform: translateX(-50%);
+}
+.tree-leaf {
+  padding: 6px 14px;
+  background: rgba(137, 180, 250, 0.06);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.72rem;
+  color: var(--accent-blue);
+}
+
+/* ===== CTA Section ===== */
+#cta {
+  text-align: center;
+  padding: 120px 32px;
+  position: relative;
+}
+#cta::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(223, 180, 96, 0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+#cta .section-title {
+  font-size: clamp(1.6rem, 3vw, 2rem);
+}
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+/* ===== Footer ===== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(8px); }
+}
+@keyframes scrollDot {
+  0%   { top: 8px; opacity: 1; }
+  100% { top: 22px; opacity: 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-4px); }
+}
+
+/* ===== Intersection Observer Animations ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  nav { padding: 12px 20px; }
+  .nav-links { gap: 20px; }
+  .nav-links a { font-size: 0.8rem; }
+  section { padding: 80px 20px; }
+  .hero { padding: 100px 20px 60px; }
+  .showcase { grid-template-columns: 1fr; gap: 32px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .ai-grid { grid-template-columns: 1fr; }
+  .format-cards { grid-template-columns: 1fr 1fr; }
+  .format-editor-visual { max-width: 100%; }
+  #cta { padding: 80px 20px; }
+}
+@media (max-width: 480px) {
+  .nav-links { display: none; }
+  .hero h1 { font-size: 2rem; }
+  .hero-subtitle { font-size: 1rem; }
+}
+
+/* ===== Page Transition ===== */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+}
+.page-transition.active {
+  pointer-events: all;
+  animation: transitionIn 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.page-transition .pt-bg {
+  position: absolute;
+  inset: 0;
+  background: #0a0a14;
+  transform: scaleY(0);
+  transform-origin: top;
+}
+.page-transition.active .pt-bg {
+  animation: scaleDown 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+.page-transition .pt-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  display: inline-block;
+}
+.page-transition.active .pt-content {
+  animation: fadeUp 0.5s 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.page-transition .pt-icon {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  display: inline-block;
+  animation: starSpin 0.6s 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.page-transition .pt-text {
+  font-size: 1rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.page-transition .pt-load {
+  margin-top: 20px;
+  width: 100%;
+  min-width: 120px;
+  height: 3px;
+  background: rgba(223, 180, 96, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.page-transition .pt-load::after {
+  content: '';
+  display: block;
+  width: 30%;
+  height: 100%;
+  background: var(--accent-gold);
+  border-radius: 2px;
+  animation: loadSweep 1s 0.5s infinite;
+}
+
+@keyframes transitionIn {
+  0%   { opacity: 1; }
+  85%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes scaleDown {
+  0%   { transform: scaleY(0); }
+  100% { transform: scaleY(1); }
+}
+@keyframes fadeUp {
+  0%   { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+@keyframes starSpin {
+  0%   { transform: rotate(-30deg) scale(0); opacity: 0; }
+  100% { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+@keyframes loadSweep {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+</style>
+</head>
+<body>
+
+<!-- 流动渐变背景 -->
+<div class="bg-flow">
+  <div class="bg-orb3"></div>
+  <div class="bg-orb4"></div>
+  <div class="bg-frost"></div>
+</div>
+
+<div class="noise"></div>
+
+<!-- Page Transition Overlay -->
+<div class="page-transition" id="pageTransition">
+  <div class="pt-bg"></div>
+  <div class="pt-content">
+    <div class="pt-icon">✦</div>
+    <div class="pt-text">正在进入 StarDebate...</div>
+    <div class="pt-load"></div>
+  </div>
+</div>
+
+<!-- ===== Nav ===== -->
+<nav>
+  <div class="nav-logo">
+    <span class="star">✦</span> StarDebate
+  </div>
+  <ul class="nav-links">
+    <li><a href="#features">功能</a></li>
+    <li><a href="#formats">赛制</a></li>
+    <li><a href="#ai-capabilities">AI 能力</a></li>
+    <li><a href="#showcase">体验</a></li>
+    <li><a href="#cta">开始使用</a></li>
+    <li><a href="https://github.com/Chapin-Y/StarDebate" target="_blank" rel="noopener">GitHub</a></li>
+  </ul>
+</nav>
+
+<!-- ===== Hero ===== -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span> DeepSeek AI 驱动
+  </div>
+  <h1>
+    专业备赛<br>
+    从<span class="star-text">辩之星</span>开始
+  </h1>
+  <p class="hero-subtitle">
+    AI 写稿 · 框架生成 · 赛制专精 · 模拟训练 — 为辩手打造的下一代备赛工坊
+  </p>
+  <div class="hero-cta">
+    <a href="https://github.com/Chapin-Y/StarDebate" target="_blank" rel="noopener" class="btn-primary">立即体验</a>
+    <a href="#features" class="btn-outline">了解更多</a>
+  </div>
+  <div class="scroll-indicator"><span></span></div>
+</section>
+
+<!-- ===== Features ===== -->
+<section id="features">
+  <span class="section-label">核心能力</span>
+  <h2 class="section-title">辩论备赛，一站解决</h2>
+  <p class="section-desc">
+    StarDebate 集成 AI 写稿、框架生成、专精赛制训练、结构分析等核心功能，覆盖从备赛到实战的完整链路。
+  </p>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <span class="feature-icon">✍️</span>
+      <h3>AI 智能写稿</h3>
+      <p>基于框架稿自动生成正方/反方一辩稿，支持 5 种不同风格版本，严格遵循辩论格式规范。</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🧠</span>
+      <h3>AI 框架生成</h3>
+      <p>将一辩稿文本转化为结构化思维导图框架，自动提取定义、判准、论点与论据层次。</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🔍</span>
+      <h3>AI 辩稿分析</h3>
+      <p>深度解析一辩稿结构，识别逻辑链、论证弱点、立论亮点，提供专业教练级反馈。</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">⚔️</span>
+      <h3>模拟质询训练</h3>
+      <p>AI 扮演对方四辩进行 Cross-Examination，模拟 5-8 轮高强度质询，实时评分与点评。</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🌳</span>
+      <h3>结构树管理</h3>
+      <p>可视化一辩稿层次结构，支持节点编辑、关键词标注、素材关联，构建完整论证体系。</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">🏆</span>
+      <h3>专精赛制训练</h3>
+      <p>内置华语辩论赛、世界大学生赛等 5 套预设赛制 + 自定义赛制编辑器，AI 训练精准适配辩位与赛制要求。</p>
+    </div>
+    <div class="feature-card reveal">
+      <span class="feature-icon">📋</span>
+      <h3>项目 & 便签</h3>
+      <p>多辩论项目管理 + 便签贴纸系统，资料整理井然有序，赛前准备尽在掌控。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AI Capabilities ===== -->
+<section id="ai-capabilities">
+  <span class="section-label">AI 引擎</span>
+  <h2 class="section-title">四大 AI 核心</h2>
+  <p class="section-desc">
+    全部基于 DeepSeek 大语言模型，为辩论场景深度调优，输出结构化、可操作的专业内容。
+  </p>
+  <div class="ai-grid">
+    <div class="ai-card reveal">
+      <span class="ai-number">A1</span>
+      <h4>AI 写稿 Writer</h4>
+      <p style="color:var(--text-secondary);font-size:0.875rem;">框架稿 → 5 版完整一辩稿，含立论、定义、判准、论点论据，语言正式有感染力</p>
+      <span class="ai-tag">一辩稿 · 正/反方</span>
+    </div>
+    <div class="ai-card reveal">
+      <span class="ai-number">A2</span>
+      <h4>AI 框架 Framework</h4>
+      <p style="color:var(--text-secondary);font-size:0.875rem;">一辩稿文本 → 结构化思维导图，自动分层提取论点、论据与关键词</p>
+      <span class="ai-tag">思维导图 · 结构化</span>
+    </div>
+    <div class="ai-card reveal">
+      <span class="ai-number">A3</span>
+      <h4>AI 分析 Analyzer</h4>
+      <p style="color:var(--text-secondary);font-size:0.875rem;">多维度辩稿分析：定义判断、逻辑链、立论亮点、薄弱点、论证强度评估</p>
+      <span class="ai-tag">教练级反馈</span>
+    </div>
+    <div class="ai-card reveal">
+      <span class="ai-number">A4</span>
+      <h4>AI 模拟 Simulator</h4>
+      <p style="color:var(--text-secondary);font-size:0.875rem;">专精赛制模拟：质询 + 接质训练，AI 扮演对手四辩，适配华辩/世辩等赛制，实时评分反馈</p>
+      <span class="ai-tag">质询 · 接质 · 专精赛制</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Format System ===== -->
+<section id="formats">
+  <span class="section-label">赛制系统</span>
+  <h2 class="section-title">专精赛制 · 精准训练</h2>
+  <p class="section-desc">
+    内置 5 套主流辩论赛制，支持自定义编辑。训练时选择赛制与辩位，AI 将根据赛制规则定制出题与评估策略。
+  </p>
+
+  <!-- Built-in Formats -->
+  <div style="margin-bottom: 60px;">
+    <h4 style="color:var(--text-secondary);font-size:0.85rem;font-weight:500;margin-bottom:20px;letter-spacing:0.05em;">📦 预设赛制</h4>
+    <div class="format-cards">
+      <div class="format-card reveal">
+        <span class="format-badge preset">华语辩论赛</span>
+        <p>一辩立论 → 二辩驳论 → 三辩盘问 → 自由辩论 → 四辩总结</p>
+      </div>
+      <div class="format-card reveal">
+        <span class="format-badge preset">世界大学生赛</span>
+        <p>陈词 → 质询 → 驳论 → 盘问 → 自由辩论 → 总结陈词</p>
+      </div>
+      <div class="format-card reveal">
+        <span class="format-badge preset">议会制 BP</span>
+        <p>OG → CG → OO → CO 四队辩论，首相陈词 → 反对党领袖驳论 → …</p>
+      </div>
+      <div class="format-card reveal">
+        <span class="format-badge preset">新加坡赛制</span>
+        <p>立论 → 自由辩论 → 总结，简洁高效的三段式赛制</p>
+      </div>
+      <div class="format-card reveal">
+        <span class="format-badge preset">奥瑞冈赛制</span>
+        <p>政策辩论赛制，含建构/反驳/交叉质询，强调证据与逻辑</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Format Editor Visual -->
+  <div class="showcase reveal">
+    <div class="showcase-text">
+      <span class="section-label">灵活扩展</span>
+      <h3>自定义赛制编辑器</h3>
+      <p>
+        支持新建、编辑、保存自定义赛制。自由编排辩论环节、分配辩位、设定时间规则，适配任何比赛需求。
+      </p>
+      <p>
+        所有自定义赛制自动加入训练配置下拉框，AI 将根据你定义的规则智能适配训练内容。
+      </p>
+    </div>
+    <div class="showcase-visual">
+      <div class="format-editor-visual">
+        <div class="fe-header">✦ 自定义赛制编辑器</div>
+        <div class="fe-row">
+          <span class="fe-label">赛制名称</span>
+          <span class="fe-value">校际辩论赛</span>
+        </div>
+        <div class="fe-tabs">
+          <span class="fe-tab active">立论</span>
+          <span class="fe-tab">驳论</span>
+          <span class="fe-tab">盘问</span>
+          <span class="fe-tab">自由辩论</span>
+          <span class="fe-tab">总结</span>
+        </div>
+        <div class="fe-position-row">
+          <span class="fe-pos active">一辩</span>
+          <span class="fe-pos">二辩</span>
+          <span class="fe-pos">三辩</span>
+          <span class="fe-pos">四辩</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Position Training -->
+  <div class="showcase showcase-reverse reveal" style="margin-top:80px;">
+    <div class="showcase-visual">
+      <div class="position-select-visual">
+        <div class="ps-header">🎯 专精辩位训练</div>
+        <div class="ps-format">赛制：华语辩论赛制</div>
+        <div class="ps-buttons">
+          <span class="ps-btn">一辩</span>
+          <span class="ps-btn active">二辩</span>
+          <span class="ps-btn">三辩</span>
+          <span class="ps-btn">四辩</span>
+        </div>
+        <div class="ps-hint">AI 将针对二辩（驳论位）出题</div>
+      </div>
+    </div>
+    <div class="showcase-text">
+      <span class="section-label">辩位专项</span>
+      <h3>按辩位精准训练</h3>
+      <p>
+        选择赛制后，系统自动列出对应辩位。AI 将根据所选辩位调整训练方向——一辩练立论开篇，二辩练驳论反击，三辩练盘问质询，四辩练总结收束。
+      </p>
+      <p>
+        训练记录自动保存赛制与辩位信息，方便赛后复盘与针对性强化。
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ===== Format Cards ===== */
+.format-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.format-card {
+  background: rgba(20, 20, 40, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(205, 214, 244, 0.06);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: all var(--transition);
+}
+.format-card:hover {
+  border-color: rgba(223, 180, 96, 0.2);
+  transform: translateY(-2px);
+}
+.format-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: 100px;
+  margin-bottom: 10px;
+}
+.format-badge.preset {
+  background: rgba(180, 190, 254, 0.1);
+  color: var(--accent-purple);
+}
+.format-card p {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+/* ===== Format Editor Visual ===== */
+.format-editor-visual {
+  width: 100%;
+  max-width: 360px;
+  background: #0d0d1e;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.fe-header {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+}
+.fe-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.fe-label {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+.fe-value {
+  font-size: 0.8rem;
+  color: var(--text-primary);
+  padding: 4px 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.fe-tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.fe-tab {
+  padding: 5px 10px;
+  font-size: 0.68rem;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+}
+.fe-tab.active {
+  background: rgba(223, 180, 96, 0.1);
+  border-color: rgba(223, 180, 96, 0.25);
+  color: var(--accent-gold);
+}
+.fe-position-row {
+  display: flex;
+  gap: 8px;
+}
+.fe-pos {
+  font-size: 0.72rem;
+  padding: 4px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+.fe-pos.active {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+}
+
+/* ===== Position Select Visual ===== */
+.position-select-visual {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  text-align: center;
+}
+.ps-header {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-gold);
+}
+.ps-format {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding: 4px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+}
+.ps-buttons {
+  display: flex;
+  gap: 10px;
+}
+.ps-btn {
+  font-size: 0.78rem;
+  padding: 8px 18px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.ps-btn.active {
+  background: rgba(223, 180, 96, 0.12);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+.ps-hint {
+  font-size: 0.72rem;
+  color: var(--accent-blue);
+  opacity: 0.7;
+}
+</style>
+
+<!-- ===== Showcase 1: Debate Balance ===== -->
+<section id="showcase">
+  <div class="showcase reveal">
+    <div class="showcase-text">
+      <span class="section-label">双持立场</span>
+      <h3>正方 · 反方，双视角备赛</h3>
+      <p>
+        StarDebate 同时管理正方与反方一辩稿，支持分别编辑、AI 分析、关键词标注。知己知彼，方能百战不殆。
+      </p>
+      <p>
+        每个论点可关联原文引用与资料素材，构建完整的论证数据库，让每一句话都有据可查。
+      </p>
+    </div>
+    <div class="showcase-visual">
+      <div class="scale-visual">
+        <div class="scale-pan left">正方</div>
+        <div class="scale-pan right">反方</div>
+        <div class="scale-pivot"></div>
+        <div class="scale-bar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Showcase 2: Speech Bubbles ===== -->
+<section>
+  <div class="showcase showcase-reverse reveal">
+    <div class="showcase-visual">
+      <div class="speech-stack">
+        <div class="speech-bubble left">对方定义存在逻辑跳跃…</div>
+        <div class="speech-bubble right">请正面回应我方判准</div>
+        <div class="speech-bubble left">此论据来源存疑</div>
+      </div>
+    </div>
+    <div class="showcase-text">
+      <span class="section-label">实战模拟</span>
+      <h3>AI 质询 · 沉浸式对抗训练</h3>
+      <p>
+        AI 精准定位立论弱点，提出犀利质询问题。5-8 轮交替问答，模拟真实辩论赛节奏，训练临场应变能力。
+      </p>
+      <p>
+        每轮接质后获得 AI 教练实时评分——逻辑严密性、反应速度、表达力、内容充实度，全方位量化提升。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Showcase 3: Tree Structure ===== -->
+<section>
+  <div class="showcase reveal">
+    <div class="showcase-text">
+      <span class="section-label">知识组织</span>
+      <h3>结构化思维 · 树形论证体系</h3>
+      <p>
+        一辩稿自动解析为树形结构，定义→判准→论点→论据→关键词，层层递进，一目了然。
+      </p>
+      <p>
+        支持拖拽式节点编辑、关键词添加与注释、AI 扩写关键论点，让论证逻辑清晰可见。
+      </p>
+    </div>
+    <div class="showcase-visual">
+      <div class="tree-visual">
+        <div class="tree-node root">🎯 辩题：悦己型消费利大于弊</div>
+        <div class="tree-branch">
+          <div class="tree-leaf">定义</div>
+          <div class="tree-leaf">判准</div>
+          <div class="tree-leaf">论点一</div>
+          <div class="tree-leaf">论点二</div>
+        </div>
+        <div class="tree-branch">
+          <div class="tree-leaf" style="background:rgba(137,180,250,0.03);">悦己消费概念</div>
+          <div class="tree-leaf" style="background:rgba(137,180,250,0.03);">利弊权衡标准</div>
+          <div class="tree-leaf" style="background:rgba(137,180,250,0.03);">促进个人成长</div>
+          <div class="tree-leaf" style="background:rgba(137,180,250,0.03);">推动经济发展</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section id="cta">
+  <span class="section-label">现在开始</span>
+  <h2 class="section-title">让 AI 成为你的<span style="color:var(--accent-gold);">第二教练</span></h2>
+  <p class="section-desc" style="margin: 12px auto 0;">
+    从一辩稿撰写到专精赛制模拟训练，StarDebate 全程陪伴你的备赛之旅。
+  </p>
+  <div class="cta-buttons">
+    <a href="javascript:void(0)" onclick="navigateToApp()" class="btn-primary">🚀 立即体验</a>
+    <a href="stardebate-app.html#training" class="btn-outline">查看文档</a>
+  </div>
+</section>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <p>StarDebate ★ 辩之星 &copy; 2026 — AI 专业辩论备赛助手 · Powered by DeepSeek</p>
+</footer>
+
+<script>
+// Page transition
+function navigateToApp() {
+  const overlay = document.getElementById('pageTransition');
+  overlay.classList.add('active');
+  setTimeout(() => {
+    window.location.href = 'stardebate-app.html';
+  }, 1000);
+}
+
+// Intersection Observer for scroll reveal animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, {
+  threshold: 0.15,
+  rootMargin: '0px 0px -40px 0px'
+});
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Smooth counter animation for any future stats
+document.querySelectorAll('[data-count]').forEach(el => {
+  const target = parseInt(el.getAttribute('data-count'));
+  let count = 0;
+  const duration = 2000;
+  const step = target / (duration / 16);
+  const timer = setInterval(() => {
+    count += step;
+    if (count >= target) { count = target; clearInterval(timer); }
+    el.textContent = Math.floor(count);
+  }, 16);
+});
+</script>
+
+</body>
+</html>

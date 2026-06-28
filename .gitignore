@@ -43,6 +43,7 @@ backups/
 临时文件/
 exercise_sessions/
 test_extension.sep
+github_pages/
 
 # ── HarmonyOS sub-project (separate repo) ────────
 HarmonyApp/
@@ -60,6 +61,5 @@ docs/Skill/
 extensions/
 custom_formats/
 plugins/
-web/
 .debug_webai/
 custom_formats/
