@@ -431,10 +431,17 @@ document.addEventListener('DOMContentLoaded',()=>{
   // Handle hash changes (back/forward)
   window.addEventListener('hashchange',()=>{
     const h = window.location.hash.replace('#','');
-    // Only handle file-slug hashes, ignore anchor-only hashes (#section)
-    if(h && h !== currentSlug && FILES.some(f=>f.slug===h)){
+    if(!h) return;
+    if(h === currentSlug) return;
+    // File slug → load document
+    if(FILES.some(f=>f.slug===h)){
       const entry = FILES.find(f=>f.slug===h);
       if(entry) loadDoc(entry.slug,entry.dir,entry.file);
+      return;
+    }
+    // Non-file-slug hash (e.g. ToC anchor) → restore the file slug hash
+    if(currentSlug){
+      history.replaceState(null,null,`#${currentSlug}`);
     }
   });
 });
