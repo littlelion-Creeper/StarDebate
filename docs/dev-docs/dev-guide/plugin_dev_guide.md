@@ -1647,7 +1647,7 @@ def on_enable():
 | `settingsSmallBtn` | 次级按钮 | `#313244` 背景 |
 | `settingsPrimaryBtn` | 主按钮 | 紫色背景 |
 
-> **提示**：使用以上 ObjectName 可以让页面自动获得与内置设置页一致的主题样式（深色/浅色均适配），无需手动编写 QSS。系统 v2.0.0 起支持 3 套主题（Catppuccin Mocha/Latte/Macchiato），所有 ObjectName 对应的配色会自动跟随当前主题切换。
+> **提示**：使用以上 ObjectName 可以让页面自动获得与内置设置页一致的主题样式（深色/浅色均适配），无需手动编写 QSS。系统 v6.4.0 起支持 2 套主题（Notion Dark / Notion Light），所有 ObjectName 对应的配色会自动跟随当前主题切换。
 
 **生命周期说明**：
 - `create_widget_fn` 在用户**首次点击该设置页**时调用（延迟构建）
@@ -2383,7 +2383,7 @@ def on_enable():
 | Disabled | 40% 透明度 | muted 色 | `setEnabled(False)` 后置灰 |
 
 **主题适配**：
-组件自动从 `config.json` 读取当前主题，从对应 `theme.json` 获取配色，三主题（Mocha 深色/Latte 浅色/Macchiato 中深色）均适用。
+组件自动从 `config.json` 读取当前主题，从对应 `theme.json` 获取配色，两主题（Notion Dark 深色/Notion Light 浅色）均适用。
 
 > **提示**：如需批量创建多个复选框，可以让 `create_checkbox()` 返回的控件存入列表，后续通过遍历操作状态。
 
@@ -3049,7 +3049,7 @@ def _on_analysis_finished(self, result: dict):
 ✅ "[API] ✓ POST /v1/chat → 200 | 1234ms"
 ✅ "[FUNC] loader:parse → ✅ 返回(12ms): {'keys': 3}"
 ✅ "[PLUGIN] ▶ my_plugin 已启用 | 配置: 3项"
-✅ "[VAR] config.py:42 → theme = 'catppuccin_mocha'"
+✅ "[VAR] config.py:42 → theme = 'notion_dark'"
 ✅ "[AI] ✅ ai_analysis → 成功 | 2345ms | 生成 5 条论点"
 ```
 
@@ -3781,7 +3781,7 @@ def on_some_action():
 |------|------|
 | `components/timeout_progress_loader.py` | 通用超时进度条组件(TimeoutProgressLoader + MultiProgressLoader, 默认30s超时) |
 | `components/error_card.py` | 错误卡片组件(ErrorCardWidget, 内嵌欢迎页欢迎语下方) |
-| `style/themes/catppuccin_mocha/error_card.qss` | 错误卡片 QSS 样式 |
+| `style/themes/notion_dark/error_card.qss` | 错误卡片 QSS 样式 |
 | `workers/crash_monitor/crash_monitor.py` | CrashPopup 支持 `startup_failures` 参数；新增 `show_startup_failure_dialog()` |
 
 #### 4.24.3 错误卡片功能
@@ -4660,7 +4660,7 @@ card = DiffCard(
 
 ## 8. 插件UI设计规范 
 
-> **重要**：插件UI必须遵循本规范，以确保与 StarDebate 主体界面风格一致、支持三主题（Mocha/Latte/Macchiato）自动切换，并保证不同插件间的视觉统一性。
+> **重要**：插件UI必须遵循本规范，以确保与 StarDebate 主体界面风格一致、支持两主题（Notion Dark/Notion Light）自动切换，并保证不同插件间的视觉统一性。
 
 ### 8.1 设计原则
 
@@ -4675,35 +4675,35 @@ card = DiffCard(
 
 ### 8.2 色彩体系
 
-StarDebate 使用 Catppuccin 配色方案，三套主题共享同一色彩命名体系：
+StarDebate 使用 Notion 风格配色方案，2 套主题共享同一色彩命名体系：
 
 #### 8.2.1 主题色板
 
-| 色键 | Mocha (深色) | Macchiato (中深) | Latte (浅色) | 语义用途 |
-|------|:---------:|:-----------:|:--------:|----------|
-| `base` | `#1e1e2e` | `#24273a` | `#eff1f5` | 页面/窗口背景 |
-| `surface` | `#181825` | `#1e2030` | `#e6e9ef` | 卡片/面板背景 |
-| `overlay` | `#313244` | `#363a4f` | `#ccd0da` | 按钮/分隔/hover |
-| `text` | `#cdd6f4` | `#cad3f5` | `#4c4f69` | 正文文字 |
-| `subtext` | `#a6adc8` | `#b8c0e0` | `#6c6f85` | 辅助文字/标签 |
-| `muted` | `#6c7086` | `#a5adcb` | `#9ca0b0` | 禁用/占位/单位 |
+| 色键 | Notion Dark (深色) | Notion Light (浅色) | 语义用途 |
+|------|:--------------:|:---------------:|----------|
+| `base` | `#181A1E` | `#FFFFFF` | 页面/窗口背景 |
+| `surface` | `#1E2025` | `#F7F7F5` | 卡片/面板背景 |
+| `overlay` | `#2C2E36` | `#EDEDEB` | 按钮/分隔/hover |
+| `text` | `#E0E0E0` | `#37352F` | 正文文字 |
+| `subtext` | `#A0A0A0` | `#9B9A97` | 辅助文字/标签 |
+| `muted` | `#6B6B6B` | `#C0BFBF` | 禁用/占位/单位 |
 
 #### 8.2.2 语义色彩
 
-| 语义色 | Mocha | 用途 |
-|--------|--------|------|
-| `accent_purple` | `#cba6f7` | 标题、选中高亮、主色调 |
-| `accent_green` | `#a6e3a1` | 成功/确认/开始 |
-| `accent_yellow` | `#f9e2af` | 警告/暂停/中间态 |
-| `accent_red` | `#f38ba8` | 错误/停止/危险操作 |
-| `accent_blue` | `#89b4fa` | 信息/链接 |
-| `accent_pink` | `#f5c2e7` | 辅助强调 |
+| 语义色 | Notion Dark | Notion Light | 用途 |
+|--------|:-----------:|:------------:|------|
+| `accent_blue` | `#2E6DDE` | `#2E6DDE` | 信息/链接/选中高亮 |
+| `accent_green` | `#2EA043` | `#2EA043` | 成功/确认/开始 |
+| `accent_red` | `#E74C3C` | `#E74C3C` | 错误/停止/危险操作 |
+| `accent_yellow` | `#C8A030` | `#D4A017` | 警告/暂停/中间态 |
+| `accent_pink` | `#D08770` | `#D08770` | 辅助强调 |
+| `selected_bg` | `#1A2A4A` | `#E8F0FE` | 选中项背景 |
 
 #### 8.2.3 正确做法 vs 错误做法
 
 ```python
 # ❌ 错误：硬编码颜色
-label.setStyleSheet("color: #cba6f7; background-color: #1e1e2e;")
+label.setStyleSheet("color: #2E6DDE; background-color: #181A1E;")
 
 # ✅ 正确：使用 objectName 引用系统QSS
 label.setObjectName("pluginPanelTitle")
@@ -4711,7 +4711,7 @@ label.setObjectName("pluginPanelTitle")
 # ✅ 正确：必须内联时，使用主题颜色变量（从 theme.json 读取）
 from pathlib import Path
 import json
-theme_dir = Path(__file__).parent.parent.parent / "style" / "themes" / "catppuccin_mocha"
+theme_dir = Path(__file__).parent.parent.parent / "style" / "themes" / "notion_dark"
 with open(theme_dir / "theme.json") as f:
     colors = json.load(f)["colors"]
 label.setStyleSheet(f"color: {colors['accent_purple']};")
@@ -5118,7 +5118,7 @@ def _get_theme_colors():
     project_root = Path(__file__).parent.parent.parent
     config_path = project_root / "config" / "config.json"
     with open(config_path, "r", encoding="utf-8") as f:
-        theme_name = json.load(f).get("theme", "catppuccin_mocha")
+        theme_name = json.load(f).get("theme", "notion_dark")
     theme_path = project_root / "style" / "themes" / theme_name / "theme.json"
     with open(theme_path, "r", encoding="utf-8") as f:
         return json.load(f)["colors"]
@@ -5134,9 +5134,8 @@ label.setStyleSheet(f"color: {colors['accent_purple']};")
 如果你的插件需要自定义 QSS，应按以下结构存放：
 
 ```
-style/themes/catppuccin_mocha/plugins.qss    ← 系统提供的插件通用 QSS
-style/themes/catppuccin_latte/plugins.qss
-style/themes/catppuccin_macchiato/plugins.qss
+style/themes/notion_dark/plugins.qss         ← 系统提供的插件通用 QSS（深色）
+style/themes/notion_light/plugins.qss        ← 系统提供的插件通用 QSS（浅色）
 ```
 
 你可以在 `plugins.qss` 中追加插件的自定义样式：

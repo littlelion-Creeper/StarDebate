@@ -385,22 +385,25 @@ btn.setChecked(checked)  # QSS 自动切换样式
 | `accent_yellow` | 强调 | 黄色 | 论点维度/搜索高亮/警告 |
 | `accent_red` | 强调 | 红色 | 关闭按钮/优势维度/错误/危险 |
 
-### 5.2 三主题配色对照表
+### 5.2 两主题配色对照表
 
-| 色值 | Mocha（深色） | Macchiato（中深） | Latte（浅色） |
-|------|-------------|------------------|---------------|
-| `base` | `#1e1e2e` | `#24273a` | `#eff1f5` |
-| `surface` | `#181825` | `#1e2030` | `#e6e9ef` |
-| `overlay` | `#313244` | `#363a4f` | `#ccd0da` |
-| `text` | `#cdd6f4` | `#cad3f5` | `#4c4f69` |
-| `subtext` | `#a6adc8` | `#a5adcb` | `#5c5f77` |
-| `muted` | `#6c7086` | `#6e738d` | `#9ca0b0` |
-| `accent_green` | `#a6e3a1` | `#a6da95` | `#40a02b` |
-| `accent_purple` | `#cba6f7` | `#c6a0f6` | `#8839ef` |
-| `accent_blue` | `#89b4fa` | `#8aadf4` | `#1e66f5` |
-| `accent_pink` | `#f5c2e7` | `#f5bde6` | `#ea76cb` |
-| `accent_yellow` | `#f9e2af` | `#eed49f` | `#df8e1d` |
-| `accent_red` | `#f38ba8` | `#ed8796` | `#d20f39` |
+| 色值 | Notion Dark（深色） | Notion Light（浅色） |
+|------|:---------------:|:----------------:|
+| `base` | `#181A1E` | `#FFFFFF` |
+| `surface` | `#1E2025` | `#F7F7F5` |
+| `overlay` | `#2C2E36` | `#EDEDEB` |
+| `text` | `#E0E0E0` | `#37352F` |
+| `subtext` | `#A0A0A0` | `#9B9A97` |
+| `muted` | `#6B6B6B` | `#C0BFBF` |
+| `accent_blue` | `#2E6DDE` | `#2E6DDE` |
+| `accent_green` | `#2EA043` | `#2EA043` |
+| `accent_red` | `#E74C3C` | `#E74C3C` |
+| `accent_yellow` | `#C8A030` | `#D4A017` |
+| `accent_purple` | `#2E6DDE` | `#2E6DDE` |
+| `accent_pink` | `#D08770` | `#D08770` |
+| `border` | `#343640` | `#E0E0E0` |
+| `hover` | `#262830` | `#EFEFEF` |
+| `selected_bg` | `#1A2A4A` | `#E8F0FE` |
 
 ---
 
@@ -411,8 +414,8 @@ btn.setChecked(checked)  # QSS 自动切换样式
 创建新主题最快捷的方式是复制一个现有主题作为起点：
 
 ```bash
-# 以 Mocha 深色主题为基础创建新主题
-cp -r style/themes/catppuccin_mocha style/themes/my_theme
+# 以 Notion Dark 深色主题为基础创建新主题
+cp -r style/themes/notion_dark style/themes/my_theme
 ```
 
 然后修改 `style/themes/my_theme/theme.json`：
@@ -433,45 +436,38 @@ cp -r style/themes/catppuccin_mocha style/themes/my_theme
 
 ### 6.2 批量颜色替换脚本
 
-编写 Python 脚本将 Catppuccin Mocha 配色批量替换为目标配色。脚本需覆盖**12 个核心色 + 中间/派生色**（见 §5.2 附表）：
+编写 Python 脚本将 Notion Dark 配色批量替换为目标配色。脚本需覆盖**所有 22+ 个颜色键**（见 theme.json 中的 colors 对象）：
 
 ```python
 """
 批量颜色替换脚本 — 在 style/themes/<theme_name>/ 目录下运行
-将 Catppuccin Mocha 的 27 个 QSS 文件中的配色替换为你的配色
+将 Notion Dark 的 32 个 QSS 文件中的配色替换为你的配色
 """
 import os, glob, json
 
-# 1. 核心 12 色
+# 1. 核心 15 色
 COLOR_MAP = {
-    "#1e1e2e": "#你的base",
-    "#181825": "#你的surface",
-    "#313244": "#你的overlay",
-    "#cdd6f4": "#你的text",
-    "#a6adc8": "#你的subtext",
-    "#6c7086": "#你的muted",
-    "#a6e3a1": "#你的accent_green",
-    "#cba6f7": "#你的accent_purple",
-    "#89b4fa": "#你的accent_blue",
-    "#f5c2e7": "#你的accent_pink",
-    "#f9e2af": "#你的accent_yellow",
-    "#f38ba8": "#你的accent_red",
+    "#181A1E": "#你的base",
+    "#1E2025": "#你的surface",
+    "#2C2E36": "#你的overlay",
+    "#E0E0E0": "#你的text",
+    "#A0A0A0": "#你的subtext",
+    "#6B6B6B": "#你的muted",
+    "#2E6DDE": "#你的accent_blue",
+    "#2EA043": "#你的accent_green",
+    "#E74C3C": "#你的accent_red",
+    "#C8A030": "#你的accent_yellow",
+    "#D08770": "#你的accent_pink",
+    "#343640": "#你的border",
+    "#262830": "#你的hover",
+    "#1A2A4A": "#你的selected_bg",
 
-    # 2. 中间/派生色（Mocha 基准，需按比例替换）
-    "#11111b": "#你的base深",       # base 加深约 20%
-    "#1e1e30": "#你的base中",       # base+overlay 混合
-    "#26263a": "#你的base浅",       # base 减淡约 15%
-    "#45475a": "#你的overlay深",    # overlay 加深约 40%
-    "#585b70": "#你的overlay更深",  # overlay 加深约 80%
-    "#1a2e2a": "#你的正方背景",     # 自定
-    "#241a2e": "#你的反方背景",     # 自定
-    "#1a2e1a": "#你的接质答复",     # 自定
-    "#2e241a": "#你的接质评分",     # 自定
-    "#1a1e2a": "#你的接质发言",     # 自定
-    # bgPressed 变体
-    "#e0567a": "#你的close红深",    # close pressed
-    "#b4befe": "#你的紫亮",         # primary hover 亮色
-    "#94e2d5": "#你的绿亮",         # accent_green hover
+    # 2. 中间/派生色（Notion Dark 基准，需按比例替换）
+    "#14161A": "#你的base深",       # base 加深约 15%
+    "#11111b": "#你的crust",        # 最底层
+    "#3A3D4A": "#你的toggle_off",   # toggle 关闭状态
+    "#2A1A2A": "#你的正方背景",     # 自定
+    "#1A2A1A": "#你的接质答复",     # 自定
 }
 
 target_dir = "style/themes/my_theme"

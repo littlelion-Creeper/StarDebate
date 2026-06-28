@@ -273,14 +273,11 @@ components/star_spinbox/             # ★ 通用组件目录
 ├── __init__.py                      # 导出 StarSpinBox, StarDoubleSpinBox
 └── star_spinbox.py                  # 主体代码 (~450行)
 
-style/themes/catppuccin_mocha/       # 深色主题
+style/themes/notion_dark/             # 深色主题
 ├── star_spinbox.qss                 # SpinBox 专属 QSS
 └── theme.json                       # qss_files 新增 "star_spinbox.qss"
 
-style/themes/catppuccin_latte/       # 浅色主题
-└── star_spinbox.qss
-
-style/themes/catppuccin_macchiato/   # 中深色主题
+style/themes/notion_light/           # 浅色主题
 └── star_spinbox.qss
 
 icon/spinbox/                        # ★ 已有图标
