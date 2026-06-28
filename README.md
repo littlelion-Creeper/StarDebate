@@ -134,7 +134,9 @@ StarDebate/
 
 ## 📜 License & Acknowledgments
 
-This project is released under the **GNU General Public License v3 (GPL-3.0)**.
+Copyright © 2026 Chapin-Y
+
+This program is released under the **GNU General Public License v3 (GPL-3.0)**. See [`docs/dev-docs/dev-guide/LICENSE.md`](docs/dev-docs/dev-guide/LICENSE.md) for the full license text.
 
 ### Acknowledgments
 
