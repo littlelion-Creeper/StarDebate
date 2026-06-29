@@ -182,6 +182,8 @@ def get_changed_files(from_ref: str, include_uncommitted: bool = False) -> list[
             if len(parts) != 2:
                 continue
             status, path = parts[0], parts[1]
+            # PowerShell git 对非 ASCII 路径输出带引号，去掉
+            path = path.strip('"')
             if path in seen:
                 continue
             seen.add(path)
@@ -190,7 +192,7 @@ def get_changed_files(from_ref: str, include_uncommitted: bool = False) -> list[
                 # 重命名：R100 old_path\tnew_path
                 sub_parts = line.split("\t")
                 if len(sub_parts) >= 3:
-                    path = sub_parts[2]
+                    path = sub_parts[2].strip('"')
                 status = "A"
             files.append((status, path))
 

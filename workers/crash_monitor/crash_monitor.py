@@ -24,8 +24,9 @@ from PyQt5.QtWidgets import (
     QApplication, QDialog, QVBoxLayout, QHBoxLayout,
     QLabel, QPushButton, QFrame,
 )
-from PyQt5.QtCore import Qt, QRectF
-from PyQt5.QtGui import QFont, QPainterPath, QRegion
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QIcon, QPixmap, QPainter, QColor, QFont, QFontDatabase
+from PyQt5.QtSvg import QSvgRenderer
 
 
 # ════════════════════════════════════════════════════════════
@@ -214,8 +215,30 @@ def _show_crash_popup(log_path: str, project_root: str):
         log_path: 日志文件路径
         project_root: 项目根目录
     """
+    # ★ 仅设 OS 级 DPI 感知（不设 AA_EnableHighDpiScaling）
+    # 让 setFixedSize(530, 380) 按物理像素精确渲染，取消 Windows 位图缩放
+    if sys.platform == "win32":
+        try:
+            for _aware in (2, 1):
+                try:
+                    ctypes.windll.shcore.SetProcessDpiAwareness(_aware)
+                    break
+                except Exception:
+                    continue
+            else:
+                ctypes.windll.user32.SetProcessDPIAware()
+        except Exception:
+            pass
     app = QApplication(sys.argv)
     app.setApplicationName("StarDebate Crash Monitor")
+
+    # 加载 HarmonyOS Sans SC 字体
+    font_dir = os.path.join(project_root, "style", "font", "HarmonyOS_SansSC")
+    font_path = os.path.join(font_dir, "HarmonyOS_SansSC_Regular.ttf")
+    if os.path.isfile(font_path):
+        fid = QFontDatabase.addApplicationFont(font_path)
+        if fid >= 0:
+            app.setFont(QFont("HarmonyOS Sans SC", 10))
 
     # 加载 QSS 样式
     qss = _load_crash_monitor_qss(project_root)
@@ -308,6 +331,55 @@ class CrashPopup(QDialog):
         self.setAttribute(Qt.WA_TranslucentBackground, False)
         self.setObjectName("crashPopup")
 
+        # 设置对话框 QSS（border-radius 替代 setMask，避免 Windows DPI 下遮罩冲突）
+        self.setStyleSheet("""
+            #crashPopup {
+                background-color: #1e1e2e;
+                border: 1px solid #45475a;
+                border-radius: 10px;
+            }
+            #crashTitleBar {
+                background-color: #181825;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+            #crashCloseBtn {
+                background: transparent;
+                border: none;
+                color: #cdd6f4;
+                font-size: 16px;
+                border-radius: 4px;
+            }
+            #crashCloseBtn:hover {
+                background: #f38ba8;
+                color: #1e1e2e;
+            }
+            #crashContent {
+                background-color: #1e1e2e;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+            }
+            #crashLogCard {
+                background-color: #181825;
+                border: 1px solid #313244;
+                border-radius: 8px;
+            }
+            #crashPopup QLabel {
+                color: #cdd6f4;
+            }
+            #crashOpenFolderBtn, #crashCopyBtn {
+                background-color: #313244;
+                border: 1px solid #45475a;
+                border-radius: 6px;
+                color: #cdd6f4;
+                font-size: 12px;
+                padding: 6px 14px;
+            }
+            #crashOpenFolderBtn:hover, #crashCopyBtn:hover {
+                background-color: #45475a;
+            }
+        """)
+
         # 居中显示
         screen = QApplication.primaryScreen().geometry()
         self.move(
@@ -316,7 +388,48 @@ class CrashPopup(QDialog):
         )
 
         self._setup_ui()
-        self._apply_rounded_corners(10)
+
+        # 延迟应用窗口圆角（等 show() 后 winId 有效）
+        from PyQt5.QtCore import QTimer
+        QTimer.singleShot(0, self._apply_window_rounded_corners)
+
+    # ── 工具方法 ──────────────────────────────────────────
+
+    def _load_svg_pixmap(self, svg_name: str, size: int = 24,
+                         color: str = None) -> QPixmap:
+        """加载 icon/common/ 下 SVG 文件，渲染为指定大小并可选着色。
+
+        Args:
+            svg_name: SVG 文件名（含后缀）
+            size: 目标像素大小
+            color: 着色 hex 色值（如 "#f38ba8"），为 None 时保留原色
+        """
+        icon_dir = os.path.join(self._project_root, "icon", "common")
+        svg_path = os.path.join(icon_dir, svg_name)
+        if not os.path.isfile(svg_path):
+            return QPixmap()
+        renderer = QSvgRenderer(svg_path)
+        pix = QPixmap(size, size)
+        pix.fill(Qt.transparent)
+        painter = QPainter(pix)
+        if painter.isActive():
+            renderer.render(painter)
+            painter.end()
+
+        if color:
+            # 使用 SourceIn 合成模式将透明度遮罩保留，填充为目标色
+            colored = QPixmap(size, size)
+            colored.fill(Qt.transparent)
+            painter = QPainter(colored)
+            painter.setRenderHint(QPainter.Antialiasing)
+            painter.setCompositionMode(QPainter.CompositionMode_Source)
+            painter.drawPixmap(0, 0, pix)
+            painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
+            painter.fillRect(colored.rect(), QColor(color))
+            painter.end()
+            pix = colored
+
+        return pix
 
     # ── UI 构建 ──────────────────────────────────────────
 
@@ -333,9 +446,16 @@ class CrashPopup(QDialog):
         title_layout.setContentsMargins(16, 0, 12, 0)
         title_layout.setSpacing(0)
 
-        title_icon = QLabel("★")
+        # 标题左侧 StarDebate 星标 SVG
+        title_icon = QLabel()
         title_icon.setObjectName("crashTitleIcon")
         title_icon.setFixedWidth(30)
+        title_pix = self._load_svg_pixmap("main.svg", 20)
+        if not title_pix.isNull():
+            title_icon.setPixmap(title_pix)
+            title_icon.setFixedWidth(24)
+        else:
+            title_icon.setText("★")
         title_layout.addWidget(title_icon)
 
         title_label = QLabel("StarDebate - 程序崩溃检测")
@@ -344,9 +464,11 @@ class CrashPopup(QDialog):
 
         title_layout.addStretch()
 
-        close_btn = QPushButton("")
+        # 关闭按钮 ×（保留文字形式，hover 变色效果更清晰）
+        close_btn = QPushButton("✕")
         close_btn.setObjectName("crashCloseBtn")
         close_btn.setFixedSize(36, 28)
+        close_btn.setCursor(Qt.PointingHandCursor)
         close_btn.clicked.connect(self.close)
         title_layout.addWidget(close_btn)
 
@@ -362,10 +484,15 @@ class CrashPopup(QDialog):
         # ── 警告图标 + 标题 ──────────────────────────────
         warn_row = QHBoxLayout()
         warn_row.setSpacing(12)
-        warn_icon = QLabel("⚠")
+        warn_icon = QLabel()
         warn_icon.setObjectName("crashWarnIcon")
         warn_icon.setFixedWidth(40)
         warn_icon.setAlignment(Qt.AlignCenter)
+        warn_pix = self._load_svg_pixmap("warning.svg", 28, color="#f38ba8")
+        if not warn_pix.isNull():
+            warn_icon.setPixmap(warn_pix)
+        else:
+            warn_icon.setText("⚠")
         warn_row.addWidget(warn_icon)
 
         if self._startup_failures:
@@ -421,9 +548,10 @@ class CrashPopup(QDialog):
         # 文件名行
         log_name_row = QHBoxLayout()
         log_name_row.setSpacing(8)
-        log_icon = QLabel("📄")
+        log_icon = QLabel()
         log_icon.setObjectName("crashLogIcon")
         log_icon.setFixedWidth(24)
+        log_icon.setText("📄")
         log_name_row.addWidget(log_icon)
 
         log_name = QLabel(os.path.basename(self._log_path) if self._log_path else "（无日志文件）")
@@ -445,9 +573,13 @@ class CrashPopup(QDialog):
         btn_row = QHBoxLayout()
         btn_row.setSpacing(12)
 
-        open_folder_btn = QPushButton("📂 打开日志文件夹")
+        open_folder_btn = QPushButton("  打开日志文件夹")
         open_folder_btn.setObjectName("crashOpenFolderBtn")
         open_folder_btn.setCursor(Qt.PointingHandCursor)
+        folder_pix = self._load_svg_pixmap("folder.svg", 16, color="#cdd6f4")
+        if not folder_pix.isNull():
+            open_folder_btn.setIcon(QIcon(folder_pix))
+            open_folder_btn.setIconSize(folder_pix.size())
         open_folder_btn.clicked.connect(self._on_open_log_folder)
         open_folder_btn.setMinimumHeight(36)
         btn_row.addWidget(open_folder_btn)
@@ -462,18 +594,6 @@ class CrashPopup(QDialog):
         content_layout.addLayout(btn_row)
 
         content_layout.addStretch()
-
-        # 关闭按钮（右下角）
-        close_row = QHBoxLayout()
-        close_row.addStretch()
-        bottom_close = QPushButton("关闭")
-        bottom_close.setObjectName("crashBottomCloseBtn")
-        bottom_close.setCursor(Qt.PointingHandCursor)
-        bottom_close.setMinimumSize(90, 34)
-        bottom_close.clicked.connect(self.close)
-        close_row.addWidget(bottom_close)
-
-        content_layout.addLayout(close_row)
 
         main_layout.addWidget(content, 1)
 
@@ -510,19 +630,24 @@ class CrashPopup(QDialog):
         else:
             QApplication.clipboard().setText("日志文件不可用")
 
-    # ── 圆角遮罩 ──────────────────────────────────────────
+    # ── 窗口圆角 ──────────────────────────────────────────
 
-    def _apply_rounded_corners(self, radius: int = 10):
-        """使用 QPainterPath 为窗口创建圆角遮罩，实现窗口圆角。
-
-        Args:
-            radius: 圆角半径，单位像素
-        """
-        path = QPainterPath()
-        path.addRoundedRect(QRectF(self.rect()), radius, radius)
-        polygon = path.toFillPolygon()
-        region = QRegion(polygon.toPolygon())
-        self.setMask(region)
+    def _apply_window_rounded_corners(self):
+        """使用 Windows 11 DWM 原生圆角（不依赖 setMask，无 DPI 缩放问题）。"""
+        if sys.platform != "win32":
+            return
+        try:
+            DWMWA_WINDOW_CORNER_PREFERENCE = 33
+            DWMWCP_ROUND = 2
+            hwnd = int(self.winId())
+            ctypes.windll.dwmapi.DwmSetWindowAttribute(
+                ctypes.c_void_p(hwnd),
+                DWMWA_WINDOW_CORNER_PREFERENCE,
+                ctypes.byref(ctypes.c_int(DWMWCP_ROUND)),
+                ctypes.sizeof(ctypes.c_int),
+            )
+        except Exception:
+            pass
 
     # ── 窗口事件 ──────────────────────────────────────────
 

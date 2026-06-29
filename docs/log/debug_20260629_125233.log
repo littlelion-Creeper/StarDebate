@@ -1,0 +1,545 @@
+[12:52:33.339] [INFO] ═══ LogService 已启动 ═══
+[12:52:33.340] [INFO] 自动清理: 无过期日志文件
+[12:52:33.341] [INFO] 日志文件: e:\StarDebate\docs/log\debug_20260629_125233.log
+[12:52:33.342] [INFO] [SYS] 系统健康监视已启动 (监控 PID: 81540)
+[12:52:33.343] [INFO] [SYS] 日志服务进入主循环，等待指令...
+[12:52:34.999] [INFO] 开发者模式: 开启 (禁用: 无)
+[12:52:35.028] [INFO] ═══ StarDebate 启动 ═══
+[12:52:35.028] [INFO] 版本: 6.4.1
+[12:52:35.029] [INFO] 主题: notion_dark
+[12:52:35.030] [INFO] 日志文件: e:\StarDebate\docs/log\debug_20260629_125233.log
+[12:52:35.030] [INFO] 日志服务: 独立进程 (LogService)
+[12:52:35.031] [INFO] [CRON] 起居注自动追踪已启用 (v2.0.0)
+[12:52:35.031] [INFO] [CRON] 追踪范围: 插件/API/AI/Qt错误/Worker线程  + traceback + 守护日志环 + 崩溃分析
+[12:52:35.037] [INFO] [NATIVE] 底层事件记录系统已启用 (v1.2.0 M3)
+[12:52:35.037] [INFO] [NATIVE] 钩子: Qt/excepthook/unraisable/audit/gc/c_exception
+[12:52:35.038] [INFO] [NATIVE] 监视: 线程健康/资源跟踪/起居注桥接
+[12:52:35.038] [INFO] [NATIVE] SQLite: e:\StarDebate\docs/log/native.db
+[12:52:35.039] [INFO] 调试监视已开启: 变量, 函数, 插件, API, AI
+[12:52:35.039] [INFO] [CFG] 已加载 log_settings.json，开始同步运行时配置
+[12:52:35.039] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[12:52:35.040] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[12:52:35.040] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[12:52:35.041] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[12:52:35.041] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[12:52:35.042] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[12:52:35.042] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[12:52:35.043] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[12:52:35.044] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[12:52:35.044] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[12:52:35.045] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[12:52:35.046] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[12:52:35.046] [INFO] [CFG] 调试监视: 已开启 → 变量, 函数, 插件, API, AI
+[12:52:35.047] [WARN] [NATIVE] [audit] e:\StarDebate\config/chronicle_config.json: open (e:\StarDebate\config/chronicle_config.json, w, 33665)
+[12:52:35.047] [INFO] [CFG] 起居注: 已开启
+[12:52:35.048] [INFO] [CFG] log_settings.json 同步完成
+[12:52:35.048] [ERROR] [NATIVE] [uncaught] spawn.py:L175: [C_EXCEPTION] builtin_function_or_method
+[12:52:35.049] [WARN] [NATIVE] [audit] 3: open (3, w, 33665)
+[12:52:35.060] [INFO] 崩溃监控已启动 (PID: 81540)
+[12:52:35.060] [WARN] [NATIVE] [audit] e:\StarDebate\config/keyboard_shortcuts.json: open (e:\StarDebate\config/keyboard_shortcuts.json, r, 32896)
+[12:52:35.061] [WARN] [NATIVE] [audit] e:\StarDebate\extensions\test_extension\__pycache__\main.cpython-312.pyc: open (e:\StarDebate\extensions\test_extension\__pycache__\main.cpython-312.pyc, r, 32896)
+[12:52:35.061] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[12:52:35.062] [INFO] [EXT] 已加载 1 个扩展包
+[12:52:35.065] [INFO] [WELCOME] WelcomeGuideManager 初始化
+[12:52:35.066] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[12:52:35.066] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[12:52:35.067] [INFO] [WELCOME] 当前版本: 6.4.1, 上次查看引导版本: '6.4.1'
+[12:52:35.067] [WARN] [NATIVE] [audit] import components.shadow_container: import (components.shadow_container, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:35.068] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[12:52:35.068] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[12:52:35.069] [WARN] [NATIVE] [audit] e:\StarDebate\components\shadow_container\__pycache__\__init__.cpython-312.pyc: open (e:\StarDebate\components\shadow_container\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[12:52:35.069] [WARN] [NATIVE] [audit] import components.shadow_container.shadow_container: import (components.shadow_container.shadow_container, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:35.070] [WARN] [NATIVE] [audit] e:\StarDebate\components\shadow_container\__pycache__\shadow_container.cpython-312.pyc: open (e:\StarDebate\components\shadow_container\__pycache__\shadow_container.cpython-3, r, 32896)
+[12:52:35.071] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[12:52:35.071] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[12:52:35.117] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[12:52:35.124] [WARN] [NATIVE] [audit] e:\StarDebate\icon\index\has_material.svg: open (e:\StarDebate\icon\index\has_material.svg, r, 32896)
+[12:52:35.159] [INFO] [WELCOME] WelcomeGuideStepPanel 创建完成
+[12:52:35.189] [WARN] [NATIVE] [audit] e:\StarDebate\config/changelog.html: open (e:\StarDebate\config/changelog.html, r, 32896)
+[12:52:35.202] [INFO] [WELCOME] 引导面板已注入 centre_stack (索引 10)
+[12:52:35.215] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[12:52:35.216] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[12:52:35.227] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[12:52:35.228] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[12:52:35.229] [WARN] [NATIVE] [audit] e:\StarDebate\workers\training\quick_quiz\__pycache__\__init__.cpython-312.pyc: open (e:\StarDebate\workers\training\quick_quiz\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[12:52:35.236] [WARN] [NATIVE] [audit] import workers.training.quick_quiz.quick_quiz_manager: import (workers.training.quick_quiz.quick_quiz_manager, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:35.236] [WARN] [NATIVE] [audit] e:\StarDebate\workers\training\quick_quiz\__pycache__\quick_quiz_manager.cpython-312.pyc: open (e:\StarDebate\workers\training\quick_quiz\__pycache__\quick_quiz_manager.cpython, r, 32896)
+[12:52:35.250] [WARN] [NATIVE] [audit] import workers.training.exercise.exercise_manager: import (workers.training.exercise.exercise_manager, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:35.251] [WARN] [NATIVE] [audit] e:\StarDebate\workers\training\exercise\__pycache__\exercise_manager.cpython-312.pyc: open (e:\StarDebate\workers\training\exercise\__pycache__\exercise_manager.cpython-312, r, 32896)
+[12:52:35.304] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[12:52:35.413] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[12:52:35.460] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[12:52:35.460] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[12:52:35.461] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\ai_analysis.qss: open (e:\StarDebate\style\qss_templates\ai_analysis.qss, r, 32896)
+[12:52:35.462] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\ai_expand.qss: open (e:\StarDebate\style\qss_templates\ai_expand.qss, r, 32896)
+[12:52:35.462] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\bind_source_dialog.qss: open (e:\StarDebate\style\qss_templates\bind_source_dialog.qss, r, 32896)
+[12:52:35.463] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\crash_monitor.qss: open (e:\StarDebate\style\qss_templates\crash_monitor.qss, r, 32896)
+[12:52:35.463] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\cross_examination.qss: open (e:\StarDebate\style\qss_templates\cross_examination.qss, r, 32896)
+[12:52:35.464] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\debug_console.qss: open (e:\StarDebate\style\qss_templates\debug_console.qss, r, 32896)
+[12:52:35.464] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\export_preview.qss: open (e:\StarDebate\style\qss_templates\export_preview.qss, r, 32896)
+[12:52:35.465] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\framework.qss: open (e:\StarDebate\style\qss_templates\framework.qss, r, 32896)
+[12:52:35.465] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\log_settings.qss: open (e:\StarDebate\style\qss_templates\log_settings.qss, r, 32896)
+[12:52:35.466] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\main.qss: open (e:\StarDebate\style\qss_templates\main.qss, r, 32896)
+[12:52:35.466] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\material_pool.qss: open (e:\StarDebate\style\qss_templates\material_pool.qss, r, 32896)
+[12:52:35.466] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\native_log_widget.qss: open (e:\StarDebate\style\qss_templates\native_log_widget.qss, r, 32896)
+[12:52:35.467] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\nav_bar.qss: open (e:\StarDebate\style\qss_templates\nav_bar.qss, r, 32896)
+[12:52:35.467] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\new_debate.qss: open (e:\StarDebate\style\qss_templates\new_debate.qss, r, 32896)
+[12:52:35.469] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\notes.qss: open (e:\StarDebate\style\qss_templates\notes.qss, r, 32896)
+[12:52:35.469] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\plugins.qss: open (e:\StarDebate\style\qss_templates\plugins.qss, r, 32896)
+[12:52:35.606] [INFO] [FUNC] dpapi: load_index
+[12:52:35.607] [INFO] [SHORTCUT] 快捷键系统已初始化
+[12:52:35.614] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[12:52:35.615] [INFO] [FUNC] auto_load_saved_files: 3 files in index
+[12:52:35.615] [INFO] [API] auto_load: 跳过不存在的文件 C:/Users/Oblivion/Desktop/1vs2_20260606.stardebate
+[12:52:35.615] [INFO] [FUNC] open_file_with_stored_password: 1vs2_20260606.stardebate
+[12:52:35.616] [INFO] [FUNC] dpapi: get_password_for_file → 1vs2_20260606.stardebate
+[12:52:35.616] [INFO] [FUNC] dpapi: load_index
+[12:52:35.617] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[12:52:35.617] [INFO] [VAR] dpapi: get_password_for_file → no password set
+[12:52:35.619] [INFO] [FUNC] open_file: path=1vs2_20260606.stardebate
+[12:52:35.625] [INFO] [FUNC] StardebateCompiler.unpack(file_size=8593, has_pwd_input=False)
+[12:52:35.654] [INFO] [FUNC] StardebateCompiler: 第1层内置密钥解密成功
+[12:52:35.655] [INFO] [FUNC] StardebateCompiler.unpack: 解密成功, modules=6, app_version=2.3.0
+[12:52:35.656] [INFO] [FUNC] dpapi: add_file_to_index → 1vs2_20260606.stardebate
+[12:52:35.657] [INFO] [FUNC] dpapi: load_index
+[12:52:35.659] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[12:52:35.659] [INFO] [VAR] dpapi: save_index → 3 files
+[12:52:35.661] [INFO] [VAR] _add_to_project_tree: 1vs2_20260606.stardebate
+[12:52:35.664] [INFO] [VAR] open_file: 解密成功, modules=6, file=1vs2_20260606.stardebate
+[12:52:35.664] [INFO] [API] auto_load: 成功加载 1vs2_20260606.stardebate
+[12:52:35.665] [INFO] [FUNC] open_file_with_stored_password: 1vs2_20260606_01.stardebate
+[12:52:35.667] [INFO] [FUNC] dpapi: get_password_for_file → 1vs2_20260606_01.stardebate
+[12:52:35.667] [INFO] [FUNC] dpapi: load_index
+[12:52:35.674] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[12:52:35.675] [INFO] [FUNC] dpapi: decrypt_password
+[12:52:35.677] [INFO] [API] dpapi: decrypt_password → ok
+[12:52:35.677] [INFO] [API] dpapi: get_password_for_file → ok
+[12:52:35.679] [INFO] [FUNC] open_file: path=1vs2_20260606_01.stardebate
+[12:52:35.685] [INFO] [FUNC] StardebateCompiler.unpack(file_size=10782, has_pwd_input=True)
+[12:52:35.686] [INFO] [FUNC] StardebateCompiler: 第1层内置密钥解密成功
+[12:52:35.714] [INFO] [FUNC] StardebateCompiler: 第2层密码解密成功
+[12:52:35.715] [INFO] [FUNC] StardebateCompiler.unpack: 解密成功, modules=8, app_version=2.3.0
+[12:52:35.715] [INFO] [FUNC] dpapi: add_file_to_index → 1vs2_20260606_01.stardebate
+[12:52:35.716] [INFO] [FUNC] dpapi: load_index
+[12:52:35.717] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[12:52:35.718] [INFO] [FUNC] dpapi: encrypt_password
+[12:52:35.719] [INFO] [API] dpapi: encrypt_password → ok
+[12:52:35.720] [INFO] [VAR] dpapi: save_index → 3 files
+[12:52:35.722] [INFO] [VAR] _add_to_project_tree: 1vs2_20260606_01.stardebate
+[12:52:35.726] [INFO] [VAR] open_file: 解密成功, modules=8, file=1vs2_20260606_01.stardebate
+[12:52:35.727] [INFO] [API] auto_load: 成功加载 1vs2_20260606_01.stardebate
+[12:52:35.727] [INFO] 自动加载 .stardebate: 2 个文件
+[12:52:36.231] [WARN] [NATIVE] [audit] e:\StarDebate\config\api_config.json: open (e:\StarDebate\config\api_config.json, r, 32896)
+[12:52:36.232] [WARN] [NATIVE] [audit] import workers.web_ai.web_ai_manager: import (workers.web_ai.web_ai_manager, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.233] [WARN] [NATIVE] [audit] import workers.web_ai: import (workers.web_ai, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.234] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[12:52:36.235] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[12:52:36.236] [WARN] [NATIVE] [audit] e:\StarDebate\workers\web_ai\__pycache__\__init__.cpython-312.pyc: open (e:\StarDebate\workers\web_ai\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[12:52:36.236] [WARN] [NATIVE] [audit] import workers.web_ai.web_ai_manager: import (workers.web_ai.web_ai_manager, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.238] [WARN] [NATIVE] [audit] e:\StarDebate\workers\web_ai\__pycache__\web_ai_manager.cpython-312.pyc: open (e:\StarDebate\workers\web_ai\__pycache__\web_ai_manager.cpython-312.pyc, r, 32896)
+[12:52:36.238] [WARN] [NATIVE] [audit] import workers.web_ai.providers.base_provider: import (workers.web_ai.providers.base_provider, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.240] [WARN] [NATIVE] [audit] import workers.web_ai.providers: import (workers.web_ai.providers, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.241] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[12:52:36.241] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[12:52:36.241] [WARN] [NATIVE] [audit] e:\StarDebate\workers\web_ai\providers\__pycache__\__init__.cpython-312.pyc: open (e:\StarDebate\workers\web_ai\providers\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[12:52:36.243] [WARN] [NATIVE] [audit] import workers.web_ai.providers.base_provider: import (workers.web_ai.providers.base_provider, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.244] [WARN] [NATIVE] [audit] e:\StarDebate\workers\web_ai\providers\__pycache__\base_provider.cpython-312.pyc: open (e:\StarDebate\workers\web_ai\providers\__pycache__\base_provider.cpython-312.pyc, r, 32896)
+[12:52:36.245] [WARN] [NATIVE] [audit] import workers.web_ai.providers.deepseek_provider: import (workers.web_ai.providers.deepseek_provider, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.245] [WARN] [NATIVE] [audit] e:\StarDebate\workers\web_ai\providers\__pycache__\deepseek_provider.cpython-312.pyc: open (e:\StarDebate\workers\web_ai\providers\__pycache__\deepseek_provider.cpython-312, r, 32896)
+[12:52:36.245] [WARN] [NATIVE] [audit] import asyncio: import (asyncio, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.246] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[12:52:36.246] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\__init__.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[12:52:36.247] [WARN] [NATIVE] [audit] import asyncio.base_events: import (asyncio.base_events, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.248] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\base_events.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\base_events.cpython-312.pyc, r, 32896)
+[12:52:36.248] [WARN] [NATIVE] [audit] import concurrent.futures: import (concurrent.futures, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.249] [WARN] [NATIVE] [audit] import concurrent: import (concurrent, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.250] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\concurrent\__pycache__\__init__.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\concurrent\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[12:52:36.251] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\concurrent\futures\__pycache__\__init__.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\concurrent\futures\__pycache__\__init__.cpython-312, r, 32896)
+[12:52:36.251] [WARN] [NATIVE] [audit] import concurrent.futures._base: import (concurrent.futures._base, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.252] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\concurrent\futures\__pycache__\_base.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\concurrent\futures\__pycache__\_base.cpython-312.py, r, 32896)
+[12:52:36.252] [WARN] [NATIVE] [audit] import asyncio.constants: import (asyncio.constants, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.253] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\constants.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\constants.cpython-312.pyc, r, 32896)
+[12:52:36.254] [WARN] [NATIVE] [audit] import asyncio.coroutines: import (asyncio.coroutines, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.254] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\coroutines.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\coroutines.cpython-312.pyc, r, 32896)
+[12:52:36.256] [WARN] [NATIVE] [audit] import asyncio.events: import (asyncio.events, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.256] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\events.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\events.cpython-312.pyc, r, 32896)
+[12:52:36.257] [WARN] [NATIVE] [audit] import asyncio.format_helpers: import (asyncio.format_helpers, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.257] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\format_helpers.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\format_helpers.cpython-312.pyc, r, 32896)
+[12:52:36.258] [WARN] [NATIVE] [audit] import _asyncio: import (_asyncio, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.258] [WARN] [NATIVE] [audit] import _asyncio: import (_asyncio, C:\Users\Oblivion\Python\DLLs\_asyncio.pyd, None)
+[12:52:36.259] [WARN] [NATIVE] [audit] import asyncio.base_futures: import (asyncio.base_futures, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.259] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\base_futures.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\base_futures.cpython-312.pyc, r, 32896)
+[12:52:36.261] [WARN] [NATIVE] [audit] import asyncio.exceptions: import (asyncio.exceptions, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.261] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\exceptions.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\exceptions.cpython-312.pyc, r, 32896)
+[12:52:36.262] [WARN] [NATIVE] [audit] import asyncio.base_tasks: import (asyncio.base_tasks, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.263] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\base_tasks.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\base_tasks.cpython-312.pyc, r, 32896)
+[12:52:36.263] [WARN] [NATIVE] [audit] import asyncio.futures: import (asyncio.futures, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.264] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\futures.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\futures.cpython-312.pyc, r, 32896)
+[12:52:36.264] [WARN] [NATIVE] [audit] import asyncio.protocols: import (asyncio.protocols, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.265] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\protocols.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\protocols.cpython-312.pyc, r, 32896)
+[12:52:36.266] [WARN] [NATIVE] [audit] import asyncio.sslproto: import (asyncio.sslproto, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.266] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\sslproto.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\sslproto.cpython-312.pyc, r, 32896)
+[12:52:36.268] [WARN] [NATIVE] [audit] import asyncio.transports: import (asyncio.transports, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.269] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\transports.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\transports.cpython-312.pyc, r, 32896)
+[12:52:36.269] [WARN] [NATIVE] [audit] import asyncio.log: import (asyncio.log, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.270] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\log.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\log.cpython-312.pyc, r, 32896)
+[12:52:36.270] [WARN] [NATIVE] [audit] import asyncio.staggered: import (asyncio.staggered, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[12:52:36.292] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[12:52:36.946] [INFO] [WELCOME] 启动检测结果: mode=None, last=6.4.1, current=6.4.1
+[12:52:36.950] [ERROR] 补丁不兼容 (update_v6.2.8_to_v6.2.10.zip): 版本不匹配：当前版本为 v6.4.1，此补丁要求基础版本为 v6.2.8
+[12:52:36.952] [ERROR] 补丁不兼容 (update_v6.3.0_to_v6.3.1.zip): 版本不匹配：当前版本为 v6.4.1，此补丁要求基础版本为 v6.3.0
+[12:52:36.953] [ERROR] 补丁不兼容 (update_v6.3.1_to_v6.3.2.zip): 版本不匹配：当前版本为 v6.4.1，此补丁要求基础版本为 v6.3.1
+[12:52:36.953] [ERROR] [NATIVE] [uncaught] __init__.py:L375: [C_EXCEPTION] builtin_function_or_method
+[12:52:36.955] [ERROR] [NATIVE] [uncaught] __init__.py:L375: [C_EXCEPTION] builtin_function_or_method
+[12:52:36.955] [ERROR] 补丁不兼容 (update_v6.3.2_to_v6.3.3.zip): 版本不匹配：当前版本为 v6.4.1，此补丁要求基础版本为 v6.3.2
+[12:52:36.956] [ERROR] 补丁不兼容 (update_v6.3.3_to_v6.4.0.zip): 版本不匹配：当前版本为 v6.4.1，此补丁要求基础版本为 v6.3.3
+[12:52:37.886] [INFO] [FUNC] [崩溃模拟器] trigger_crash() 入口
+[12:52:37.887] [INFO] [VAR] [崩溃模拟器] 用户点击崩溃测试按钮，随机种子=3
+[12:52:37.888] [INFO] [PLUGIN] [崩溃模拟器] 随机选中 [Qt C++] 🖼 QPixmap OOM — 超大/null Pixmap → qWarning
+[12:52:37.888] [INFO] [VAR] [崩溃模拟器] 选中方式详情: name=QPixmap OOM, layer=Qt C++, icon=🖼
+[12:52:37.888] [INFO] [API] [崩溃模拟器] 即将执行: QPixmap OOM (层级=Qt C++)
+[12:52:38.188] [INFO] [FUNC] [崩溃模拟器] 执行 Qt 层测试: QPixmap OOM
+[12:52:38.188] [INFO] [FUNC] [崩溃模拟器] QPixmap OOM 入口
+[12:52:38.188] [INFO] [VAR] [崩溃模拟器] QPixmap(50000,50000) 创建成功
+[12:52:38.190] [INFO] [VAR] [崩溃模拟器] null pixmap isNull=True
+[12:52:38.191] [WARN] [NATIVE] [qt_warning]: QPixmap::scaled: Pixmap is a null pixmap
+[12:52:38.191] [WARN] [Qt WARN#1] QPixmap::scaled: Pixmap is a null pixmap
+[12:52:38.192] [INFO] [VAR] [崩溃模拟器] null.scaled(100,100) result isNull=True
+[12:52:38.192] [INFO] [FUNC] [崩溃模拟器] QPixmap OOM 完成 — 检查日志中 [Qt WARN] 标签
+[12:52:38.193] [INFO] [FUNC] [崩溃模拟器] Qt 层测试完成: QPixmap OOM
+[12:52:38.194] [WARN] [NATIVE] [audit] e:\StarDebate\icon\message_box\info_circle.svg: open (e:\StarDebate\icon\message_box\info_circle.svg, r, 32896)
+[12:52:38.194] [WARN] [NATIVE] [audit] e:\StarDebate\icon\message_box\info_circle.svg: open (e:\StarDebate\icon\message_box\info_circle.svg, r, 32896)
+[12:52:38.195] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[12:52:38.223] [WARN] [NATIVE] [qt_warning]: QWindowsWindow::setGeometry: Unable to set geometry 556x288+991+616 (frame: 556x288+991+616) on QWidgetWindow/"popupDialogWindow" on "\\.\DISPLAY1". Resulting geometry: 556x313+991+616 (frame: 556x313+991+616) margins: 0, 0, 0, 0 minimum size: 556x288 maximum size: 556x16777215 MINMAXINFO maxSize=0,
+[12:52:38.223] [WARN] [Qt WARN#1] QWindowsWindow::setGeometry: Unable to set geometry 556x288+991+616 (frame: 556x288+991+616) on QWidgetWindow/"popupDialogWindow" on "\\.\DISPLAY1". Resulting geometry: 556x313+991+616 (frame: 556x313
+[12:52:38.224] [WARN] [NATIVE] [qt_warning]: QWindowsWindow::setGeometry: Unable to set geometry 556x286+991+616 (frame: 556x286+991+616) on QWidgetWindow/"popupDialogWindow" on "\\.\DISPLAY1". Resulting geometry: 556x313+991+616 (frame: 556x313+991+616) margins: 0, 0, 0, 0 minimum size: 556x286 maximum size: 556x286 MINMAXINFO maxSize=0,0 max
+[12:52:38.224] [WARN] [Qt WARN#1] QWindowsWindow::setGeometry: Unable to set geometry 556x286+991+616 (frame: 556x286+991+616) on QWidgetWindow/"popupDialogWindow" on "\\.\DISPLAY1". Resulting geometry: 556x313+991+616 (frame: 556x313
+[12:52:39.394] [INFO] [FUNC] crash_simulator:trigger_crash → ✅ 返回(1507ms): None
+[12:52:40.541] [INFO] [FUNC] [崩溃模拟器] trigger_crash() 入口
+[12:52:40.542] [INFO] [VAR] [崩溃模拟器] 用户点击崩溃测试按钮，随机种子=3
+[12:52:40.543] [INFO] [PLUGIN] [崩溃模拟器] 随机选中 [Native] 📂 fd_leak — 模拟打开 2000 个临时文件 → [RES] [fd_leak]
+[12:52:40.543] [INFO] [VAR] [崩溃模拟器] 选中方式详情: name=fd_leak, layer=Native, icon=📂
+[12:52:40.544] [INFO] [API] [崩溃模拟器] 即将执行: fd_leak (层级=Native)
+[12:52:40.842] [INFO] [FUNC] [崩溃模拟器] 执行 Qt 层测试: fd_leak
+[12:52:40.842] [INFO] [FUNC] [崩溃模拟器] fd_leak 入口
+[12:52:40.843] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\pmssf31t: open (C:\Users\Oblivion\AppData\Local\Temp\pmssf31t, None, 34178)
+[12:52:40.843] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.844] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpaslkt5q9: open (C:\Users\Oblivion\AppData\Local\Temp\tmpaslkt5q9, None, 34242)
+[12:52:40.844] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.846] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp0urbu0ws: open (C:\Users\Oblivion\AppData\Local\Temp\tmp0urbu0ws, None, 34242)
+[12:52:40.846] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.847] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmphe36fihz: open (C:\Users\Oblivion\AppData\Local\Temp\tmphe36fihz, None, 34242)
+[12:52:40.847] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.848] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmprj2ay88g: open (C:\Users\Oblivion\AppData\Local\Temp\tmprj2ay88g, None, 34242)
+[12:52:40.848] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.848] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp54gked8w: open (C:\Users\Oblivion\AppData\Local\Temp\tmp54gked8w, None, 34242)
+[12:52:40.849] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.849] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpvv4lvikt: open (C:\Users\Oblivion\AppData\Local\Temp\tmpvv4lvikt, None, 34242)
+[12:52:40.850] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.850] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpiv2me9kx: open (C:\Users\Oblivion\AppData\Local\Temp\tmpiv2me9kx, None, 34242)
+[12:52:40.850] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.851] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpmb24xwwq: open (C:\Users\Oblivion\AppData\Local\Temp\tmpmb24xwwq, None, 34242)
+[12:52:40.851] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.852] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpeyn3e_9p: open (C:\Users\Oblivion\AppData\Local\Temp\tmpeyn3e_9p, None, 34242)
+[12:52:40.852] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.853] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmppzf2ubp1: open (C:\Users\Oblivion\AppData\Local\Temp\tmppzf2ubp1, None, 34242)
+[12:52:40.853] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.854] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmptjxwgleq: open (C:\Users\Oblivion\AppData\Local\Temp\tmptjxwgleq, None, 34242)
+[12:52:40.855] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.855] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmprfqswrpx: open (C:\Users\Oblivion\AppData\Local\Temp\tmprfqswrpx, None, 34242)
+[12:52:40.855] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.856] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpr9_7g7d5: open (C:\Users\Oblivion\AppData\Local\Temp\tmpr9_7g7d5, None, 34242)
+[12:52:40.856] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.856] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpdmpgk4qk: open (C:\Users\Oblivion\AppData\Local\Temp\tmpdmpgk4qk, None, 34242)
+[12:52:40.858] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.858] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp2fdxswn9: open (C:\Users\Oblivion\AppData\Local\Temp\tmp2fdxswn9, None, 34242)
+[12:52:40.858] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.859] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp2zxh00qp: open (C:\Users\Oblivion\AppData\Local\Temp\tmp2zxh00qp, None, 34242)
+[12:52:40.859] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.859] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmptmtm0yy1: open (C:\Users\Oblivion\AppData\Local\Temp\tmptmtm0yy1, None, 34242)
+[12:52:40.860] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.860] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpqh3skujb: open (C:\Users\Oblivion\AppData\Local\Temp\tmpqh3skujb, None, 34242)
+[12:52:40.862] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.862] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpei6t15ke: open (C:\Users\Oblivion\AppData\Local\Temp\tmpei6t15ke, None, 34242)
+[12:52:40.863] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.863] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpdu1zjh7x: open (C:\Users\Oblivion\AppData\Local\Temp\tmpdu1zjh7x, None, 34242)
+[12:52:40.863] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.864] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpu_fjbkql: open (C:\Users\Oblivion\AppData\Local\Temp\tmpu_fjbkql, None, 34242)
+[12:52:40.864] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.864] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpvqoozgpa: open (C:\Users\Oblivion\AppData\Local\Temp\tmpvqoozgpa, None, 34242)
+[12:52:40.865] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.865] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpwfwojf3_: open (C:\Users\Oblivion\AppData\Local\Temp\tmpwfwojf3_, None, 34242)
+[12:52:40.865] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:40.866] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp5ts6wjyw: open (C:\Users\Oblivion\AppData\Local\Temp\tmp5ts6wjyw, None, 34242)
+[12:52:40.866] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.000] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.001] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp0uxz8v_c: open (C:\Users\Oblivion\AppData\Local\Temp\tmp0uxz8v_c, None, 34242)
+[12:52:41.001] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.002] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmppz62oj0p: open (C:\Users\Oblivion\AppData\Local\Temp\tmppz62oj0p, None, 34242)
+[12:52:41.002] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.003] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpce6cfjmy: open (C:\Users\Oblivion\AppData\Local\Temp\tmpce6cfjmy, None, 34242)
+[12:52:41.003] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.005] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp8aklzrb5: open (C:\Users\Oblivion\AppData\Local\Temp\tmp8aklzrb5, None, 34242)
+[12:52:41.005] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.005] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpjfifqhz1: open (C:\Users\Oblivion\AppData\Local\Temp\tmpjfifqhz1, None, 34242)
+[12:52:41.006] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.006] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpd0zx8cae: open (C:\Users\Oblivion\AppData\Local\Temp\tmpd0zx8cae, None, 34242)
+[12:52:41.007] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.007] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpqg906jnq: open (C:\Users\Oblivion\AppData\Local\Temp\tmpqg906jnq, None, 34242)
+[12:52:41.007] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.008] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp0hr5cp1l: open (C:\Users\Oblivion\AppData\Local\Temp\tmp0hr5cp1l, None, 34242)
+[12:52:41.008] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.009] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpulehqkjs: open (C:\Users\Oblivion\AppData\Local\Temp\tmpulehqkjs, None, 34242)
+[12:52:41.009] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.009] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpr3wlp7nv: open (C:\Users\Oblivion\AppData\Local\Temp\tmpr3wlp7nv, None, 34242)
+[12:52:41.010] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.010] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpux5tcilu: open (C:\Users\Oblivion\AppData\Local\Temp\tmpux5tcilu, None, 34242)
+[12:52:41.011] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.011] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpzpjp6xmf: open (C:\Users\Oblivion\AppData\Local\Temp\tmpzpjp6xmf, None, 34242)
+[12:52:41.012] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.012] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp31t8cofc: open (C:\Users\Oblivion\AppData\Local\Temp\tmp31t8cofc, None, 34242)
+[12:52:41.012] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.014] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpht5uejl_: open (C:\Users\Oblivion\AppData\Local\Temp\tmpht5uejl_, None, 34242)
+[12:52:41.014] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.015] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpnebc3aj2: open (C:\Users\Oblivion\AppData\Local\Temp\tmpnebc3aj2, None, 34242)
+[12:52:41.015] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.015] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmps3p1f2eu: open (C:\Users\Oblivion\AppData\Local\Temp\tmps3p1f2eu, None, 34242)
+[12:52:41.016] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.017] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpo_84rz27: open (C:\Users\Oblivion\AppData\Local\Temp\tmpo_84rz27, None, 34242)
+[12:52:41.017] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.019] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpbllc6s59: open (C:\Users\Oblivion\AppData\Local\Temp\tmpbllc6s59, None, 34242)
+[12:52:41.019] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.019] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpq5cicayp: open (C:\Users\Oblivion\AppData\Local\Temp\tmpq5cicayp, None, 34242)
+[12:52:41.020] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.020] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp0razzv1d: open (C:\Users\Oblivion\AppData\Local\Temp\tmp0razzv1d, None, 34242)
+[12:52:41.021] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.021] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpa3cmii9x: open (C:\Users\Oblivion\AppData\Local\Temp\tmpa3cmii9x, None, 34242)
+[12:52:41.022] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.022] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp50r6bmr6: open (C:\Users\Oblivion\AppData\Local\Temp\tmp50r6bmr6, None, 34242)
+[12:52:41.022] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.023] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpp2n82ddz: open (C:\Users\Oblivion\AppData\Local\Temp\tmpp2n82ddz, None, 34242)
+[12:52:41.023] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.024] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpla5ly232: open (C:\Users\Oblivion\AppData\Local\Temp\tmpla5ly232, None, 34242)
+[12:52:41.024] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:41.024] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpu1flydg7: open (C:\Users\Oblivion\AppData\Local\Temp\tmpu1flydg7, None, 34242)
+[12:52:42.000] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.000] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpfbc66uu5: open (C:\Users\Oblivion\AppData\Local\Temp\tmpfbc66uu5, None, 34242)
+[12:52:42.001] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.001] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp3454lrza: open (C:\Users\Oblivion\AppData\Local\Temp\tmp3454lrza, None, 34242)
+[12:52:42.002] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.002] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpxwtft_6r: open (C:\Users\Oblivion\AppData\Local\Temp\tmpxwtft_6r, None, 34242)
+[12:52:42.003] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.003] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmplfz3gmvw: open (C:\Users\Oblivion\AppData\Local\Temp\tmplfz3gmvw, None, 34242)
+[12:52:42.004] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.004] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpz3w1g9yw: open (C:\Users\Oblivion\AppData\Local\Temp\tmpz3w1g9yw, None, 34242)
+[12:52:42.005] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.005] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpl2o6zxwl: open (C:\Users\Oblivion\AppData\Local\Temp\tmpl2o6zxwl, None, 34242)
+[12:52:42.006] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.007] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpyivcppej: open (C:\Users\Oblivion\AppData\Local\Temp\tmpyivcppej, None, 34242)
+[12:52:42.007] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.008] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp9x6zgbj0: open (C:\Users\Oblivion\AppData\Local\Temp\tmp9x6zgbj0, None, 34242)
+[12:52:42.009] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.009] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp8xv78ar1: open (C:\Users\Oblivion\AppData\Local\Temp\tmp8xv78ar1, None, 34242)
+[12:52:42.009] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.010] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpfvcngynx: open (C:\Users\Oblivion\AppData\Local\Temp\tmpfvcngynx, None, 34242)
+[12:52:42.010] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.011] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmphug057a8: open (C:\Users\Oblivion\AppData\Local\Temp\tmphug057a8, None, 34242)
+[12:52:42.011] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.012] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpc38k700b: open (C:\Users\Oblivion\AppData\Local\Temp\tmpc38k700b, None, 34242)
+[12:52:42.012] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.014] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp3q5tvlzf: open (C:\Users\Oblivion\AppData\Local\Temp\tmp3q5tvlzf, None, 34242)
+[12:52:42.014] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.014] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpcqd_cg4x: open (C:\Users\Oblivion\AppData\Local\Temp\tmpcqd_cg4x, None, 34242)
+[12:52:42.015] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.015] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp9dtthhv7: open (C:\Users\Oblivion\AppData\Local\Temp\tmp9dtthhv7, None, 34242)
+[12:52:42.015] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.017] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpuf0qkn4c: open (C:\Users\Oblivion\AppData\Local\Temp\tmpuf0qkn4c, None, 34242)
+[12:52:42.017] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.018] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp4bl70hb0: open (C:\Users\Oblivion\AppData\Local\Temp\tmp4bl70hb0, None, 34242)
+[12:52:42.018] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.019] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpf050rlji: open (C:\Users\Oblivion\AppData\Local\Temp\tmpf050rlji, None, 34242)
+[12:52:42.019] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.020] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpq8jfkvq_: open (C:\Users\Oblivion\AppData\Local\Temp\tmpq8jfkvq_, None, 34242)
+[12:52:42.020] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.021] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmprc2m4qd_: open (C:\Users\Oblivion\AppData\Local\Temp\tmprc2m4qd_, None, 34242)
+[12:52:42.021] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.023] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmppf6tef62: open (C:\Users\Oblivion\AppData\Local\Temp\tmppf6tef62, None, 34242)
+[12:52:42.023] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.023] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpt1etdwgq: open (C:\Users\Oblivion\AppData\Local\Temp\tmpt1etdwgq, None, 34242)
+[12:52:42.024] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.024] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmphtfwe0vk: open (C:\Users\Oblivion\AppData\Local\Temp\tmphtfwe0vk, None, 34242)
+[12:52:42.024] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.025] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpdxsjklt_: open (C:\Users\Oblivion\AppData\Local\Temp\tmpdxsjklt_, None, 34242)
+[12:52:42.025] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:42.026] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpuxgivk0d: open (C:\Users\Oblivion\AppData\Local\Temp\tmpuxgivk0d, None, 34242)
+[12:52:42.069] [INFO] [FUNC] [崩溃模拟器] fd_leak: 已打开 2000 个临时文件
+[12:52:42.289] [INFO] [FUNC] [崩溃模拟器] Qt 层测试完成: fd_leak
+[12:52:42.321] [WARN] [NATIVE] [qt_warning]: QWindowsWindow::setGeometry: Unable to set geometry 572x288+983+616 (frame: 572x288+983+616) on QWidgetWindow/"popupDialogWindow" on "\\.\DISPLAY1". Resulting geometry: 572x313+983+616 (frame: 572x313+983+616) margins: 0, 0, 0, 0 minimum size: 572x288 maximum size: 572x16777215 MINMAXINFO maxSize=0,
+[12:52:42.322] [WARN] [Qt WARN#1] QWindowsWindow::setGeometry: Unable to set geometry 572x288+983+616 (frame: 572x288+983+616) on QWidgetWindow/"popupDialogWindow" on "\\.\DISPLAY1". Resulting geometry: 572x313+983+616 (frame: 572x313
+[12:52:42.323] [WARN] [NATIVE] [qt_warning]: QWindowsWindow::setGeometry: Unable to set geometry 572x286+983+616 (frame: 572x286+983+616) on QWidgetWindow/"popupDialogWindow" on "\\.\DISPLAY1". Resulting geometry: 572x313+983+616 (frame: 572x313+983+616) margins: 0, 0, 0, 0 minimum size: 572x286 maximum size: 572x286 MINMAXINFO maxSize=0,0 max
+[12:52:42.324] [WARN] [Qt WARN#1] QWindowsWindow::setGeometry: Unable to set geometry 572x286+983+616 (frame: 572x286+983+616) on QWidgetWindow/"popupDialogWindow" on "\\.\DISPLAY1". Resulting geometry: 572x313+983+616 (frame: 572x313
+[12:52:43.846] [INFO] [FUNC] crash_simulator:trigger_crash → ✅ 返回(3306ms): None
+[12:52:44.827] [INFO] [FUNC] [崩溃模拟器] trigger_crash() 入口
+[12:52:44.827] [INFO] [VAR] [崩溃模拟器] 用户点击崩溃测试按钮，随机种子=3
+[12:52:44.828] [INFO] [PLUGIN] [崩溃模拟器] 随机选中 [Native] 📂 fd_leak — 模拟打开 2000 个临时文件 → [RES] [fd_leak]
+[12:52:44.828] [INFO] [VAR] [崩溃模拟器] 选中方式详情: name=fd_leak, layer=Native, icon=📂
+[12:52:44.829] [INFO] [API] [崩溃模拟器] 即将执行: fd_leak (层级=Native)
+[12:52:45.127] [INFO] [FUNC] [崩溃模拟器] 执行 Qt 层测试: fd_leak
+[12:52:45.129] [INFO] [FUNC] [崩溃模拟器] fd_leak 入口
+[12:52:45.129] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.130] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpapup8n4s: open (C:\Users\Oblivion\AppData\Local\Temp\tmpapup8n4s, None, 34242)
+[12:52:45.130] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.131] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp4rnj4ssq: open (C:\Users\Oblivion\AppData\Local\Temp\tmp4rnj4ssq, None, 34242)
+[12:52:45.131] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.132] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpewl5woar: open (C:\Users\Oblivion\AppData\Local\Temp\tmpewl5woar, None, 34242)
+[12:52:45.132] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.132] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpxvpal88x: open (C:\Users\Oblivion\AppData\Local\Temp\tmpxvpal88x, None, 34242)
+[12:52:45.133] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.133] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpwg7euxtj: open (C:\Users\Oblivion\AppData\Local\Temp\tmpwg7euxtj, None, 34242)
+[12:52:45.134] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.134] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp7jnham8b: open (C:\Users\Oblivion\AppData\Local\Temp\tmp7jnham8b, None, 34242)
+[12:52:45.135] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.136] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpf684u2tf: open (C:\Users\Oblivion\AppData\Local\Temp\tmpf684u2tf, None, 34242)
+[12:52:45.136] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.137] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpqswaau5q: open (C:\Users\Oblivion\AppData\Local\Temp\tmpqswaau5q, None, 34242)
+[12:52:45.138] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.139] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp887ajam1: open (C:\Users\Oblivion\AppData\Local\Temp\tmp887ajam1, None, 34242)
+[12:52:45.139] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.140] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpwpgs5889: open (C:\Users\Oblivion\AppData\Local\Temp\tmpwpgs5889, None, 34242)
+[12:52:45.140] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.140] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpak35wyk3: open (C:\Users\Oblivion\AppData\Local\Temp\tmpak35wyk3, None, 34242)
+[12:52:45.141] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.141] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp6tt2lfrm: open (C:\Users\Oblivion\AppData\Local\Temp\tmp6tt2lfrm, None, 34242)
+[12:52:45.142] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.142] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmph9bqy8wi: open (C:\Users\Oblivion\AppData\Local\Temp\tmph9bqy8wi, None, 34242)
+[12:52:45.143] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.144] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp9upax3tg: open (C:\Users\Oblivion\AppData\Local\Temp\tmp9upax3tg, None, 34242)
+[12:52:45.144] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.144] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp6juz9efh: open (C:\Users\Oblivion\AppData\Local\Temp\tmp6juz9efh, None, 34242)
+[12:52:45.145] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.145] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmppk61myf2: open (C:\Users\Oblivion\AppData\Local\Temp\tmppk61myf2, None, 34242)
+[12:52:45.146] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.146] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpeuvn76up: open (C:\Users\Oblivion\AppData\Local\Temp\tmpeuvn76up, None, 34242)
+[12:52:45.147] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.147] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmput8kicuc: open (C:\Users\Oblivion\AppData\Local\Temp\tmput8kicuc, None, 34242)
+[12:52:45.148] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.148] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpw9lr4ivb: open (C:\Users\Oblivion\AppData\Local\Temp\tmpw9lr4ivb, None, 34242)
+[12:52:45.149] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.149] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp492yg_ch: open (C:\Users\Oblivion\AppData\Local\Temp\tmp492yg_ch, None, 34242)
+[12:52:45.149] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.150] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp0636m5hx: open (C:\Users\Oblivion\AppData\Local\Temp\tmp0636m5hx, None, 34242)
+[12:52:45.150] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.151] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpsgtddsrc: open (C:\Users\Oblivion\AppData\Local\Temp\tmpsgtddsrc, None, 34242)
+[12:52:45.151] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.152] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpblwmao7m: open (C:\Users\Oblivion\AppData\Local\Temp\tmpblwmao7m, None, 34242)
+[12:52:45.152] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.153] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpzed11wrb: open (C:\Users\Oblivion\AppData\Local\Temp\tmpzed11wrb, None, 34242)
+[12:52:45.153] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:45.154] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp05_t7nh4: open (C:\Users\Oblivion\AppData\Local\Temp\tmp05_t7nh4, None, 34242)
+[12:52:46.000] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.000] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpvpybzf2e: open (C:\Users\Oblivion\AppData\Local\Temp\tmpvpybzf2e, None, 34242)
+[12:52:46.001] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.001] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpdy7iy3nk: open (C:\Users\Oblivion\AppData\Local\Temp\tmpdy7iy3nk, None, 34242)
+[12:52:46.001] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.003] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpqzo_rwom: open (C:\Users\Oblivion\AppData\Local\Temp\tmpqzo_rwom, None, 34242)
+[12:52:46.004] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.004] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmppjdcdc2_: open (C:\Users\Oblivion\AppData\Local\Temp\tmppjdcdc2_, None, 34242)
+[12:52:46.005] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.005] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpu9mgvj2y: open (C:\Users\Oblivion\AppData\Local\Temp\tmpu9mgvj2y, None, 34242)
+[12:52:46.006] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.006] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpyzdb09me: open (C:\Users\Oblivion\AppData\Local\Temp\tmpyzdb09me, None, 34242)
+[12:52:46.007] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.007] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpzgogoj5a: open (C:\Users\Oblivion\AppData\Local\Temp\tmpzgogoj5a, None, 34242)
+[12:52:46.008] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.008] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpsog0yihv: open (C:\Users\Oblivion\AppData\Local\Temp\tmpsog0yihv, None, 34242)
+[12:52:46.009] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.009] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp73bpst5m: open (C:\Users\Oblivion\AppData\Local\Temp\tmp73bpst5m, None, 34242)
+[12:52:46.010] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.011] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpokokmcs6: open (C:\Users\Oblivion\AppData\Local\Temp\tmpokokmcs6, None, 34242)
+[12:52:46.012] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.012] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp21z_bzbs: open (C:\Users\Oblivion\AppData\Local\Temp\tmp21z_bzbs, None, 34242)
+[12:52:46.013] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.013] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmppf7optk2: open (C:\Users\Oblivion\AppData\Local\Temp\tmppf7optk2, None, 34242)
+[12:52:46.014] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.014] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmphficwwr6: open (C:\Users\Oblivion\AppData\Local\Temp\tmphficwwr6, None, 34242)
+[12:52:46.015] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.016] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpwbb2_8q3: open (C:\Users\Oblivion\AppData\Local\Temp\tmpwbb2_8q3, None, 34242)
+[12:52:46.016] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.017] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpd8r0lwbo: open (C:\Users\Oblivion\AppData\Local\Temp\tmpd8r0lwbo, None, 34242)
+[12:52:46.017] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.018] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpvcrqtg7b: open (C:\Users\Oblivion\AppData\Local\Temp\tmpvcrqtg7b, None, 34242)
+[12:52:46.018] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.019] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpm7e31zcl: open (C:\Users\Oblivion\AppData\Local\Temp\tmpm7e31zcl, None, 34242)
+[12:52:46.019] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.020] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp691bg794: open (C:\Users\Oblivion\AppData\Local\Temp\tmp691bg794, None, 34242)
+[12:52:46.020] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.021] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp5fddfjs0: open (C:\Users\Oblivion\AppData\Local\Temp\tmp5fddfjs0, None, 34242)
+[12:52:46.021] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.022] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp2ou_nu5c: open (C:\Users\Oblivion\AppData\Local\Temp\tmp2ou_nu5c, None, 34242)
+[12:52:46.022] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.023] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp14c2o7j9: open (C:\Users\Oblivion\AppData\Local\Temp\tmp14c2o7j9, None, 34242)
+[12:52:46.023] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.024] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpdovvcnyh: open (C:\Users\Oblivion\AppData\Local\Temp\tmpdovvcnyh, None, 34242)
+[12:52:46.024] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.024] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpap1btadz: open (C:\Users\Oblivion\AppData\Local\Temp\tmpap1btadz, None, 34242)
+[12:52:46.025] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.025] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmpoiedy_iy: open (C:\Users\Oblivion\AppData\Local\Temp\tmpoiedy_iy, None, 34242)
+[12:52:46.025] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp: open (C:\Users\Oblivion\AppData\Local\Temp, w+, 33666)
+[12:52:46.027] [WARN] [NATIVE] [audit] C:\Users\Oblivion\AppData\Local\Temp\tmp87vrg7vo: open (C:\Users\Oblivion\AppData\Local\Temp\tmp87vrg7vo, None, 34242)
+[12:52:46.397] [INFO] [FUNC] [崩溃模拟器] fd_leak: 已打开 2000 个临时文件
+[12:52:46.609] [INFO] [FUNC] [崩溃模拟器] Qt 层测试完成: fd_leak
+[12:52:46.638] [WARN] [NATIVE] [qt_warning]: QWindowsWindow::setGeometry: Unable to set geometry 572x288+983+616 (frame: 572x288+983+616) on QWidgetWindow/"popupDialogWindow" on "\\.\DISPLAY1". Resulting geometry: 572x313+983+616 (frame: 572x313+983+616) margins: 0, 0, 0, 0 minimum size: 572x288 maximum size: 572x16777215 MINMAXINFO maxSize=0,
+[12:52:46.639] [WARN] [Qt WARN#1] QWindowsWindow::setGeometry: Unable to set geometry 572x288+983+616 (frame: 572x288+983+616) on QWidgetWindow/"popupDialogWindow" on "\\.\DISPLAY1". Resulting geometry: 572x313+983+616 (frame: 572x313
+[12:52:46.639] [WARN] [NATIVE] [qt_warning]: QWindowsWindow::setGeometry: Unable to set geometry 572x286+983+616 (frame: 572x286+983+616) on QWidgetWindow/"popupDialogWindow" on "\\.\DISPLAY1". Resulting geometry: 572x313+983+616 (frame: 572x313+983+616) margins: 0, 0, 0, 0 minimum size: 572x286 maximum size: 572x286 MINMAXINFO maxSize=0,0 max
+[12:52:46.640] [WARN] [Qt WARN#1] QWindowsWindow::setGeometry: Unable to set geometry 572x286+983+616 (frame: 572x286+983+616) on QWidgetWindow/"popupDialogWindow" on "\\.\DISPLAY1". Resulting geometry: 572x313+983+616 (frame: 572x313
+[12:52:47.516] [INFO] [FUNC] crash_simulator:trigger_crash → ✅ 返回(2690ms): None
+[12:52:48.382] [INFO] [FUNC] [崩溃模拟器] trigger_crash() 入口
+[12:52:48.383] [INFO] [VAR] [崩溃模拟器] 用户点击崩溃测试按钮，随机种子=3
+[12:52:48.383] [INFO] [PLUGIN] [崩溃模拟器] 随机选中 [Python] 🚪 sys.exit(1) — 非零退出码 (exit 1)
+[12:52:48.384] [INFO] [VAR] [崩溃模拟器] 选中方式详情: name=sys.exit(1), layer=Python, icon=🚪
+[12:52:48.384] [INFO] [API] [崩溃模拟器] 即将执行: sys.exit(1) (层级=Python)
+[12:52:48.683] [INFO] [FUNC] [崩溃模拟器] 执行进程退出类崩溃: sys.exit(1)
+[12:52:48.684] [INFO] [FUNC] [崩溃模拟器] sys.exit(1) 入口
+[12:52:48.684] [INFO] [VAR] [崩溃模拟器] exit_code=1
+[12:52:48.685] [ERROR] [NATIVE] [uncaught] main.py:L139: [C_EXCEPTION] builtin_function_or_method
+[12:52:48.687] [ERROR] [NATIVE] [uncaught] functools.py:L52: [C_EXCEPTION] builtin_function_or_method
+[12:52:48.688] [ERROR] [NATIVE] [uncaught] functools.py:L52: [C_EXCEPTION] builtin_function_or_method
+[12:52:48.688] [ERROR] [NATIVE] [uncaught] functools.py:L52: [C_EXCEPTION] builtin_function_or_method
+[12:52:48.689] [ERROR] [NATIVE] [uncaught] functools.py:L52: [C_EXCEPTION] builtin_function_or_method
+[12:52:48.693] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[12:53:05.369] [ERROR] ════════════════════════════════════════════════════════════
+[12:53:05.369] [ERROR] ═══ [SYS] 主进程异常退出 ═══
+[12:53:05.370] [ERROR] ════════════════════════════════════════════════════════════
+[12:53:05.371] [ERROR]   PID: 81540
+[12:53:05.371] [ERROR]   退出时间: 2026-06-29 12:53:05
+[12:53:05.372] [ERROR]   队列残留条目（已排空）: 0 条
+[12:53:05.372] [ERROR]   应急写入次数: 0
+[12:53:05.373] [ERROR]   最后监视心跳: 12:52:48 (17秒前)
+[12:53:05.374] [ERROR] ────────────────────────────────────────
+[12:53:05.374] [ERROR] ═══ 💡 崩溃自动分析 ═══
+[12:53:05.378] [ERROR]     [ERROR] [NATIVE] [uncaught] functools.py:L52: [C_EXCEPTION] builtin_function_or_method
+[12:53:05.379] [ERROR]     [ERROR] [NATIVE] [uncaught] functools.py:L52: [C_EXCEPTION] builtin_function_or_method
+[12:53:05.379] [ERROR]     [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[12:53:05.386] [ERROR]   1. ⚪ 起居注未活跃（无 [CRON] 条目）
+[12:53:05.386] [ERROR]   2. 🔴 崩溃前 10.0秒内 ERROR: 6 条
+[12:53:05.387] [ERROR]   3. 🟡 崩溃前 10.0秒内 WARN: 83 条
+[12:53:05.387] [ERROR]   4. 🟡 重复错误模式 (4 类): 
+[12:53:05.387] [ERROR]   5.     ↻ 出现 79 次: [NATIVE] [audit] C
+[12:53:05.389] [ERROR]   6.     ↻ 出现 4 次: [NATIVE] [uncaught] functools.py
+[12:53:05.389] [ERROR]   7.     ↻ 出现 2 次: [NATIVE] [qt_warning]
+[12:53:05.390] [ERROR]   8. 📊 错误类型分布: Qt 内部错误:4
+[12:53:05.390] [ERROR]   9.     ► Qt 错误频繁：检查控件生命周期/布局/setParent 调用
+[12:53:05.391] [ERROR]   10. 📊 底层事件分布: [NATIVE]:87
+[12:53:05.391] [ERROR]   11. 🔴 重大底层事件 (2 条): [FUNC] [崩溃模拟器] Qt 层测试完成: fd_leak
+[12:53:05.392] [ERROR]   12. 📁 SQLite native.db 最近 5 条:
+[12:53:05.392] [ERROR]   13.     [12:52:48] [uncaught] sys.setprofile: [C_EXCEPTION] builtin_function_or_method
+[12:53:05.392] [ERROR]   14.     [12:52:48] [uncaught] sys.setprofile: [C_EXCEPTION] builtin_function_or_method
+[12:53:05.394] [ERROR]   15.     [12:52:48] [uncaught] sys.setprofile: [C_EXCEPTION] builtin_function_or_method
+[12:53:05.394] [ERROR]   16.     [12:52:48] [uncaught] sys.setprofile: [C_EXCEPTION] builtin_function_or_method
+[12:53:05.394] [ERROR]   17.     [12:52:48] [uncaught] sys.setprofile: [C_EXCEPTION] builtin_function_or_method
+[12:53:05.395] [ERROR]   ─── 建议 ───
+[12:53:05.395] [ERROR]   → Qt 层错误频繁：检查控件生命周期/布局冲突
+[12:53:05.396] [ERROR]   → 同一错误反复出现，应在日志中查找最早出现点并追溯根因
+[12:53:05.396] [ERROR]   → 存在重大底层事件（死锁/fd 泄漏），查看 SQLite native.db 获取详情
+[12:53:05.397] [ERROR] ════════════════════════════════════════════════════════════
+[12:53:05.842] [INFO] [SYS] LogService 进程退出

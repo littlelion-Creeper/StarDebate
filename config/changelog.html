@@ -39,7 +39,20 @@ li:before{content:"\25B8 ";color:ACCENT_COLOR;font-size:12pt}
 <div class="timeline">
 
 <div class="version-node">
-<div class="version-header"><span class="version-tag">v6.4.1</span> <span class="version-badge badge-new">最新</span></div>
+<div class="version-header"><span class="version-tag">v6.4.2</span> <span class="version-badge badge-new">最新</span></div>
+<ul>
+<li style="animation-delay:0s"><span class="version-badge badge-fix">修复</span> 崩溃弹窗子进程 Windows DPI 位图缩放问题：删除 setMask()（遮罩冲突），改用 QSS border-radius + DWM 原生圆角（DWMWINDOW_CORNER_PREFERENCE）</li>
+<li style="animation-delay:.08s"><span class="version-badge badge-opt">优化</span> 崩溃弹窗标题栏图标/警告图标/文件夹图标 SVG 替换（QPainter SourceIn 着色支持自定义颜色），弹窗所有 QLabel 补充 QSS 文字颜色</li>
+<li style="animation-delay:.16s"><span class="version-badge badge-opt">优化</span> 崩溃弹窗子进程设置 OS 级 DPI 感知，移除位图缩放；加载 HarmonyOS Sans SC 字体</li>
+<li style="animation-delay:.24s"><span class="version-badge badge-fix">修复</span> GitHub 更新器 API 与下载请求信号干扰：QNetworkAccessManager.finished 误捕下载响应导致"解析 GitHub 响应失败"，改用 reply.finished 隔离信号路径</li>
+<li style="animation-delay:.32s"><span class="version-badge badge-fix">修复</span> 更新器下载请求添加 NoLessSafeRedirectPolicy，解决 GitHub CDN 302 重定向不被跟随的问题</li>
+<li style="animation-delay:.40s"><span class="version-badge badge-fix">修复</span> 下载响应日志增强：记录 HTTP 状态码与实际接收字节数</li>
+<li style="animation-delay:.48s"><span class="version-badge badge-fix">修复</span> 补丁生成工具 PowerShell git 非 ASCII 文件路径引号处理（path.strip('"')）</li>
+</ul>
+</div>
+
+<div class="version-node">
+<div class="version-header"><span class="version-tag">v6.4.1</span></div>
 <ul>
 <li style="animation-delay:0s"><span class="version-badge badge-new">新增</span> GitHub Pages 介绍页 + Web 应用页，搭建立体化在线文档站点</li>
 <li style="animation-delay:.08s"><span class="version-badge badge-new">新增</span> 线上文档查看器（内置浏览器）：搜索 + 分类浏览全部文档，分类精简为用户指南 / 开发指南 / 法律声明</li>

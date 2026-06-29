@@ -1,0 +1,409 @@
+[00:34:32.037] [INFO] ═══ LogService 已启动 ═══
+[00:34:32.037] [INFO] 自动清理: 无过期日志文件
+[00:34:32.038] [INFO] 日志文件: e:\StarDebate\docs/log\debug_20260629_003432.log
+[00:34:32.039] [INFO] [SYS] 系统健康监视已启动 (监控 PID: 15036)
+[00:34:32.039] [INFO] [SYS] 日志服务进入主循环，等待指令...
+[00:34:35.403] [INFO] 开发者模式: 开启 (禁用: 无)
+[00:34:35.499] [INFO] ═══ StarDebate 启动 ═══
+[00:34:35.500] [INFO] 版本: 6.4.0
+[00:34:35.500] [INFO] 主题: notion_dark
+[00:34:35.500] [INFO] 日志文件: e:\StarDebate\docs/log\debug_20260629_003432.log
+[00:34:35.501] [INFO] 日志服务: 独立进程 (LogService)
+[00:34:35.501] [INFO] [CRON] 起居注自动追踪已启用 (v2.0.0)
+[00:34:35.501] [INFO] [CRON] 追踪范围: 插件/API/AI/Qt错误/Worker线程  + traceback + 守护日志环 + 崩溃分析
+[00:34:35.509] [INFO] [NATIVE] 底层事件记录系统已启用 (v1.2.0 M3)
+[00:34:35.510] [INFO] [NATIVE] 钩子: Qt/excepthook/unraisable/audit/gc/c_exception
+[00:34:35.511] [INFO] [NATIVE] 监视: 线程健康/资源跟踪/起居注桥接
+[00:34:35.512] [INFO] [NATIVE] SQLite: e:\StarDebate\docs/log/native.db
+[00:34:35.512] [INFO] 调试监视已开启: 变量, 函数, 插件, API, AI
+[00:34:35.513] [INFO] [CFG] 已加载 log_settings.json，开始同步运行时配置
+[00:34:35.513] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[00:34:35.514] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[00:34:35.515] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[00:34:35.515] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[00:34:35.516] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[00:34:35.516] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[00:34:35.517] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[00:34:35.517] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[00:34:35.518] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[00:34:35.518] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[00:34:35.518] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[00:34:35.519] [WARN] [NATIVE] [audit] e:\StarDebate\config\debug_monitor.json: open (e:\StarDebate\config\debug_monitor.json, w, 33665)
+[00:34:35.519] [INFO] [CFG] 调试监视: 已开启 → 变量, 函数, 插件, API, AI
+[00:34:35.520] [WARN] [NATIVE] [audit] e:\StarDebate\config/chronicle_config.json: open (e:\StarDebate\config/chronicle_config.json, w, 33665)
+[00:34:35.520] [INFO] [CFG] 起居注: 已开启
+[00:34:35.520] [INFO] [CFG] log_settings.json 同步完成
+[00:34:35.521] [ERROR] [NATIVE] [uncaught] spawn.py:L175: [C_EXCEPTION] builtin_function_or_method
+[00:34:35.521] [WARN] [NATIVE] [audit] 3: open (3, w, 33665)
+[00:34:35.532] [INFO] 崩溃监控已启动 (PID: 15036)
+[00:34:35.532] [WARN] [NATIVE] [audit] e:\StarDebate\config/keyboard_shortcuts.json: open (e:\StarDebate\config/keyboard_shortcuts.json, r, 32896)
+[00:34:35.533] [WARN] [NATIVE] [audit] e:\StarDebate\extensions\test_extension\__pycache__\main.cpython-312.pyc: open (e:\StarDebate\extensions\test_extension\__pycache__\main.cpython-312.pyc, r, 32896)
+[00:34:35.533] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:34:35.534] [INFO] [EXT] 已加载 1 个扩展包
+[00:34:35.536] [INFO] [WELCOME] WelcomeGuideManager 初始化
+[00:34:35.537] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:34:35.538] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:34:35.539] [INFO] [WELCOME] 当前版本: 6.4.0, 上次查看引导版本: '6.4.0'
+[00:34:35.539] [WARN] [NATIVE] [audit] import components.shadow_container: import (components.shadow_container, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:35.539] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[00:34:35.539] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[00:34:35.541] [WARN] [NATIVE] [audit] e:\StarDebate\components\shadow_container\__pycache__\__init__.cpython-312.pyc: open (e:\StarDebate\components\shadow_container\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[00:34:35.541] [WARN] [NATIVE] [audit] import components.shadow_container.shadow_container: import (components.shadow_container.shadow_container, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:35.541] [WARN] [NATIVE] [audit] e:\StarDebate\components\shadow_container\__pycache__\shadow_container.cpython-312.pyc: open (e:\StarDebate\components\shadow_container\__pycache__\shadow_container.cpython-3, r, 32896)
+[00:34:35.545] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:34:35.546] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[00:34:35.611] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:34:35.620] [WARN] [NATIVE] [audit] e:\StarDebate\icon\index\has_material.svg: open (e:\StarDebate\icon\index\has_material.svg, r, 32896)
+[00:34:35.665] [INFO] [WELCOME] WelcomeGuideStepPanel 创建完成
+[00:34:35.740] [WARN] [NATIVE] [audit] e:\StarDebate\config/changelog.html: open (e:\StarDebate\config/changelog.html, r, 32896)
+[00:34:35.751] [INFO] [WELCOME] 引导面板已注入 centre_stack (索引 10)
+[00:34:35.776] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[00:34:35.783] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[00:34:35.834] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[00:34:35.835] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[00:34:35.835] [WARN] [NATIVE] [audit] e:\StarDebate\workers\training\quick_quiz\__pycache__\__init__.cpython-312.pyc: open (e:\StarDebate\workers\training\quick_quiz\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[00:34:35.846] [WARN] [NATIVE] [audit] import workers.training.quick_quiz.quick_quiz_manager: import (workers.training.quick_quiz.quick_quiz_manager, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:35.846] [WARN] [NATIVE] [audit] e:\StarDebate\workers\training\quick_quiz\__pycache__\quick_quiz_manager.cpython-312.pyc: open (e:\StarDebate\workers\training\quick_quiz\__pycache__\quick_quiz_manager.cpython, r, 32896)
+[00:34:35.862] [WARN] [NATIVE] [audit] import workers.training.exercise.exercise_manager: import (workers.training.exercise.exercise_manager, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:35.862] [WARN] [NATIVE] [audit] e:\StarDebate\workers\training\exercise\__pycache__\exercise_manager.cpython-312.pyc: open (e:\StarDebate\workers\training\exercise\__pycache__\exercise_manager.cpython-312, r, 32896)
+[00:34:35.943] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[00:34:36.058] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:34:36.107] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:34:36.107] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[00:34:36.108] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\ai_analysis.qss: open (e:\StarDebate\style\qss_templates\ai_analysis.qss, r, 32896)
+[00:34:36.109] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\ai_expand.qss: open (e:\StarDebate\style\qss_templates\ai_expand.qss, r, 32896)
+[00:34:36.109] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\bind_source_dialog.qss: open (e:\StarDebate\style\qss_templates\bind_source_dialog.qss, r, 32896)
+[00:34:36.110] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\crash_monitor.qss: open (e:\StarDebate\style\qss_templates\crash_monitor.qss, r, 32896)
+[00:34:36.110] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\cross_examination.qss: open (e:\StarDebate\style\qss_templates\cross_examination.qss, r, 32896)
+[00:34:36.111] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\debug_console.qss: open (e:\StarDebate\style\qss_templates\debug_console.qss, r, 32896)
+[00:34:36.111] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\export_preview.qss: open (e:\StarDebate\style\qss_templates\export_preview.qss, r, 32896)
+[00:34:36.111] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\framework.qss: open (e:\StarDebate\style\qss_templates\framework.qss, r, 32896)
+[00:34:36.112] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\log_settings.qss: open (e:\StarDebate\style\qss_templates\log_settings.qss, r, 32896)
+[00:34:36.112] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\main.qss: open (e:\StarDebate\style\qss_templates\main.qss, r, 32896)
+[00:34:36.112] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\material_pool.qss: open (e:\StarDebate\style\qss_templates\material_pool.qss, r, 32896)
+[00:34:36.113] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\native_log_widget.qss: open (e:\StarDebate\style\qss_templates\native_log_widget.qss, r, 32896)
+[00:34:36.113] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\nav_bar.qss: open (e:\StarDebate\style\qss_templates\nav_bar.qss, r, 32896)
+[00:34:36.115] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\new_debate.qss: open (e:\StarDebate\style\qss_templates\new_debate.qss, r, 32896)
+[00:34:36.115] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\notes.qss: open (e:\StarDebate\style\qss_templates\notes.qss, r, 32896)
+[00:34:36.116] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\plugins.qss: open (e:\StarDebate\style\qss_templates\plugins.qss, r, 32896)
+[00:34:36.116] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\popup_dialog.qss: open (e:\StarDebate\style\qss_templates\popup_dialog.qss, r, 32896)
+[00:34:36.117] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\ref_doc.qss: open (e:\StarDebate\style\qss_templates\ref_doc.qss, r, 32896)
+[00:34:36.117] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\settings.qss: open (e:\StarDebate\style\qss_templates\settings.qss, r, 32896)
+[00:34:36.118] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\shadow_container.qss: open (e:\StarDebate\style\qss_templates\shadow_container.qss, r, 32896)
+[00:34:36.118] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\speech_editor.qss: open (e:\StarDebate\style\qss_templates\speech_editor.qss, r, 32896)
+[00:34:36.118] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\speech_writer.qss: open (e:\StarDebate\style\qss_templates\speech_writer.qss, r, 32896)
+[00:34:36.119] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\star_checkbox.qss: open (e:\StarDebate\style\qss_templates\star_checkbox.qss, r, 32896)
+[00:34:36.119] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\star_spinbox.qss: open (e:\StarDebate\style\qss_templates\star_spinbox.qss, r, 32896)
+[00:34:36.120] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\stardebate_editor.qss: open (e:\StarDebate\style\qss_templates\stardebate_editor.qss, r, 32896)
+[00:34:36.120] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\stardebate_format.qss: open (e:\StarDebate\style\qss_templates\stardebate_format.qss, r, 32896)
+[00:34:36.121] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\structure.qss: open (e:\StarDebate\style\qss_templates\structure.qss, r, 32896)
+[00:34:36.121] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\suggest_popup.qss: open (e:\StarDebate\style\qss_templates\suggest_popup.qss, r, 32896)
+[00:34:36.122] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\svg_renderer.qss: open (e:\StarDebate\style\qss_templates\svg_renderer.qss, r, 32896)
+[00:34:36.122] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\title_bar.qss: open (e:\StarDebate\style\qss_templates\title_bar.qss, r, 32896)
+[00:34:36.123] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\tournament.qss: open (e:\StarDebate\style\qss_templates\tournament.qss, r, 32896)
+[00:34:36.123] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\training.qss: open (e:\StarDebate\style\qss_templates\training.qss, r, 32896)
+[00:34:36.124] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\updater.qss: open (e:\StarDebate\style\qss_templates\updater.qss, r, 32896)
+[00:34:36.124] [WARN] [NATIVE] [audit] e:\StarDebate\style\qss_templates\welcome_guide.qss: open (e:\StarDebate\style\qss_templates\welcome_guide.qss, r, 32896)
+[00:34:36.231] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:34:36.234] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:34:36.275] [WARN] [NATIVE] [audit] e:\StarDebate\custom_formats\123.json: open (e:\StarDebate\custom_formats\123.json, r, 32896)
+[00:34:36.281] [WARN] [NATIVE] [audit] e:\StarDebate\custom_formats\新校赛.json: open (e:\StarDebate\custom_formats\新校赛.json, r, 32896)
+[00:34:36.288] [WARN] [NATIVE] [audit] e:\StarDebate\custom_formats\校赛.json: open (e:\StarDebate\custom_formats\校赛.json, r, 32896)
+[00:34:36.297] [INFO] [FUNC] dpapi: load_index
+已初始化
+[00:34:36.297] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260629_003432.log: open (e:\StarDebate\docs/log\debug_20260629_003432.log, a, 33161)
+[00:34:36.298] [WARN] [NATIVE] [audit] e:\StarDebate\config/stardebate_index.json: open (e:\StarDebate\config/stardebate_index.json, r, 32896)
+[00:34:36.302] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[00:34:36.303] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260629_003432.log: open (e:\StarDebate\docs/log\debug_20260629_003432.log, a, 33161)
+[00:34:36.303] [INFO] [FUNC] auto_load_saved_files: 3 files in index
+[00:34:36.304] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260629_003432.log: open (e:\StarDebate\docs/log\debug_20260629_003432.log, a, 33161)
+[00:34:36.304] [INFO] [API] auto_load: 跳过不存在的文件 C:/Users/Oblivion/Desktop/1vs2_20260606.stardebate
+[00:34:36.304] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260629_003432.log: open (e:\StarDebate\docs/log\debug_20260629_003432.log, a, 33161)
+[00:34:36.306] [INFO] [FUNC] open_file_with_stored_password: 1vs2_20260606.stardebate
+[00:34:36.306] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260629_003432.log: open (e:\StarDebate\docs/log\debug_20260629_003432.log, a, 33161)
+[00:34:36.306] [INFO] [FUNC] dpapi: get_password_for_file → 1vs2_20260606.stardebate
+ open (e:\StarDebate\docs/log\debug_20260629_003432.log, a, 33161)
+[00:34:36.307] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260629_003432.log: open (e:\StarDebate\docs/log\debug_20260629_003432.log, a, 33161)
+[00:34:36.307] [INFO] [FUNC] dpapi: load_index
+[00:34:36.310] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[00:34:36.310] [INFO] [VAR] dpapi: get_password_for_file → no password set
+[00:34:36.310] [INFO] [FUNC] open_file: path=1vs2_20260606.stardebate
+[00:34:36.317] [INFO] [FUNC] StardebateCompiler.unpack(file_size=10049, has_pwd_input=False)
+[00:34:36.349] [INFO] [FUNC] StardebateCompiler: 第1层内置密钥解密成功
+[00:34:36.350] [INFO] [FUNC] StardebateCompiler.unpack: 解密成功, modules=6, app_version=2.3.0
+[00:34:36.350] [INFO] [FUNC] dpapi: add_file_to_index → 1vs2_20260606.stardebate
+[00:34:36.351] [INFO] [FUNC] dpapi: load_index
+[00:34:36.352] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[00:34:36.353] [INFO] [VAR] dpapi: save_index → 3 files
+[00:34:36.353] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[00:34:36.354] [INFO] [VAR] _add_to_project_tree: 1vs2_20260606.stardebate
+[00:34:36.359] [INFO] [VAR] open_file: 解密成功, modules=6, file=1vs2_20260606.stardebate
+[00:34:36.360] [INFO] [API] auto_load: 成功加载 1vs2_20260606.stardebate
+[00:34:36.361] [INFO] [FUNC] open_file_with_stored_password: 1vs2_20260606_01.stardebate
+[00:34:36.361] [INFO] [FUNC] dpapi: get_password_for_file → 1vs2_20260606_01.stardebate
+[00:34:36.361] [INFO] [FUNC] dpapi: load_index
+[00:34:36.368] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[00:34:36.369] [INFO] [FUNC] dpapi: decrypt_password
+[00:34:36.371] [INFO] [API] dpapi: decrypt_password → ok
+[00:34:36.372] [INFO] [API] dpapi: get_password_for_file → ok
+[00:34:36.372] [INFO] [FUNC] open_file: path=1vs2_20260606_01.stardebate
+[00:34:36.378] [INFO] [FUNC] StardebateCompiler.unpack(file_size=12226, has_pwd_input=True)
+[00:34:36.380] [INFO] [FUNC] StardebateCompiler: 第1层内置密钥解密成功
+[00:34:36.407] [INFO] [FUNC] StardebateCompiler: 第2层密码解密成功
+[00:34:36.408] [INFO] [FUNC] StardebateCompiler.unpack: 解密成功, modules=8, app_version=2.3.0
+[00:34:36.409] [INFO] [FUNC] dpapi: add_file_to_index → 1vs2_20260606_01.stardebate
+[00:34:36.410] [INFO] [FUNC] dpapi: load_index
+[00:34:36.410] [INFO] [VAR] dpapi: load_index → 3 files loaded
+[00:34:36.411] [INFO] [FUNC] dpapi: encrypt_password
+[00:34:36.413] [INFO] [API] dpapi: encrypt_password → ok
+[00:34:36.413] [INFO] [VAR] dpapi: save_index → 3 files
+[00:34:36.414] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[00:34:36.415] [INFO] [VAR] _add_to_project_tree: 1vs2_20260606_01.stardebate
+[00:34:36.419] [INFO] [VAR] open_file: 解密成功, modules=8, file=1vs2_20260606_01.stardebate
+[00:34:36.419] [INFO] [API] auto_load: 成功加载 1vs2_20260606_01.stardebate
+[00:34:36.420] [INFO] 自动加载 .stardebate: 2 个文件
+[00:34:36.893] [INFO] [WELCOME] 启动检测结果: mode=None, last=6.4.0, current=6.4.0
+[00:34:37.475] [WARN] [NATIVE] [audit] e:\StarDebate\icon\top_nav_bar\minimise.svg: open (e:\StarDebate\icon\top_nav_bar\minimise.svg, r, 32896)
+[00:34:37.484] [WARN] [NATIVE] [audit] e:\StarDebate\icon\top_nav_bar\full_screen.svg: open (e:\StarDebate\icon\top_nav_bar\full_screen.svg, r, 32896)
+[00:34:37.490] [WARN] [NATIVE] [audit] e:\StarDebate\icon\top_nav_bar\close.svg: open (e:\StarDebate\icon\top_nav_bar\close.svg, r, 32896)
+[00:34:37.565] [WARN] [NATIVE] [audit] e:\StarDebate\config\api_config.json: open (e:\StarDebate\config\api_config.json, r, 32896)
+[00:34:37.565] [WARN] [NATIVE] [audit] import workers.web_ai.web_ai_manager: import (workers.web_ai.web_ai_manager, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.566] [WARN] [NATIVE] [audit] import workers.web_ai: import (workers.web_ai, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.567] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[00:34:37.568] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[00:34:37.568] [WARN] [NATIVE] [audit] e:\StarDebate\workers\web_ai\__pycache__\__init__.cpython-312.pyc: open (e:\StarDebate\workers\web_ai\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[00:34:37.569] [WARN] [NATIVE] [audit] import workers.web_ai.web_ai_manager: import (workers.web_ai.web_ai_manager, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.569] [WARN] [NATIVE] [audit] e:\StarDebate\workers\web_ai\__pycache__\web_ai_manager.cpython-312.pyc: open (e:\StarDebate\workers\web_ai\__pycache__\web_ai_manager.cpython-312.pyc, r, 32896)
+[00:34:37.569] [WARN] [NATIVE] [audit] import workers.web_ai.providers.base_provider: import (workers.web_ai.providers.base_provider, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.570] [WARN] [NATIVE] [audit] import workers.web_ai.providers: import (workers.web_ai.providers, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.571] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[00:34:37.572] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[00:34:37.572] [WARN] [NATIVE] [audit] e:\StarDebate\workers\web_ai\providers\__pycache__\__init__.cpython-312.pyc: open (e:\StarDebate\workers\web_ai\providers\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[00:34:37.573] [WARN] [NATIVE] [audit] import workers.web_ai.providers.base_provider: import (workers.web_ai.providers.base_provider, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.574] [WARN] [NATIVE] [audit] e:\StarDebate\workers\web_ai\providers\__pycache__\base_provider.cpython-312.pyc: open (e:\StarDebate\workers\web_ai\providers\__pycache__\base_provider.cpython-312.pyc, r, 32896)
+[00:34:37.575] [WARN] [NATIVE] [audit] import workers.web_ai.providers.deepseek_provider: import (workers.web_ai.providers.deepseek_provider, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.575] [WARN] [NATIVE] [audit] e:\StarDebate\workers\web_ai\providers\__pycache__\deepseek_provider.cpython-312.pyc: open (e:\StarDebate\workers\web_ai\providers\__pycache__\deepseek_provider.cpython-312, r, 32896)
+[00:34:37.576] [WARN] [NATIVE] [audit] import asyncio: import (asyncio, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.576] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[00:34:37.577] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\__init__.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[00:34:37.577] [WARN] [NATIVE] [audit] import asyncio.base_events: import (asyncio.base_events, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.577] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\base_events.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\base_events.cpython-312.pyc, r, 32896)
+[00:34:37.578] [WARN] [NATIVE] [audit] import concurrent.futures: import (concurrent.futures, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.578] [WARN] [NATIVE] [audit] import concurrent: import (concurrent, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.579] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\concurrent\__pycache__\__init__.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\concurrent\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[00:34:37.580] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\concurrent\futures\__pycache__\__init__.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\concurrent\futures\__pycache__\__init__.cpython-312, r, 32896)
+[00:34:37.581] [WARN] [NATIVE] [audit] import concurrent.futures._base: import (concurrent.futures._base, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.581] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\concurrent\futures\__pycache__\_base.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\concurrent\futures\__pycache__\_base.cpython-312.py, r, 32896)
+[00:34:37.582] [WARN] [NATIVE] [audit] import asyncio.constants: import (asyncio.constants, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.583] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\constants.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\constants.cpython-312.pyc, r, 32896)
+[00:34:37.584] [WARN] [NATIVE] [audit] import asyncio.coroutines: import (asyncio.coroutines, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.584] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\coroutines.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\coroutines.cpython-312.pyc, r, 32896)
+[00:34:37.584] [WARN] [NATIVE] [audit] import asyncio.events: import (asyncio.events, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.585] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\events.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\events.cpython-312.pyc, r, 32896)
+[00:34:37.585] [WARN] [NATIVE] [audit] import asyncio.format_helpers: import (asyncio.format_helpers, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.587] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\format_helpers.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\format_helpers.cpython-312.pyc, r, 32896)
+[00:34:37.588] [WARN] [NATIVE] [audit] import _asyncio: import (_asyncio, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.588] [WARN] [NATIVE] [audit] import _asyncio: import (_asyncio, C:\Users\Oblivion\Python\DLLs\_asyncio.pyd, None)
+[00:34:37.600] [WARN] [NATIVE] [audit] import asyncio.base_futures: import (asyncio.base_futures, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.601] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\base_futures.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\base_futures.cpython-312.pyc, r, 32896)
+[00:34:37.601] [WARN] [NATIVE] [audit] import asyncio.exceptions: import (asyncio.exceptions, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.602] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\exceptions.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\exceptions.cpython-312.pyc, r, 32896)
+[00:34:37.602] [WARN] [NATIVE] [audit] import asyncio.base_tasks: import (asyncio.base_tasks, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.603] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\base_tasks.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\base_tasks.cpython-312.pyc, r, 32896)
+[00:34:37.603] [WARN] [NATIVE] [audit] import asyncio.futures: import (asyncio.futures, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.605] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\futures.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\futures.cpython-312.pyc, r, 32896)
+[00:34:37.605] [WARN] [NATIVE] [audit] import asyncio.protocols: import (asyncio.protocols, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.606] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\protocols.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\protocols.cpython-312.pyc, r, 32896)
+[00:34:37.606] [WARN] [NATIVE] [audit] import asyncio.sslproto: import (asyncio.sslproto, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.607] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\sslproto.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\sslproto.cpython-312.pyc, r, 32896)
+[00:34:37.608] [WARN] [NATIVE] [audit] import asyncio.transports: import (asyncio.transports, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:34:37.609] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\transports.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\asyncio\__pycache__\transports.cpython-312.pyc, r, 32896)
+[00:34:37.646] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[00:34:37.656] [ERROR] 补丁不兼容 (update_v6.2.8_to_v6.2.10.zip): 版本不匹配：当前版本为 v6.4.0，此补丁要求基础版本为 v6.2.8
+[00:34:37.664] [ERROR] 补丁不兼容 (update_v6.3.0_to_v6.3.1.zip): 版本不匹配：当前版本为 v6.4.0，此补丁要求基础版本为 v6.3.0
+[00:34:37.672] [ERROR] [NATIVE] [uncaught] __init__.py:L375: [C_EXCEPTION] builtin_function_or_method
+[00:34:37.672] [ERROR] 补丁不兼容 (update_v6.3.1_to_v6.3.2.zip): 版本不匹配：当前版本为 v6.4.0，此补丁要求基础版本为 v6.3.1
+[00:34:37.679] [ERROR] 补丁不兼容 (update_v6.3.2_to_v6.3.3.zip): 版本不匹配：当前版本为 v6.4.0，此补丁要求基础版本为 v6.3.2
+[00:34:37.688] [ERROR] [NATIVE] [uncaught] __init__.py:L375: [C_EXCEPTION] builtin_function_or_method
+ v6.4.0，此补丁要求基础版本为 v6.3.3
+[00:34:40.971] [INFO] [WELCOME] 打开更新日志（纯日志模式）
+[00:34:40.971] [WARN] [NATIVE] [audit] e:\StarDebate\config/changelog.html: open (e:\StarDebate\config/changelog.html, r, 32896)
+[00:34:48.795] [WARN] [NATIVE] [audit] e:\StarDebate\icon\top_nav_bar\minimise.svg: open (e:\StarDebate\icon\top_nav_bar\minimise.svg, r, 32896)
+[00:34:49.049] [WARN] [SYS] 监视心跳超时: 17秒无新数据 (最后心跳: 00:34:32)
+[00:35:00.373] [INFO] [WELCOME] 打开更新日志（纯日志模式）
+[00:35:00.373] [WARN] [NATIVE] [audit] e:\StarDebate\config/changelog.html: open (e:\StarDebate\config/changelog.html, r, 32896)
+[00:35:04.058] [WARN] [SYS] 监视心跳超时: 15秒无新数据 (最后心跳: 00:34:49)
+[00:35:05.513] [WARN] [NATIVE] [audit] native_log_manager.py:health_check: NativeEventManager 健康检查通过
+[00:35:05.515] [ERROR] [NATIVE] [uncaught] functools.py:L52: [C_EXCEPTION] builtin_function_or_method
+[00:35:05.515] [ERROR] [NATIVE] [uncaught] functools.py:L52: [C_EXCEPTION] builtin_function_or_method
+[00:35:05.516] [ERROR] [NATIVE] [uncaught] functools.py:L52: [C_EXCEPTION] builtin_function_or_method
+[00:35:05.518] [ERROR] [NATIVE] [uncaught] functools.py:L52: [C_EXCEPTION] builtin_function_or_method
+[00:35:05.520] [WARN] [THREAD] [thread_stuck]: Thread stuck: NativeThreadMonitor stuck for 30s at native_thread_monitor.py:157:_scan_thread_stuck|native_thread_monitor.py:95:_run|threading.py:989:ru
+[00:35:05.521] [WARN] [THREAD] [thread_stuck]: Thread stuck: NativeEventWriter stuck for 30s at threading.py:338:wait|queue.py:180:get|native_log_manager.py:316:_batch_writer_loop|threading.py:989
+[00:35:05.522] [WARN] [THREAD] [thread_stuck]: Thread stuck: QueueFeederThread stuck for 30s at threading.py:334:wait|queues.py:231:_feed|threading.py:989:run|threading.py:1052:_bootstrap_inner|th
+[00:35:05.522] [WARN] [THREAD] [thread_stuck]: Thread stuck: ChronicleSnapshot stuck for 30s at chronicle_manager.py:273:_snapshot_loop|threading.py:989:run|threading.py:1052:_bootstrap_inner|thre
+[00:35:05.524] [ERROR] [NATIVE] [uncaught] functools.py:L52: [C_EXCEPTION] builtin_function_or_method
+[00:35:05.526] [ERROR] [00:35:05] [ERROR] [NATIVE-MGR] 底层事件 SQLite 自检通过 (1 条测试记录)
+[00:35:05.526] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260629_003432.log: open (e:\StarDebate\docs/log\debug_20260629_003432.log, a, 33161)
+[00:35:15.523] [WARN] [THREAD] [thread_stuck]: Thread stuck: NativeResourceMonitor stuck for 30s at native_resource_monitor.py:81:_run|threading.py:989:run|threading.py:1052:_bootstrap_inner|threading
+[00:35:19.070] [WARN] [SYS] 监视心跳超时: 15秒无新数据 (最后心跳: 00:35:04)
+[00:35:23.624] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:35:23.632] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:35:23.633] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\__pycache__\about_page.cpython-312.pyc: open (e:\StarDebate\workers\settings\pages\__pycache__\about_page.cpython-312.pyc, r, 32896)
+[00:35:23.634] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\about_page.py: open (e:\StarDebate\workers\settings\pages\about_page.py, r, 32896)
+[00:35:23.640] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\__pycache__\about_page.cpython-312.pyc.2180253222064: open (e:\StarDebate\workers\settings\pages\__pycache__\about_page.cpython-312.pyc.2180, None, 1409)
+[00:35:23.641] [WARN] [NATIVE] [audit] 3: open (3, wb, 33665)
+[00:35:23.642] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\__pycache__\api_config.cpython-312.pyc: open (e:\StarDebate\workers\settings\pages\__pycache__\api_config.cpython-312.pyc, r, 32896)
+[00:35:23.644] [WARN] [NATIVE] [audit] import siui.components.editbox: import (siui.components.editbox, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:35:23.644] [WARN] [NATIVE] [audit] e:\StarDebate\components\siui\components\__pycache__\editbox.cpython-312.pyc: open (e:\StarDebate\components\siui\components\__pycache__\editbox.cpython-312.pyc, r, 32896)
+[00:35:23.645] [WARN] [NATIVE] [audit] import difflib: import (difflib, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:35:23.645] [WARN] [NATIVE] [audit] C:\Users\Oblivion\Python\Lib\__pycache__\difflib.cpython-312.pyc: open (C:\Users\Oblivion\Python\Lib\__pycache__\difflib.cpython-312.pyc, r, 32896)
+[00:35:23.647] [WARN] [NATIVE] [audit] import siui.components.menu_: import (siui.components.menu_, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:35:23.647] [WARN] [NATIVE] [audit] e:\StarDebate\components\siui\components\__pycache__\menu_.cpython-312.pyc: open (e:\StarDebate\components\siui\components\__pycache__\menu_.cpython-312.pyc, r, 32896)
+[00:35:23.648] [WARN] [NATIVE] [audit] import siui.components.spinbox.spinbox: import (siui.components.spinbox.spinbox, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:35:23.649] [WARN] [NATIVE] [audit] import siui.components.spinbox: import (siui.components.spinbox, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:35:23.649] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[00:35:23.650] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[00:35:23.650] [WARN] [NATIVE] [audit] e:\StarDebate\components\siui\components\spinbox\__pycache__\__init__.cpython-312.pyc: open (e:\StarDebate\components\siui\components\spinbox\__pycache__\__init__.cpython-31, r, 32896)
+[00:35:23.650] [WARN] [NATIVE] [audit] e:\StarDebate\components\siui\components\spinbox\__pycache__\spinbox.cpython-312.pyc: open (e:\StarDebate\components\siui\components\spinbox\__pycache__\spinbox.cpython-312, r, 32896)
+[00:35:23.651] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\__pycache__\appearance_page.cpython-312.pyc: open (e:\StarDebate\workers\settings\pages\__pycache__\appearance_page.cpython-312.pyc, r, 32896)
+[00:35:23.651] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\__pycache__\editor_page.cpython-312.pyc: open (e:\StarDebate\workers\settings\pages\__pycache__\editor_page.cpython-312.pyc, r, 32896)
+[00:35:23.652] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\__pycache__\keyboard_shortcuts_page.cpython-312.pyc: open (e:\StarDebate\workers\settings\pages\__pycache__\keyboard_shortcuts_page.cpython, r, 32896)
+[00:35:23.652] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\__pycache__\log_settings_page.cpython-312.pyc: open (e:\StarDebate\workers\settings\pages\__pycache__\log_settings_page.cpython-312.p, r, 32896)
+[00:35:23.654] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\__pycache__\native_log_settings_ui.cpython-312.pyc: open (e:\StarDebate\workers\settings\pages\__pycache__\native_log_settings_ui.cpython-, r, 32896)
+[00:35:23.655] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\__pycache__\svg_settings_page.cpython-312.pyc: open (e:\StarDebate\workers\settings\pages\__pycache__\svg_settings_page.cpython-312.p, r, 32896)
+[00:35:23.656] [WARN] [NATIVE] [audit] import components.star_spinbox: import (components.star_spinbox, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:35:23.656] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[00:35:23.656] [ERROR] [NATIVE] [uncaught] <frozen importlib._bootstrap_external>:L147: [C_EXCEPTION] builtin_function_or_method
+[00:35:23.657] [WARN] [NATIVE] [audit] e:\StarDebate\components\star_spinbox\__pycache__\__init__.cpython-312.pyc: open (e:\StarDebate\components\star_spinbox\__pycache__\__init__.cpython-312.pyc, r, 32896)
+[00:35:23.657] [WARN] [NATIVE] [audit] import components.star_spinbox.star_spinbox: import (components.star_spinbox.star_spinbox, None, ['e:\\StarDebate\\components', 'e:\\StarDebate', 'C:\\Users\\Oblivion\\Python\\p)
+[00:35:23.658] [WARN] [NATIVE] [audit] e:\StarDebate\components\star_spinbox\__pycache__\star_spinbox.cpython-312.pyc: open (e:\StarDebate\components\star_spinbox\__pycache__\star_spinbox.cpython-312.pyc, r, 32896)
+[00:35:23.658] [WARN] [NATIVE] [audit] e:\StarDebate\plugins\debate_claw\__pycache__\settings.cpython-312.pyc: open (e:\StarDebate\plugins\debate_claw\__pycache__\settings.cpython-312.pyc, r, 32896)
+[00:35:23.662] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\__pycache__\api_config.cpython-312.pyc: open (e:\StarDebate\workers\settings\pages\__pycache__\api_config.cpython-312.pyc, r, 32896)
+[00:35:23.663] [WARN] [NATIVE] [audit] e:\StarDebate\config/api_config.json: open (e:\StarDebate\config/api_config.json, r, 32896)
+[00:35:23.686] [WARN] [NATIVE] [audit] e:\StarDebate\icon\common\key.svg: open (e:\StarDebate\icon\common\key.svg, r, 32896)
+[00:35:23.694] [WARN] [NATIVE] [audit] e:\StarDebate\icon\common\trash.svg: open (e:\StarDebate\icon\common\trash.svg, r, 32896)
+[00:35:23.700] [WARN] [NATIVE] [audit] e:\StarDebate\icon\common\download.svg: open (e:\StarDebate\icon\common\download.svg, r, 32896)
+[00:35:23.747] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[00:35:23.748] [ERROR] [NATIVE] [uncaught] <frozen os>:L373: [C_EXCEPTION] builtin_function_or_method
+[00:35:23.748] [ERROR] [NATIVE] [uncaught] <frozen os>:L373: [C_EXCEPTION] builtin_function_or_method
+[00:35:23.752] [ERROR] [NATIVE] [uncaught] <frozen os>:L373: [C_EXCEPTION] builtin_function_or_method
+[00:35:23.825] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:23.831] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:23.831] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:23.831] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:23.833] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:24.013] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:24.014] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:24.029] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:24.030] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:24.045] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:25.121] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.122] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.122] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.123] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.123] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:25.124] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:25.138] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:25.138] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:25.155] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:25.200] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.201] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.201] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.202] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.512] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.513] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.513] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.514] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.663] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.663] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.664] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:25.664] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:26.002] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:26.002] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:26.018] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:26.018] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:26.034] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:26.815] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:26.815] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:26.816] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:26.816] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:26.855] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:26.857] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:26.857] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:26.858] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:26.888] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:26.888] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:26.889] [WARN] [NATIVE] [qt_warning]: QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:26.889] [WARN] [Qt WARN#1] QPainter::begin: Paint device returned engine == 0, type: 3
+[00:35:27.010] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:27.011] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:27.015] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:27.015] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:27.016] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:28.015] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:28.016] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:28.032] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:28.040] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:28.041] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:29.504] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:29.504] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:29.504] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:29.506] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:29.506] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:31.041] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:31.041] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:31.059] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:31.060] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:31.074] [ERROR] [NATIVE] [uncaught] contextlib.py:L144: [C_EXCEPTION] builtin_function_or_method
+[00:35:31.657] [ERROR] [NATIVE] [uncaught] <frozen os>:L225: [C_EXCEPTION] builtin_function_or_method
+[00:35:32.097] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\__pycache__\appearance_page.cpython-312.pyc: open (e:\StarDebate\workers\settings\pages\__pycache__\appearance_page.cpython-312.pyc, r, 32896)
+[00:35:32.098] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:35:32.098] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[00:35:32.100] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_light\theme.json: open (e:\StarDebate\style\themes\notion_light\theme.json, r, 32896)
+[00:35:32.121] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:35:32.122] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[00:35:32.129] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:35:32.130] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[00:35:32.134] [WARN] [NATIVE] [audit] e:\StarDebate\config/config.json: open (e:\StarDebate\config/config.json, r, 32896)
+[00:35:32.134] [WARN] [NATIVE] [audit] e:\StarDebate\style\themes\notion_dark\theme.json: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[00:35:32.850] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\__pycache__\keyboard_shortcuts_page.cpython-312.pyc: open (e:\StarDebate\workers\settings\pages\__pycache__\keyboard_shortcuts_page.cpython, r, 32896)
+[00:35:34.081] [WARN] [SYS] 监视心跳超时: 15秒无新数据 (最后心跳: 00:35:19)
+[00:35:35.530] [WARN] [NATIVE] [audit] e:\StarDebate\workers\settings\pages\__pycache__\log_settings_page.cpython-312.pyc: open (e:\StarDebate\workers\settings\pages\__pycache__\log_settings_page.cpython-312.p, r, 32896)
+[00:35:35.530] [WARN] [NATIVE] [audit] e:\StarDebate\config/log_settings.json: open (e:\StarDebate\config/log_settings.json, r, 32896)
+[00:35:35.535] [ERROR] SystemError: deallocated BytesIO object has exported buffers
+as exported buffers
+[00:35:35.535] [WARN] [NATIVE] [audit] e:\StarDebate\docs/log\debug_20260629_003432.log: open (e:\StarDebate\docs/log\debug_20260629_003432.log, a, 33161)
+[00:35:49.099] [ERROR] ════════════════════════════════════════════════════════════
+[00:35:49.100] [ERROR] ═══ [SYS] 主进程异常退出 ═══
+[00:35:49.100] [ERROR] ════════════════════════════════════════════════════════════
+[00:35:49.101] [ERROR]   PID: 15036
+[00:35:49.101] [ERROR]   退出时间: 2026-06-29 00:35:49
+[00:35:49.101] [ERROR]   队列残留条目（已排空）: 0 条
+[00:35:49.101] [ERROR]   应急写入次数: 0
+[00:35:49.103] [ERROR]   最后监视心跳: 00:35:34 (15秒前)
+[00:35:49.103] [ERROR] ────────────────────────────────────────
+[00:35:49.104] [ERROR] ═══ 💡 崩溃自动分析 ═══
+[00:35:49.113] [ERROR]   1. ⚪ 起居注未活跃（无 [CRON] 条目）
+[00:35:49.114] [ERROR]   2. 🟢 崩溃前无 ERROR 级别日志
+[00:35:49.114] [ERROR]   3. 🟡 重复错误模式 (5 类): 
+[00:35:49.114] [ERROR]   4.     ↻ 出现 40 次: [NATIVE] [uncaught] contextlib.py
+[00:35:49.114] [ERROR]   5.     ↻ 出现 22 次: [NATIVE] [audit] e
+[00:35:49.116] [ERROR]   6.     ↻ 出现 14 次: [NATIVE] [qt_warning]
+[00:35:49.116] [ERROR]   7. 📊 错误类型分布: Qt 内部错误:28, Python 异常:1, 超时:1
+[00:35:49.117] [ERROR]   8.     ► Qt 错误频繁：检查控件生命周期/布局/setParent 调用
+[00:35:49.117] [ERROR]   9. 🟡 最后日志距崩溃 57614秒，可能为静默卡死
+[00:35:49.117] [ERROR]   10. 📊 底层事件分布: [NATIVE]:83
+[00:35:49.118] [ERROR]   11. 📁 SQLite native.db 最近 5 条:
+[00:35:49.118] [ERROR]   12.     [00:35:32] [audit] sys.addaudithook: open (e:\StarDebate\workers\settings\pages\__pycache__\keyboard_shortcuts_page.c
+[00:35:49.119] [ERROR]   13.     [00:35:32] [audit] sys.addaudithook: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[00:35:49.119] [ERROR]   14.     [00:35:32] [audit] sys.addaudithook: open (e:\StarDebate\config/config.json, r, 32896)
+[00:35:49.119] [ERROR]   15.     [00:35:32] [audit] sys.addaudithook: open (e:\StarDebate\style\themes\notion_dark\theme.json, r, 32896)
+[00:35:49.120] [ERROR]   16.     [00:35:32] [audit] sys.addaudithook: open (e:\StarDebate\config/config.json, r, 32896)
+[00:35:49.120] [ERROR]   ─── 建议 ───
+[00:35:49.121] [ERROR]   → 检查是否有死锁/无限循环/Qt 事件循环阻塞
+[00:35:49.121] [ERROR]   → Qt 层错误频繁：检查控件生命周期/布局冲突
+[00:35:49.121] [ERROR]   → 同一错误反复出现，应在日志中查找最早出现点并追溯根因
+[00:35:49.121] [ERROR]   → 无声崩溃（无日志前兆）：可能为 kill/硬件/系统级终止
+[00:35:49.123] [ERROR] ════════════════════════════════════════════════════════════
+[00:35:49.662] [INFO] [SYS] LogService 进程退出

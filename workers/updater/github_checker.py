@@ -53,7 +53,8 @@ class GitHubUpdateChecker(QObject):
         super().__init__(parent)
         self._current_version = current_version
         self._nam = QNetworkAccessManager(self)
-        self._nam.finished.connect(self._on_api_response)
+        # 注意：不使用 self._nam.finished 信号（它会捕获所有请求，包括下载）。
+        # 改用单个 reply.finished 信号隔离 API 请求与下载请求。
         self._download_reply: QNetworkReply | None = None
         self._download_save_path: str = ""
 
@@ -77,7 +78,9 @@ class GitHubUpdateChecker(QObject):
             )
         except AttributeError:
             pass
-        self._nam.get(req)
+        reply = self._nam.get(req)
+        # 使用 reply 级信号隔离 API 响应，防止下载响应误入 _on_api_response
+        reply.finished.connect(lambda: self._on_api_response(reply))
         logger.info("GitHub 链式更新检查已发起")
 
     def download_asset(self, url: str, save_path: str) -> None:
@@ -89,6 +92,14 @@ class GitHubUpdateChecker(QObject):
 
         req = QNetworkRequest(QUrl(url))
         req.setRawHeader(b"User-Agent", _USER_AGENT.encode())
+        # 跟 API 请求一样，设置重定向策略，否则 GitHub 的 302 到 CDN 不会被跟随
+        try:
+            req.setAttribute(
+                QNetworkRequest.RedirectPolicyAttribute,
+                QNetworkRequest.NoLessSafeRedirectPolicy,
+            )
+        except AttributeError:
+            pass
         self._download_reply = self._nam.get(req)
         self._download_reply.downloadProgress.connect(self._on_download_progress)
         self._download_reply.finished.connect(self._on_download_finished)
@@ -250,6 +261,14 @@ class GitHubUpdateChecker(QObject):
         try:
             data = self._download_reply.readAll()
             save_path = self._download_save_path
+            # 记录实际下载内容大小和 HTTP 状态码
+            status_code = self._download_reply.attribute(
+                QNetworkRequest.HttpStatusCodeAttribute
+            )
+            logger.info(
+                "下载响应: HTTP %s, 内容 %d 字节 → %s",
+                status_code, len(data), save_path,
+            )
             os.makedirs(os.path.dirname(save_path) or ".", exist_ok=True)
             with open(save_path, "wb") as f:
                 f.write(data)
